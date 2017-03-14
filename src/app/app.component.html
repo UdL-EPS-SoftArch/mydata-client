@@ -1,13 +1,26 @@
-<div class="jumbotron">
-  <h2>{{title}}</h2>
-  <p>This is the <b>MyData</b> application developed during the <b>Enterprise Software Architecture 2016-17</b> course at
-    the Polytechnic School of the Universitat de Lleida.</p>
-  <p>Source code available from GitHub:</p>
-  <ul>
-    <li><a href="https://github.com/UdL-EPS-SoftArch/mydata-client">Client</a>: Angular 2 application consuming server API.</li>
-    <li><a href="https://github.com/UdL-EPS-SoftArch/mydata-api">Server</a>: Spring Boot application providing REST API.</li>
-  </ul>
-  <h3> Let's get started:
-    <a class="btn btn-lg btn-primary" href="#" role="button">Share Dataset &raquo;</a>
-  </h3>
-</div>
+<!-- Static navbar -->
+<nav class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">MyData Client</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li><a [routerLink]="['/about']" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }">About</a></li>
+        <li><a [routerLink]="['/datasets/new']" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }">New Dataset</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right" app-login-basic>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div> <!-- /container -->
