@@ -7,7 +7,7 @@ import {AuthenticationBasicService} from './authentication-basic.service';
 describe('Component: LoginBasic', () => {
   it('should create an instance', () => {
     inject([AuthenticationBasicService], (authenticationService) => {
-      let component = new LoginBasicComponent(authenticationService);
+      const component = new LoginBasicComponent(authenticationService);
       expect(component).toBeTruthy();
     });
   });

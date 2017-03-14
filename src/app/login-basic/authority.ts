@@ -1,5 +1,5 @@
 export class Authority {
-  authority: string = '';
+  authority = '';
 
   constructor(values: Object = {}) {
     Object.assign(this, values);

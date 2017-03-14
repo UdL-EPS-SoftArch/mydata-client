@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from "@angular/forms";
-import {Dataset} from "../dataset";
-import {DatasetService} from "../dataset.service";
-import {Router} from "@angular/router";
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { Dataset } from '../dataset';
+import { DatasetService } from '../dataset.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dataset-form',
@@ -10,10 +10,10 @@ import {Router} from "@angular/router";
   styleUrls: ['./dataset-form.component.css']
 })
 export class DatasetFormComponent implements OnInit {
-  private dataset: Dataset;
-  private datasetForm: FormGroup;
-  private titleCtrl: AbstractControl;
-  private errorMessage: string;
+  public dataset: Dataset;
+  public datasetForm: FormGroup;
+  public titleCtrl: AbstractControl;
+  public errorMessage: string;
 
   constructor(private fb: FormBuilder,
               private router: Router,
@@ -31,7 +31,7 @@ export class DatasetFormComponent implements OnInit {
   onSubmit(): void {
     this.datasetService.addDataset(this.dataset)
       .subscribe(
-        dataset => { this.router.navigate([dataset._links.self.href]); },
+        dataset => { this.router.navigate(['datasets/' + dataset._links.self.href.split('/').pop()]); },
         error => {
           this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
           alert(`Error: ${this.errorMessage}`);

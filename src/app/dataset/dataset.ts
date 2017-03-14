@@ -3,8 +3,8 @@ export class Dataset {
   description: string;
   dateTime: string;
   lastModified: string;
-  blocked: boolean = false;
-  flags: number = 0;
+  blocked = false;
+  flags = 0;
   _links: any;
 
   constructor(values: Object = {}) {

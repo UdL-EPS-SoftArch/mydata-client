@@ -8,7 +8,7 @@ describe('User', () => {
   });
 
   it('should accept values in the constructor', () => {
-    let user = new User({
+    const user = new User({
       username: 'user',
       authorities: [ { authority: 'ROLE_USER' } ],
       password: 'password',

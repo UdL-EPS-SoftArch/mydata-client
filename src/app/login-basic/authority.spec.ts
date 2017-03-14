@@ -9,7 +9,7 @@ describe('Authority', () => {
   });
 
   it('should accept values in the constructor', () => {
-    let authority = new Authority({
+    const authority = new Authority({
       authority: 'ROLE_USER'
     });
     expect(authority.authority).toEqual('ROLE_USER');

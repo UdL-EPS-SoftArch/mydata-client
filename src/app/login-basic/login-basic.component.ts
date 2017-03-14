@@ -3,7 +3,7 @@ import { AuthenticationBasicService } from './authentication-basic.service';
 import { ModalDirective } from 'ng2-bootstrap';
 
 @Component({
-  selector: '[app-login-basic]',
+  selector: 'app-login-basic,[app-login-basic]',
   templateUrl: './login-basic.component.html',
   styleUrls: ['./login-basic.component.css'],
   providers: [AuthenticationBasicService]
@@ -11,7 +11,7 @@ import { ModalDirective } from 'ng2-bootstrap';
 export class LoginBasicComponent implements OnInit {
   @ViewChild('loginModal') public loginModal: ModalDirective;
   @ViewChild('username') username;
-  errorMessage: string = '';
+  errorMessage = '';
 
   constructor(private authenticationService: AuthenticationBasicService) { }
 

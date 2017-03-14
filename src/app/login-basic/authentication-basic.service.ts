@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from './user';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { environment } from '../../environments/environment';
 
@@ -16,7 +17,7 @@ export class AuthenticationBasicService {
 
     return this.http.get(`${environment.API}/login`, options)
       .map((res: Response) => {
-        let user: User = new User(res.json());
+        const user: User = new User(res.json());
         user.authorization = authorization;
         user.password = password;
         return user;
