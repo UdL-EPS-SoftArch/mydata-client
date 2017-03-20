@@ -12,6 +12,12 @@
 </div>
 
 <div class="row">
+  <p>Search by description:</p>
+  <input name="title" #searchTerm>
+  <button (click)="performSearch(searchTerm.value)">Search</button>
+</div>
+
+<div class="row">
   <h3>Datasets</h3>
 </div>
 
