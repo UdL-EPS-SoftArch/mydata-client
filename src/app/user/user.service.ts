@@ -11,15 +11,8 @@ export class UserService {
   constructor (private http: Http) {}
 
 
-  getUser(uri: any) : User {
-    this.http.get(uri.href).subscribe(result =>
-      this.http.get(result["_body"]._links.dataOwner));
-      //.map((res: Response) => {
-        //const user: User = new User(res.json());
-        //return user;
-      //})
-      //.catch((error: any) => Observable.throw(error.json()));
-    return null;
+  getUser(uri: any) : Observable<Response> {
+    return this.http.get(uri.href);
   }
 
 

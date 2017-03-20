@@ -4,6 +4,7 @@ import { DatasetService } from '../dataset.service';
 import { Dataset } from '../dataset';
 import {AuthenticationBasicService} from "../../login-basic/authentication-basic.service";
 import {UserService} from "../../user/user.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-dataset-details',
@@ -30,17 +31,19 @@ export class DatasetDetailsComponent implements OnInit {
         this.datasetService.getDataset(uri).subscribe(
           dataset => {
             this.dataset = dataset;
-            this.isOwner = this.isDatasetOwner()
+
+            if (this.dataset._links != null)
+              this.userService.getUser(this.dataset._links.owner).subscribe(result => {
+                this.isOwner = this.authenticationService.getCurrentUser().username == result.json().uri.split("/").pop();
+              });
           },
           error => this.errorMessage = <any>error.message,
         );
       });
   }
 
-  isDatasetOwner(): boolean {
-    if (this.dataset._links != null)
-      this.userService.getUser(this.dataset._links.owner);
-    //return this.authenticationService.getCurrentUser().username == this.dataset._links.owner.
-    return true;
-  }
+  // isDatasetOwner(): Observable<boolean> {
+  //   var username;
+  //
+  // }
 }
