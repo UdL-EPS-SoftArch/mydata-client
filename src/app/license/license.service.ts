@@ -27,13 +27,13 @@ export class LicenseService {
   }
 
   // POST /licenses
-  addDataset(license: License): Observable<License> {
+  addLicense(license: License): Observable<License> {
     const body = JSON.stringify(license);
     const headers = new Headers({ 'Content-Type': 'application/json' });
     headers.append('Authorization', this.authentication.getCurrentUser().authorization);
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.post(`${environment.API}/datasets`, body, options)
+    return this.http.post(`${environment.API}/licenses`, body, options)
       .map((res: Response) => new License(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
