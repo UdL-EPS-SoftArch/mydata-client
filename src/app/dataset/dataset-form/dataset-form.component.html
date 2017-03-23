@@ -10,9 +10,9 @@
                [class.has-error]="titleCtrl.touched && titleCtrl.hasError('required')"
                [formControl]="datasetForm.controls['title']"
                [(ngModel)]="dataset.title">
-         <div *ngIf="titleCtrl.touched && titleCtrl.hasError('required')" class="label-warning">
+        <div *ngIf="titleCtrl.touched && titleCtrl.hasError('required')" class="label-warning">
            A title is required
-         </div>
+        </div>
       </div>
     </div>
 
@@ -24,6 +24,11 @@
                   [formControl]="datasetForm.controls['description']"
                   [(ngModel)]="dataset.description"></textarea>
       </div>
+    </div>
+
+    <div *ngIf="errorMessage" class="form-group row">
+      <div class="col-md-3"></div>
+      <div class="label-danger col-md-9">{{ errorMessage }}</div>
     </div>
 
     <!-- Button -->

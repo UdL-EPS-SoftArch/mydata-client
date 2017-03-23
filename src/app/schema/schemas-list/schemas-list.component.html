@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-md-4">
+    <h4 *ngIf="schemas.length == 0">There are no schemas registered</h4>
+    <h4 *ngIf="schemas.length > 0">There are {{schemas.length}} schemas registered</h4>
+  </div>
+  <div class="col-md-8">
+    <h4>
+      <a class="btn btn-lg btn-primary" role="button"
+         [routerLink]="['/schemas/new']" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }">Register Schema</a>
+    </h4>
+  </div>
+</div>
+
+<div class="row">
+  <h3>Schemas</h3>
+</div>
+
+<div class="row" *ngFor="let schema of schemas">
+  <div class="col-md-4">
+    <h4>Title</h4>
+    <p><a routerLink="/schemas/{{schema._links.self.href.split('/').pop()}}">{{schema.title}}</a></p>
+  </div>
+  <div class="col-md-8">
+    <h4>Description</h4>
+    <p>{{schema.description}}</p>
+  </div>
+</div>

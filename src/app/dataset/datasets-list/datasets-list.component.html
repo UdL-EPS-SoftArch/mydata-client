@@ -6,7 +6,7 @@
   <div class="col-md-8">
     <h4>
       <a class="btn btn-lg btn-primary" role="button"
-         [routerLink]="['/datasets/new']" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }">Register Dataset</a>
+         [routerLink]="['/datasets/new']">Register Dataset</a>
     </h4>
   </div>
 </div>
@@ -24,7 +24,7 @@
 <div class="row" *ngFor="let dataset of datasets">
   <div class="col-md-4">
     <h4>Title</h4>
-    <p><a routerLink="/datasets/{{dataset._links.self.href.split('/').pop()}}">{{dataset.title}}</a></p>
+    <p><a routerLink="{{dataset.uri}}">{{dataset.title}}</a></p>
   </div>
   <div class="col-md-8">
     <h4>Description</h4>
