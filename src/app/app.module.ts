@@ -14,6 +14,10 @@ import { AuthenticationBasicService } from './login-basic/authentication-basic.s
 import { LoggedInGuard } from './login-basic/loggedin.guard';
 import { DatasetsListComponent } from './dataset/datasets-list/datasets-list.component';
 import { DatasetDetailsComponent } from './dataset/dataset-details/dataset-details.component';
+import { SchemaFormComponent } from "./schema/schema-form/schema-form.component";
+import { SchemasListComponent } from "./schema/schemas-list/schemas-list.component";
+import { SchemaDetailsComponent } from "./schema/schema-details/schema-details.component";
+import { SchemaService } from "./schema/schema.service";
 
 @NgModule({
   declarations: [
@@ -21,7 +25,10 @@ import { DatasetDetailsComponent } from './dataset/dataset-details/dataset-detai
     DatasetFormComponent,
     AboutComponent,
     DatasetsListComponent,
-    DatasetDetailsComponent
+    DatasetDetailsComponent,
+    SchemaFormComponent,
+    SchemasListComponent,
+    SchemaDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +38,7 @@ import { DatasetDetailsComponent } from './dataset/dataset-details/dataset-detai
     RouterModule.forRoot(routes),
     LoginBasicModule
   ],
-  providers: [AuthenticationBasicService, LoggedInGuard, DatasetService],
+  providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
