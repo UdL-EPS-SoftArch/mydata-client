@@ -14,7 +14,7 @@ export class DatasetsListComponent implements OnInit {
   constructor(private datasetService: DatasetService) { }
 
   ngOnInit() {
-    this.datasetService.getAllDatasets().subscribe(
+    this.datasetService.getAllDatasetsOrderedByTitle().subscribe(
       datasets => { this.datasets = datasets; },
       error => this.errorMessage = <any>error.message
     );
