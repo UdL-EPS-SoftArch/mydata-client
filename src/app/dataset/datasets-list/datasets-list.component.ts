@@ -23,14 +23,4 @@ export class DatasetsListComponent implements OnInit {
     );
   }
 
-  performSearch(searchTerm: string): void {
-    console.log(`User entered: ${searchTerm}`);
-    this.datasetService.getDatasetByDescriptionWords(searchTerm).subscribe(
-      datasets => {
-        this.datasets = datasets;
-      },
-      error => this.errorMessage = <any>error.message
-    );
-  }
-
 }

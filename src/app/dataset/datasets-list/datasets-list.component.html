@@ -11,11 +11,7 @@
   </div>
 </div>
 
-<div class="row">
-  <p>Search by description:</p>
-  <input name="title" #searchTerm>
-  <button (click)="performSearch(searchTerm.value)">Search</button>
-</div>
+<app-dataset-search [datasets]="datasets"></app-dataset-search>
 
 <div class="row">
   <h3>Datasets</h3>
