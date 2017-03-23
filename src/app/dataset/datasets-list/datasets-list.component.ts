@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {DatasetService} from '../dataset.service';
 import {Dataset} from '../dataset';
 
@@ -12,6 +12,10 @@ export class DatasetsListComponent implements OnInit {
   public errorMessage: string;
 
   constructor(private datasetService: DatasetService) {
+  }
+
+  onSearch(datasets){
+    this.datasets = datasets;
   }
 
   ngOnInit() {

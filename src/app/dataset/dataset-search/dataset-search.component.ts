@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, EventEmitter, Output} from "@angular/core";
 import {DatasetService} from "../dataset.service";
 import {Dataset} from "../dataset";
 
@@ -12,16 +12,18 @@ import {Dataset} from "../dataset";
 export class DatasetsSearchComponent{
   @Input()
   datasets: Dataset[];
+  @Output()
+  onSearchited:EventEmitter<any> = new EventEmitter();
 
   public errorMessage: string;
   constructor(private datasetService: DatasetService) {
   }
 
   performSearch(searchTerm: string): void {
-    console.log(`User entered: ${searchTerm}`);
     this.datasetService.getDatasetByDescriptionWords(searchTerm).subscribe(
       datasets => {
-        this.datasets = datasets;
+        //Envia cap al output emiter
+        this.onSearchited.emit(datasets);
       },
       error => this.errorMessage = <any>error.message
     );

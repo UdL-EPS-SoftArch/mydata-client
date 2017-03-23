@@ -11,7 +11,7 @@
   </div>
 </div>
 
-<app-dataset-search [datasets]="datasets"></app-dataset-search>
+<app-dataset-search (onSearchited)="onSearch($event)" [datasets]="datasets"></app-dataset-search>
 
 <div class="row">
   <h3>Datasets</h3>

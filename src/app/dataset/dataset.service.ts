@@ -41,7 +41,6 @@ export class DatasetService {
 
   // GET /datasets/ + search/findByDescriptionContaining?description
   getDatasetByDescriptionWords(keyword: string): Observable<Dataset[]> {
-    console.log(environment.API + "/datasets/search/findByDescriptionContaining?description=" + keyword);
     return this.http.get(environment.API + "/datasets/search/findByDescriptionContaining?description=" + keyword)
       .map((res: Response) => res.json()._embedded.datasets.map(json => new Dataset(json)))
       .catch((error: any) => Observable.throw(error.json()));
