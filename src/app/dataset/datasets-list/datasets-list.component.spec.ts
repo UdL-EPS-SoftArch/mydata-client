@@ -43,7 +43,7 @@ describe('DatasetsListComponent', () => {
 
       router.navigate(['/datasets']).then(() => {
         expect(location.path()).toBe('/datasets');
-        expect(service.getAllDatasets).toHaveBeenCalled();
+        expect(service.getAllDatasetsOrderedByTitle).toHaveBeenCalled();
 
         fixture = TestBed.createComponent(DatasetsListComponent);
         fixture.detectChanges();
