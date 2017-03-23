@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DatasetService } from '../dataset.service';
 import { Dataset } from '../dataset';
-import {AuthenticationBasicService} from "../../login-basic/authentication-basic.service";
-import {UserService} from "../../user/user.service";
+import {AuthenticationBasicService} from '../../login-basic/authentication-basic.service';
+import {UserService} from '../../user/user.service';
 import {Observable} from "rxjs";
 
 @Component({
@@ -32,10 +32,11 @@ export class DatasetDetailsComponent implements OnInit {
           dataset => {
             this.dataset = dataset;
 
-            if (this.dataset._links != null)
+            if (this.dataset._links != null) {
               this.userService.getUser(this.dataset._links.owner).subscribe(result => {
                 this.isOwner = this.authenticationService.getCurrentUser().username == result.json().uri.split("/").pop();
               });
+            }
           },
           error => this.errorMessage = <any>error.message,
         );
