@@ -13,6 +13,10 @@ export class DatasetsListComponent implements OnInit {
 
   constructor(private datasetService: DatasetService) { }
 
+  onSearch(datasets){
+    this.datasets = datasets;
+  }
+
   ngOnInit() {
     this.datasetService.getAllDatasetsOrderedByTitle().subscribe(
       datasets => { this.datasets = datasets; },
