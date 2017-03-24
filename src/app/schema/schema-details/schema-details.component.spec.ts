@@ -1,25 +1,59 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MockSchemaService } from '../../../test/mocks/schema.service';
 
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { Location } from '@angular/common';
+import { Router} from '@angular/router';
+import { AppComponent } from '../../app.component';
 import { SchemaDetailsComponent } from './schema-details.component';
+import { Schema } from '../schema';
+import { SchemaService } from '../schema.service';
 
 describe('SchemaDetailsComponent', () => {
-  let component: SchemaDetailsComponent;
   let fixture: ComponentFixture<SchemaDetailsComponent>;
+  let component: SchemaDetailsComponent;
+
+  const schema1 = new Schema({
+    'uri': '/schemas/1',
+    'title': 'Schema 1',
+    'description': 'First schema'
+  });
+  const schema2 = new Schema({
+    'uri': '/schemas/2',
+    'title': 'Schema 2',
+    'description': 'Second schema'
+  });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SchemaDetailsComponent ]
-    })
-    .compileComponents();
+      declarations: [ AppComponent, SchemaDetailsComponent ],
+      providers: [ { provide: SchemaService, useClass: MockSchemaService } ],
+      imports: [ RouterTestingModule.withRoutes([
+        { path: 'schemas/:id', component: SchemaDetailsComponent }
+      ])],
+      schemas: [ NO_ERRORS_SCHEMA ]
+    });
   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(SchemaDetailsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  it('should fetch and render the requested schema', async(
+    inject([Router, Location, SchemaService], (router, location, service) => {
+      TestBed.createComponent(AppComponent);
+      service.setResponse(schema1);
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+      router.navigate(['/schemas/1']).then(() => {
+        expect(location.path()).toBe('/schemas/1');
+        expect(service.getSchema).toHaveBeenCalledWith('/schemas/1');
+
+        fixture = TestBed.createComponent(SchemaDetailsComponent);
+        fixture.detectChanges();
+        component = fixture.debugElement.componentInstance;
+        expect(component.schema.title).toBe('Schema 1');
+
+        const compiled = fixture.debugElement.nativeElement;
+        expect(compiled.querySelectorAll('p')[0].innerHTML).toBe('Schema 1');
+        expect(compiled.querySelectorAll('p')[1].innerHTML).toBe('First schema');
+      });
+    })
+  ));
 });
