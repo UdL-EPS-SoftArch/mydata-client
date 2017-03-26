@@ -13,7 +13,7 @@ export class DatasetsListComponent implements OnInit {
 
   constructor(private datasetService: DatasetService) { }
 
-  onSearch(datasets){
+  onSearch(datasets) {
     this.datasets = datasets;
   }
 

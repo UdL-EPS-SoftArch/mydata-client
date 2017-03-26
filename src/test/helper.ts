@@ -18,7 +18,7 @@ class MockResponse extends Response {
 export class TestHelper {
   /** Gets a child DebugElement by tag name. */
   static getChildByTagName(parent: DebugElement, tagName: string): DebugElement {
-    return parent.query(debugEl => debugEl.nativeElement.tagName.toLowerCase() == tagName);
+    return parent.query(debugEl => debugEl.nativeElement.tagName.toLowerCase() === tagName);
   }
 
   /**
@@ -28,7 +28,7 @@ export class TestHelper {
    * Angular.
    */
   static getChildrenBySelector(parent: DebugElement, selector: string): DebugElement[] {
-    let results = [];
+    const results = [];
 
     parent.queryAll(By.css(selector)).forEach((el) => results.push(el));
     parent.children.forEach((de) => {
@@ -85,18 +85,20 @@ export interface GuinessCompatibleSpy extends jasmine.Spy {
 export class SpyObject {
   constructor(type = null) {
     if (type) {
-      for (var prop in type.prototype) {
-        var m = null;
-        try {
-          m = type.prototype[prop];
-        } catch (e) {
-          // As we are creating spys for abstract classes,
-          // these classes might have getters that throw when they are accessed.
-          // As we are only auto creating spys for methods, this
-          // should not matter.
-        }
-        if (typeof m === 'function') {
-          this.spy(prop);
+      for (const prop in type.prototype) {
+        if (type.prototype.hasOwnProperty(prop)) {
+          let m = null;
+          try {
+            m = type.prototype[prop];
+          } catch (e) {
+            // As we are creating spys for abstract classes,
+            // these classes might have getters that throw when they are accessed.
+            // As we are only auto creating spys for methods, this
+            // should not matter.
+          }
+          if (typeof m === 'function') {
+            this.spy(prop);
+          }
         }
       }
     }
@@ -115,7 +117,7 @@ export class SpyObject {
 
   /** @internal */
   _createGuinnessCompatibleSpy(name): GuinessCompatibleSpy {
-    var newSpy: GuinessCompatibleSpy = <any>jasmine.createSpy(name);
+    const newSpy: GuinessCompatibleSpy = <any>jasmine.createSpy(name);
     newSpy.andCallFake = <any>newSpy.and.callFake;
     newSpy.andReturn = <any>newSpy.and.returnValue;
     newSpy.reset = <any>newSpy.calls.reset;
