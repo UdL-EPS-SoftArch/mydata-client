@@ -13,8 +13,12 @@ export class DatasetsListComponent implements OnInit {
 
   constructor(private datasetService: DatasetService) { }
 
+  onSearch(datasets){
+    this.datasets = datasets;
+  }
+
   ngOnInit() {
-    this.datasetService.getAllDatasets().subscribe(
+    this.datasetService.getAllDatasetsOrderedByTitle().subscribe(
       datasets => { this.datasets = datasets; },
       error => this.errorMessage = <any>error.message
     );

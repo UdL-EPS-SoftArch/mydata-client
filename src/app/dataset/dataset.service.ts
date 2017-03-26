@@ -20,6 +20,13 @@ export class DatasetService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
+  // GET /dataset/OrderByTitle
+  getAllDatasetsOrderedByTitle(): Observable<Dataset[]> {
+    return this.http.get(`${environment.API}/datasets?sort=title`)
+      .map((res: Response) => res.json()._embedded.datasets.map(json => new Dataset(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
   // GET /datasets/id
   getDataset(uri: string): Observable<Dataset> {
     return this.http.get(`${environment.API}${uri}`)
@@ -36,6 +43,13 @@ export class DatasetService {
 
     return this.http.post(`${environment.API}/datasets`, body, options)
       .map((res: Response) => new Dataset(res.json()))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // GET /datasets/ + search/findByDescriptionContaining?description
+  getDatasetByDescriptionWords(keyword: string): Observable<Dataset[]> {
+    return this.http.get(environment.API + "/datasets/search/findByDescriptionContaining?description=" + keyword)
+      .map((res: Response) => res.json()._embedded.datasets.map(json => new Dataset(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
 }
