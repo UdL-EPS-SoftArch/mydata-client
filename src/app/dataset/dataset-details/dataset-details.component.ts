@@ -34,7 +34,7 @@ export class DatasetDetailsComponent implements OnInit {
 
             if (this.dataset._links != null) {
               this.userService.getUser(this.dataset._links.owner).subscribe(result => {
-                this.isOwner = this.authenticationService.getCurrentUser().username == result.json().uri.split("/").pop();
+                this.isOwner = this.authenticationService.getCurrentUser().username === result.json().uri.split('/').pop();
               });
             }
           },
