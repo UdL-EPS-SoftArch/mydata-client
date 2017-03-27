@@ -6,9 +6,9 @@ import { DatasetsListComponent } from './dataset/datasets-list/datasets-list.com
 import { SchemasListComponent } from './schema/schemas-list/schemas-list.component';
 import { SchemaFormComponent } from './schema/schema-form/schema-form.component';
 import { SchemaDetailsComponent } from './schema/schema-details/schema-details.component';
-import { LicensesListComponent } from './license/license-list/license-list.component';
-import { LicenseFormComponent } from './license/license-form/license-form.component';
-import { LicenseDetailsComponent } from './license/license-details/license-details.component';
+import { OpenLicenseListComponent } from './license/open-license/open-license-list/open-license-list.component';
+import { OpenLicenseFormComponent } from './license/open-license/open-license-form/open-license-form.component';
+import { OpenLicenseDetailsComponent } from './license/open-license/open-license-details/open-license-details.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'about', pathMatch: 'full' },
@@ -19,7 +19,7 @@ export const routes: Routes = [
   { path: 'schemas', component: SchemasListComponent },
   { path: 'schemas/new', component: SchemaFormComponent },
   { path: 'schemas/:id', component: SchemaDetailsComponent },
-  { path: 'licenses', component: LicensesListComponent },
-  { path: 'licenses/new', component: LicenseFormComponent },
-  { path: 'licenses/:id', component: LicenseDetailsComponent },
+  { path: 'openLicenses', component: OpenLicenseListComponent },
+  { path: 'openLicenses/new', component: OpenLicenseFormComponent },
+  { path: 'openLicenses/:id', component: OpenLicenseDetailsComponent },
 ];

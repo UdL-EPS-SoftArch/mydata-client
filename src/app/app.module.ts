@@ -19,10 +19,10 @@ import { SchemasListComponent } from './schema/schemas-list/schemas-list.compone
 import { SchemaDetailsComponent } from './schema/schema-details/schema-details.component';
 import { SchemaService } from './schema/schema.service';
 import { DatasetsSearchComponent} from './dataset/dataset-search/dataset-search.component';
-import { LicenseFormComponent } from './license/license-form/license-form.component';
-import { LicensesListComponent } from './license/license-list/license-list.component';
-import { LicenseDetailsComponent } from './license/license-details/license-details.component';
-import { LicenseService } from './license/license.service';
+import { OpenLicenseFormComponent } from './license/open-license/open-license-form/open-license-form.component';
+import { OpenLicenseListComponent } from './license/open-license/open-license-list/open-license-list.component';
+import { OpenLicenseDetailsComponent } from './license/open-license/open-license-details/open-license-details.component';
+import { OpenLicenseService } from './license/open-license/open-license.service';
 
 @NgModule({
   declarations: [
@@ -35,9 +35,9 @@ import { LicenseService } from './license/license.service';
     SchemasListComponent,
     SchemaDetailsComponent,
     DatasetsSearchComponent,
-    LicenseFormComponent,
-    LicensesListComponent,
-    LicenseDetailsComponent
+    OpenLicenseFormComponent,
+    OpenLicenseListComponent,
+    OpenLicenseDetailsComponent
   ],
   imports: [
     BrowserModule,
