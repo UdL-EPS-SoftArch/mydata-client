@@ -14,11 +14,11 @@ import { AuthenticationBasicService } from './login-basic/authentication-basic.s
 import { LoggedInGuard } from './login-basic/loggedin.guard';
 import { DatasetsListComponent } from './dataset/datasets-list/datasets-list.component';
 import { DatasetDetailsComponent } from './dataset/dataset-details/dataset-details.component';
-import { SchemaFormComponent } from "./schema/schema-form/schema-form.component";
-import { SchemasListComponent } from "./schema/schemas-list/schemas-list.component";
-import { SchemaDetailsComponent } from "./schema/schema-details/schema-details.component";
-import { SchemaService } from "./schema/schema.service";
-import {DatasetsSearchComponent} from "./dataset/dataset-search/dataset-search.component";
+import { SchemaFormComponent } from './schema/schema-form/schema-form.component';
+import { SchemasListComponent } from './schema/schemas-list/schemas-list.component';
+import { SchemaDetailsComponent } from './schema/schema-details/schema-details.component';
+import { SchemaService } from './schema/schema.service';
+import { DatasetsSearchComponent} from './dataset/dataset-search/dataset-search.component';
 import { DatasetEditComponent } from './dataset/dataset-edit/dataset-edit.component';
 
 @NgModule({

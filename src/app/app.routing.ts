@@ -9,6 +9,7 @@ import { SchemaDetailsComponent } from "./schema/schema-details/schema-details.c
 import {DatasetEditComponent} from "./dataset/dataset-edit/dataset-edit.component";
 import { LoggedInGuard } from './login-basic/loggedin.guard';
 
+
 export const routes: Routes = [
   { path: '', redirectTo: 'about', pathMatch: 'full' },
   { path: 'about', component: AboutComponent },

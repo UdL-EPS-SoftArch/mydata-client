@@ -1,6 +1,6 @@
-import {Component, Input, EventEmitter, Output} from "@angular/core";
-import {DatasetService} from "../dataset.service";
-import {Dataset} from "../dataset";
+import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { DatasetService } from '../dataset.service';
+import { Dataset } from '../dataset';
 
 
 @Component({
@@ -9,11 +9,11 @@ import {Dataset} from "../dataset";
   styleUrls: ['./dataset-search.component.css']
 })
 
-export class DatasetsSearchComponent{
+export class DatasetsSearchComponent {
   @Input()
   datasets: Dataset[];
   @Output()
-  onSearchited:EventEmitter<any> = new EventEmitter();
+  onSearchited: EventEmitter<any> = new EventEmitter();
 
   public errorMessage: string;
   constructor(private datasetService: DatasetService) {
@@ -22,7 +22,7 @@ export class DatasetsSearchComponent{
   performSearch(searchTerm: string): void {
     this.datasetService.getDatasetByDescriptionWords(searchTerm).subscribe(
       datasets => {
-        //Envia cap al output emiter
+        // Send to output emitter
         this.onSearchited.emit(datasets);
       },
       error => this.errorMessage = <any>error.message
