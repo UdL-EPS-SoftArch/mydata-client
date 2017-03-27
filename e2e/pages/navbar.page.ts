@@ -1,4 +1,4 @@
-import {element, by, browser} from 'protractor';
+import { element, by } from 'protractor';
 import { promise } from 'selenium-webdriver';
 
 export class NavigationBar {
