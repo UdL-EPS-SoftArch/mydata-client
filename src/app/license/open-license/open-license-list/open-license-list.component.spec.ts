@@ -6,13 +6,13 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { AppComponent } from '../../../app.component';
-import { OpenLicensesListComponent } from './open-license-list.component';
+import { OpenLicenseListComponent } from './open-license-list.component';
 import { OpenLicenseService } from '../open-license.service';
 import { OpenLicense } from '../open-license';
 
-describe('LicensesListComponent', () => {
-  let component: OpenLicensesListComponent;
-  let fixture: ComponentFixture<OpenLicensesListComponent>;
+describe('OpenLicenseListComponent', () => {
+  let component: OpenLicenseListComponent;
+  let fixture: ComponentFixture<OpenLicenseListComponent>;
 
   const openLicense1 = new OpenLicense({
     'uri': '/openLicenses/1',
@@ -25,16 +25,16 @@ describe('LicensesListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AppComponent, OpenLicensesListComponent ],
+      declarations: [ AppComponent, OpenLicenseListComponent ],
       providers: [ { provide: OpenLicenseService, useClass: MockOpenLicenseService } ],
       imports: [ RouterTestingModule.withRoutes([
-        { path: 'openLicenses', component: OpenLicensesListComponent }
+        { path: 'openLicenses', component: OpenLicenseListComponent }
       ])],
       schemas: [ NO_ERRORS_SCHEMA ]
     });
   }));
 
-  it('should fetch and render all licenses', async(
+  it('should fetch and render all openLicenses', async(
     inject([Router, Location, OpenLicenseService], (router, location, service) => {
       TestBed.createComponent(AppComponent);
       service.setResponse([openLicense1, openLicense2]);
@@ -43,7 +43,7 @@ describe('LicensesListComponent', () => {
         expect(location.path()).toBe('/openLicenses');
         expect(service.getAllOpenLicensesOrderedByText).toHaveBeenCalled();
 
-        fixture = TestBed.createComponent(OpenLicensesListComponent);
+        fixture = TestBed.createComponent(OpenLicenseListComponent);
         fixture.detectChanges();
         component = fixture.debugElement.componentInstance;
         expect(component.openLicenses[0].text).toBe('License 1');

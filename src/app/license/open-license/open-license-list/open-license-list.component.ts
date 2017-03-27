@@ -7,7 +7,7 @@ import { OpenLicense } from '../open-license';
   templateUrl: './open-license-list.component.html',
   styleUrls: ['./open-license-list.component.css']
 })
-export class OpenLicensesListComponent implements OnInit {
+export class OpenLicenseListComponent implements OnInit {
   public openLicenses: OpenLicense[] = [];
   public errorMessage: string;
 
