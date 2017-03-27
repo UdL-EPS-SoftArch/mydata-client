@@ -4,7 +4,6 @@ import { DatasetService } from '../dataset.service';
 import { Dataset } from '../dataset';
 import {AuthenticationBasicService} from '../../login-basic/authentication-basic.service';
 import {UserService} from '../../user/user.service';
-import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-dataset-details',
