@@ -10,7 +10,7 @@ Feature: List Schemas
 
   Scenario: List all schemas when one created
     Given I click sign out
-    Given I sign in as "owner" with password "password"
+    And I sign in as "owner" with password "password"
     And I create a schema with title "Test" and description "Test schema"
     When I click menu option "Schemas"
     Then I see 1 schemas
