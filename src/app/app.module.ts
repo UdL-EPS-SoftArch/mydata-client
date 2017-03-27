@@ -19,6 +19,10 @@ import { SchemasListComponent } from './schema/schemas-list/schemas-list.compone
 import { SchemaDetailsComponent } from './schema/schema-details/schema-details.component';
 import { SchemaService } from './schema/schema.service';
 import { DatasetsSearchComponent} from './dataset/dataset-search/dataset-search.component';
+import { LicenseFormComponent } from './license/license-form/license-form.component';
+import { LicensesListComponent } from './license/license-list/license-list.component';
+import { LicenseDetailsComponent } from './license/license-details/license-details.component';
+import { LicenseService } from './license/license.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +34,10 @@ import { DatasetsSearchComponent} from './dataset/dataset-search/dataset-search.
     SchemaFormComponent,
     SchemasListComponent,
     SchemaDetailsComponent,
-    DatasetsSearchComponent
+    DatasetsSearchComponent,
+    LicenseFormComponent,
+    LicensesListComponent,
+    LicenseDetailsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,5 @@
-export class License {
+export class OpenLicense {
   text: string;
-  price: number;
   dateTime: string;
   lastModified: string;
   _links: any;
