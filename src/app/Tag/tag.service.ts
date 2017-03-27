@@ -20,4 +20,11 @@ export class TagService {
       .map((res: Response) => res.json()._embedded.schemas.map(json => new Tag(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
+
+  // GET /tags/id
+  getTag(uri: string): Observable<Tag> {
+    return this.http.get(`${environment.API}${uri}`)
+      .map((res: Response) => new Tag(res.json()))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
 }
