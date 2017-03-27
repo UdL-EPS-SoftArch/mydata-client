@@ -1,12 +1,12 @@
-<h2>Create License</h2>
-<form [formGroup]="licenseForm" (ngSubmit)="onSubmit()">
+<h2>Create Open License</h2>
+<form [formGroup]="openLicenseForm" (ngSubmit)="onSubmit()">
     <fieldset>
 
         <!-- Text input-->
         <div class="form-group row">
-            <label class="col-md-12 control-label" for="text">License Text*</label>
+            <label class="col-md-12 control-label" for="text">Open License Text*</label>
             <div class="col-md-12">
-                <input id="text" name="text" type="text" placeholder="Text" class="form-control input-md" [class.has-error]="textCtrl.touched && textCtrl.hasError('required')" [formControl]="licenseForm.controls['text']" [(ngModel)]="license.text">
+                <input id="text" name="text" type="text" placeholder="Text" class="form-control input-md" [class.has-error]="textCtrl.touched && textCtrl.hasError('required')" [formControl]="licenseForm.controls['text']" [(ngModel)]="openLicense.text">
                 <div *ngIf="textCtrl.touched && textCtrl.hasError('required')" class="label-warning">
                     A text is required
                 </div>

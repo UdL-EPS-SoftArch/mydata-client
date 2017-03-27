@@ -1,40 +1,39 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { License } from '../license';
-import { LicenseService } from '../license.service';
+import { OpenLicense } from '../open-license';
+import { OpenLicenseService } from '../open-license.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-license-form',
-  templateUrl: './license-form.component.html',
-  styleUrls: ['./license-form.component.css']
+  selector: 'app-open-license-form',
+  templateUrl: './open-license-form.component.html',
+  styleUrls: ['./open-license-form.component.css']
 })
-export class LicenseFormComponent implements OnInit {
-  public license: License;
-  public licenseForm: FormGroup;
+export class OpenLicenseFormComponent implements OnInit {
+  public openLicense: OpenLicense;
+  public openLicenseForm: FormGroup;
   public titleCtrl: AbstractControl;
   public errorMessage: string;
 
   constructor(private fb: FormBuilder,
               private router: Router,
-              private licenseService: LicenseService) {
-    this.licenseForm = fb.group({
-      'text': ['License text', Validators.required],
-      'price': ['License price']
+              private licenseService: OpenLicenseService) {
+    this.openLicenseForm = fb.group({
+      'text': ['License text', Validators.required]
     });
-    this.titleCtrl = this.licenseForm.controls['text'];
-    this.license = new License();
+    this.titleCtrl = this.openLicenseForm.controls['text'];
+    this.openLicense = new OpenLicense();
   }
 
   ngOnInit() {}
 
   onSubmit(): void {
-    this.licenseService.addLicense(this.license)
+    this.licenseService.addOpenLicense(this.openLicense)
       .subscribe(
-        license => { this.router.navigate(['licenses/' + license._links.self.href.split('/').pop()]); },
+        openLicense => { this.router.navigate([openLicense.uri]); },
         error => {
           this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
-          alert(`Error: ${this.errorMessage}`);
+          
         });
   }
 }
