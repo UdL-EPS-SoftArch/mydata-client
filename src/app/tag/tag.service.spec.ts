@@ -56,4 +56,23 @@ describe('TagService', () => {
       })));
   });
 
+  describe('#getTag(uri)', () => {
+    it('should return the tag with provided uri',
+      inject([ MockBackend, TagService ], fakeAsync((mockBackend, service) => {
+        const apiResponse = new ResponseOptions({
+          body: JSON.stringify(tag1)
+        });
+
+        mockBackend.connections.subscribe((connection: MockConnection) => {
+          expect(connection.request.url).toBe('http://localhost:8080/tags/1');
+          connection.mockRespond(new Response(apiResponse));
+        });
+
+        service.getSchema('/tags/1').subscribe((data) => {
+          expect(data.uri).toEqual('/tags/1');
+          expect(data.title).toEqual(tag1.name);
+        });
+      })));
+  });
+
 });
