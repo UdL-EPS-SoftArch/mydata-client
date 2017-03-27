@@ -20,5 +20,19 @@ describe('TagService', () => {
     'title': 'Tag 2',
   });
 
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      providers: [
+        TagService, AuthenticationBasicService, MockBackend, BaseRequestOptions,
+        {
+          provide: Http,
+          deps: [MockBackend, BaseRequestOptions],
+          useFactory: (backend: ConnectionBackend, defaultOptions: BaseRequestOptions) => {
+            return new Http(backend, defaultOptions);
+          }
+        }],
+      imports: [HttpModule]
+    });
+  }));
 
 });
