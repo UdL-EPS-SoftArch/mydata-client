@@ -1,0 +1,6 @@
+<div class="row">
+  <p>Search by description:</p>
+  <input name="title" #searchTerm (keyup)="performSearch(searchTerm.value)">
+  <button (click)="performSearch(searchTerm.value)">Search</button>
+  <p>S'han trobat {{datasets.length}} datasets.</p>
+</div>

@@ -31,10 +31,9 @@ export class DatasetFormComponent implements OnInit {
   onSubmit(): void {
     this.datasetService.addDataset(this.dataset)
       .subscribe(
-        dataset => { this.router.navigate(['datasets/' + dataset._links.self.href.split('/').pop()]); },
+        dataset => { this.router.navigate([dataset.uri]); },
         error => {
           this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
-          alert(`Error: ${this.errorMessage}`);
         });
   }
 }

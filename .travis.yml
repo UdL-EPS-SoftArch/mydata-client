@@ -1,0 +1,48 @@
+language: node_js
+node_js:
+  - "7"
+cache:
+  directories:
+    - node_modules
+sudo: true
+dist: trusty
+services:
+  - docker
+branches:
+  only:
+  - master
+before_install:
+  - export CHROME_BIN=/usr/bin/google-chrome
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - sudo apt-get update
+  - sudo apt-get install -y libappindicator1 fonts-liberation
+  - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  - sudo dpkg -i google-chrome*.deb
+  - docker run -d -p 8080:8080 udlepssoftarch/mydata-api
+  - while ! nc -z localhost 8080; do sleep 10; done
+  - docker ps -a
+install:
+  - npm install
+script:
+  - ng lint
+  - ng test --watch=false
+  - ng serve &
+  - ng e2e
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+      docker login -u $DOCKER_USER -p $DOCKER_PASS;
+      export REPO=udlepssoftarch/mydata-client;
+      export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`;
+      docker build -f Dockerfile -t $REPO:$TRAVIS_COMMIT .;
+      docker tag $REPO:$TRAVIS_COMMIT $REPO:$TAG;
+      docker push $REPO;
+      docker login --email=_ --username=_ --password=$HEROKU_TOKEN registry.heroku.com;
+      docker tag $REPO:$TRAVIS_COMMIT registry.heroku.com/mydata-client/web;
+      docker push registry.heroku.com/mydata-client/web;
+    fi
+notifications:
+  slack:
+    on_success: change
+    on_failure: always
+    secure: VexpPRSmqj1p6ePK8v++F+YsXNZFvMd61RbV2QzWlSgcZA+PeXEhNb866heuVlKGoam4gt8B2sezx0UqjoITI/UlPJiGTQXguwILxoEEOICm4Qn4n41sH10TKPC+gXu3QfInd4z957tqxAeNxJtqXtf6PNZtjI0I4WAEQAPyuhKJ4NIzTicA082/N5h5EIHs/CrvZkoN790T6fUycYsgC92GdUPyqsIEgVeRlj7I9ZToKzTiCAX6Q1yKCyXBAiMfybzDXMndLByy4UKMsDfWaw0/Xlihv/+oJTnnEdG378RlEO2gMIEGsdSNCwmLtbv77vaORHkBKh0p61IFqbGdVIQrg/M2UTmFWVERgOVAJTOLqgceuk2BL74UP1dNfbMQ9XinToM0HSRxFkyDdH57/lloE4gbF+2/OtxMQHEMD2WxXaLjk9lyzvUT/9VyI7YwVzA9en1Mw8xB6iXZo9tJ16XSBT+5XoVLAbinS4XTICeBeB8bGBp5XJvMF0Sss+G6Wqi+L0ljUUzT8OlwKvRdUZM241H3YTVNEpAtGc0kw8NCjYBtsT8lZb2teWGNyx+juagOkzgPXmZtnxTP5JB7OrGvXcgjwAuqvrlt6HSAhjl3h89/ssAggUe62W7vbWAZDl8RYEUHwwCcNduu30PoCVXAxTyLP4ZNvFkvdsX/SZE=

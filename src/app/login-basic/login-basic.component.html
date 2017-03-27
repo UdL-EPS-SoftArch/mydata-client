@@ -1,4 +1,4 @@
-<li *ngIf="isLoggedIn()">
+<li *ngIf="isLoggedIn()" id="currentUser">
   <a>{{getCurrentUserName()}}</a>
 </li>
 <li *ngIf="isLoggedIn()">
@@ -20,7 +20,7 @@
       </div>
       <div class="modal-body">
 
-        <alert *ngIf="errorMessage" type="danger">{{ errorMessage }}</alert>
+        <div *ngIf="errorMessage" class="label-danger">{{ errorMessage }}</div>
 
         <form class="form-signin" (submit)="login(username, password)">
           <label for="username" class="sr-only">User</label>

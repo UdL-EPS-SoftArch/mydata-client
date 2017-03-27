@@ -1,55 +1,55 @@
 import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MockDatasetService } from '../../../test/mocks/dataset.service';
+import { MockSchemaService } from '../../../test/mocks/schema.service';
 
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router} from '@angular/router';
 import { AppComponent } from '../../app.component';
-import { DatasetFormComponent } from './dataset-form.component';
-import { DatasetDetailsComponent } from '../dataset-details/dataset-details.component';
-import { Dataset } from '../dataset';
-import { DatasetService } from '../dataset.service';
+import { SchemaFormComponent } from './schema-form.component';
+import { SchemaDetailsComponent } from '../schema-details/schema-details.component';
+import { Schema } from '../schema';
+import { SchemaService } from '../schema.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { dispatchEvent } from '@angular/platform-browser/testing/browser_util';
 
-describe('DatasetFormComponent', () => {
-  let component: DatasetFormComponent;
-  let fixture: ComponentFixture<DatasetFormComponent>;
+describe('SchemaFormComponent', () => {
+  let component: SchemaFormComponent;
+  let fixture: ComponentFixture<SchemaFormComponent>;
 
-  const response = new Dataset({
-    'uri': '/datasets/1',
-    'title': 'Dataset 1',
-    'description': 'First dataset',
+  const response = new Schema({
+    'uri': '/schemas/1',
+    'title': 'Schema 1',
+    'description': 'First schema',
     '_links': {}
   });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AppComponent, DatasetFormComponent, DatasetDetailsComponent ],
-      providers: [ { provide: DatasetService, useClass: MockDatasetService } ],
+      declarations: [ AppComponent, SchemaFormComponent, SchemaDetailsComponent ],
+      providers: [ { provide: SchemaService, useClass: MockSchemaService } ],
       imports: [ RouterTestingModule.withRoutes([
-        { path: 'datasets/new', component: DatasetFormComponent },
-        { path: 'datasets/:id', component: DatasetDetailsComponent }]),
+        { path: 'schemas/new', component: SchemaFormComponent },
+        { path: 'schemas/:id', component: SchemaDetailsComponent }]),
         FormsModule, ReactiveFormsModule
       ],
       schemas: [ NO_ERRORS_SCHEMA ]
     });
   }));
 
-  it('should submit new dataset', async(
-    inject([Router, Location, DatasetService], (router, location, service) => {
+  it('should submit new schema', async(
+    inject([Router, Location, SchemaService], (router, location, service) => {
       TestBed.createComponent(AppComponent);
       service.setResponse(response);
 
-      router.navigate(['/datasets/new']).then(() => {
-        expect(location.path()).toBe('/datasets/new');
-        expect(service.getDataset).toHaveBeenCalledTimes(0);
+      router.navigate(['/schemas/new']).then(() => {
+        expect(location.path()).toBe('/schemas/new');
+        expect(service.getSchema).toHaveBeenCalledTimes(0);
 
-        fixture = TestBed.createComponent(DatasetFormComponent);
+        fixture = TestBed.createComponent(SchemaFormComponent);
         fixture.detectChanges();
         component = fixture.debugElement.componentInstance;
-        expect(component.dataset.title).toBeUndefined();
+        expect(component.schema.title).toBeUndefined();
 
         const compiled = fixture.debugElement.nativeElement;
         const inputTitle = compiled.querySelector('#title');
@@ -57,32 +57,32 @@ describe('DatasetFormComponent', () => {
         const form = compiled.querySelector('form');
         const button = compiled.querySelector('button');
 
-        inputTitle.value = 'Dataset 1';
+        inputTitle.value = 'Schema 1';
         dispatchEvent(inputTitle, 'input');
-        inputDescription.value = 'First Dataset';
+        inputDescription.value = 'First Schema';
         dispatchEvent(inputDescription, 'input');
         fixture.detectChanges();
         expect(button.disabled).toBeFalsy();
         dispatchEvent(form, 'submit');
 
-        expect(component.dataset.title).toBe('Dataset 1');
-        expect(component.dataset.description).toBe('First Dataset');
-        expect(service.addDataset).toHaveBeenCalledTimes(1);
-        expect(service.addDataset.calls.mostRecent().object.fakeResponse.title).toBe('Dataset 1');
-        expect(service.addDataset.calls.mostRecent().object.fakeResponse.description).toBe('First dataset');
+        expect(component.schema.title).toBe('Schema 1');
+        expect(component.schema.description).toBe('First Schema');
+        expect(service.addSchema).toHaveBeenCalledTimes(1);
+        expect(service.addSchema.calls.mostRecent().object.fakeResponse.title).toBe('Schema 1');
+        expect(service.addSchema.calls.mostRecent().object.fakeResponse.description).toBe('First schema');
       });
     })
   ));
 
   it('should warn if input for title is left empty', async(
-    inject([Router, Location, DatasetService], (router, location, service) => {
+    inject([Router, Location, SchemaService], (router, location, service) => {
       TestBed.createComponent(AppComponent);
 
-      router.navigate(['/datasets/new']).then(() => {
-        expect(location.path()).toBe('/datasets/new');
-        expect(service.getDataset).toHaveBeenCalledTimes(0);
+      router.navigate(['/schemas/new']).then(() => {
+        expect(location.path()).toBe('/schemas/new');
+        expect(service.getSchema).toHaveBeenCalledTimes(0);
 
-        fixture = TestBed.createComponent(DatasetFormComponent);
+        fixture = TestBed.createComponent(SchemaFormComponent);
         fixture.detectChanges();
         component = fixture.debugElement.componentInstance;
 
@@ -95,7 +95,7 @@ describe('DatasetFormComponent', () => {
         dispatchEvent(input, 'blur');
         fixture.detectChanges();
 
-        expect(component.dataset.title).toBe('');
+        expect(component.schema.title).toBe('');
         expect(component.titleCtrl.hasError('required')).toBeTruthy();
         expect(component.titleCtrl.touched).toBeTruthy();
         expect(compiled.querySelector('.label-warning').innerHTML.trim()).toBe('A title is required');

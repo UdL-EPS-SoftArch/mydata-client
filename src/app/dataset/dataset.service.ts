@@ -3,6 +3,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { AuthenticationBasicService } from '../login-basic/authentication-basic.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 import { Dataset } from './dataset';
 import { environment } from '../../environments/environment';
 
@@ -15,6 +16,13 @@ export class DatasetService {
   // GET /datasets
   getAllDatasets(): Observable<Dataset[]> {
     return this.http.get(`${environment.API}/datasets`)
+      .map((res: Response) => res.json()._embedded.datasets.map(json => new Dataset(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // GET /dataset/OrderByTitle
+  getAllDatasetsOrderedByTitle(): Observable<Dataset[]> {
+    return this.http.get(`${environment.API}/datasets?sort=title`)
       .map((res: Response) => res.json()._embedded.datasets.map(json => new Dataset(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
@@ -35,6 +43,13 @@ export class DatasetService {
 
     return this.http.post(`${environment.API}/datasets`, body, options)
       .map((res: Response) => new Dataset(res.json()))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // GET /datasets/ + search/findByDescriptionContaining?description
+  getDatasetByDescriptionWords(keyword: string): Observable<Dataset[]> {
+    return this.http.get(environment.API + '/datasets/search/findByDescriptionContaining?description=' + keyword)
+      .map((res: Response) => res.json()._embedded.datasets.map(json => new Dataset(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
 }
