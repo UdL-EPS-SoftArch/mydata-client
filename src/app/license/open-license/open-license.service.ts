@@ -12,21 +12,21 @@ export class OpenLicenseService {
   constructor(private http: Http,
               private authentication: AuthenticationBasicService) {}
 
-  // GET /licenses
+  // GET /OpenLicenses
   getAllOpenLicenses(): Observable<OpenLicense[]> {
     return this.http.get(`${environment.API}/openLicenses`)
       .map((res: Response) => res.json()._embedded.openLicenses.map(json => new OpenLicense(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  // GET /licenses/id
+  // GET /openLicenses/id
   getOpenLicense(uri: string): Observable<OpenLicense> {
     return this.http.get(`${environment.API}${uri}`)
       .map((res: Response) => new OpenLicense(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  // POST /licenses
+  // POST /openLicenses
   addOpenLicense(openLicense: OpenLicense): Observable<OpenLicense> {
     const body = JSON.stringify(openLicense);
     const headers = new Headers({ 'Content-Type': 'application/json' });

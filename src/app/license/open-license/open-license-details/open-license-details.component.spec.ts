@@ -1,52 +1,52 @@
 import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MockLicenseService } from '../../../test/mocks/license.service';
+import { MockOpenLicenseService } from '../../../../test/mocks/open-license.service';
 
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router} from '@angular/router';
-import { AppComponent } from '../../app.component';
-import { LicenseDetailsComponent } from './license-details.component';
-import { License } from '../license';
-import { LicenseService } from '../license.service';
+import { AppComponent } from '../../../app.component';
+import { OpenLicenseDetailsComponent } from './open-license-details.component';
+import { OpenLicense } from '../open-license';
+import { OpenLicenseService } from '../open-license.service';
 
-describe('LicenseDetailsComponent', () => {
-  let fixture: ComponentFixture<LicenseDetailsComponent>;
-  let component: LicenseDetailsComponent;
+describe('OpenLicenseDetailsComponent', () => {
+  let fixture: ComponentFixture<OpenLicenseDetailsComponent>;
+  let component: OpenLicenseDetailsComponent;
 
-  const license1 = new License({
-    'uri': '/licenses/1',
+  const openLicense1 = new OpenLicense({
+    'uri': '/openLicenses/1',
     'text': 'License 1'
   });
-  const license2 = new License({
-    'uri': '/licenses/2',
+  const openLicense2 = new OpenLicense({
+    'uri': '/openLicenses/2',
     'text': 'License 2'
   });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AppComponent, LicenseDetailsComponent ],
-      providers: [ { provide: LicenseService, useClass: MockLicenseService } ],
+      declarations: [ AppComponent, OpenLicenseDetailsComponent ],
+      providers: [ { provide: OpenLicenseService, useClass: MockOpenLicenseService } ],
       imports: [ RouterTestingModule.withRoutes([
-          { path: 'licenses/:id', component: LicenseDetailsComponent }
+          { path: 'openLicenses/:id', component: OpenLicenseDetailsComponent }
         ])],
       schemas: [ NO_ERRORS_SCHEMA ]
     });
   }));
 
-  it('should fetch and render the requested license', async(
-    inject([Router, Location, LicenseService], (router, location, service) => {
+  it('should fetch and render the requested openLicense', async(
+    inject([Router, Location, OpenLicenseService], (router, location, service) => {
       TestBed.createComponent(AppComponent);
-      service.setResponse(license1);
+      service.setResponse(openLicense1);
 
-      router.navigate(['/licenses/1']).then(() => {
-        expect(location.path()).toBe('/licenses/1');
-        expect(service.getLicense).toHaveBeenCalledWith('/licenses/1');
+      router.navigate(['/openLicenses/1']).then(() => {
+        expect(location.path()).toBe('/openLicenses/1');
+        expect(service.getLicense).toHaveBeenCalledWith('/openLicenses/1');
 
-        fixture = TestBed.createComponent(LicenseDetailsComponent);
+        fixture = TestBed.createComponent(OpenLicenseDetailsComponent);
         fixture.detectChanges();
         component = fixture.debugElement.componentInstance;
-        expect(component.license.text).toBe('License 1');
+        expect(component.openLicense.text).toBe('License 1');
 
         const compiled = fixture.debugElement.nativeElement;
         expect(compiled.querySelectorAll('p')[0].innerHTML).toBe('License 1');
