@@ -12,12 +12,12 @@ import { AuthenticationBasicService } from '../login-basic/authentication-basic.
 describe('TagService', () => {
 
   const tag1 = new Tag({
-    'uri': '/tags/1',
-    'name': 'Tag 1',
+    'uri': '/tags/Tag1',
+    'name': 'Tag1',
   });
   const tag2 = new Tag({
-    'uri': '/tags/2',
-    'name': 'Tag 2',
+    'uri': '/tags/Tag2',
+    'name': 'Tag2',
   });
 
   beforeEach(async(() => {
@@ -41,7 +41,7 @@ describe('TagService', () => {
         const apiResponse = new ResponseOptions({
           body: {
             _embedded: {
-              schemas: [ tag1, tag2 ]}}});
+              tags: [ tag1, tag2 ]}}});
 
         mockBackend.connections.subscribe((connection: MockConnection) => {
           expect(connection.request.url).toBe('http://localhost:8080/tags');
@@ -50,8 +50,8 @@ describe('TagService', () => {
 
         service.getAllTags().subscribe((data) => {
           expect(data.length).toBe(2);
-          expect(data[0].title).toEqual(tag1.name);
-          expect(data[1].title).toEqual(tag2.name);
+          expect(data[0].name).toEqual(tag1.name);
+          expect(data[1].name).toEqual(tag2.name);
         });
       })));
   });
@@ -64,13 +64,13 @@ describe('TagService', () => {
         });
 
         mockBackend.connections.subscribe((connection: MockConnection) => {
-          expect(connection.request.url).toBe('http://localhost:8080/tags/1');
+          expect(connection.request.url).toBe('http://localhost:8080/tags/Tag1');
           connection.mockRespond(new Response(apiResponse));
         });
 
-        service.getSchema('/tags/1').subscribe((data) => {
-          expect(data.uri).toEqual('/tags/1');
-          expect(data.title).toEqual(tag1.name);
+        service.getTag('/tags/Tag1').subscribe((data) => {
+          expect(data.uri).toEqual('/tags/Tag1');
+          expect(data.name).toEqual(tag1.name);
         });
       })));
   });
