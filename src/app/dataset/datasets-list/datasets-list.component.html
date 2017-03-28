@@ -18,6 +18,7 @@
   <div class="panel-group">
     <div class="panel panel-default" *ngFor="let dataset of datasets">
       <div class="panel-heading">
+        <button (click)="onDelete(dataset)">DELETE</button>
         <h4>Title: <a routerLink="{{dataset.uri}}">{{dataset.title}}</a></h4>
       </div>
       <div class="panel-body">
