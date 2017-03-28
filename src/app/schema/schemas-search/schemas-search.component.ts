@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {SchemaService} from '../schema.service';
 import {Schema} from '../schema';
 
@@ -7,31 +7,24 @@ import {Schema} from '../schema';
   templateUrl: 'schemas-search.component.html',
   styleUrls: ['schemas-search.component.css']
 })
-export class SchemaSearchComponent implements OnInit {
-  public schemas: Schema[] = [];
+export class SchemaSearchComponent {
+  @Input()
+  schemas: Schema[];
+  @Output()
+  onSearchited: EventEmitter<any> = new EventEmitter();
+
   public errorMessage: string;
 
   constructor(private schemaService: SchemaService) {
   }
 
-  ngOnInit() {
-    this.schemaService.getAllSchemas().subscribe(
-      schemas => {
-        this.schemas = schemas;
-      },
-      error => this.errorMessage = <any>error.message
-    );
-  }
 
-  onSearch(schemas) {
-    this.schemas = schemas;
-  }
 
   performSearch(searchTerm: string): void {
-    console.log(`User entered: ${searchTerm}`);
     this.schemaService.getSchemaByDescriptionWords(searchTerm).subscribe(
       schemas => {
-        this.schemas = schemas;
+        // Send to output emitter
+        this.onSearchited.emit(schemas);
       },
       error => this.errorMessage = <any>error.message
     );
