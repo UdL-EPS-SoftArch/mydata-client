@@ -19,9 +19,7 @@ export class SchemaSearchComponent {
   }
 
 
-
   performSearch(searchTerm: string): void {
-    console.debug(searchTerm);
     this.schemaService.getSchemaByDescriptionWords(searchTerm).subscribe(
       schemas => {
         // Send to output emitter
