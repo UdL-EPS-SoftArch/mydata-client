@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-md-4">
+    <h4 *ngIf="tags.length == 0">There are no tags registered</h4>
+    <h4 *ngIf="tags.length > 0">There are {{tags.length}} tags registered</h4>
+  </div>
+  <div class="col-md-8">
+    <h4>
+      <a class="btn btn-lg btn-primary" role="button"
+         [routerLink]="['/tags/new']">Register Tag</a>
+    </h4>
+  </div>
+</div>
+
+<div class="row">
+  <h3>Tags</h3>
+</div>
+
+<div class="row" *ngFor="let tag of tags">
+  <div class="col-md-4">
+    <h4>Name</h4>
+    <p><a routerLink="{{tag.uri}}">{{tag.name}}</a></p>
+  </div>
+</div>
