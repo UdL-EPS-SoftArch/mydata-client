@@ -19,6 +19,7 @@ import { SchemasListComponent } from './schema/schemas-list/schemas-list.compone
 import { SchemaDetailsComponent } from './schema/schema-details/schema-details.component';
 import { SchemaService } from './schema/schema.service';
 import { DatasetsSearchComponent} from './dataset/dataset-search/dataset-search.component';
+import { SchemaSearchComponent } from './schema/schemas-search/schemas-search.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { DatasetsSearchComponent} from './dataset/dataset-search/dataset-search.
     SchemaFormComponent,
     SchemasListComponent,
     SchemaDetailsComponent,
-    DatasetsSearchComponent
+    DatasetsSearchComponent,
+    SchemaSearchComponent
   ],
   imports: [
     BrowserModule,
