@@ -63,7 +63,7 @@ describe('OpenLicenseFormComponent', () => {
 
         expect(component.openLicense.text).toBe('License 1');
         expect(service.addOpenLicense).toHaveBeenCalledTimes(1);
-        expect(service.addOpenLicense.calls.mostRecent().object.fakeResponse.title).toBe('License 1');
+        expect(service.addOpenLicense.calls.mostRecent().object.fakeResponse.text).toBe('License 1');
       });
     })
   ));
@@ -90,8 +90,8 @@ describe('OpenLicenseFormComponent', () => {
         fixture.detectChanges();
 
         expect(component.openLicense.text).toBe('');
-        expect(component.titleCtrl.hasError('required')).toBeTruthy();
-        expect(component.titleCtrl.touched).toBeTruthy();
+        expect(component.textCtrl.hasError('required')).toBeTruthy();
+        expect(component.textCtrl.touched).toBeTruthy();
         expect(compiled.querySelector('.label-warning').innerHTML.trim()).toBe('A text is required');
         expect(button.disabled).toBeTruthy();
       });

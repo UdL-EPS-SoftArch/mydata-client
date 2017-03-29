@@ -41,7 +41,7 @@ describe('OpenLicenseDetailsComponent', () => {
 
       router.navigate(['/openLicenses/1']).then(() => {
         expect(location.path()).toBe('/openLicenses/1');
-        expect(service.getLicense).toHaveBeenCalledWith('/openLicenses/1');
+        expect(service.getOpenLicense).toHaveBeenCalledWith('/openLicenses/1');
 
         fixture = TestBed.createComponent(OpenLicenseDetailsComponent);
         fixture.detectChanges();

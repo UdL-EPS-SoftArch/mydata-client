@@ -41,17 +41,17 @@ describe('OpenLicenseListComponent', () => {
 
       router.navigate(['/openLicenses']).then(() => {
         expect(location.path()).toBe('/openLicenses');
-        expect(service.getAllOpenLicensesOrderedByText).toHaveBeenCalled();
+        expect(service.getAllOpenLicenses).toHaveBeenCalled();
 
         fixture = TestBed.createComponent(OpenLicenseListComponent);
         fixture.detectChanges();
         component = fixture.debugElement.componentInstance;
-        expect(component.openLicenses[0].text).toBe('License 1');
-        expect(component.openLicenses[1].text).toBe('License 2');
+        expect(component.openLicenses[0].text).toBe('Open License 1');
+        expect(component.openLicenses[1].text).toBe('Open License 2');
 
         const compiled = fixture.debugElement.nativeElement;
-        expect(compiled.querySelectorAll('.panel-heading')[0].innerHTML).toContain('License 1');
-        expect(compiled.querySelectorAll('.panel-heading')[1].innerHTML).toContain('License 2');
+        expect(compiled.querySelectorAll('.panel-heading')[0].innerHTML).toContain('Open License 1');
+        expect(compiled.querySelectorAll('.panel-heading')[1].innerHTML).toContain('Open License 2');
       });
     })
   ));
