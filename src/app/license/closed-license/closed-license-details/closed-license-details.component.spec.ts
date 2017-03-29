@@ -48,7 +48,8 @@ describe('OpenLicenseDetailsComponent', () => {
         fixture = TestBed.createComponent(ClosedLicenseDetailsComponent);
         fixture.detectChanges();
         component = fixture.debugElement.componentInstance;
-        expect(component.openLicense.text).toBe('License 1');
+        expect(component.closedLicense.text).toBe('License 1');
+        expect(component.closedLicense.price).toBe('10');
 
         const compiled = fixture.debugElement.nativeElement;
         expect(compiled.querySelectorAll('p')[0].innerHTML).toBe('License 1');
