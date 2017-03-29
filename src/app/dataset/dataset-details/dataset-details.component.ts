@@ -2,15 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DatasetService } from '../dataset.service';
 import { Dataset } from '../dataset';
-import {AuthenticationBasicService} from '../../login-basic/authentication-basic.service';
-import {UserService} from '../../user/user.service';
+import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
+import { DatasetOwnerService } from '../../user/datasetOwner.service';
 
 @Component({
   selector: 'app-dataset-details',
   templateUrl: './dataset-details.component.html',
-  styleUrls: ['./dataset-details.component.css'],
-  providers: [AuthenticationBasicService, UserService]
-
+  styleUrls: ['./dataset-details.component.css']
 })
 export class DatasetDetailsComponent implements OnInit {
   public dataset: Dataset = new Dataset();
@@ -20,7 +18,7 @@ export class DatasetDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private datasetService: DatasetService,
               private authenticationService: AuthenticationBasicService,
-              private userService: UserService) { }
+              private datasetOwnerService: DatasetOwnerService) { }
 
   ngOnInit() {
     this.route.params
@@ -30,10 +28,10 @@ export class DatasetDetailsComponent implements OnInit {
         this.datasetService.getDataset(uri).subscribe(
           dataset => {
             this.dataset = dataset;
-
             if (this.dataset._links != null) {
-              this.userService.getUser(this.dataset._links.owner).subscribe(result => {
-                this.isOwner = this.authenticationService.getCurrentUser().username === result.json().uri.split('/').pop();
+              this.datasetOwnerService.getDatasetOwner(this.dataset._links.owner.href).subscribe(
+                owner => {
+                  this.isOwner = this.authenticationService.getCurrentUser().username === owner.getUserName();
               });
             }
           },
@@ -41,9 +39,4 @@ export class DatasetDetailsComponent implements OnInit {
         );
       });
   }
-
-  // isDatasetOwner(): Observable<boolean> {
-  //   var username;
-  //
-  // }
 }

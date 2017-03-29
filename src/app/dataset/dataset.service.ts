@@ -54,7 +54,7 @@ export class DatasetService {
     headers.append('Authorization', this.authentication.getCurrentUser().authorization);
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.put(`${environment.API}/datasets/${dataset.uri.split('/').pop()}`, body, options)
+    return this.http.put(`${environment.API}${dataset.uri}`, body, options)
       .map((res: Response) => new Dataset(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
