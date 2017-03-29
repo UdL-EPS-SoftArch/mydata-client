@@ -20,6 +20,7 @@ import { SchemaDetailsComponent } from './schema/schema-details/schema-details.c
 import { SchemaService } from './schema/schema.service';
 import { DatasetsSearchComponent} from './dataset/dataset-search/dataset-search.component';
 import { DatasetEditComponent } from './dataset/dataset-edit/dataset-edit.component';
+import { DatasetOwnerService } from './user/datasetOwner.service';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { DatasetEditComponent } from './dataset/dataset-edit/dataset-edit.compon
     RouterModule.forRoot(routes),
     LoginBasicModule
   ],
-  providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService],
+  providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService, DatasetOwnerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
