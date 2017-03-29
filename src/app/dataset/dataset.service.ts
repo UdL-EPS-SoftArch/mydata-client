@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { AuthenticationBasicService } from '../login-basic/authentication-basic.service';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { Dataset } from './dataset';
@@ -42,6 +43,18 @@ export class DatasetService {
     const options = new RequestOptions({ headers: headers });
 
     return this.http.post(`${environment.API}/datasets`, body, options)
+      .map((res: Response) => new Dataset(res.json()))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // PUT /datasets/id
+  updateDataset(dataset: Dataset): Observable<Dataset> {
+    const body = JSON.stringify(dataset);
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
+    const options = new RequestOptions({ headers: headers });
+
+    return this.http.put(`${environment.API}${dataset.uri}`, body, options)
       .map((res: Response) => new Dataset(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
