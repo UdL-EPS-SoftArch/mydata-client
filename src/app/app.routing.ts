@@ -6,8 +6,11 @@ import { DatasetsListComponent } from './dataset/datasets-list/datasets-list.com
 import { SchemasListComponent } from './schema/schemas-list/schemas-list.component';
 import { SchemaFormComponent } from './schema/schema-form/schema-form.component';
 import { SchemaDetailsComponent } from './schema/schema-details/schema-details.component';
-import {DatasetEditComponent} from './dataset/dataset-edit/dataset-edit.component';
+import { DatasetEditComponent } from './dataset/dataset-edit/dataset-edit.component';
 import { LoggedInGuard } from './login-basic/loggedin.guard';
+import { OpenLicenseListComponent } from './license/open-license/open-license-list/open-license-list.component';
+import { OpenLicenseFormComponent } from './license/open-license/open-license-form/open-license-form.component';
+import { OpenLicenseDetailsComponent } from './license/open-license/open-license-details/open-license-details.component';
 
 
 export const routes: Routes = [
@@ -20,4 +23,7 @@ export const routes: Routes = [
   { path: 'schemas', component: SchemasListComponent },
   { path: 'schemas/new', component: SchemaFormComponent },
   { path: 'schemas/:id', component: SchemaDetailsComponent },
+  { path: 'openLicenses', component: OpenLicenseListComponent },
+  { path: 'openLicenses/new', component: OpenLicenseFormComponent },
+  { path: 'openLicenses/:id', component: OpenLicenseDetailsComponent },
 ];

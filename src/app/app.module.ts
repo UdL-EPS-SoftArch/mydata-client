@@ -21,6 +21,10 @@ import { SchemaService } from './schema/schema.service';
 import { DatasetsSearchComponent} from './dataset/dataset-search/dataset-search.component';
 import { DatasetEditComponent } from './dataset/dataset-edit/dataset-edit.component';
 import { DatasetOwnerService } from './user/datasetOwner.service';
+import { OpenLicenseFormComponent } from './license/open-license/open-license-form/open-license-form.component';
+import { OpenLicenseListComponent } from './license/open-license/open-license-list/open-license-list.component';
+import { OpenLicenseDetailsComponent } from './license/open-license/open-license-details/open-license-details.component';
+import { OpenLicenseService } from './license/open-license/open-license.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +37,10 @@ import { DatasetOwnerService } from './user/datasetOwner.service';
     SchemasListComponent,
     SchemaDetailsComponent,
     DatasetsSearchComponent,
-    DatasetEditComponent
+    DatasetEditComponent,
+    OpenLicenseFormComponent,
+    OpenLicenseListComponent,
+    OpenLicenseDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +50,7 @@ import { DatasetOwnerService } from './user/datasetOwner.service';
     RouterModule.forRoot(routes),
     LoginBasicModule
   ],
-  providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService, DatasetOwnerService],
+  providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService, DatasetOwnerService, OpenLicenseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

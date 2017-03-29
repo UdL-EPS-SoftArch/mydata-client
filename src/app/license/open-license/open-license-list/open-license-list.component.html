@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col-md-4">
+        <h4 *ngIf="openLicenses.length == 0">There are no open licenses registered</h4>
+        <h4 *ngIf="openLicenses.length > 0">There are {{openLicenses.length}} open licenses registered</h4>
+    </div>
+    <div class="col-md-8">
+        <h4>
+            <a class="btn btn-lg btn-primary" role="button" [routerLink]="['/openLicenses/new']">Register Open License</a>
+        </h4>
+    </div>
+</div>
+
+
+<div class="row">
+    <h3>Open Licenses</h3>
+    <div class="panel-group">
+        <div class="panel panel-default" *ngFor="let openLicense of openLicenses">
+            <div class="panel-heading">
+                <h4>Text: <a routerLink="{{openLicense.uri}}">{{openLicense.text}}</a></h4>
+            </div>
+        </div>
+    </div>
+</div>
