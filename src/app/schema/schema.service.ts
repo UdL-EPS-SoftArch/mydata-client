@@ -39,4 +39,11 @@ export class SchemaService {
       .map((res: Response) => new Schema(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
+
+  // GET /datasets/ + search/findByDescriptionContaining?description
+  getSchemaByDescriptionWords(keyword: string): Observable<Schema[]> {
+    return this.http.get(environment.API + '/schemas/search/findByDescriptionContaining?description=' + keyword)
+      .map((res: Response) => res.json()._embedded.schemas.map(json => new Schema(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
 }

@@ -25,6 +25,7 @@ import { OpenLicenseFormComponent } from './license/open-license/open-license-fo
 import { OpenLicenseListComponent } from './license/open-license/open-license-list/open-license-list.component';
 import { OpenLicenseDetailsComponent } from './license/open-license/open-license-details/open-license-details.component';
 import { OpenLicenseService } from './license/open-license/open-license.service';
+import { SchemaSearchComponent } from './schema/schemas-search/schemas-search.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { OpenLicenseService } from './license/open-license/open-license.service'
     DatasetEditComponent,
     OpenLicenseFormComponent,
     OpenLicenseListComponent,
-    OpenLicenseDetailsComponent
+    OpenLicenseDetailsComponent,
+    SchemaSearchComponent
   ],
   imports: [
     BrowserModule,
