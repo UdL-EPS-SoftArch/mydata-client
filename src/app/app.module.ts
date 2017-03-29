@@ -19,6 +19,8 @@ import { SchemasListComponent } from './schema/schemas-list/schemas-list.compone
 import { SchemaDetailsComponent } from './schema/schema-details/schema-details.component';
 import { SchemaService } from './schema/schema.service';
 import { DatasetsSearchComponent} from './dataset/dataset-search/dataset-search.component';
+import { DatasetEditComponent } from './dataset/dataset-edit/dataset-edit.component';
+import { DatasetOwnerService } from './user/datasetOwner.service';
 import { OpenLicenseFormComponent } from './license/open-license/open-license-form/open-license-form.component';
 import { OpenLicenseListComponent } from './license/open-license/open-license-list/open-license-list.component';
 import { OpenLicenseDetailsComponent } from './license/open-license/open-license-details/open-license-details.component';
@@ -35,6 +37,7 @@ import { OpenLicenseService } from './license/open-license/open-license.service'
     SchemasListComponent,
     SchemaDetailsComponent,
     DatasetsSearchComponent,
+    DatasetEditComponent,
     OpenLicenseFormComponent,
     OpenLicenseListComponent,
     OpenLicenseDetailsComponent
@@ -47,7 +50,7 @@ import { OpenLicenseService } from './license/open-license/open-license.service'
     RouterModule.forRoot(routes),
     LoginBasicModule
   ],
-  providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService],
+  providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService, DatasetOwnerService, OpenLicenseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
