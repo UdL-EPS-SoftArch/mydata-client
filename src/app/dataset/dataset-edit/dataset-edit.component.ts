@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Dataset} from '../dataset';
-import {ActivatedRoute} from '@angular/router';
-import {DatasetService} from '../dataset.service';
-import {FormGroup, FormBuilder, Validators, AbstractControl} from '@angular/forms';
+import { Dataset } from '../dataset';
+import { ActivatedRoute } from '@angular/router';
+import { DatasetService } from '../dataset.service';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
 
@@ -48,5 +48,4 @@ export class DatasetEditComponent implements OnInit {
           this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
         });
   }
-
 }
