@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class OpenLicenseFormComponent implements OnInit {
   public openLicense: OpenLicense;
   public openLicenseForm: FormGroup;
-  public titleCtrl: AbstractControl;
+  public textCtrl: AbstractControl;
   public errorMessage: string;
 
   constructor(private fb: FormBuilder,
@@ -21,7 +21,7 @@ export class OpenLicenseFormComponent implements OnInit {
     this.openLicenseForm = fb.group({
       'text': ['License text', Validators.required]
     });
-    this.titleCtrl = this.openLicenseForm.controls['text'];
+    this.textCtrl = this.openLicenseForm.controls['text'];
     this.openLicense = new OpenLicense();
   }
 
@@ -33,7 +33,6 @@ export class OpenLicenseFormComponent implements OnInit {
         openLicense => { this.router.navigate([openLicense.uri]); },
         error => {
           this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
-          
         });
   }
 }
