@@ -10,19 +10,19 @@ import { ClosedLicenseDetailsComponent } from './closed-license-details.componen
 import { ClosedLicense } from '../closed-license';
 import { ClosedLicenseService } from '../closed-license.service';
 
-describe('OpenLicenseDetailsComponent', () => {
+describe('ClosedLicenseDetailsComponent', () => {
   let fixture: ComponentFixture<ClosedLicenseDetailsComponent>;
   let component: ClosedLicenseDetailsComponent;
 
   const closedLicense1 = new ClosedLicense({
     'uri': '/closedLicenses/1',
     'text': 'License 1',
-    'price': '10'
+    'price': 10.0
   });
   const closedLicense2 = new ClosedLicense({
     'uri': '/closedLicenses/2',
     'text': 'License 2',
-    'price': '50'
+    'price': 50.0
   });
 
   beforeEach(async(() => {
@@ -36,23 +36,24 @@ describe('OpenLicenseDetailsComponent', () => {
     });
   }));
 
-  it('should fetch and render the requested openLicense', async(
+  it('should fetch and render the requested closedLicense', async(
     inject([Router, Location, ClosedLicenseService], (router, location, service) => {
       TestBed.createComponent(AppComponent);
       service.setResponse(closedLicense1);
 
       router.navigate(['/closedLicenses/1']).then(() => {
         expect(location.path()).toBe('/closedLicenses/1');
-        expect(service.getOpenLicense).toHaveBeenCalledWith('/closedLicenses/1');
+        expect(service.getClosedLicense).toHaveBeenCalledWith('/closedLicenses/1');
 
         fixture = TestBed.createComponent(ClosedLicenseDetailsComponent);
         fixture.detectChanges();
         component = fixture.debugElement.componentInstance;
         expect(component.closedLicense.text).toBe('License 1');
-        expect(component.closedLicense.price).toBe('10');
+
 
         const compiled = fixture.debugElement.nativeElement;
         expect(compiled.querySelectorAll('p')[0].innerHTML).toBe('License 1');
+        expect(compiled.querySelectorAll('p')[1].innerHTML).toBe(10.0);
       });
     })
   ));

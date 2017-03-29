@@ -1,7 +1,7 @@
 export class ClosedLicense {
   uri: string;
   text: string;
-  price: string;
+  price: number;
   dateTime: string;
   lastModified: string;
   _links: any = {};

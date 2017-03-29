@@ -49,7 +49,7 @@ describe('ClosedLicenseFormComponent', () => {
         fixture = TestBed.createComponent(ClosedLicenseFormComponent);
         fixture.detectChanges();
         component = fixture.debugElement.componentInstance;
-        expect(component.openLicense.text).toBeUndefined();
+        expect(component.closedLicense.text).toBeUndefined();
 
         const compiled = fixture.debugElement.nativeElement;
         const inputText = compiled.querySelector('#text');
@@ -59,17 +59,17 @@ describe('ClosedLicenseFormComponent', () => {
 
         inputText.value = 'License 1';
         dispatchEvent(inputText, 'input');
-        inputPrice.value = '10';
+        inputPrice.value = 10.0;
         dispatchEvent(inputPrice, 'input');
         fixture.detectChanges();
         expect(button.disabled).toBeFalsy();
         dispatchEvent(form, 'submit');
 
-        expect(component.openLicense.text).toBe('License 1');
-        expect(component.closedLicense.price).toBe('10');
+        expect(component.closedLicense.text).toBe('License 1');
+        expect(component.closedLicense.price).toBe(10.0);
         expect(service.addClosedLicense).toHaveBeenCalledTimes(1);
         expect(service.addClosedLicense.calls.mostRecent().object.fakeResponse.text).toBe('License 1');
-        expect(service.addClosedLicense.calls.mostRecent().object.fakeResponse.price).toBe('10');
+        expect(service.addClosedLicense.calls.mostRecent().object.fakeResponse.price).toBe(10.0);
       });
     })
   ));

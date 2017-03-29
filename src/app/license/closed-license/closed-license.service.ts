@@ -16,8 +16,8 @@ export class ClosedLicenseService {
 
   // GET /closedLicenses
   getAllClosedLicenses(): Observable<ClosedLicense[]> {
-    return this.http.get(`${environment.API}/openLicenses`)
-      .map((res: Response) => res.json()._embedded.openLicenses.map(json => new ClosedLicense(json)))
+    return this.http.get(`${environment.API}/closedLicenses`)
+      .map((res: Response) => res.json()._embedded.closedLicenses.map(json => new ClosedLicense(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
 

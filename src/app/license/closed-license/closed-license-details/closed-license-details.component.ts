@@ -19,7 +19,7 @@ export class ClosedLicenseDetailsComponent implements OnInit {
     this.route.params
       .map(params => params['id'])
       .subscribe((id) => {
-        const uri = `/openLicenses/${id}`;
+        const uri = `/closedLicenses/${id}`;
         this.closedLicenseService.getClosedLicense(uri).subscribe(
           closedLicense => { this.closedLicense = closedLicense; },
           error => this.errorMessage = <any>error.message

@@ -12,14 +12,14 @@ import { AuthenticationBasicService } from '../../login-basic/authentication-bas
 describe('ClosedLicenseService', () => {
 
   const license1 = new ClosedLicense({
-    'uri': '/openLicenses/1',
+    'uri': '/closedLicenses/1',
     'text': 'License 1',
-    'price': '10'
+    'price': 10.0
   });
   const license2 = new ClosedLicense({
-    'uri': '/openLicenses/2',
+    'uri': '/closedLicenses/2',
     'text': 'License 2',
-    'price': '50'
+    'price': 50.0
   });
 
   beforeEach(async(() => {

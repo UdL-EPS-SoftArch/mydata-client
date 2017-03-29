@@ -49,9 +49,9 @@ describe('ClosedLicenseListComponent', () => {
         fixture.detectChanges();
         component = fixture.debugElement.componentInstance;
         expect(component.closedLicenses[0].text).toBe('License 1');
-        expect(component.closedLicenses[0].price).toBe('10');
+        expect(component.closedLicenses[0].price).toBe(10.0);
         expect(component.closedLicenses[1].text).toBe('License 2');
-        expect(component.closedLicenses[1].price).toBe('50');
+        expect(component.closedLicenses[1].price).toBe(50.0);
 
         const compiled = fixture.debugElement.nativeElement;
         expect(compiled.querySelectorAll('.panel-heading')[0].innerHTML).toContain('License 1');
