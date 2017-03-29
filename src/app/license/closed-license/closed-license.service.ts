@@ -22,7 +22,7 @@ export class ClosedLicenseService {
   }
 
   // GET /closedLicenses/id
-  getOpenLicense(uri: string): Observable<ClosedLicense> {
+  getClosedLicense(uri: string): Observable<ClosedLicense> {
     return this.http.get(`${environment.API}${uri}`)
       .map((res: Response) => new ClosedLicense(res.json()))
       .catch((error: any) => Observable.throw(error.json()));

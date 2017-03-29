@@ -1,4 +1,4 @@
-export class OpenLicense {
+export class ClosedLicense {
   uri: string;
   text: string;
   price: string;

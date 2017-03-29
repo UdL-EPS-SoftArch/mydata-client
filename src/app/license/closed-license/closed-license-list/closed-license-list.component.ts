@@ -11,7 +11,7 @@ export class ClosedLicenseListComponent implements OnInit {
   public closedLicenses: ClosedLicense[] = [];
   public errorMessage: string;
 
-  constructor(private openLicenseService: ClosedLicenseService) { }
+  constructor(private closedLicenseService: ClosedLicenseService) { }
 
   onSearch(closedLicenses) {
     this.closedLicenses = closedLicenses;
