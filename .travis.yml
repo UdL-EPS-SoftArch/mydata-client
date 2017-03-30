@@ -1,9 +1,9 @@
 language: node_js
 node_js:
-  - "7"
+  - '7'
 cache:
   directories:
-    - node_modules
+  - node_modules
 sudo: true
 dist: trusty
 services:
@@ -29,20 +29,15 @@ script:
   - ng test --watch=false
   - ng serve &
   - ng e2e
-after_success:
-  - if [ "$TRAVIS_BRANCH" == "master" ]; then
-      docker login -u $DOCKER_USER -p $DOCKER_PASS;
-      export REPO=udlepssoftarch/mydata-client;
-      export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`;
-      docker build -f Dockerfile -t $REPO:$TRAVIS_COMMIT .;
-      docker tag $REPO:$TRAVIS_COMMIT $REPO:$TAG;
-      docker push $REPO;
-      docker login --email=_ --username=_ --password=$HEROKU_TOKEN registry.heroku.com;
-      docker tag $REPO:$TRAVIS_COMMIT registry.heroku.com/mydata-client/web;
-      docker push registry.heroku.com/mydata-client/web;
-    fi
 notifications:
   slack:
     on_success: change
     on_failure: always
     secure: VexpPRSmqj1p6ePK8v++F+YsXNZFvMd61RbV2QzWlSgcZA+PeXEhNb866heuVlKGoam4gt8B2sezx0UqjoITI/UlPJiGTQXguwILxoEEOICm4Qn4n41sH10TKPC+gXu3QfInd4z957tqxAeNxJtqXtf6PNZtjI0I4WAEQAPyuhKJ4NIzTicA082/N5h5EIHs/CrvZkoN790T6fUycYsgC92GdUPyqsIEgVeRlj7I9ZToKzTiCAX6Q1yKCyXBAiMfybzDXMndLByy4UKMsDfWaw0/Xlihv/+oJTnnEdG378RlEO2gMIEGsdSNCwmLtbv77vaORHkBKh0p61IFqbGdVIQrg/M2UTmFWVERgOVAJTOLqgceuk2BL74UP1dNfbMQ9XinToM0HSRxFkyDdH57/lloE4gbF+2/OtxMQHEMD2WxXaLjk9lyzvUT/9VyI7YwVzA9en1Mw8xB6iXZo9tJ16XSBT+5XoVLAbinS4XTICeBeB8bGBp5XJvMF0Sss+G6Wqi+L0ljUUzT8OlwKvRdUZM241H3YTVNEpAtGc0kw8NCjYBtsT8lZb2teWGNyx+juagOkzgPXmZtnxTP5JB7OrGvXcgjwAuqvrlt6HSAhjl3h89/ssAggUe62W7vbWAZDl8RYEUHwwCcNduu30PoCVXAxTyLP4ZNvFkvdsX/SZE=
+deploy:
+  provider: heroku
+  strategy: git
+  app:
+    master: mydata-client
+  api_key:
+    secure: YsZVSkNNuRW/iOBhyIdNXSzu1YiPDgaKZRjziwvOhwBuZN1cI19ADaVXrE83wud60gopGZAZ5FqjAeV6nXQW/fOHgir5TY+ElSPuAwMOjmvqv3mD842KLMzf7t1BOoWr8wY+OJCMHR1AlJHeLIBhnOo3v03c9YfzuugdOKNbdnUvNm01bOtcdNow2V0n1GqTXyoVcuMDUR2p1aml76ywQ7INPSsYVJiDQJBaQXcoo4O3BNS8ErHBae6Yz1Tn5ghwMNLDj9AqNTTGT4fZcPc22BYzQHdd7FbrmBshrwtknyvGr73iNGoCFMpA/zUQhLgjjqRsDX20Abw2D3YXmMxLv/KTXJWOrD88N5pXFR60ME3nnY3D5bEaLcZrsalnpsFgxdbRz/Meq+UpV+pjGC23EsmCJT/3F1gV45+lO3nb/N73s7VALwsHBfUi0g2Fij3A1WLi9N63mB6dX8UvU74k7NJEEIjI3e/CAptjq3H6VNRLiyxq6FSX027k1EGkyvIIzYrK2K3nOzmnlQL8z4z4XSkfTHHXy3oQON5HFNY9Ye0WS7C3yHz8fFcjPRzsIunrOov7nOEeqSR6z71r3s1T3RC5DMUOwkCvhmiFLDlOq2UELo29T+eKMd3NbYjr1zZ1fW6w9HqZkp7vuK6g3hafhhqBNImRqzdTys/miWjNZmQ=

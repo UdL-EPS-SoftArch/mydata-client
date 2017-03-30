@@ -12,6 +12,12 @@ import { Dataset } from '../dataset';
 import { DatasetService } from '../dataset.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { dispatchEvent } from '@angular/platform-browser/testing/browser_util';
+import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
+import { MockAuthenticationBasicService } from '../../../test/mocks/authentication-basic.service';
+import { User } from '../../login-basic/user';
+import { DatasetOwnerService } from '../../user/datasetOwner.service';
+import { MockDatasetOwnerService } from '../../../test/mocks/datasetOwner.service';
+import { Owner } from '../../user/owner';
 
 describe('DatasetFormComponent', () => {
   let component: DatasetFormComponent;
@@ -21,13 +27,24 @@ describe('DatasetFormComponent', () => {
     'uri': '/datasets/1',
     'title': 'Dataset 1',
     'description': 'First dataset',
-    '_links': {}
+    '_links': {
+      'owner': {'href': 'http://localhost/datasets/2/owner'}
+    }
+  });
+  const user = new User({
+    'username': 'user'
+  });
+  const owner = new Owner({
+    'uri': 'dataOwners/owner',
   });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ AppComponent, DatasetFormComponent, DatasetDetailsComponent ],
-      providers: [ { provide: DatasetService, useClass: MockDatasetService } ],
+      providers: [
+        { provide: DatasetService, useClass: MockDatasetService },
+        { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService },
+        { provide: DatasetOwnerService, useClass: MockDatasetOwnerService }],
       imports: [ RouterTestingModule.withRoutes([
         { path: 'datasets/new', component: DatasetFormComponent },
         { path: 'datasets/:id', component: DatasetDetailsComponent }]),
@@ -38,13 +55,17 @@ describe('DatasetFormComponent', () => {
   }));
 
   it('should submit new dataset', async(
-    inject([Router, Location, DatasetService], (router, location, service) => {
+    inject([Router, Location, DatasetService, DatasetOwnerService, AuthenticationBasicService],
+           (router, location, datasetService, userService, authentication) => {
       TestBed.createComponent(AppComponent);
-      service.setResponse(response);
+      datasetService.setResponse(response);
+      userService.setResponse(owner);
+      authentication.isLoggedIn.and.returnValue(true);
+      authentication.getCurrentUser.and.returnValue(user);
 
       router.navigate(['/datasets/new']).then(() => {
         expect(location.path()).toBe('/datasets/new');
-        expect(service.getDataset).toHaveBeenCalledTimes(0);
+        expect(datasetService.getDataset).toHaveBeenCalledTimes(0);
 
         fixture = TestBed.createComponent(DatasetFormComponent);
         fixture.detectChanges();
@@ -67,9 +88,9 @@ describe('DatasetFormComponent', () => {
 
         expect(component.dataset.title).toBe('Dataset 1');
         expect(component.dataset.description).toBe('First Dataset');
-        expect(service.addDataset).toHaveBeenCalledTimes(1);
-        expect(service.addDataset.calls.mostRecent().object.fakeResponse.title).toBe('Dataset 1');
-        expect(service.addDataset.calls.mostRecent().object.fakeResponse.description).toBe('First dataset');
+        expect(datasetService.addDataset).toHaveBeenCalledTimes(1);
+        expect(datasetService.addDataset.calls.mostRecent().object.fakeResponse.title).toBe('Dataset 1');
+        expect(datasetService.addDataset.calls.mostRecent().object.fakeResponse.description).toBe('First dataset');
       });
     })
   ));
