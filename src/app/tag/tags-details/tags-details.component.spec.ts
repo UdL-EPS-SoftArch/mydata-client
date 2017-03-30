@@ -32,5 +32,23 @@ describe('SchemaDetailsComponent', () => {
     });
   }));
 
+  it('should fetch and render the requested tag', async(
+    inject([Router, Location, TagService], (router, location, service) => {
+      TestBed.createComponent(AppComponent);
+      service.setResponse(tag1);
 
+      router.navigate(['/tags/Tag1']).then(() => {
+        expect(location.path()).toBe('/tags/Tag1');
+        expect(service.getSchema).toHaveBeenCalledWith('/tags/Tag1');
+
+        fixture = TestBed.createComponent(TagDetailsComponent);
+        fixture.detectChanges();
+        component = fixture.debugElement.componentInstance;
+        expect(component.tag.name).toBe('Tag1');
+
+        const compiled = fixture.debugElement.nativeElement;
+        expect(compiled.querySelectorAll('p')[0].innerHTML).toBe('Tag1');
+      });
+    })
+  ));
 }
