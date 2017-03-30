@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { DatasetService } from '../dataset.service';
-import { Dataset } from '../dataset';
+import {Component, OnInit} from '@angular/core';
+import {DatasetService} from '../dataset.service';
+import {Dataset} from '../dataset';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-datasets-list',
@@ -18,8 +19,10 @@ export class DatasetsListComponent implements OnInit {
   }
 
   onDelete(dataset) {
-    this.datasetService.deleteDataset(dataset);
+    this.datasetService.deleteDataset(dataset).subscribe();
+    location.reload();
   }
+
 
   ngOnInit() {
     this.datasetService.getAllDatasetsOrderedByTitle().subscribe(
