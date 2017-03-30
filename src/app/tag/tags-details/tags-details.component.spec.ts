@@ -8,7 +8,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {NO_ERRORS_SCHEMA} from "@angular/core";
 import {Router} from "@angular/router";
 
-describe('SchemaDetailsComponent', () => {
+describe('TagDetailsComponent', () => {
   let fixture: ComponentFixture<TagDetailsComponent>;
   let component: TagDetailsComponent;
 
@@ -39,7 +39,7 @@ describe('SchemaDetailsComponent', () => {
 
       router.navigate(['/tags/Tag1']).then(() => {
         expect(location.path()).toBe('/tags/Tag1');
-        expect(service.getSchema).toHaveBeenCalledWith('/tags/Tag1');
+        expect(service.getTag).toHaveBeenCalledWith('/tags/Tag1');
 
         fixture = TestBed.createComponent(TagDetailsComponent);
         fixture.detectChanges();
@@ -51,4 +51,4 @@ describe('SchemaDetailsComponent', () => {
       });
     })
   ));
-}
+});

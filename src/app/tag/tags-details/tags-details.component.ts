@@ -13,14 +13,14 @@ export class TagDetailsComponent implements OnInit {
   public errorMessage: string;
 
   constructor(private route: ActivatedRoute,
-              private schemaService: TagService) { }
+              private tagService: TagService) { }
 
   ngOnInit() {
     this.route.params
       .map(params => params['id'])
       .subscribe((id) => {
         const uri = `/tags/${id}`;
-        this.schemaService.getTag(uri).subscribe(
+        this.tagService.getTag(uri).subscribe(
           tag => { this.tag = tag; },
           error => this.errorMessage = <any>error.message
         );
