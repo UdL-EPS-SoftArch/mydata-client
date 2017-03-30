@@ -27,5 +27,13 @@ export class TagFormComponent implements OnInit {
 
   ngOnInit() {}
 
+  onSubmit(): void {
+    this.tagService.addTag(this.tag)
+      .subscribe(
+        tag => { this.router.navigate([tag.uri]); },
+        error => {
+          this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
+        });
+  }
 
 }
