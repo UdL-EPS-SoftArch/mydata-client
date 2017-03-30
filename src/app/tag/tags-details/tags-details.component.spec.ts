@@ -7,6 +7,7 @@ import {MockTagService} from "../../../test/mocks/tag.service";
 import {RouterTestingModule} from "@angular/router/testing";
 import {NO_ERRORS_SCHEMA} from "@angular/core";
 import {Router} from "@angular/router";
+import { Location } from '@angular/common';
 
 describe('TagDetailsComponent', () => {
   let fixture: ComponentFixture<TagDetailsComponent>;

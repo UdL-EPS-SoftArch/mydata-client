@@ -10,6 +10,7 @@ import {NO_ERRORS_SCHEMA} from "@angular/core";
 import {TagDetailsComponent} from "../tags-details/tags-details.component";
 import {Router} from "@angular/router";
 import { dispatchEvent } from '@angular/platform-browser/testing/browser_util';
+import { Location } from '@angular/common';
 
 
 describe('TagFormComponent', () => {
@@ -63,6 +64,36 @@ describe('TagFormComponent', () => {
         expect(component.tag.name).toBe('Tag1');
         expect(service.addSchema).toHaveBeenCalledTimes(1);
         expect(service.addSchema.calls.mostRecent().object.fakeResponse.name).toBe('Tag1');
+      });
+    })
+  ));
+
+  ('should warn if input for name is left empty', async(
+    inject([Router, Location, TagService], (router, location, service) => {
+      TestBed.createComponent(AppComponent);
+
+      router.navigate(['/tags/new']).then(() => {
+        expect(location.path()).toBe('/tags/new');
+        expect(service.getTag).toHaveBeenCalledTimes(0);
+
+        fixture = TestBed.createComponent(TagFormComponent);
+        fixture.detectChanges();
+        component = fixture.debugElement.componentInstance;
+
+        const compiled = fixture.debugElement.nativeElement;
+        const input = compiled.querySelector('#name');
+        const button = compiled.querySelector('button');
+
+        input.value = '';
+        dispatchEvent(input, 'input');
+        dispatchEvent(input, 'blur');
+        fixture.detectChanges();
+
+        expect(component.tag.name).toBe('');
+        expect(component.nameCtrl.hasError('required')).toBeTruthy();
+        expect(component.nameCtrl.touched).toBeTruthy();
+        expect(compiled.querySelector('.label-warning').innerHTML.trim()).toBe('A name is required');
+        expect(button.disabled).toBeTruthy();
       });
     })
   ));
