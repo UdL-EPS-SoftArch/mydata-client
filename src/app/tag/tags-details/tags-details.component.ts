@@ -5,8 +5,8 @@ import {Tag} from "../tag";
 
 @Component({
   selector: 'app-tag-details',
-  templateUrl: './tag-details.component.html',
-  styleUrls: ['./tag-details.component.css']
+  templateUrl: './tags-details.component.html',
+  styleUrls: ['./tags-details.component.css']
 })
 export class TagDetailsComponent implements OnInit {
   public tag: Tag = new Tag();
