@@ -17,7 +17,7 @@ export class TagService {
   // GET /tags
   getAllTags(): Observable<Tag[]> {
     return this.http.get(`${environment.API}/tags`)
-      .map((res: Response) => res.json()._embedded.schemas.map(json => new Tag(json)))
+      .map((res: Response) => res.json()._embedded.tags.map(json => new Tag(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
 
