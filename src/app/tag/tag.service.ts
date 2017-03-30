@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { environment } from '../../environments/environment';
-import {Tag} from "@angular/compiler/src/i18n/serializers/xml_helper";
+import {Tag} from "./tag";
 
 @Injectable()
 export class TagService {
