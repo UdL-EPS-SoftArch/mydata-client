@@ -15,7 +15,7 @@ export class TagsListComponent implements OnInit {
 
   ngOnInit() {
     this.tagService.getAllTags().subscribe(
-      tags => { this.tags = <any> tags; }, //TODO: Mirar per què obliga a ficar <any> i no accepta de forma normal
+      tags => { this.tags = tags; },
       error => this.errorMessage = <any>error.message
     );
   }
