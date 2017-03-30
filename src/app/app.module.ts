@@ -29,6 +29,8 @@ import { ClosedLicenseFormComponent } from './license/closed-license/closed-lice
 import { ClosedLicenseListComponent } from './license/closed-license/closed-license-list/closed-license-list.component';
 import { ClosedLicenseDetailsComponent } from './license/closed-license/closed-license-details/closed-license-details.component';
 import { ClosedLicenseService } from './license/closed-license/closed-license.service';
+import { OpenLicenseSearchComponent } from './license/open-license/open-license-search/open-license-search.component';
+import { ClosedLicenseSearchComponent } from './license/closed-license/closed-license-search/closed-license-search.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import { ClosedLicenseService } from './license/closed-license/closed-license.se
     OpenLicenseDetailsComponent,
     ClosedLicenseFormComponent,
     ClosedLicenseListComponent,
-    ClosedLicenseDetailsComponent
+    ClosedLicenseDetailsComponent,
+    OpenLicenseSearchComponent,
+    ClosedLicenseSearchComponent
   ],
   imports: [
     BrowserModule,

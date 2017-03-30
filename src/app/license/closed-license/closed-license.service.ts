@@ -39,4 +39,10 @@ export class ClosedLicenseService {
       .map((res: Response) => new ClosedLicense(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
+  // GET /closedLicenses/ + search/findByTextContaining?text
+  getClosedLicenseByTextWords(keyword: string): Observable<ClosedLicense[]> {
+  return this.http.get(environment.API + '/closedLicenses/search/findByTextContaining?text=' + keyword)
+    .map((res: Response) => res.json()._embedded.closedLicenses.map(json => new ClosedLicense(json)))
+    .catch((error: any) => Observable.throw(error.json()));
+  }
 }
