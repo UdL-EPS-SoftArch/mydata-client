@@ -17,12 +17,12 @@ describe('ClosedLicenseListComponent', () => {
   const closedLicense1 = new ClosedLicense({
     'uri': '/closedLicenses/1',
     'text': 'License 1',
-    'price': '10'
+    'price': 10.0
   });
   const closedLicense2 = new ClosedLicense({
     'uri': '/closedLicenses/2',
     'text': 'License 2',
-    'price': '50'
+    'price': 50.0
   });
 
   beforeEach(async(() => {

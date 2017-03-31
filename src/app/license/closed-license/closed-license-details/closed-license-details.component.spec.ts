@@ -53,7 +53,7 @@ describe('ClosedLicenseDetailsComponent', () => {
 
         const compiled = fixture.debugElement.nativeElement;
         expect(compiled.querySelectorAll('p')[0].innerHTML).toBe('License 1');
-        expect(compiled.querySelectorAll('p')[1].innerHTML).toBe(10.0);
+        expect(parseFloat(compiled.querySelectorAll('p')[1].innerHTML)).toBe(10.0);
       });
     })
   ));

@@ -20,7 +20,7 @@ describe('ClosedLicenseFormComponent', () => {
   const response = new ClosedLicense({
     'uri': '/closedLicenses/1',
     'text': 'License 1',
-    'price': '10',
+    'price': 10.0,
     '_links': {}
   });
 
@@ -69,7 +69,7 @@ describe('ClosedLicenseFormComponent', () => {
         expect(component.closedLicense.price).toBe(10.0);
         expect(service.addClosedLicense).toHaveBeenCalledTimes(1);
         expect(service.addClosedLicense.calls.mostRecent().object.fakeResponse.text).toBe('License 1');
-        expect(service.addClosedLicense.calls.mostRecent().object.fakeResponse.price).toBe(10.0);
+        expect(parseFloat(service.addClosedLicense.calls.mostRecent().object.fakeResponse.price)).toBe(10.0);
       });
     })
   ));
