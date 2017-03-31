@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DatasetService} from '../dataset.service';
 import {Dataset} from '../dataset';
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-datasets-list',

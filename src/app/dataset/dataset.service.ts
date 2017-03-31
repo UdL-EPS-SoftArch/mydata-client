@@ -66,7 +66,7 @@ export class DatasetService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  //DELETE /dataset/{id}
+  // DELETE /dataset/{id}
   deleteDataset(dataset: Dataset): Observable<Dataset> {
     const headers = new Headers({'Content-Type': 'application/json'});
     headers.append('Authorization', this.authentication.getCurrentUser().authorization);

@@ -40,7 +40,7 @@ export class SchemaService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  //DELETE /schema/{id}
+  // DELETE /schema/{id}
   deleteSchema(schema: Schema): Observable<Schema> {
     const headers = new Headers({'Content-Type': 'application/json'});
     headers.append('Authorization', this.authentication.getCurrentUser().authorization);
