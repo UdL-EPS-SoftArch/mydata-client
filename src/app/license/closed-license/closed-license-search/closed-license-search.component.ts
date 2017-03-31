@@ -18,7 +18,6 @@ export class ClosedLicenseSearchComponent {
   constructor(private closedLicenseService: ClosedLicenseService) {
   }
 
-
   performSearch(searchTerm: string): void {
     this.closedLicenseService.getClosedLicenseByTextWords(searchTerm).subscribe(
       closedLicenses => {
@@ -28,5 +27,4 @@ export class ClosedLicenseSearchComponent {
       error => this.errorMessage = <any>error.message
     );
   }
-
 }

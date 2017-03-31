@@ -15,9 +15,7 @@ export class OpenLicenseSearchComponent {
 
   public errorMessage: string;
 
-  constructor(private openLicenseService: OpenLicenseService) {
-  }
-
+  constructor(private openLicenseService: OpenLicenseService) { }
 
   performSearch(searchTerm: string): void {
     this.openLicenseService.getOpenLicenseByTextWords(searchTerm).subscribe(
@@ -28,5 +26,4 @@ export class OpenLicenseSearchComponent {
       error => this.errorMessage = <any>error.message
     );
   }
-
 }

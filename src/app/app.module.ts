@@ -63,7 +63,8 @@ import { ClosedLicenseSearchComponent } from './license/closed-license/closed-li
     RouterModule.forRoot(routes),
     LoginBasicModule
   ],
-  providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService, DatasetOwnerService, OpenLicenseService, ClosedLicenseService],
+  providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService, DatasetOwnerService,
+              OpenLicenseService, ClosedLicenseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
