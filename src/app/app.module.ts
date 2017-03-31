@@ -26,6 +26,12 @@ import { OpenLicenseListComponent } from './license/open-license/open-license-li
 import { OpenLicenseDetailsComponent } from './license/open-license/open-license-details/open-license-details.component';
 import { OpenLicenseService } from './license/open-license/open-license.service';
 import { SchemaSearchComponent } from './schema/schemas-search/schemas-search.component';
+import { ClosedLicenseFormComponent } from './license/closed-license/closed-license-form/closed-license-form.component';
+import { ClosedLicenseListComponent } from './license/closed-license/closed-license-list/closed-license-list.component';
+import { ClosedLicenseDetailsComponent } from './license/closed-license/closed-license-details/closed-license-details.component';
+import { ClosedLicenseService } from './license/closed-license/closed-license.service';
+import { OpenLicenseSearchComponent } from './license/open-license/open-license-search/open-license-search.component';
+import { ClosedLicenseSearchComponent } from './license/closed-license/closed-license-search/closed-license-search.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +48,12 @@ import { SchemaSearchComponent } from './schema/schemas-search/schemas-search.co
     OpenLicenseFormComponent,
     OpenLicenseListComponent,
     OpenLicenseDetailsComponent,
-    SchemaSearchComponent
+    SchemaSearchComponent,
+    ClosedLicenseFormComponent,
+    ClosedLicenseListComponent,
+    ClosedLicenseDetailsComponent,
+    OpenLicenseSearchComponent,
+    ClosedLicenseSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +63,8 @@ import { SchemaSearchComponent } from './schema/schemas-search/schemas-search.co
     RouterModule.forRoot(routes),
     LoginBasicModule
   ],
-  providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService, DatasetOwnerService, OpenLicenseService],
+  providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService, DatasetOwnerService,
+              OpenLicenseService, ClosedLicenseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
