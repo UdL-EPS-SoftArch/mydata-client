@@ -25,6 +25,7 @@ import { OpenLicenseFormComponent } from './license/open-license/open-license-fo
 import { OpenLicenseListComponent } from './license/open-license/open-license-list/open-license-list.component';
 import { OpenLicenseDetailsComponent } from './license/open-license/open-license-details/open-license-details.component';
 import { OpenLicenseService } from './license/open-license/open-license.service';
+import { SchemaSearchComponent } from './schema/schemas-search/schemas-search.component';
 import { ClosedLicenseFormComponent } from './license/closed-license/closed-license-form/closed-license-form.component';
 import { ClosedLicenseListComponent } from './license/closed-license/closed-license-list/closed-license-list.component';
 import { ClosedLicenseDetailsComponent } from './license/closed-license/closed-license-details/closed-license-details.component';
@@ -47,6 +48,7 @@ import { ClosedLicenseSearchComponent } from './license/closed-license/closed-li
     OpenLicenseFormComponent,
     OpenLicenseListComponent,
     OpenLicenseDetailsComponent,
+    SchemaSearchComponent,
     ClosedLicenseFormComponent,
     ClosedLicenseListComponent,
     ClosedLicenseDetailsComponent,
