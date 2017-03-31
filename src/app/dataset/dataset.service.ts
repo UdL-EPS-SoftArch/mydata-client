@@ -71,7 +71,6 @@ export class DatasetService {
     const headers = new Headers({'Content-Type': 'application/json'});
     headers.append('Authorization', this.authentication.getCurrentUser().authorization);
     const options = new RequestOptions({headers: headers});
-    console.debug(environment.API + dataset.uri);
 
     return this.http.delete(environment.API + dataset.uri, options)
       .map((res: Response) => new Dataset(res.json()))

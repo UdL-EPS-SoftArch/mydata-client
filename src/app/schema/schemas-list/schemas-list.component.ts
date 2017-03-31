@@ -18,6 +18,11 @@ export class SchemasListComponent implements OnInit {
     this.schemas = schemas;
   }
 
+  onDelete(schema) {
+    this.schemaService.deleteSchema(schema).subscribe();
+    location.reload();
+  }
+
   ngOnInit() {
     this.schemaService.getAllSchemas().subscribe(
       schemas => {

@@ -18,6 +18,7 @@
   <div class="panel-group">
     <div class="panel panel-default" *ngFor="let schema of schemas">
       <div class="panel-heading">
+        <button (click)="onDelete(dataset)">DELETE</button>
         <h4>Title: <a routerLink="{{schema.uri}}">{{schema.title}}</a></h4>
       </div>
       <div class="panel-body">
