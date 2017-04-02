@@ -11,7 +11,9 @@ import { LoggedInGuard } from './login-basic/loggedin.guard';
 import { OpenLicenseListComponent } from './license/open-license/open-license-list/open-license-list.component';
 import { OpenLicenseFormComponent } from './license/open-license/open-license-form/open-license-form.component';
 import { OpenLicenseDetailsComponent } from './license/open-license/open-license-details/open-license-details.component';
-
+import { ClosedLicenseListComponent } from './license/closed-license/closed-license-list/closed-license-list.component';
+import { ClosedLicenseFormComponent } from './license/closed-license/closed-license-form/closed-license-form.component';
+import { ClosedLicenseDetailsComponent } from './license/closed-license/closed-license-details/closed-license-details.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'about', pathMatch: 'full' },
@@ -26,4 +28,7 @@ export const routes: Routes = [
   { path: 'openLicenses', component: OpenLicenseListComponent },
   { path: 'openLicenses/new', component: OpenLicenseFormComponent },
   { path: 'openLicenses/:id', component: OpenLicenseDetailsComponent },
+  { path: 'closedLicenses', component: ClosedLicenseListComponent },
+  { path: 'closedLicenses/new', component: ClosedLicenseFormComponent },
+  { path: 'closedLicenses/:id', component: ClosedLicenseDetailsComponent },
 ];
