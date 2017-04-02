@@ -15,7 +15,8 @@ exports.config = {
   frameworkPath: require.resolve('protractor-cucumber-framework'),
   cucumberOpts: {
     require: [
-      './e2e/**/*.steps.ts'
+      './e2e/**/*.steps.ts',
+      './e2e/features/steps/hooks.js'
     ],
     format: 'json:./e2e/protractor-cucumber-report.json',
     tags: '~@ignore'
@@ -25,7 +26,5 @@ exports.config = {
       project: 'e2e/tsconfig.e2e.json'
     });
   },
-  onPrepare: function() {
-    // jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
-  }
+  onPrepare: function() { }
 };

@@ -5,17 +5,21 @@
   </div>
   <div class="col-md-8">
     <h4>
-      <a class="btn btn-lg btn-primary" role="button"
-         [routerLink]="['/datasets/new']">Register Dataset</a>
+      <a class="btn btn-primary" role="button"
+         [routerLink]="['/datasets/new']">Register New Dataset</a>
     </h4>
   </div>
 </div>
 
-<app-dataset-search (onSearchited)="onSearch($event)" [datasets]="datasets"></app-dataset-search>
+<div class="row">
+  <h3 class="col-md-12">Datasets</h3>
+  <div class="col-md-12">
+    <app-dataset-search (onSearchited)="onSearch($event)" [datasets]="datasets"></app-dataset-search>
+  </div>
+</div>
 
 <div class="row">
-  <h3>Datasets</h3>
-  <div class="panel-group">
+  <div class="panel-group col-md-12">
     <div class="panel panel-default" *ngFor="let dataset of datasets">
       <div class="panel-heading">
         <h4>Title: <a routerLink="{{dataset.uri}}">{{dataset.title}}</a></h4>

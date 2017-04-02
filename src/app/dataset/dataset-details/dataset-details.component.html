@@ -7,8 +7,12 @@
     <h4>Title</h4>
     <p>{{dataset.title}}</p>
   </div>
-  <div class="col-md-8">
+  <div class="col-md-6">
     <h4>Description</h4>
     <p>{{dataset.description}}</p>
+  </div>
+  <div class="col-md-2" *ngIf="isOwner">
+    <a class="btn btn-primary" role="button" routerLink="{{dataset.uri}}/edit">Edit</a>
+    <a class="btn btn-danger" role="button" (click)="onDelete(dataset)">Delete</a>
   </div>
 </div>

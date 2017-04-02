@@ -19,6 +19,19 @@ import { SchemasListComponent } from './schema/schemas-list/schemas-list.compone
 import { SchemaDetailsComponent } from './schema/schema-details/schema-details.component';
 import { SchemaService } from './schema/schema.service';
 import { DatasetsSearchComponent} from './dataset/dataset-search/dataset-search.component';
+import { DatasetEditComponent } from './dataset/dataset-edit/dataset-edit.component';
+import { DatasetOwnerService } from './user/datasetOwner.service';
+import { OpenLicenseFormComponent } from './license/open-license/open-license-form/open-license-form.component';
+import { OpenLicenseListComponent } from './license/open-license/open-license-list/open-license-list.component';
+import { OpenLicenseDetailsComponent } from './license/open-license/open-license-details/open-license-details.component';
+import { OpenLicenseService } from './license/open-license/open-license.service';
+import { SchemaSearchComponent } from './schema/schemas-search/schemas-search.component';
+import { ClosedLicenseFormComponent } from './license/closed-license/closed-license-form/closed-license-form.component';
+import { ClosedLicenseListComponent } from './license/closed-license/closed-license-list/closed-license-list.component';
+import { ClosedLicenseDetailsComponent } from './license/closed-license/closed-license-details/closed-license-details.component';
+import { ClosedLicenseService } from './license/closed-license/closed-license.service';
+import { OpenLicenseSearchComponent } from './license/open-license/open-license-search/open-license-search.component';
+import { ClosedLicenseSearchComponent } from './license/closed-license/closed-license-search/closed-license-search.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +43,17 @@ import { DatasetsSearchComponent} from './dataset/dataset-search/dataset-search.
     SchemaFormComponent,
     SchemasListComponent,
     SchemaDetailsComponent,
-    DatasetsSearchComponent
+    DatasetsSearchComponent,
+    DatasetEditComponent,
+    OpenLicenseFormComponent,
+    OpenLicenseListComponent,
+    OpenLicenseDetailsComponent,
+    SchemaSearchComponent,
+    ClosedLicenseFormComponent,
+    ClosedLicenseListComponent,
+    ClosedLicenseDetailsComponent,
+    OpenLicenseSearchComponent,
+    ClosedLicenseSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +63,8 @@ import { DatasetsSearchComponent} from './dataset/dataset-search/dataset-search.
     RouterModule.forRoot(routes),
     LoginBasicModule
   ],
-  providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService],
+  providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService, DatasetOwnerService,
+              OpenLicenseService, ClosedLicenseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
