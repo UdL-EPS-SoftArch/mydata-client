@@ -79,4 +79,22 @@ describe('DatasetService', () => {
         });
       })));
   });
+
+  describe('#deleteDataset(dataset)', () => {
+    it('should delete the specified dataset',
+      inject([ MockBackend, DatasetService ], fakeAsync((mockBackend, service) => {
+        const apiResponse = new ResponseOptions({
+          status: 204
+        });
+
+        mockBackend.connections.subscribe((connection: MockConnection) => {
+          expect(connection.request.url).toBe('http://localhost:8080/datasets/1');
+          connection.mockRespond(new Response(apiResponse));
+        });
+
+        service.deleteDataset(dataset1).subscribe((response) => {
+          expect(response.status).toEqual(204);
+        });
+      })));
+  });
 });

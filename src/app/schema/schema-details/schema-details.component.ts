@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SchemaService } from '../schema.service';
 import { Schema } from '../schema';
 
@@ -13,6 +13,7 @@ export class SchemaDetailsComponent implements OnInit {
   public errorMessage: string;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private schemaService: SchemaService) { }
 
   ngOnInit() {
@@ -25,5 +26,12 @@ export class SchemaDetailsComponent implements OnInit {
           error => this.errorMessage = <any>error.message
         );
       });
+  }
+
+  onDelete(schema) {
+    this.schemaService.deleteSchema(schema).subscribe(
+      response => { this.router.navigate(['/schemas']); },
+      error => this.errorMessage = <any>error.message,
+    );
   }
 }

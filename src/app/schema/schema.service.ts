@@ -28,6 +28,13 @@ export class SchemaService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
+  // GET /datasets/ + search/findByDescriptionContaining?description
+  getSchemaByDescriptionWords(keyword: string): Observable<Schema[]> {
+    return this.http.get(environment.API + '/schemas/search/findByDescriptionContaining?description=' + keyword)
+      .map((res: Response) => res.json()._embedded.schemas.map(json => new Schema(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
   // POST /schemas
   addSchema(schema: Schema): Observable<Schema> {
     const body = JSON.stringify(schema);
@@ -40,10 +47,14 @@ export class SchemaService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  // GET /datasets/ + search/findByDescriptionContaining?description
-  getSchemaByDescriptionWords(keyword: string): Observable<Schema[]> {
-    return this.http.get(environment.API + '/schemas/search/findByDescriptionContaining?description=' + keyword)
-      .map((res: Response) => res.json()._embedded.schemas.map(json => new Schema(json)))
+  // DELETE /schema/{id}
+  deleteSchema(schema: Schema): Observable<Response> {
+    const headers = new Headers({'Content-Type': 'application/json'});
+    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
+    const options = new RequestOptions({headers: headers});
+
+    return this.http.delete(environment.API + schema.uri, options)
+      .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error.json()));
   }
 }

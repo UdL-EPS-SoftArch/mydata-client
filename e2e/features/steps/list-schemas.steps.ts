@@ -15,7 +15,7 @@ class ListSchemasSteps {
 
   @given(/^I create a schema with title "([^"]*)" and description "([^"]*)"$/)
   public createSchemaWithTitleAndDescription (title: string, description: string, callback): void {
-    element(by.linkText('Register Schema')).click();
+    element(by.linkText('Register New Schema')).click();
     this.schemaForm.setTitle(title);
     this.schemaForm.setDescription(description);
     this.schemaForm.submitForm();
