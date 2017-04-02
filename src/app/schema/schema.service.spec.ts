@@ -79,6 +79,22 @@ describe('SchemaService', () => {
         });
       })));
   });
+
+  describe('#deleteSchema(schema)', () => {
+    it('should delete the specified schema',
+      inject([ MockBackend, SchemaService ], fakeAsync((mockBackend, service) => {
+        const apiResponse = new ResponseOptions({
+          status: 204
+        });
+
+        mockBackend.connections.subscribe((connection: MockConnection) => {
+          expect(connection.request.url).toBe('http://localhost:8080/schemas/1');
+          connection.mockRespond(new Response(apiResponse));
+        });
+
+        service.deleteSchema(schema1).subscribe((response) => {
+          expect(response.status).toEqual(204);
+        });
+      })));
+  });
 });
-
-
