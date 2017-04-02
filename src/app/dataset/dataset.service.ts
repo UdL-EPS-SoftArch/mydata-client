@@ -21,17 +21,24 @@ export class DatasetService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  // GET /dataset/OrderByTitle
+  // GET /datasets/id
+  getDataset(uri: string): Observable<Dataset> {
+    return this.http.get(`${environment.API}${uri}`)
+      .map((res: Response) => new Dataset(res.json()))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // GET /datasets/OrderByTitle
   getAllDatasetsOrderedByTitle(): Observable<Dataset[]> {
     return this.http.get(`${environment.API}/datasets?sort=title`)
       .map((res: Response) => res.json()._embedded.datasets.map(json => new Dataset(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  // GET /datasets/id
-  getDataset(uri: string): Observable<Dataset> {
-    return this.http.get(`${environment.API}${uri}`)
-      .map((res: Response) => new Dataset(res.json()))
+  // GET /datasets/ + search/findByDescriptionContaining?description
+  getDatasetByDescriptionWords(keyword: string): Observable<Dataset[]> {
+    return this.http.get(environment.API + '/datasets/search/findByDescriptionContaining?description=' + keyword)
+      .map((res: Response) => res.json()._embedded.datasets.map(json => new Dataset(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
 
@@ -44,13 +51,6 @@ export class DatasetService {
 
     return this.http.post(`${environment.API}/datasets`, body, options)
       .map((res: Response) => new Dataset(res.json()))
-      .catch((error: any) => Observable.throw(error.json()));
-  }
-
-  // GET /datasets/ + search/findByDescriptionContaining?description
-  getDatasetByDescriptionWords(keyword: string): Observable<Dataset[]> {
-    return this.http.get(environment.API + '/datasets/search/findByDescriptionContaining?description=' + keyword)
-      .map((res: Response) => res.json()._embedded.datasets.map(json => new Dataset(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
 
@@ -67,13 +67,13 @@ export class DatasetService {
   }
 
   // DELETE /dataset/{id}
-  deleteDataset(dataset: Dataset): Observable<Dataset> {
+  deleteDataset(dataset: Dataset): Observable<Response> {
     const headers = new Headers({'Content-Type': 'application/json'});
     headers.append('Authorization', this.authentication.getCurrentUser().authorization);
     const options = new RequestOptions({headers: headers});
 
     return this.http.delete(environment.API + dataset.uri, options)
-      .map((res: Response) => new Dataset(res.json()))
+      .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error.json()));
   }
 }
