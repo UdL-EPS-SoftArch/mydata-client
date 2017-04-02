@@ -17,12 +17,6 @@ export class DatasetsListComponent implements OnInit {
     this.datasets = datasets;
   }
 
-  onDelete(dataset) {
-    this.datasetService.deleteDataset(dataset).subscribe();
-    location.reload();
-  }
-
-
   ngOnInit() {
     this.datasetService.getAllDatasetsOrderedByTitle().subscribe(
       datasets => { this.datasets = datasets; },

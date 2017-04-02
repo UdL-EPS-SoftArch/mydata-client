@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DatasetService } from '../dataset.service';
 import { Dataset } from '../dataset';
 import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
@@ -16,6 +16,7 @@ export class DatasetDetailsComponent implements OnInit {
   public isOwner: boolean;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private datasetService: DatasetService,
               private authenticationService: AuthenticationBasicService,
               private datasetOwnerService: DatasetOwnerService) { }
@@ -38,5 +39,12 @@ export class DatasetDetailsComponent implements OnInit {
           error => this.errorMessage = <any>error.message,
         );
       });
+  }
+
+  onDelete(dataset) {
+    this.datasetService.deleteDataset(dataset).subscribe(
+      response => { this.router.navigate(['/datasets']); },
+      error => this.errorMessage = <any>error.message,
+    );
   }
 }

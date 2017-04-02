@@ -5,20 +5,23 @@
   </div>
   <div class="col-md-8">
     <h4>
-      <a class="btn btn-lg btn-primary" role="button"
-         [routerLink]="['/schemas/new']">Register Schema</a>
+      <a class="btn btn-primary" role="button"
+         [routerLink]="['/schemas/new']">Register New Schema</a>
     </h4>
   </div>
 </div>
 
-<app-schemas-search (onSearchited)="onSearch($event)" [schemas]="schemas"></app-schemas-search>
+<div class="row">
+  <h3 class="col-md-12">Schemas</h3>
+  <div class="col-md-12">
+    <app-schemas-search (onSearchited)="onSearch($event)" [schemas]="schemas"></app-schemas-search>
+  </div>
+</div>
 
 <div class="row">
-  <h3>Schemas</h3>
-  <div class="panel-group">
+  <div class="panel-group col-md-12">
     <div class="panel panel-default" *ngFor="let schema of schemas">
       <div class="panel-heading">
-        <button (click)="onDelete(dataset)">DELETE</button>
         <h4>Title: <a routerLink="{{schema.uri}}">{{schema.title}}</a></h4>
       </div>
       <div class="panel-body">
