@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { environment } from '../../environments/environment';
-import {Tag} from "./tag";
+import { Tag } from './tag';
 
 @Injectable()
 export class TagService {
@@ -30,7 +30,7 @@ export class TagService {
 
   // POST /tag
   addTag(tag: Tag): Observable<Tag> {
-    const body = JSON.stringify(Tag);
+    const body = JSON.stringify(tag);
     const headers = new Headers({ 'Content-Type': 'application/json' });
     headers.append('Authorization', this.authentication.getCurrentUser().authorization);
     const options = new RequestOptions({ headers: headers });

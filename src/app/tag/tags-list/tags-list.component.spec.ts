@@ -3,11 +3,11 @@ import {async, TestBed, inject, fakeAsync, ComponentFixture} from '@angular/core
 import { TagsListComponent } from './tags-list.component';
 import { TagService } from '../tag.service';
 import { Tag } from '../tag';
-import {AppComponent} from "../../app.component";
-import {MockTagService} from "../../../test/mocks/tag.service";
-import {RouterTestingModule} from "@angular/router/testing";
-import {NO_ERRORS_SCHEMA} from "@angular/core";
-import {Router} from "@angular/router";
+import { AppComponent } from '../../app.component';
+import { MockTagService } from '../../../test/mocks/tag.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 describe('TagsListComponent', () => {
@@ -16,11 +16,11 @@ describe('TagsListComponent', () => {
 
   const tag1 = new Tag({
     'uri': '/tags/Tag1',
-    "name": 'Tag1',
+    'name': 'Tag1',
   });
   const tag2 = new Tag({
     'uri': '/tags/Tag2',
-    "name": 'Tag2',
+    'name': 'Tag2',
   });
 
   beforeEach(async(() => {

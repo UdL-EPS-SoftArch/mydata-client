@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DatasetService } from '../dataset.service';
 import { Dataset } from '../dataset';
 import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
-import { DatasetOwnerService } from '../../user/datasetOwner.service';
+import { DatasetOwnerService } from '../../user/dataset-owner.service';
 
 @Component({
   selector: 'app-dataset-details',

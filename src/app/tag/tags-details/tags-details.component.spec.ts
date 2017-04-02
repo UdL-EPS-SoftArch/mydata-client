@@ -1,12 +1,12 @@
-import {ComponentFixture, async, TestBed, inject} from "@angular/core/testing";
-import {TagDetailsComponent} from "./tags-details.component";
-import {Tag} from "../tag";
-import {AppComponent} from "../../app.component";
-import {TagService} from "../tag.service";
-import {MockTagService} from "../../../test/mocks/tag.service";
-import {RouterTestingModule} from "@angular/router/testing";
-import {NO_ERRORS_SCHEMA} from "@angular/core";
-import {Router} from "@angular/router";
+import { ComponentFixture, async, TestBed, inject } from '@angular/core/testing';
+import { TagDetailsComponent } from './tags-details.component';
+import { Tag } from '../tag';
+import { AppComponent } from '../../app.component';
+import { TagService } from '../tag.service';
+import { MockTagService } from '../../../test/mocks/tag.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 describe('TagDetailsComponent', () => {

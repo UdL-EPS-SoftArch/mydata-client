@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import {Tag} from "../tag";
-import {TagService} from "../tag.service";
+import { Tag } from '../tag';
+import { TagService } from '../tag.service';
 
 @Component({
   selector: 'app-tag-form',
@@ -36,6 +36,6 @@ export class TagFormComponent implements OnInit {
         });
   }
 
-  //TODO: Need to fix testing erros at creating tags
+  // TODO: Need to fix testing erros at creating tags
 
 }

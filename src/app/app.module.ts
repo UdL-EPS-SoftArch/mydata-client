@@ -20,7 +20,7 @@ import { SchemaDetailsComponent } from './schema/schema-details/schema-details.c
 import { SchemaService } from './schema/schema.service';
 import { DatasetsSearchComponent} from './dataset/dataset-search/dataset-search.component';
 import { DatasetEditComponent } from './dataset/dataset-edit/dataset-edit.component';
-import { DatasetOwnerService } from './user/datasetOwner.service';
+import { DatasetOwnerService } from './user/dataset-owner.service';
 import { OpenLicenseFormComponent } from './license/open-license/open-license-form/open-license-form.component';
 import { OpenLicenseListComponent } from './license/open-license/open-license-list/open-license-list.component';
 import { OpenLicenseDetailsComponent } from './license/open-license/open-license-details/open-license-details.component';
