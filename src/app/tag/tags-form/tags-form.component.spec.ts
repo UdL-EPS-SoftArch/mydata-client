@@ -1,14 +1,14 @@
-import {TagFormComponent} from "./tags-form.component";
-import {ComponentFixture, async, TestBed, inject} from "@angular/core/testing";
-import {Tag} from "../tag";
-import {AppComponent} from "../../app.component";
-import {MockTagService} from "../../../test/mocks/tag.service";
-import {TagService} from "../tag.service";
-import {RouterTestingModule} from "@angular/router/testing";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {NO_ERRORS_SCHEMA} from "@angular/core";
-import {TagDetailsComponent} from "../tags-details/tags-details.component";
-import {Router} from "@angular/router";
+import { TagFormComponent } from './tags-form.component';
+import { ComponentFixture, async, TestBed, inject } from '@angular/core/testing';
+import { Tag } from '../tag';
+import { AppComponent } from '../../app.component';
+import { MockTagService } from '../../../test/mocks/tag.service';
+import { TagService } from '../tag.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { TagDetailsComponent } from '../tags-details/tags-details.component';
+import { Router } from '@angular/router';
 import { dispatchEvent } from '@angular/platform-browser/testing/browser_util';
 import { Location } from '@angular/common';
 
@@ -29,7 +29,7 @@ describe('TagFormComponent', () => {
       providers: [{provide: TagService, useClass: MockTagService}],
       imports: [RouterTestingModule.withRoutes([
         {path: 'tags/new', component: TagFormComponent},
-        {path: 'tag/:id', component: TagDetailsComponent}]),
+        {path: 'tags/:id', component: TagDetailsComponent}]),
         FormsModule, ReactiveFormsModule
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -62,13 +62,13 @@ describe('TagFormComponent', () => {
         dispatchEvent(form, 'submit');
 
         expect(component.tag.name).toBe('Tag1');
-        expect(service.addSchema).toHaveBeenCalledTimes(1);
-        expect(service.addSchema.calls.mostRecent().object.fakeResponse.name).toBe('Tag1');
+        expect(service.addTag).toHaveBeenCalledTimes(1);
+        expect(service.addTag.calls.mostRecent().object.fakeResponse.name).toBe('Tag1');
       });
     })
   ));
 
-  ('should warn if input for name is left empty', async(
+  it('should warn if input for name is left empty', async(
     inject([Router, Location, TagService], (router, location, service) => {
       TestBed.createComponent(AppComponent);
 
