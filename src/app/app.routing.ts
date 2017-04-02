@@ -14,6 +14,9 @@ import { OpenLicenseDetailsComponent } from './license/open-license/open-license
 import { ClosedLicenseListComponent } from './license/closed-license/closed-license-list/closed-license-list.component';
 import { ClosedLicenseFormComponent } from './license/closed-license/closed-license-form/closed-license-form.component';
 import { ClosedLicenseDetailsComponent } from './license/closed-license/closed-license-details/closed-license-details.component';
+import { TagsListComponent } from './tag/tags-list/tags-list.component';
+import { TagFormComponent } from './tag/tags-form/tags-form.component';
+import { TagDetailsComponent } from './tag/tags-details/tags-details.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'about', pathMatch: 'full' },
@@ -31,4 +34,7 @@ export const routes: Routes = [
   { path: 'closedLicenses', component: ClosedLicenseListComponent },
   { path: 'closedLicenses/new', component: ClosedLicenseFormComponent },
   { path: 'closedLicenses/:id', component: ClosedLicenseDetailsComponent },
+  { path: 'tags', component: TagsListComponent },
+  { path: 'tags/new', component: TagFormComponent },
+  { path: 'tags/:id', component: TagDetailsComponent },
 ];

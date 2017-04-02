@@ -15,8 +15,8 @@ import { dispatchEvent } from '@angular/platform-browser/testing/browser_util';
 import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
 import { MockAuthenticationBasicService } from '../../../test/mocks/authentication-basic.service';
 import { User } from '../../login-basic/user';
-import { DatasetOwnerService } from '../../user/datasetOwner.service';
-import { MockDatasetOwnerService } from '../../../test/mocks/datasetOwner.service';
+import { DatasetOwnerService } from '../../user/dataset-owner.service';
+import { MockDatasetOwnerService } from '../../../test/mocks/dataset-owner.service';
 import { Owner } from '../../user/owner';
 
 describe('DatasetFormComponent', () => {

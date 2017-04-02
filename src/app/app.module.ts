@@ -20,7 +20,7 @@ import { SchemaDetailsComponent } from './schema/schema-details/schema-details.c
 import { SchemaService } from './schema/schema.service';
 import { DatasetsSearchComponent} from './dataset/dataset-search/dataset-search.component';
 import { DatasetEditComponent } from './dataset/dataset-edit/dataset-edit.component';
-import { DatasetOwnerService } from './user/datasetOwner.service';
+import { DatasetOwnerService } from './user/dataset-owner.service';
 import { OpenLicenseFormComponent } from './license/open-license/open-license-form/open-license-form.component';
 import { OpenLicenseListComponent } from './license/open-license/open-license-list/open-license-list.component';
 import { OpenLicenseDetailsComponent } from './license/open-license/open-license-details/open-license-details.component';
@@ -32,6 +32,10 @@ import { ClosedLicenseDetailsComponent } from './license/closed-license/closed-l
 import { ClosedLicenseService } from './license/closed-license/closed-license.service';
 import { OpenLicenseSearchComponent } from './license/open-license/open-license-search/open-license-search.component';
 import { ClosedLicenseSearchComponent } from './license/closed-license/closed-license-search/closed-license-search.component';
+import { TagService } from './tag/tag.service';
+import { TagDetailsComponent } from './tag/tags-details/tags-details.component';
+import { TagsListComponent } from './tag/tags-list/tags-list.component';
+import { TagFormComponent } from './tag/tags-form/tags-form.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +57,10 @@ import { ClosedLicenseSearchComponent } from './license/closed-license/closed-li
     ClosedLicenseListComponent,
     ClosedLicenseDetailsComponent,
     OpenLicenseSearchComponent,
-    ClosedLicenseSearchComponent
+    ClosedLicenseSearchComponent,
+    TagDetailsComponent,
+    TagsListComponent,
+    TagFormComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +71,7 @@ import { ClosedLicenseSearchComponent } from './license/closed-license/closed-li
     LoginBasicModule
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService, DatasetOwnerService,
-              OpenLicenseService, ClosedLicenseService],
+              OpenLicenseService, ClosedLicenseService, TagService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

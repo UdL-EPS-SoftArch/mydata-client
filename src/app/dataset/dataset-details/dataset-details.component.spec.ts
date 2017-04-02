@@ -10,11 +10,11 @@ import { DatasetDetailsComponent } from './dataset-details.component';
 import { Dataset } from '../dataset';
 import { DatasetService } from '../dataset.service';
 import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
-import { DatasetOwnerService } from '../../user/datasetOwner.service';
+import { DatasetOwnerService } from '../../user/dataset-owner.service';
 import { MockAuthenticationBasicService } from '../../../test/mocks/authentication-basic.service';
 import { User } from '../../login-basic/user';
 import { Owner } from '../../user/owner';
-import { MockDatasetOwnerService } from '../../../test/mocks/datasetOwner.service';
+import { MockDatasetOwnerService } from '../../../test/mocks/dataset-owner.service';
 
 describe('DatasetDetailsComponent', () => {
   let fixture: ComponentFixture<DatasetDetailsComponent>;

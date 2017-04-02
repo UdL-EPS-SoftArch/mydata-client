@@ -1,5 +1,5 @@
 import { SpyObject } from '../helper';
-import { DatasetOwnerService } from '../../app/user/datasetOwner.service';
+import { DatasetOwnerService } from '../../app/user/dataset-owner.service';
 
 export class MockDatasetOwnerService extends SpyObject {
   fakeResponse;
