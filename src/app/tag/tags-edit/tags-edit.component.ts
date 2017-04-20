@@ -37,4 +37,13 @@ export class TagEditComponent implements OnInit {
         );
       });
   }
+
+  onSubmit(): void {
+    this.tagService.updateTag(this.tag)
+      .subscribe(
+        tag => { this.router.navigate([tag.uri]); },
+        error => {
+          this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
+        });
+  }
 }
