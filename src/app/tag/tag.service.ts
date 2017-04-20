@@ -39,4 +39,16 @@ export class TagService {
       .map((res: Response) => new Tag(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
+
+  // PUT /tags/id
+  updateTag(tag: Tag): Observable<Tag> {
+    const body = JSON.stringify(tag);
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
+    const options = new RequestOptions({ headers: headers });
+
+    return this.http.put(`${environment.API}${tag.uri}`, body, options)
+      .map((res: Response) => new Tag(res.json()))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
 }
