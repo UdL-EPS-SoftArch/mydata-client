@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from "@angular/core/testing";
+import {async, ComponentFixture, inject, TestBed} from "@angular/core/testing";
 import {TagEditComponent} from "./tags-edit.component";
 import {Tag} from "../tag";
 import {AppComponent} from "../../app.component";
@@ -9,13 +9,14 @@ import {MockTagService} from "../../../test/mocks/tag.service";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NO_ERRORS_SCHEMA} from "@angular/core";
 import {LoggedInGuard} from "../../login-basic/loggedin.guard";
+import {Router} from "@angular/router";
 
 describe('TagEditComponent', () => {
   let component: TagEditComponent;
   let fixture: ComponentFixture<TagEditComponent>;
 
   const response = new Tag({
-    'uri': '/tafs/1',
+    'uri': '/tags/Tag1',
     'name': 'Tag1',
     '_links': {}
   });
@@ -31,5 +32,23 @@ describe('TagEditComponent', () => {
     })
       .compileComponents();
   }));
+
+  it('the edit component should be created and load the tag to be edited', () => {
+    inject([Router, Location, TagService], (router, location, service) => {
+      TestBed.createComponent(AppComponent);
+      service.setResponse(response);
+
+      router.navigate(['/tags/Tag1/edit']).then(() => {
+        expect(location.path()).toBe('/tags/Tag1/edit');
+        expect(service.getDataset).toHaveBeenCalledTimes(1);
+
+        fixture = TestBed.createComponent(TagEditComponent);
+        fixture.detectChanges();
+        component = fixture.debugElement.componentInstance;
+
+        expect(component.tag.name).toBe('Tag1');
+      });
+    });
+  });
 
 });
