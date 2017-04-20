@@ -52,8 +52,8 @@ describe('SchemasListComponent', () => {
         expect(component.schemas[1].title).toBe('Schema 2');
 
         const compiled = fixture.debugElement.nativeElement;
-        expect(compiled.querySelectorAll('p a')[0].innerHTML).toBe('Schema 1');
-        expect(compiled.querySelectorAll('p a')[1].innerHTML).toBe('Schema 2');
+        expect(compiled.querySelectorAll('.panel-heading')[0].innerHTML).toContain('Schema 1');
+        expect(compiled.querySelectorAll('.panel-heading')[1].innerHTML).toContain('Schema 2');
       });
     })
   ));

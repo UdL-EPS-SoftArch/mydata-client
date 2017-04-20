@@ -40,7 +40,7 @@ class ListDatasetsSteps {
 
   @given(/^I create a dataset with title "([^"]*)" and description "([^"]*)"$/)
   public createDatasetWithTitleAndDescription (title: string, description: string, callback): void {
-    element(by.linkText('Register Dataset')).click();
+    element(by.linkText('Register New Dataset')).click();
     this.datasetForm.setTitle(title);
     this.datasetForm.setDescription(description);
     this.datasetForm.submitForm();

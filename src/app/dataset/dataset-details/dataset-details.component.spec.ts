@@ -9,6 +9,12 @@ import { AppComponent } from '../../app.component';
 import { DatasetDetailsComponent } from './dataset-details.component';
 import { Dataset } from '../dataset';
 import { DatasetService } from '../dataset.service';
+import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
+import { DatasetOwnerService } from '../../user/dataset-owner.service';
+import { MockAuthenticationBasicService } from '../../../test/mocks/authentication-basic.service';
+import { User } from '../../login-basic/user';
+import { Owner } from '../../user/owner';
+import { MockDatasetOwnerService } from '../../../test/mocks/dataset-owner.service';
 
 describe('DatasetDetailsComponent', () => {
   let fixture: ComponentFixture<DatasetDetailsComponent>;
@@ -17,18 +23,30 @@ describe('DatasetDetailsComponent', () => {
   const dataset1 = new Dataset({
     'uri': '/datasets/1',
     'title': 'Dataset 1',
-    'description': 'First dataset'
+    'description': 'First dataset',
+    '_links': {
+      'owner': { 'href': 'http://localhost/datasets/1/owner' }
+    }
   });
   const dataset2 = new Dataset({
     'uri': '/datasets/2',
     'title': 'Dataset 2',
-    'description': 'Second dataset'
+    'description': 'Second dataset',
+    '_links': {
+      'owner': {'href': 'http://localhost/datasets/2/owner'}
+    }
+  });
+  const owner = new Owner({
+    'uri': 'dataOwners/owner',
   });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ AppComponent, DatasetDetailsComponent ],
-      providers: [ { provide: DatasetService, useClass: MockDatasetService } ],
+      providers: [
+        { provide: DatasetService, useClass: MockDatasetService },
+        { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService },
+        { provide: DatasetOwnerService, useClass: MockDatasetOwnerService }],
       imports: [ RouterTestingModule.withRoutes([
           { path: 'datasets/:id', component: DatasetDetailsComponent }
         ])],
@@ -36,24 +54,52 @@ describe('DatasetDetailsComponent', () => {
     });
   }));
 
-  it('should fetch and render the requested dataset', async(
-    inject([Router, Location, DatasetService], (router, location, service) => {
+  it('should fetch and render the requested dataset editable when owner', async(
+    inject([Router, Location, DatasetService, DatasetOwnerService, AuthenticationBasicService],
+           (router, location, datasetService, datasetOwnerService, authentication) => {
       TestBed.createComponent(AppComponent);
-      service.setResponse(dataset1);
+      datasetService.setResponse(dataset1);
+      datasetOwnerService.setResponse(owner);
+      authentication.isLoggedIn.and.returnValue(true);
+      authentication.getCurrentUser.and.returnValue(new User({'username': 'owner'}));
 
       router.navigate(['/datasets/1']).then(() => {
         expect(location.path()).toBe('/datasets/1');
-        expect(service.getDataset).toHaveBeenCalledWith('/datasets/1');
+        expect(datasetService.getDataset).toHaveBeenCalledWith('/datasets/1');
+        expect(datasetOwnerService.getDatasetOwner).toHaveBeenCalledWith('http://localhost/datasets/1/owner');
 
         fixture = TestBed.createComponent(DatasetDetailsComponent);
         fixture.detectChanges();
         component = fixture.debugElement.componentInstance;
         expect(component.dataset.title).toBe('Dataset 1');
+        expect(component.isOwner).toBe(true);
 
         const compiled = fixture.debugElement.nativeElement;
         expect(compiled.querySelectorAll('p')[0].innerHTML).toBe('Dataset 1');
         expect(compiled.querySelectorAll('p')[1].innerHTML).toBe('First dataset');
       });
     })
+  ));
+
+  it('should fetch and render the requested dataset non-editable when not owner', async(
+    inject([Router, Location, DatasetService, DatasetOwnerService, AuthenticationBasicService],
+      (router, location, datasetService, datasetOwnerService, authentication) => {
+        TestBed.createComponent(AppComponent);
+        datasetService.setResponse(dataset1);
+        datasetOwnerService.setResponse(owner);
+        authentication.isLoggedIn.and.returnValue(true);
+        authentication.getCurrentUser.and.returnValue(new User({'username': 'user'}));
+
+        router.navigate(['/datasets/1']).then(() => {
+          expect(datasetService.getDataset).toHaveBeenCalledWith('/datasets/1');
+          expect(datasetOwnerService.getDatasetOwner).toHaveBeenCalledWith('http://localhost/datasets/1/owner');
+
+          fixture = TestBed.createComponent(DatasetDetailsComponent);
+          fixture.detectChanges();
+          component = fixture.debugElement.componentInstance;
+          expect(component.dataset.title).toBe('Dataset 1');
+          expect(component.isOwner).toBe(false);
+        });
+      })
   ));
 });
