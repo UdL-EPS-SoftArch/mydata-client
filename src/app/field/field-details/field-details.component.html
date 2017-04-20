@@ -1,10 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="row">
+  <h3>Fields Details</h3>
+</div>
 
-</body>
-</html>
+<div class="row">
+  <div class="col-md-4">
+    <h4>Title</h4>
+    <p>{{field.title}}</p>
+  </div>
+  <div class="col-md-6">
+    <h4>Description</h4>
+    <p>{{field.description}}</p>
+  </div>
+
+  <div class="col-md-2">
+    <a class="btn btn-danger" role="button" (click)="onDelete(field)">Delete</a>
+  </div>
+</div>
