@@ -26,5 +26,15 @@ export class TagEditComponent implements OnInit {
     this.nameCtrl = this.tagForm.controls['name'];
   }
 
-
+  ngOnInit() {
+    this.route.params
+      .map(params => params['id'])
+      .subscribe((id) => {
+        const uri = `/tags/${id}`;
+        this.tagService.getTag(uri).subscribe(
+          tag => this.tag = tag,
+          error => this.errorMessage = <any>error.message,
+        );
+      });
+  }
 }
