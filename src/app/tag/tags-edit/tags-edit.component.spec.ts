@@ -10,6 +10,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NO_ERRORS_SCHEMA} from "@angular/core";
 import {LoggedInGuard} from "../../login-basic/loggedin.guard";
 import {Router} from "@angular/router";
+import { Location } from '@angular/common';
 
 describe('TagEditComponent', () => {
   let component: TagEditComponent;
@@ -40,7 +41,7 @@ describe('TagEditComponent', () => {
 
       router.navigate(['/tags/Tag1/edit']).then(() => {
         expect(location.path()).toBe('/tags/Tag1/edit');
-        expect(service.getDataset).toHaveBeenCalledTimes(1);
+        expect(service.getTag).toHaveBeenCalledTimes(1);
 
         fixture = TestBed.createComponent(TagEditComponent);
         fixture.detectChanges();
