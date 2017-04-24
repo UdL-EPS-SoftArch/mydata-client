@@ -1,8 +1,8 @@
-import {Component, OnInit} from "@angular/core";
-import {Tag} from "../tag";
-import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ActivatedRoute, Router} from "@angular/router";
-import {TagService} from "../tag.service";
+import {Component, OnInit} from '@angular/core';
+import {Tag} from '../tag';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {TagService} from '../tag.service';
 
 @Component({
   selector: 'app-tag-edit',
