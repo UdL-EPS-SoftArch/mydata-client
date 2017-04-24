@@ -51,4 +51,15 @@ export class TagService {
       .map((res: Response) => new Tag(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
+
+  // DELETE /tags/{id}
+  deleteTag(tag: Tag): Observable<Response> {
+    const headers = new Headers({'Content-Type': 'application/json'});
+    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
+    const options = new RequestOptions({headers: headers});
+
+    return this.http.delete(environment.API + tag.uri, options)
+      .map((res: Response) => res)
+      .catch((error: any) => Observable.throw(error.json()));
+  }
 }
