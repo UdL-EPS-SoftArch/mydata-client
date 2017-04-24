@@ -87,7 +87,7 @@ describe('TagService', () => {
           connection.mockRespond(new Response(apiResponse));
         });
 
-        service.deleteDataset(tag1).subscribe((response) => {
+        service.deleteTag(tag1).subscribe((response) => {
           expect(response.status).toEqual(204);
         });
       })));
