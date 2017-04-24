@@ -9,6 +9,10 @@ import { AppComponent } from '../../app.component';
 import { SchemaDetailsComponent } from './schema-details.component';
 import { Schema } from '../schema';
 import { SchemaService } from '../schema.service';
+import {AuthenticationBasicService} from '../../login-basic/authentication-basic.service';
+import {SchemaOwnerService} from '../../user/schema-owner.service';
+import {Owner} from '../../user/owner';
+import {User} from "../../login-basic/user";
 
 describe('SchemaDetailsComponent', () => {
   let fixture: ComponentFixture<SchemaDetailsComponent>;
@@ -23,6 +27,10 @@ describe('SchemaDetailsComponent', () => {
     'uri': '/schemas/2',
     'title': 'Schema 2',
     'description': 'Second schema'
+  });
+
+  const owner = new Owner({
+    'uri': 'schemaOwners/owner',
   });
 
   beforeEach(async(() => {
@@ -56,4 +64,27 @@ describe('SchemaDetailsComponent', () => {
       });
     })
   ));
+
+  it('should fetch and render the requested schema non-editable when not owner', async(
+    inject([Router, Location, SchemaService, SchemaOwnerService, AuthenticationBasicService],
+      (router, location, schemaService, schemaOwnerService, authentication) => {
+        TestBed.createComponent(AppComponent);
+        schemaService.setResponse(schema1);
+        schemaOwnerService.setResponse(owner);
+        authentication.isLoggedIn.and.returnValue(true);
+        authentication.getCurrentUser.and.returnValue(new User({'username': 'user'}));
+
+        router.navigate(['/schemas/1']).then(() => {
+          expect(schemaService.getSchema).toHaveBeenCalledWith('/schemas/1');
+          expect(schemaOwnerService.getSchemaOwner).toHaveBeenCalledWith('http://localhost/schemas/1/owner');
+
+          fixture = TestBed.createComponent(SchemaDetailsComponent);
+          fixture.detectChanges();
+          component = fixture.debugElement.componentInstance;
+          expect(component.schema.title).toBe('Schema 1');
+          expect(component.isOwner).toBe(false);
+        });
+      })
+  ));
+
 });
