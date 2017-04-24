@@ -25,8 +25,8 @@ before_install:
 install:
   - npm install
 script:
-  - ng lint
-  - ng test --watch=false
+  - ng lint || exit 1
+  - ng test --watch=false || exit 1
   - ng serve &
   - ng e2e
 notifications:
