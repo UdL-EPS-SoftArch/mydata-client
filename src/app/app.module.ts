@@ -36,6 +36,7 @@ import { TagService } from './tag/tag.service';
 import { TagDetailsComponent } from './tag/tags-details/tags-details.component';
 import { TagsListComponent } from './tag/tags-list/tags-list.component';
 import { TagFormComponent } from './tag/tags-form/tags-form.component';
+import { SchemaEditComponent } from './schema/schema-edit/schema-edit.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { TagFormComponent } from './tag/tags-form/tags-form.component';
     ClosedLicenseSearchComponent,
     TagDetailsComponent,
     TagsListComponent,
-    TagFormComponent
+    TagFormComponent,
+    SchemaEditComponent
   ],
   imports: [
     BrowserModule,
