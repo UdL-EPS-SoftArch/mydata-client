@@ -36,6 +36,10 @@ import { TagService } from './tag/tag.service';
 import { TagDetailsComponent } from './tag/tags-details/tags-details.component';
 import { TagsListComponent } from './tag/tags-list/tags-list.component';
 import { TagFormComponent } from './tag/tags-form/tags-form.component';
+import { FieldService } from './field/field.service';
+import { FieldDetailsComponent } from './field/field-details/field-details.component';
+import { FieldFormComponent } from './field/field-form/field-form.component';
+import { FieldListComponent } from './field/fields-list/fields-list.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +64,11 @@ import { TagFormComponent } from './tag/tags-form/tags-form.component';
     ClosedLicenseSearchComponent,
     TagDetailsComponent,
     TagsListComponent,
-    TagFormComponent
+    TagFormComponent,
+    FieldService,
+    FieldDetailsComponent,
+    FieldFormComponent,
+    FieldListComponent
   ],
   imports: [
     BrowserModule,
