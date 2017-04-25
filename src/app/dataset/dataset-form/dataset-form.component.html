@@ -34,7 +34,7 @@
     <div class="form-group row">
       <label class="col-md-3 control-label" for="title">Schema</label>
       <div class="col-md-9">
-        <select class="dropdown" id="_schema" name="schema"
+        <select class="form-control" id="_schema" name="schema"
                 [formControl]="datasetForm.controls['schema']"
                 [(ngModel)]="dataset._schema">
           <option *ngFor="let schema of schemas" [ngValue]="schema">{{schema.title}}</option>
