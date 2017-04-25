@@ -33,7 +33,7 @@ describe('FieldFormComponent', () => {
         { path: 'fields/:id', component: FieldDetailsComponent }]),
         FormsModule, ReactiveFormsModule
       ],
-      fields: [ NO_ERRORS_SCHEMA ]
+      schemas: [ NO_ERRORS_SCHEMA ]
     });
   }));
 
