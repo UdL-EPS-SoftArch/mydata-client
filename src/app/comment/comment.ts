@@ -5,7 +5,6 @@ import {User} from "../login-basic/user";
  */
 export class Comment{
   uri: string;
-  id: string;
   text: string;
   dataset: Dataset;
   user: User;
