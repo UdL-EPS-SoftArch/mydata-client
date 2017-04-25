@@ -37,7 +37,7 @@ import { TagDetailsComponent } from './tag/tags-details/tags-details.component';
 import { TagsListComponent } from './tag/tags-list/tags-list.component';
 import { TagFormComponent } from './tag/tags-form/tags-form.component';
 import { SchemaEditComponent } from './schema/schema-edit/schema-edit.component';
-import {SchemaOwnerService} from './user/schema-owner.service';
+import { SchemaOwnerService } from './user/schema-owner.service';
 
 @NgModule({
   declarations: [
