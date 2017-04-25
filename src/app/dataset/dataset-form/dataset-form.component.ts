@@ -20,10 +20,12 @@ export class DatasetFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private router: Router,
-              private datasetService: DatasetService, private schemaService: SchemaService) {
+              private datasetService: DatasetService,
+              private schemaService: SchemaService) {
     this.datasetForm = fb.group({
       'title': ['Dataset title', Validators.required],
-      'description': ['Dataset description']
+      'description': ['Dataset description'],
+      'schema': ['Dataset schema']
     });
     this.titleCtrl = this.datasetForm.controls['title'];
     this.dataset = new Dataset();

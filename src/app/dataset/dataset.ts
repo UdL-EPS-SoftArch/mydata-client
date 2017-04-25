@@ -1,3 +1,5 @@
+import { Schema } from '../schema/schema';
+
 export class Dataset {
   uri: string;
   title: string;
@@ -7,6 +9,7 @@ export class Dataset {
   blocked = false;
   flags = 0;
   _links: any = {};
+  _schema: Schema;
 
   constructor(values: Object = {}) {
     (<any>Object).assign(this, values);
