@@ -9,7 +9,7 @@ export class Dataset {
   blocked = false;
   flags = 0;
   _links: any = {};
-  _schema: Schema;
+  schema: string;
 
   constructor(values: Object = {}) {
     (<any>Object).assign(this, values);

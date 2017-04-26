@@ -32,12 +32,12 @@
     </div>
 
     <div class="form-group row">
-      <label class="col-md-3 control-label" for="title">Schema</label>
+      <label class="col-md-3 control-label" for="schema">Schema</label>
       <div class="col-md-9">
-        <select class="form-control" id="_schema" name="schema"
+        <select class="form-control" id="schema" name="schema"
                 [formControl]="datasetForm.controls['schema']"
-                [(ngModel)]="dataset._schema">
-          <option *ngFor="let schema of schemas" [ngValue]="schema">{{schema.title}}</option>
+                [(ngModel)]="dataset.schema">
+          <option *ngFor="let schema of schemas" [ngValue]="schema.uri">{{schema.title}}</option>
         </select>
 
       </div>
