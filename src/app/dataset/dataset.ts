@@ -1,5 +1,3 @@
-import { Schema } from '../schema/schema';
-
 export class Dataset {
   uri: string;
   title: string;
