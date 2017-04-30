@@ -18,6 +18,8 @@ import { User } from '../../login-basic/user';
 import { DatasetOwnerService } from '../../user/dataset-owner.service';
 import { MockDatasetOwnerService } from '../../../test/mocks/dataset-owner.service';
 import { Owner } from '../../user/owner';
+import { SchemaService } from '../../schema/schema.service';
+import { MockSchemaService } from '../../../test/mocks/schema.service';
 
 describe('DatasetFormComponent', () => {
   let component: DatasetFormComponent;
@@ -43,6 +45,7 @@ describe('DatasetFormComponent', () => {
       declarations: [ AppComponent, DatasetFormComponent, DatasetDetailsComponent ],
       providers: [
         { provide: DatasetService, useClass: MockDatasetService },
+        { provide: SchemaService, useClass: MockSchemaService },
         { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService },
         { provide: DatasetOwnerService, useClass: MockDatasetOwnerService }],
       imports: [ RouterTestingModule.withRoutes([
