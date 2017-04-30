@@ -3,6 +3,7 @@
 # compiled output
 /dist
 /tmp
+/out-tsc
 
 # dependencies
 /node_modules
@@ -27,7 +28,7 @@
 # misc
 /.sass-cache
 /connect.lock
-/coverage/*
+/coverage
 /libpeerconnection.log
 npm-debug.log
 testem.log
@@ -39,6 +40,6 @@ testem.log
 /e2e/protractor-cucumber-report.json
 /e2e/protractor-cucumber_report.html
 
-#System Files
+# System Files
 .DS_Store
 Thumbs.db
