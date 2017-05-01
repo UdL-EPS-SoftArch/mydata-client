@@ -11,7 +11,6 @@ import { ClosedLicenseDetailsComponent } from '../closed-license-details/closed-
 import { ClosedLicense } from '../closed-license';
 import { ClosedLicenseService } from '../closed-license.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { dispatchEvent } from '@angular/platform-browser/testing/browser_util';
 
 describe('ClosedLicenseFormComponent', () => {
   let component: ClosedLicenseFormComponent;
@@ -58,12 +57,12 @@ describe('ClosedLicenseFormComponent', () => {
         const button = compiled.querySelector('button');
 
         inputText.value = 'License 1';
-        dispatchEvent(inputText, 'input');
+        inputText.dispatchEvent(new Event('input'));
         inputPrice.value = 10.0;
-        dispatchEvent(inputPrice, 'input');
+        inputPrice.dispatchEvent(new Event('input'));
         fixture.detectChanges();
         expect(button.disabled).toBeFalsy();
-        dispatchEvent(form, 'submit');
+        form.dispatchEvent(new Event('submit'));
 
         expect(component.closedLicense.text).toBe('License 1');
         expect(component.closedLicense.price).toBe(10.0);
@@ -91,8 +90,8 @@ describe('ClosedLicenseFormComponent', () => {
         const button = compiled.querySelector('button');
 
         input.value = '';
-        dispatchEvent(input, 'input');
-        dispatchEvent(input, 'blur');
+        input.dispatchEvent(new Event('input'));
+        input.dispatchEvent(new Event('blur'));
         fixture.detectChanges();
 
         expect(component.closedLicense.text).toBe('');

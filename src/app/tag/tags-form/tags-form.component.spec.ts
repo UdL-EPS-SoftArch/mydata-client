@@ -9,7 +9,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TagDetailsComponent } from '../tags-details/tags-details.component';
 import { Router } from '@angular/router';
-import { dispatchEvent } from '@angular/platform-browser/testing/browser_util';
 import { Location } from '@angular/common';
 
 
@@ -56,10 +55,10 @@ describe('TagFormComponent', () => {
         const button = compiled.querySelector('button');
 
         inputName.value = 'Tag1';
-        dispatchEvent(inputName, 'input');
+        inputName.dispatchEvent(new Event('input'));
         fixture.detectChanges();
         expect(button.disabled).toBeFalsy();
-        dispatchEvent(form, 'submit');
+        form.dispatchEvent(new Event('submit'));
 
         expect(component.tag.name).toBe('Tag1');
         expect(service.addTag).toHaveBeenCalledTimes(1);
@@ -85,8 +84,8 @@ describe('TagFormComponent', () => {
         const button = compiled.querySelector('button');
 
         input.value = '';
-        dispatchEvent(input, 'input');
-        dispatchEvent(input, 'blur');
+        input.dispatchEvent(new Event('input'));
+        input.dispatchEvent(new Event('blur'));
         fixture.detectChanges();
 
         expect(component.tag.name).toBe('');
