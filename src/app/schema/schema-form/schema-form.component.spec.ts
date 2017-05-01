@@ -11,7 +11,6 @@ import { SchemaDetailsComponent } from '../schema-details/schema-details.compone
 import { Schema } from '../schema';
 import { SchemaService } from '../schema.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { dispatchEvent } from '@angular/platform-browser/testing/browser_util';
 import { User } from '../../login-basic/user';
 import { Owner } from '../../user/owner';
 import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
@@ -81,12 +80,12 @@ describe('SchemaFormComponent', () => {
         const button = compiled.querySelector('button');
 
         inputTitle.value = 'Schema 1';
-        dispatchEvent(inputTitle, 'input');
+        inputTitle.dispatchEvent(new Event('input'));
         inputDescription.value = 'First Schema';
-        dispatchEvent(inputDescription, 'input');
+        inputDescription.dispatchEvent(new Event('input'));
         fixture.detectChanges();
         expect(button.disabled).toBeFalsy();
-        dispatchEvent(form, 'submit');
+        form.dispatchEvent(new Event('submit'));
 
         expect(component.schema.title).toBe('Schema 1');
         expect(component.schema.description).toBe('First Schema');
@@ -114,8 +113,8 @@ describe('SchemaFormComponent', () => {
         const button = compiled.querySelector('button');
 
         input.value = '';
-        dispatchEvent(input, 'input');
-        dispatchEvent(input, 'blur');
+        input.dispatchEvent(new Event('input'));
+        input.dispatchEvent(new Event('blur'));
         fixture.detectChanges();
 
         expect(component.schema.title).toBe('');
