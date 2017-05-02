@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { AuthenticationBasicService } from './authentication-basic.service';
-import { ModalDirective } from 'ng2-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-login-basic,[app-login-basic]',

@@ -11,13 +11,14 @@ import { DatasetDetailsComponent } from '../dataset-details/dataset-details.comp
 import { Dataset } from '../dataset';
 import { DatasetService } from '../dataset.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { dispatchEvent } from '@angular/platform-browser/testing/browser_util';
 import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
 import { MockAuthenticationBasicService } from '../../../test/mocks/authentication-basic.service';
 import { User } from '../../login-basic/user';
 import { DatasetOwnerService } from '../../user/dataset-owner.service';
 import { MockDatasetOwnerService } from '../../../test/mocks/dataset-owner.service';
 import { Owner } from '../../user/owner';
+import { SchemaService } from '../../schema/schema.service';
+import { MockSchemaService } from '../../../test/mocks/schema.service';
 
 describe('DatasetFormComponent', () => {
   let component: DatasetFormComponent;
@@ -43,6 +44,7 @@ describe('DatasetFormComponent', () => {
       declarations: [ AppComponent, DatasetFormComponent, DatasetDetailsComponent ],
       providers: [
         { provide: DatasetService, useClass: MockDatasetService },
+        { provide: SchemaService, useClass: MockSchemaService },
         { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService },
         { provide: DatasetOwnerService, useClass: MockDatasetOwnerService }],
       imports: [ RouterTestingModule.withRoutes([
@@ -79,12 +81,12 @@ describe('DatasetFormComponent', () => {
         const button = compiled.querySelector('button');
 
         inputTitle.value = 'Dataset 1';
-        dispatchEvent(inputTitle, 'input');
+        inputTitle.dispatchEvent(new Event('input'));
         inputDescription.value = 'First Dataset';
-        dispatchEvent(inputDescription, 'input');
+        inputDescription.dispatchEvent(new Event('input'));
         fixture.detectChanges();
         expect(button.disabled).toBeFalsy();
-        dispatchEvent(form, 'submit');
+        form.dispatchEvent(new Event('submit'));
 
         expect(component.dataset.title).toBe('Dataset 1');
         expect(component.dataset.description).toBe('First Dataset');
@@ -112,8 +114,8 @@ describe('DatasetFormComponent', () => {
         const button = compiled.querySelector('button');
 
         input.value = '';
-        dispatchEvent(input, 'input');
-        dispatchEvent(input, 'blur');
+        input.dispatchEvent(new Event('input'));
+        input.dispatchEvent(new Event('blur'));
         fixture.detectChanges();
 
         expect(component.dataset.title).toBe('');

@@ -7,6 +7,7 @@ export class Dataset {
   blocked = false;
   flags = 0;
   _links: any = {};
+  schema: string;
 
   constructor(values: Object = {}) {
     (<any>Object).assign(this, values);
