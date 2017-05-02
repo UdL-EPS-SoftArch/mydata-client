@@ -34,7 +34,8 @@ export class DatasetFormComponent implements OnInit {
       'title': ['Dataset title', Validators.required],
       'description': ['Dataset description'],
       'schema': ['Dataset schema'],
-      'license':['Dataset license']
+      'openlicense':['Dataset license'],
+      'closedlicense':['Dataset license']
     });
     this.titleCtrl = this.datasetForm.controls['title'];
     this.dataset = new Dataset();
