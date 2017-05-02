@@ -23,6 +23,7 @@
     <div class="panel panel-default" *ngFor="let dataset of datasets">
       <div class="panel-heading">
         <h4>Title: <a routerLink="{{dataset.uri}}">{{dataset.title}}</a></h4>
+        <h4>Owner: {{datasetOwners[dataset.uri]}}</h4>
       </div>
       <div class="panel-body">
         <div class="col-md-6">
