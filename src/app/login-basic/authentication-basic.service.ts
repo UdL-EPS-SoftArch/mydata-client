@@ -49,6 +49,6 @@ export class AuthenticationBasicService {
 
   isAdmin(): boolean {
     const user: User = this.getCurrentUser();
-    return user.authorities[0].authority == 'ROLE_ADMIN';
+    return user.authorities[0].authority === 'ROLE_ADMIN';
   }
 }
