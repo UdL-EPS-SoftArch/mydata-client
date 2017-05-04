@@ -9,6 +9,9 @@ import { AppComponent } from '../../app.component';
 import { DatasetsListComponent } from './datasets-list.component';
 import { DatasetService } from '../dataset.service';
 import { Dataset } from '../dataset';
+import {DatasetOwnerService} from "../../user/dataset-owner.service";
+import {MockDatasetOwnerService} from "../../../test/mocks/dataset-owner.service";
+import {Owner} from "../../user/owner";
 
 describe('DatasetsListComponent', () => {
   let component: DatasetsListComponent;
@@ -17,18 +20,29 @@ describe('DatasetsListComponent', () => {
   const dataset1 = new Dataset({
     'uri': '/datasets/1',
     'title': 'Dataset 1',
-    'description': 'First dataset'
+    'description': 'First dataset',
+    '_links': {
+      'owner': { 'href': 'http://localhost/datasets/1/owner' }
+    }
   });
   const dataset2 = new Dataset({
     'uri': '/datasets/2',
     'title': 'Dataset 2',
-    'description': 'Second dataset'
+    'description': 'Second dataset',
+    '_links': {
+      'owner': { 'href': 'http://localhost/datasets/2/owner' }
+    }
+  });
+
+  const owner = new Owner({
+    'uri': 'dataOwners/owner',
   });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ AppComponent, DatasetsListComponent ],
-      providers: [ { provide: DatasetService, useClass: MockDatasetService } ],
+      providers: [ { provide: DatasetService, useClass: MockDatasetService },
+        {provide: DatasetOwnerService, useClass: MockDatasetOwnerService} ],
       imports: [ RouterTestingModule.withRoutes([
         { path: 'datasets', component: DatasetsListComponent }
       ])],
@@ -37,9 +51,10 @@ describe('DatasetsListComponent', () => {
   }));
 
   it('should fetch and render all datasets', async(
-    inject([Router, Location, DatasetService], (router, location, service) => {
+    inject([Router, Location, DatasetService, DatasetOwnerService], (router, location, service, datasetOwnerService) => {
       TestBed.createComponent(AppComponent);
       service.setResponse([dataset1, dataset2]);
+      datasetOwnerService.setResponse(owner);
 
       router.navigate(['/datasets']).then(() => {
         expect(location.path()).toBe('/datasets');
