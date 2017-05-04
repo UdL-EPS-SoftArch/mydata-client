@@ -11,8 +11,8 @@ import { TagDetailsComponent } from '../tags-details/tags-details.component';
 import { Router } from '@angular/router';
 import { dispatchEvent } from '@angular/platform-browser/testing/browser_util';
 import { Location } from '@angular/common';
-import {MockAuthenticationBasicService} from "../../../test/mocks/authentication-basic.service";
-import {AuthenticationBasicService} from "../../login-basic/authentication-basic.service";
+import {MockAuthenticationBasicService} from '../../../test/mocks/authentication-basic.service';
+import {AuthenticationBasicService} from '../../login-basic/authentication-basic.service';
 
 
 describe('TagFormComponent', () => {

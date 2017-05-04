@@ -8,8 +8,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import {AuthenticationBasicService} from "../../login-basic/authentication-basic.service";
-import {MockAuthenticationBasicService} from "../../../test/mocks/authentication-basic.service";
+import {AuthenticationBasicService} from '../../login-basic/authentication-basic.service';
+import {MockAuthenticationBasicService} from '../../../test/mocks/authentication-basic.service';
 
 describe('TagDetailsComponent', () => {
   let fixture: ComponentFixture<TagDetailsComponent>;
