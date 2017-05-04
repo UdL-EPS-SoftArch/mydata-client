@@ -1,4 +1,4 @@
-export class Field{
+export class Field {
   uri: string;
   title: string;
   description: string;
