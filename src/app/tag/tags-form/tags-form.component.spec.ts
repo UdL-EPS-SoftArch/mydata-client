@@ -11,6 +11,8 @@ import { TagDetailsComponent } from '../tags-details/tags-details.component';
 import { Router } from '@angular/router';
 import { dispatchEvent } from '@angular/platform-browser/testing/browser_util';
 import { Location } from '@angular/common';
+import {MockAuthenticationBasicService} from "../../../test/mocks/authentication-basic.service";
+import {AuthenticationBasicService} from "../../login-basic/authentication-basic.service";
 
 
 describe('TagFormComponent', () => {
@@ -26,7 +28,10 @@ describe('TagFormComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [AppComponent, TagFormComponent, TagDetailsComponent],
-      providers: [{provide: TagService, useClass: MockTagService}],
+      providers: [
+        {provide: TagService, useClass: MockTagService},
+        { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService }
+        ],
       imports: [RouterTestingModule.withRoutes([
         {path: 'tags/new', component: TagFormComponent},
         {path: 'tags/:id', component: TagDetailsComponent}]),
@@ -37,9 +42,10 @@ describe('TagFormComponent', () => {
   }));
 
   it('should submit new tag', async(
-    inject([Router, Location, TagService], (router, location, service) => {
+    inject([Router, Location, TagService, AuthenticationBasicService], (router, location, service, authentication) => {
       TestBed.createComponent(AppComponent);
       service.setResponse(response);
+      authentication.isLoggedIn.and.returnValue(true);
 
       router.navigate(['/tags/new']).then(() => {
         expect(location.path()).toBe('/tags/new');
