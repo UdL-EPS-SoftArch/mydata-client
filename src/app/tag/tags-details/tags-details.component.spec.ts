@@ -8,6 +8,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import {AuthenticationBasicService} from "../../login-basic/authentication-basic.service";
+import {MockAuthenticationBasicService} from "../../../test/mocks/authentication-basic.service";
 
 describe('TagDetailsComponent', () => {
   let fixture: ComponentFixture<TagDetailsComponent>;
@@ -25,7 +27,10 @@ describe('TagDetailsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ AppComponent, TagDetailsComponent ],
-      providers: [ { provide: TagService, useClass: MockTagService } ],
+      providers: [
+        { provide: TagService, useClass: MockTagService },
+        { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService }
+        ],
       imports: [ RouterTestingModule.withRoutes([
         { path: 'tags/:id', component: TagDetailsComponent }
       ])],
@@ -34,9 +39,11 @@ describe('TagDetailsComponent', () => {
   }));
 
   it('should fetch and render the requested tag', async(
-    inject([Router, Location, TagService], (router, location, service) => {
+    inject([Router, Location, TagService, AuthenticationBasicService],
+      (router, location, service, authentication) => {
       TestBed.createComponent(AppComponent);
       service.setResponse(tag1);
+      authentication.isLoggedIn.and.returnValue(true);
 
       router.navigate(['/tags/Tag1']).then(() => {
         expect(location.path()).toBe('/tags/Tag1');
