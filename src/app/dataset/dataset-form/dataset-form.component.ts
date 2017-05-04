@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import { Dataset } from '../dataset';
 import { DatasetService } from '../dataset.service';
 import { Router } from '@angular/router';
+import { Schema } from '../../schema/schema';
+import { SchemaService } from '../../schema/schema.service';
 
 @Component({
   selector: 'app-dataset-form',
@@ -14,19 +16,27 @@ export class DatasetFormComponent implements OnInit {
   public datasetForm: FormGroup;
   public titleCtrl: AbstractControl;
   public errorMessage: string;
+  public schemas: Schema[] = [];
 
   constructor(private fb: FormBuilder,
               private router: Router,
-              private datasetService: DatasetService) {
+              private datasetService: DatasetService,
+              private schemaService: SchemaService) {
     this.datasetForm = fb.group({
       'title': ['Dataset title', Validators.required],
-      'description': ['Dataset description']
+      'description': ['Dataset description'],
+      'schema': ['Dataset schema']
     });
     this.titleCtrl = this.datasetForm.controls['title'];
     this.dataset = new Dataset();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.schemaService.getAllSchemas().subscribe(
+      schemas => { this.schemas = schemas; },
+      error => this.errorMessage = <any>error.message
+    );
+  }
 
   onSubmit(): void {
     this.datasetService.addDataset(this.dataset)
