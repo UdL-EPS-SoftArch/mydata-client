@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DatasetService} from '../dataset.service';
 import {Dataset} from '../dataset';
-import {DatasetOwnerService} from "../../user/dataset-owner.service";
+import {DatasetOwnerService} from '../../user/dataset-owner.service';
 
 @Component({
   selector: 'app-datasets-list',
@@ -14,7 +14,8 @@ export class DatasetsListComponent implements OnInit {
   public errorMessage: string;
 
   constructor(private datasetService: DatasetService,
-              private datasetOwnerService: DatasetOwnerService) { }
+              private datasetOwnerService: DatasetOwnerService) {
+  }
 
   onSearch(datasets) {
     this.datasets = datasets;

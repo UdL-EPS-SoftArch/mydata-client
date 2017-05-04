@@ -1,17 +1,17 @@
-import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { MockDatasetService } from '../../../test/mocks/dataset.service';
+import { async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
+import { RouterTestingModule} from '@angular/router/testing';
+import { MockDatasetService} from '../../../test/mocks/dataset.service';
 
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Location } from '@angular/common';
-import { Router } from '@angular/router';
-import { AppComponent } from '../../app.component';
-import { DatasetsListComponent } from './datasets-list.component';
-import { DatasetService } from '../dataset.service';
-import { Dataset } from '../dataset';
-import {DatasetOwnerService} from "../../user/dataset-owner.service";
-import {MockDatasetOwnerService} from "../../../test/mocks/dataset-owner.service";
-import {Owner} from "../../user/owner";
+import { NO_ERRORS_SCHEMA} from '@angular/core';
+import { Location} from '@angular/common';
+import { Router} from '@angular/router';
+import { AppComponent} from '../../app.component';
+import { DatasetsListComponent} from './datasets-list.component';
+import { DatasetService} from '../dataset.service';
+import { Dataset} from '../dataset';
+import { DatasetOwnerService} from '../../user/dataset-owner.service';
+import { MockDatasetOwnerService} from '../../../test/mocks/dataset-owner.service';
+import { Owner} from '../../user/owner';
 
 describe('DatasetsListComponent', () => {
   let component: DatasetsListComponent;
@@ -22,7 +22,7 @@ describe('DatasetsListComponent', () => {
     'title': 'Dataset 1',
     'description': 'First dataset',
     '_links': {
-      'owner': { 'href': 'http://localhost/datasets/1/owner' }
+      'owner': {'href': 'http://localhost/datasets/1/owner'}
     }
   });
   const dataset2 = new Dataset({
@@ -30,7 +30,7 @@ describe('DatasetsListComponent', () => {
     'title': 'Dataset 2',
     'description': 'Second dataset',
     '_links': {
-      'owner': { 'href': 'http://localhost/datasets/2/owner' }
+      'owner': {'href': 'http://localhost/datasets/2/owner'}
     }
   });
 
@@ -40,13 +40,13 @@ describe('DatasetsListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AppComponent, DatasetsListComponent ],
-      providers: [ { provide: DatasetService, useClass: MockDatasetService },
-        {provide: DatasetOwnerService, useClass: MockDatasetOwnerService} ],
-      imports: [ RouterTestingModule.withRoutes([
-        { path: 'datasets', component: DatasetsListComponent }
+      declarations: [AppComponent, DatasetsListComponent],
+      providers: [{provide: DatasetService, useClass: MockDatasetService},
+        {provide: DatasetOwnerService, useClass: MockDatasetOwnerService}],
+      imports: [RouterTestingModule.withRoutes([
+        {path: 'datasets', component: DatasetsListComponent}
       ])],
-      schemas: [ NO_ERRORS_SCHEMA ]
+      schemas: [NO_ERRORS_SCHEMA]
     });
   }));
 
