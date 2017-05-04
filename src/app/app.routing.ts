@@ -18,6 +18,7 @@ import { TagsListComponent } from './tag/tags-list/tags-list.component';
 import { TagFormComponent } from './tag/tags-form/tags-form.component';
 import { TagDetailsComponent } from './tag/tags-details/tags-details.component';
 import {SchemaEditComponent} from './schema/schema-edit/schema-edit.component';
+import { SchemasDatasetListComponent } from './schema/schemas-list/schemas-dataset-list.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'about', pathMatch: 'full' },
@@ -30,6 +31,7 @@ export const routes: Routes = [
   { path: 'schemas/new', component: SchemaFormComponent },
   { path: 'schemas/:id', component: SchemaDetailsComponent },
   { path: 'schemas/:id/edit', component: SchemaEditComponent, canActivate: [LoggedInGuard] },
+  { path: 'schemas/:id/datasets', component: SchemasDatasetListComponent },
   { path: 'openLicenses', component: OpenLicenseListComponent },
   { path: 'openLicenses/new', component: OpenLicenseFormComponent },
   { path: 'openLicenses/:id', component: OpenLicenseDetailsComponent },
