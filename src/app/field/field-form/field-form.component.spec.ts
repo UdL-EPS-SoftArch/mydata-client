@@ -11,7 +11,12 @@ import { FieldDetailsComponent } from '../field-details/field-details.component'
 import { Field } from '../field';
 import { FieldService } from '../field.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { dispatchEvent } from '@angular/platform-browser/testing/browser_util';
+import { User } from '../../login-basic/user';
+import { Owner } from '../../user/owner';
+import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
+import { MockAuthenticationBasicService } from '../../../test/mocks/authentication-basic.service';
+import { FieldOwnerService } from '../../user/field-owner.service';
+import { MockFieldOwnerService } from '../../../test/mocks/field-owner.service';
 
 describe('FieldFormComponent', () => {
   let component: FieldFormComponent;
@@ -21,13 +26,25 @@ describe('FieldFormComponent', () => {
     'uri': '/fields/1',
     'title': 'Field 1',
     'description': 'First field',
-    '_links': {}
+    '_links': {
+      'owner': {'href': 'http://localhost/datasets/2/owner'}
+    }
+  });
+
+  const user = new User({
+    'username': 'user'
+  });
+
+  const owner = new Owner({
+    'uri': 'dataOwners/owner',
   });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ AppComponent, FieldFormComponent, FieldDetailsComponent ],
-      providers: [ { provide: FieldService, useClass: MockFieldService } ],
+      providers: [ { provide: FieldService, useClass: MockFieldService },
+        { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService },
+        { provide: FieldOwnerService, useClass: MockFieldOwnerService }],
       imports: [ RouterTestingModule.withRoutes([
         { path: 'fields/new', component: FieldFormComponent },
         { path: 'fields/:id', component: FieldDetailsComponent }]),
@@ -37,41 +54,46 @@ describe('FieldFormComponent', () => {
     });
   }));
 
+
   it('should submit new field', async(
-    inject([Router, Location, FieldService], (router, location, service) => {
-      TestBed.createComponent(AppComponent);
-      service.setResponse(response);
+    inject([Router, Location, FieldService, FieldOwnerService, AuthenticationBasicService],
+      (router, location, service,  userService, authentication) => {
+        TestBed.createComponent(AppComponent);
+        service.setResponse(response);
+        userService.setResponse(owner);
+        authentication.isLoggedIn.and.returnValue(true);
+        authentication.getCurrentUser.and.returnValue(user);
 
-      router.navigate(['/fields/new']).then(() => {
-        expect(location.path()).toBe('/fields/new');
-        expect(service.getField).toHaveBeenCalledTimes(0);
+        router.navigate(['/fields/new']).then(() => {
+          expect(location.path()).toBe('/fields/new');
+          expect(service.getField).toHaveBeenCalledTimes(0);
 
-        fixture = TestBed.createComponent(FieldFormComponent);
-        fixture.detectChanges();
-        component = fixture.debugElement.componentInstance;
-        expect(component.field.title).toBeUndefined();
+          fixture = TestBed.createComponent(FieldFormComponent);
+          fixture.detectChanges();
+          component = fixture.debugElement.componentInstance;
+          expect(component.field.title).toBeUndefined();
 
-        const compiled = fixture.debugElement.nativeElement;
-        const inputTitle = compiled.querySelector('#title');
-        const inputDescription = compiled.querySelector('#description');
-        const form = compiled.querySelector('form');
-        const button = compiled.querySelector('button');
+          const compiled = fixture.debugElement.nativeElement;
+          const inputTitle = compiled.querySelector('#title');
+          const inputDescription = compiled.querySelector('#description');
+          const form = compiled.querySelector('form');
+          const button = compiled.querySelector('button');
 
-        inputTitle.value = 'Field 1';
-        dispatchEvent(inputTitle, 'input');
-        inputDescription.value = 'First Field';
-        dispatchEvent(inputDescription, 'input');
-        fixture.detectChanges();
-        expect(button.disabled).toBeFalsy();
-        dispatchEvent(form, 'submit');
+          inputTitle.value = 'Field 1';
+          inputTitle.dispatchEvent(new Event('input'));
+          inputDescription.value = 'First Field';
+          inputDescription.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
+          expect(button.disabled).toBeFalsy();
+          form.dispatchEvent(new Event('submit'));
 
-        expect(component.field.title).toBe('Field 1');
-        expect(component.field.description).toBe('First Field');
-        expect(service.addField).toHaveBeenCalledTimes(1);
-        expect(service.addField.calls.mostRecent().object.fakeResponse.title).toBe('Field 1');
-        expect(service.addField.calls.mostRecent().object.fakeResponse.description).toBe('First field');
-      });
-    })
+          expect(component.field.title).toBe('Field 1');
+          expect(component.field.description).toBe('First Field');
+          expect(service.addField).toHaveBeenCalledTimes(1);
+          expect(service.addField.calls.mostRecent().object.fakeResponse.title).toBe('Field 1');
+          expect(service.addField.calls.mostRecent().object.fakeResponse.description).toBe('First field');
+        });
+      })
   ));
 
   it('should warn if input for title is left empty', async(
@@ -91,8 +113,8 @@ describe('FieldFormComponent', () => {
         const button = compiled.querySelector('button');
 
         input.value = '';
-        dispatchEvent(input, 'input');
-        dispatchEvent(input, 'blur');
+        input.dispatchEvent(new Event('input'));
+        input.dispatchEvent(new Event('blur'));
         fixture.detectChanges();
 
         expect(component.field.title).toBe('');
