@@ -43,7 +43,7 @@ describe('DatasetsListComponent', () => {
 
       router.navigate(['/datasets']).then(() => {
         expect(location.path()).toBe('/datasets');
-        expect(service.getAllDatasets).toHaveBeenCalled();
+        expect(service.getAllDatasetsOrderedByTitle).toHaveBeenCalled();
 
         fixture = TestBed.createComponent(DatasetsListComponent);
         fixture.detectChanges();
@@ -52,8 +52,8 @@ describe('DatasetsListComponent', () => {
         expect(component.datasets[1].title).toBe('Dataset 2');
 
         const compiled = fixture.debugElement.nativeElement;
-        expect(compiled.querySelectorAll('p a')[0].innerHTML).toBe('Dataset 1');
-        expect(compiled.querySelectorAll('p a')[1].innerHTML).toBe('Dataset 2');
+        expect(compiled.querySelectorAll('.panel-heading')[0].innerHTML).toContain('Dataset 1');
+        expect(compiled.querySelectorAll('.panel-heading')[1].innerHTML).toContain('Dataset 2');
       });
     })
   ));

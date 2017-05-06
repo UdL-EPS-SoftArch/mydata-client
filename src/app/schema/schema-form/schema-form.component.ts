@@ -31,10 +31,9 @@ export class SchemaFormComponent implements OnInit {
   onSubmit(): void {
     this.schemaService.addSchema(this.schema)
       .subscribe(
-        schema => { this.router.navigate(['schemas/' + schema._links.self.href.split('/').pop()]); },
+        schema => { this.router.navigate([schema.uri]); },
         error => {
           this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
-          alert(`Error: ${this.errorMessage}`);
         });
   }
 }

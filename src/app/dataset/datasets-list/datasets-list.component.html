@@ -5,23 +5,35 @@
   </div>
   <div class="col-md-8">
     <h4>
-      <a class="btn btn-lg btn-primary" role="button"
-         [routerLink]="['/datasets/new']">Register Dataset</a>
+      <a class="btn btn-primary" role="button"
+         [routerLink]="['/datasets/new']">Register New Dataset</a>
     </h4>
   </div>
 </div>
 
 <div class="row">
-  <h3>Datasets</h3>
+  <h3 class="col-md-12">Datasets</h3>
+  <div class="col-md-12">
+    <app-dataset-search (onSearchited)="onSearch($event)" [datasets]="datasets"></app-dataset-search>
+  </div>
 </div>
 
-<div class="row" *ngFor="let dataset of datasets">
-  <div class="col-md-4">
-    <h4>Title</h4>
-    <p><a routerLink="{{dataset.uri}}">{{dataset.title}}</a></p>
-  </div>
-  <div class="col-md-8">
-    <h4>Description</h4>
-    <p>{{dataset.description}}</p>
+<div class="row">
+  <div class="panel-group col-md-12">
+    <div class="panel panel-default" *ngFor="let dataset of datasets">
+      <div class="panel-heading">
+        <h4>Title: <a routerLink="{{dataset.uri}}">{{dataset.title}}</a></h4>
+      </div>
+      <div class="panel-body">
+        <div class="col-md-6">
+          <h4>Description:</h4>
+          <p>{{dataset.description}}</p>
+        </div>
+        <div class="col-md-6">
+          <h4>Additional details:</h4>
+          <p></p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
