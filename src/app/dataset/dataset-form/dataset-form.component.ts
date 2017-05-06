@@ -24,6 +24,9 @@ export class DatasetFormComponent implements OnInit {
   public titleCtrl: AbstractControl;
   public errorMessage: string;
   public schemas: Schema[] = [];
+  public filename: string;
+  public file: boolean = false;
+  public content: string;
 
   constructor(private fb: FormBuilder,
               private router: Router,
@@ -36,12 +39,14 @@ export class DatasetFormComponent implements OnInit {
       this.datafileForm = fb.group({
         'title': ['Datafile title', Validators.required],
         'description': ['Datafile description'],
-        'inputFile': ['Datafile inputFile']
+        'inputFile': ['Datafile inputFile'],
+        'schema': ['Dataset schema']
       });
     } else {
       this.datasetForm = fb.group({
         'title': ['Dataset title', Validators.required],
-        'description': ['Dataset description']
+        'description': ['Dataset description'],
+        'schema': ['Dataset schema']
       });
     }
 
@@ -68,19 +73,29 @@ export class DatasetFormComponent implements OnInit {
     const file: File = fileList[0];
     const reader = new FileReader();
 
+
     reader.readAsText(file);
 
     reader.onloadend = (e) => {
+      this.file = true;
+      this.content = reader.result;
+      this.filename = file.name;
+    };
+  }
 
-      const body = JSON.stringify({
-        'title': 'Title1',
-        'description': 'asdasda',
-        'filename': file.name,
-        'content': reader.result
-      });
+
+  onSubmit(): void {
+    if (this.file) {
       const headers = new Headers({'Content-Type': 'application/json'});
       headers.append('Authorization', this.authentication.getCurrentUser().authorization);
       const options = new RequestOptions({headers: headers});
+      const body = JSON.stringify({
+        'title': this.datafile.title,
+        'description': this.datafile.description,
+        'schema': this.datafile.schema,
+        'filename': this.filename,
+        'content': this.content
+      });
 
       this.http.post(`${environment.API}/dataFiles`, body, options)
         .map((res: Response) => new DataFile(res.json()))
@@ -93,18 +108,15 @@ export class DatasetFormComponent implements OnInit {
             this.errorMessage = <any>error;
           },
           () => console.log('random look complete'));
-
-    };
-  }
-
-
-  onSubmit(): void {
-    this.datasetService.addDataset(this.dataset)
-      .subscribe(
-        dataset => {
-          this.router.navigate([dataset.uri]);
-        }, error => {
-          this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
-        });
+    } else {
+      this.datasetService.addDataset(this.datafile)
+        .subscribe(
+          dataset => {
+            this.router.navigate([dataset.uri]);
+          }, error => {
+            this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
+          });
+    }
+    this.file = false;
   }
 }
