@@ -19,12 +19,14 @@ import {TagFormComponent} from "./tag/tags-form/tags-form.component";
 import {TagDetailsComponent} from "./tag/tags-details/tags-details.component";
 import {SchemaEditComponent} from "./schema/schema-edit/schema-edit.component";
 import {datafilesListComponent} from "./dataset/datafile-list/datafiles-list.component";
+import {datafileDetailsComponent} from "./dataset/datafile-list/datafile-details.component";
 
 export const routes: Routes = [
   {path: '', redirectTo: 'about', pathMatch: 'full'},
   {path: 'about', component: AboutComponent},
   {path: 'datasets', component: DatasetsListComponent},
   {path: 'dataFiles', component: datafilesListComponent},
+  {path: 'dataFiles/:id', component: datafileDetailsComponent},
   {path: 'datasets/new', component: DatasetFormComponent},
   {path: 'datasets/:id', component: DatasetDetailsComponent},
   {path: 'datasets/:id/edit', component: DatasetEditComponent, canActivate: [LoggedInGuard]},

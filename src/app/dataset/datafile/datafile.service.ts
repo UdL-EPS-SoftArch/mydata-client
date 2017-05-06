@@ -19,4 +19,11 @@ export class DataFileService {
   }
 
 
+  // GET /datasets/id
+  getDatafile(uri: string): Observable<DataFile> {
+    return this.http.get(`${environment.API}${uri}`)
+      .map((res: Response) => new DataFile(res.json()))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
 }

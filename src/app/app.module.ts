@@ -40,6 +40,7 @@ import { SchemaEditComponent } from './schema/schema-edit/schema-edit.component'
 import { SchemaOwnerService } from './user/schema-owner.service';
 import { datafilesListComponent } from './dataset/datafile-list/datafiles-list.component';
 import {DataFileService} from "./dataset/datafile/datafile.service";
+import {datafileDetailsComponent} from "./dataset/datafile-list/datafile-details.component";
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import {DataFileService} from "./dataset/datafile/datafile.service";
     TagDetailsComponent,
     TagsListComponent,
     TagFormComponent,
-    SchemaEditComponent
+    SchemaEditComponent,
+    datafileDetailsComponent
   ],
   imports: [
     BrowserModule,
