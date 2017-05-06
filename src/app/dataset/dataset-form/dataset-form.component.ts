@@ -1,15 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { Dataset } from '../dataset';
-import { DatasetService } from '../dataset.service';
-import { Router } from '@angular/router';
-import { Schema } from '../../schema/schema';
-import { SchemaService } from '../../schema/schema.service';
 import {Component, OnInit} from "@angular/core";
 import {FormGroup, FormBuilder, Validators, AbstractControl} from "@angular/forms";
 import {Dataset} from "../dataset";
 import {DatasetService} from "../dataset.service";
 import {Router} from "@angular/router";
+import {Schema} from "../../schema/schema";
+import {SchemaService} from "../../schema/schema.service";
 import {DataFile} from "../datafile/datafile";
 import {Observable} from "rxjs";
 import {Headers, RequestOptions, Response, Http} from "@angular/http";
@@ -61,12 +56,14 @@ export class DatasetFormComponent implements OnInit {
 
   ngOnInit() {
     this.schemaService.getAllSchemas().subscribe(
-      schemas => { this.schemas = schemas; },
+      schemas => {
+        this.schemas = schemas;
+      },
       error => this.errorMessage = <any>error.message
     );
   }
 
-  addDataFile(event): void{
+  addDataFile(event): void {
 
     let fileList: FileList = event.target.files;
     let file: File = fileList[0];
@@ -74,9 +71,14 @@ export class DatasetFormComponent implements OnInit {
 
     reader.readAsText(file);
 
-    reader.onloadend = (e)=> {
+    reader.onloadend = (e) => {
 
-      let body = JSON.stringify({'title':'Title1','description':'asdasda', 'filename': file.name, 'content': reader.result});
+      let body = JSON.stringify({
+        'title': 'Title1',
+        'description': 'asdasda',
+        'filename': file.name,
+        'content': reader.result
+      });
       let headers = new Headers({'Content-Type': 'application/json'});
       headers.append('Authorization', this.authentication.getCurrentUser().authorization);
       let options = new RequestOptions({headers: headers});
@@ -97,13 +99,12 @@ export class DatasetFormComponent implements OnInit {
   }
 
 
-
   onSubmit(): void {
     this.datasetService.addDataset(this.dataset)
       .subscribe(
         dataset => {
           this.router.navigate([dataset.uri]);
-        },       error => {
+        }, error => {
           this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
         });
   }
