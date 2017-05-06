@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {FormGroup, FormBuilder, Validators, AbstractControl} from '@angular/forms';
-import {Dataset} from '../dataset';
-import {DatasetService} from '../dataset.service';
-import {Router} from '@angular/router';
+import {Component, OnInit} from "@angular/core";
+import {FormGroup, FormBuilder, Validators, AbstractControl} from "@angular/forms";
+import {Dataset} from "../dataset";
+import {DatasetService} from "../dataset.service";
+import {Router} from "@angular/router";
 import {DataFile} from "../datafile/datafile";
 import {Observable} from "rxjs";
 import {Headers, RequestOptions, Response, Http} from "@angular/http";
@@ -55,19 +55,37 @@ export class DatasetFormComponent implements OnInit {
   ngOnInit() {
   }
 
-  addDataFile(input): Observable<DataFile> {
-    let file = input;
+  addDataFile(event): void{
+
+    let fileList: FileList = event.target.files;
+    let file: File = fileList[0];
     let reader = new FileReader();
 
-    let body = JSON.stringify({'inputFile': file.name, 'content': "TRIO MAQUINERO"});
-    let headers = new Headers({'Content-Type': 'application/json'});
-    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
-    let options = new RequestOptions({headers: headers});
+    reader.readAsText(file);
 
-    return this.http.post(`${environment.API}/pictures`, body, options)
-      .map((res: Response) => new DataFile(res.json()))
-      .catch((error: any) => Observable.throw(error.json()));
+    reader.onloadend = (e)=> {
+
+      let body = JSON.stringify({'title':'Title1','description':'asdasda', 'filename': file.name, 'content': reader.result});
+      let headers = new Headers({'Content-Type': 'application/json'});
+      headers.append('Authorization', this.authentication.getCurrentUser().authorization);
+      let options = new RequestOptions({headers: headers});
+
+      this.http.post(`${environment.API}/dataFiles`, body, options)
+        .map((res: Response) => new DataFile(res.json()))
+        .catch((error: any) => Observable.throw(error.json()))
+        .subscribe(
+          data => {
+            console.log(Response);
+          },
+          error => {
+            this.errorMessage = <any>error;
+          },
+          () => console.log('random look complete'));
+
+    };
   }
+
+
 
   onSubmit(): void {
 

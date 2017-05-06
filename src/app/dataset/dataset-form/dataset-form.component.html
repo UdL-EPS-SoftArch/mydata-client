@@ -35,7 +35,7 @@
     <div class="form-group row">
       <label class="col-md-3 control-label" for="inputFile">DataFile Selection</label>
       <div class="col-md-9">
-        <input type="file" id="inputFile" autofocus="" (change)="addDataFile(inputFile)" #file/>
+        <input type="file" id="inputFile" autofocus="" (change)="addDataFile($event)" #file/>
       </div>
     </div>
 

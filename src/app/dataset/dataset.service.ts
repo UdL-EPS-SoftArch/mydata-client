@@ -41,15 +41,4 @@ export class DatasetService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-
-  addDataFile(dataFile: DataFile): Observable<DataFile> {
-    let body = JSON.stringify({'filename': dataFile.filename, 'content': dataFile.content});
-    let headers = new Headers({'Content-Type': 'application/json'});
-    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
-    let options = new RequestOptions({headers: headers});
-
-    return this.http.post(`${environment.API}/pictures`, body, options)
-      .map((res: Response) => new DataFile(res.json()))
-      .catch((error: any) => Observable.throw(error.json()));
-  }
 }
