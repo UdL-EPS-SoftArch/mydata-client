@@ -90,9 +90,9 @@ export class DatasetFormComponent implements OnInit {
       headers.append('Authorization', this.authentication.getCurrentUser().authorization);
       const options = new RequestOptions({headers: headers});
       const body = JSON.stringify({
-        'title': this.datafile.title,
-        'description': this.datafile.description,
-        'schema': this.datafile.schema,
+        'title': this.dataset.title,
+        'description': this.dataset.description,
+        'schema': this.dataset.schema,
         'filename': this.filename,
         'content': this.content
       });
