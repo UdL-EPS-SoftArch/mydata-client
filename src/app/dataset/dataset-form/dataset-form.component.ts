@@ -1,15 +1,15 @@
-import {Component, OnInit} from "@angular/core";
-import {FormGroup, FormBuilder, Validators, AbstractControl} from "@angular/forms";
-import {Dataset} from "../dataset";
-import {DatasetService} from "../dataset.service";
-import {Router} from "@angular/router";
-import {Schema} from "../../schema/schema";
-import {SchemaService} from "../../schema/schema.service";
-import {DataFile} from "../datafile/datafile";
-import {Observable} from "rxjs";
-import {Headers, RequestOptions, Response, Http} from "@angular/http";
-import {environment} from "../../../environments/environment";
-import {AuthenticationBasicService} from "../../login-basic/authentication-basic.service";
+import {Component, OnInit} from '@angular/core';
+import {FormGroup, FormBuilder, Validators, AbstractControl} from '@angular/forms';
+import {Dataset} from '../dataset';
+import {DatasetService} from '../dataset.service';
+import {Router} from '@angular/router';
+import {Schema} from '../../schema/schema';
+import {SchemaService} from '../../schema/schema.service';
+import {DataFile} from '../datafile/datafile';
+import {Observable} from 'rxjs/Observable';
+import {Headers, RequestOptions, Response, Http} from '@angular/http';
+import {environment} from '../../../environments/environment';
+import {AuthenticationBasicService} from '../../login-basic/authentication-basic.service';
 
 @Component({
   selector: 'app-dataset-form',
@@ -64,24 +64,23 @@ export class DatasetFormComponent implements OnInit {
   }
 
   addDataFile(event): void {
-
-    let fileList: FileList = event.target.files;
-    let file: File = fileList[0];
-    let reader = new FileReader();
+    const fileList: FileList = event.target.files;
+    const file: File = fileList[0];
+    const reader = new FileReader();
 
     reader.readAsText(file);
 
     reader.onloadend = (e) => {
 
-      let body = JSON.stringify({
+      const body = JSON.stringify({
         'title': 'Title1',
         'description': 'asdasda',
         'filename': file.name,
         'content': reader.result
       });
-      let headers = new Headers({'Content-Type': 'application/json'});
+      const headers = new Headers({'Content-Type': 'application/json'});
       headers.append('Authorization', this.authentication.getCurrentUser().authorization);
-      let options = new RequestOptions({headers: headers});
+      const options = new RequestOptions({headers: headers});
 
       this.http.post(`${environment.API}/dataFiles`, body, options)
         .map((res: Response) => new DataFile(res.json()))
