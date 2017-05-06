@@ -1,15 +1,15 @@
-import {Component, OnInit} from "@angular/core";
-import {FormGroup, FormBuilder, Validators, AbstractControl} from "@angular/forms";
-import {Dataset} from "../dataset";
-import {DatasetService} from "../dataset.service";
-import {Router} from "@angular/router";
-import {Schema} from "../../schema/schema";
-import {SchemaService} from "../../schema/schema.service";
-import {DataFile} from "../datafile/datafile";
-import {Observable} from "rxjs";
-import {Headers, RequestOptions, Response, Http} from "@angular/http";
-import {environment} from "../../../environments/environment";
-import {AuthenticationBasicService} from "../../login-basic/authentication-basic.service";
+import {Component, OnInit} from '@angular/core';
+import {FormGroup, FormBuilder, Validators, AbstractControl} from '@angular/forms';
+import {Dataset} from '../dataset';
+import {DatasetService} from '../dataset.service';
+import {Router} from '@angular/router';
+import {Schema} from '../../schema/schema';
+import {SchemaService} from '../../schema/schema.service';
+import {DataFile} from '../datafile/datafile';
+import {Observable} from 'rxjs/Observable';
+import {Headers, RequestOptions, Response, Http} from '@angular/http';
+import {environment} from '../../../environments/environment';
+import {AuthenticationBasicService} from '../../login-basic/authentication-basic.service';
 
 @Component({
   selector: 'app-dataset-form',
@@ -25,7 +25,7 @@ export class DatasetFormComponent implements OnInit {
   public errorMessage: string;
   public schemas: Schema[] = [];
   public filename: string;
-  public file: boolean = false;
+  public fileAttached: boolean = false;
   public content: string;
 
   constructor(private fb: FormBuilder,
@@ -77,7 +77,7 @@ export class DatasetFormComponent implements OnInit {
     reader.readAsText(file);
 
     reader.onloadend = (e) => {
-      this.file = true;
+      this.fileAttached = true;
       this.content = reader.result;
       this.filename = file.name;
     };
@@ -85,8 +85,7 @@ export class DatasetFormComponent implements OnInit {
 
 
   onSubmit(): void {
-    if (this.file) {
-      console.debug("Tyhisfasi");
+    if (this.fileAttached) {
       const headers = new Headers({'Content-Type': 'application/json'});
       headers.append('Authorization', this.authentication.getCurrentUser().authorization);
       const options = new RequestOptions({headers: headers});
@@ -111,7 +110,7 @@ export class DatasetFormComponent implements OnInit {
           },
           () => console.log('random look complete'));
     } else {
-      this.datasetService.addDataset(this.datafile)
+      this.datasetService.addDataset(this.dataset)
         .subscribe(
           dataset => {
             this.router.navigate([dataset.uri]);
@@ -119,6 +118,6 @@ export class DatasetFormComponent implements OnInit {
             this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
           });
     }
-    this.file = false;
+    this.fileAttached = false;
   }
 }
