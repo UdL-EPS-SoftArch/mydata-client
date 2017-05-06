@@ -1,24 +1,22 @@
-import {Http, Headers, RequestOptions, Response} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
-import {environment} from '../../../environments/environment';
-import {DataFile} from './datafile';
-import {AuthenticationBasicService} from '../../login-basic/authentication-basic.service';
+import {Http, Response} from "@angular/http";
+import {Observable} from "rxjs/Observable";
+import {environment} from "../../../environments/environment";
+import {DataFile} from "./datafile";
+import {Injectable} from "@angular/core";
+
+@Injectable()
 export class DataFileService {
 
-  constructor(private http: Http,
-              private authentication: AuthenticationBasicService) {
+  constructor(private http: Http) {
   }
 
-  // POST /pictures
-  addDataFile(dataFile: DataFile): Observable<DataFile> {
-    const body = JSON.stringify({'filename': dataFile.filename, 'content': dataFile.content});
-    const headers = new Headers({'Content-Type': 'application/json'});
-    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
-    const options = new RequestOptions({headers: headers});
 
-    return this.http.post(`${environment.API}/pictures`, body, options)
-      .map((res: Response) => new DataFile(res.json()))
+  // GET /datasets/OrderByTitle
+  getAllDatasetsOrderedByTitle(): Observable<DataFile[]> {
+    return this.http.get(`${environment.API}/dataFiles?sort=title`)
+      .map((res: Response) => res.json()._embedded.dataFiles.map(json => new DataFile(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
+
 
 }

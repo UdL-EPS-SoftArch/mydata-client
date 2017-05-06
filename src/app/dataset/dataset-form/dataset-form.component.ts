@@ -1,15 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {FormGroup, FormBuilder, Validators, AbstractControl} from '@angular/forms';
-import {Dataset} from '../dataset';
-import {DatasetService} from '../dataset.service';
-import {Router} from '@angular/router';
-import {Schema} from '../../schema/schema';
-import {SchemaService} from '../../schema/schema.service';
-import {DataFile} from '../datafile/datafile';
-import {Observable} from 'rxjs/Observable';
-import {Headers, RequestOptions, Response, Http} from '@angular/http';
-import {environment} from '../../../environments/environment';
-import {AuthenticationBasicService} from '../../login-basic/authentication-basic.service';
+import {Component, OnInit} from "@angular/core";
+import {FormGroup, FormBuilder, Validators, AbstractControl} from "@angular/forms";
+import {Dataset} from "../dataset";
+import {DatasetService} from "../dataset.service";
+import {Router} from "@angular/router";
+import {Schema} from "../../schema/schema";
+import {SchemaService} from "../../schema/schema.service";
+import {DataFile} from "../datafile/datafile";
+import {Observable} from "rxjs";
+import {Headers, RequestOptions, Response, Http} from "@angular/http";
+import {environment} from "../../../environments/environment";
+import {AuthenticationBasicService} from "../../login-basic/authentication-basic.service";
 
 @Component({
   selector: 'app-dataset-form',
@@ -86,13 +86,14 @@ export class DatasetFormComponent implements OnInit {
 
   onSubmit(): void {
     if (this.file) {
+      console.debug("Tyhisfasi");
       const headers = new Headers({'Content-Type': 'application/json'});
       headers.append('Authorization', this.authentication.getCurrentUser().authorization);
       const options = new RequestOptions({headers: headers});
       const body = JSON.stringify({
-        'title': this.datafile.title,
-        'description': this.datafile.description,
-        'schema': this.datafile.schema,
+        'title': this.dataset.title,
+        'description': this.dataset.description,
+        'schema': this.dataset.schema,
         'filename': this.filename,
         'content': this.content
       });
@@ -101,7 +102,8 @@ export class DatasetFormComponent implements OnInit {
         .map((res: Response) => new DataFile(res.json()))
         .catch((error: any) => Observable.throw(error.json()))
         .subscribe(
-          data => {
+          datafile => {
+            this.router.navigate([datafile.uri]);
             console.log(Response);
           },
           error => {

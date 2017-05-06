@@ -38,6 +38,8 @@ import { TagsListComponent } from './tag/tags-list/tags-list.component';
 import { TagFormComponent } from './tag/tags-form/tags-form.component';
 import { SchemaEditComponent } from './schema/schema-edit/schema-edit.component';
 import { SchemaOwnerService } from './user/schema-owner.service';
+import { datafilesListComponent } from './dataset/datafile-list/datafiles-list.component';
+import {DataFileService} from "./dataset/datafile/datafile.service";
 
 @NgModule({
   declarations: [
@@ -45,6 +47,7 @@ import { SchemaOwnerService } from './user/schema-owner.service';
     DatasetFormComponent,
     AboutComponent,
     DatasetsListComponent,
+    datafilesListComponent,
     DatasetDetailsComponent,
     SchemaFormComponent,
     SchemasListComponent,
@@ -74,7 +77,7 @@ import { SchemaOwnerService } from './user/schema-owner.service';
     LoginBasicModule
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService, DatasetOwnerService,
-              OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService],
+              OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService, DataFileService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
