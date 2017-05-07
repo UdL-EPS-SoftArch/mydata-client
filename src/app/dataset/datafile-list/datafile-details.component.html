@@ -11,6 +11,15 @@
     <h4>Description</h4>
     <p>{{datafile.description}}</p>
   </div>
+  <div class="col-md-4">
+    <h4>Filename</h4>
+    <p>{{datafile.filename}}</p>
+  </div>
+  <br>
+  <div class="col-md-10">
+    <h4>Content</h4>
+    <p>{{datafile.content}}</p>
+  </div>
   <div class="col-md-2" *ngIf="isOwner">
     <a class="btn btn-primary" role="button" routerLink="{{datafile.uri}}/edit">Edit</a>
     <a class="btn btn-danger" role="button" (click)="onDelete(datafile)">Delete</a>
