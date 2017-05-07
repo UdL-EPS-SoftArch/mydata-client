@@ -25,7 +25,7 @@ export class DatasetFormComponent implements OnInit {
   public errorMessage: string;
   public schemas: Schema[] = [];
   public filename: string;
-  public fileAttached: boolean = false;
+  public fileAttached = false;
   public content: string;
 
   constructor(private fb: FormBuilder,

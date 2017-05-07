@@ -9,7 +9,7 @@ import { AuthenticationBasicService } from '../../login-basic/authentication-bas
   selector: 'app-datafile-details',
   templateUrl: './datafile-details.component.html'
 })
-export class datafileDetailsComponent implements OnInit {
+export class DatafileDetailsComponent implements OnInit {
   public datafile: DataFile = new DataFile();
   public errorMessage: string;
   public isOwner: boolean;

@@ -6,7 +6,7 @@ import {DataFileService} from '../datafile/datafile.service';
   selector: 'app-datafiles-list',
   templateUrl: './datafiles-list.component.html'
 })
-export class datafilesListComponent implements OnInit {
+export class DatafilesListComponent implements OnInit {
   public datafiles: DataFile[] = [];
   public errorMessage: string;
 
