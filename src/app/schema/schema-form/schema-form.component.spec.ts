@@ -11,7 +11,12 @@ import { SchemaDetailsComponent } from '../schema-details/schema-details.compone
 import { Schema } from '../schema';
 import { SchemaService } from '../schema.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { dispatchEvent } from '@angular/platform-browser/testing/browser_util';
+import { User } from '../../login-basic/user';
+import { Owner } from '../../user/owner';
+import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
+import { MockAuthenticationBasicService } from '../../../test/mocks/authentication-basic.service';
+import { SchemaOwnerService } from '../../user/schema-owner.service';
+import { MockSchemaOwnerService } from '../../../test/mocks/schema-owner.service';
 
 describe('SchemaFormComponent', () => {
   let component: SchemaFormComponent;
@@ -21,13 +26,25 @@ describe('SchemaFormComponent', () => {
     'uri': '/schemas/1',
     'title': 'Schema 1',
     'description': 'First schema',
-    '_links': {}
+    '_links': {
+      'owner': {'href': 'http://localhost/datasets/2/owner'}
+    }
+  });
+
+  const user = new User({
+    'username': 'user'
+  });
+
+  const owner = new Owner({
+    'uri': 'dataOwners/owner',
   });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ AppComponent, SchemaFormComponent, SchemaDetailsComponent ],
-      providers: [ { provide: SchemaService, useClass: MockSchemaService } ],
+      providers: [ { provide: SchemaService, useClass: MockSchemaService },
+        { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService },
+        { provide: SchemaOwnerService, useClass: MockSchemaOwnerService }],
       imports: [ RouterTestingModule.withRoutes([
         { path: 'schemas/new', component: SchemaFormComponent },
         { path: 'schemas/:id', component: SchemaDetailsComponent }]),
@@ -37,10 +54,15 @@ describe('SchemaFormComponent', () => {
     });
   }));
 
+
   it('should submit new schema', async(
-    inject([Router, Location, SchemaService], (router, location, service) => {
+    inject([Router, Location, SchemaService, SchemaOwnerService, AuthenticationBasicService],
+      (router, location, service,  userService, authentication) => {
       TestBed.createComponent(AppComponent);
       service.setResponse(response);
+      userService.setResponse(owner);
+      authentication.isLoggedIn.and.returnValue(true);
+      authentication.getCurrentUser.and.returnValue(user);
 
       router.navigate(['/schemas/new']).then(() => {
         expect(location.path()).toBe('/schemas/new');
@@ -58,12 +80,12 @@ describe('SchemaFormComponent', () => {
         const button = compiled.querySelector('button');
 
         inputTitle.value = 'Schema 1';
-        dispatchEvent(inputTitle, 'input');
+        inputTitle.dispatchEvent(new Event('input'));
         inputDescription.value = 'First Schema';
-        dispatchEvent(inputDescription, 'input');
+        inputDescription.dispatchEvent(new Event('input'));
         fixture.detectChanges();
         expect(button.disabled).toBeFalsy();
-        dispatchEvent(form, 'submit');
+        form.dispatchEvent(new Event('submit'));
 
         expect(component.schema.title).toBe('Schema 1');
         expect(component.schema.description).toBe('First Schema');
@@ -91,8 +113,8 @@ describe('SchemaFormComponent', () => {
         const button = compiled.querySelector('button');
 
         input.value = '';
-        dispatchEvent(input, 'input');
-        dispatchEvent(input, 'blur');
+        input.dispatchEvent(new Event('input'));
+        input.dispatchEvent(new Event('blur'));
         fixture.detectChanges();
 
         expect(component.schema.title).toBe('');

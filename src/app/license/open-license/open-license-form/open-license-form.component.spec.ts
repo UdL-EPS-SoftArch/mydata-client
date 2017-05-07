@@ -11,7 +11,6 @@ import { OpenLicenseDetailsComponent } from '../open-license-details/open-licens
 import { OpenLicense } from '../open-license';
 import { OpenLicenseService } from '../open-license.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { dispatchEvent } from '@angular/platform-browser/testing/browser_util';
 
 describe('OpenLicenseFormComponent', () => {
   let component: OpenLicenseFormComponent;
@@ -56,10 +55,10 @@ describe('OpenLicenseFormComponent', () => {
         const button = compiled.querySelector('button');
 
         inputText.value = 'License 1';
-        dispatchEvent(inputText, 'input');
+        inputText.dispatchEvent(new Event('input'));
         fixture.detectChanges();
         expect(button.disabled).toBeFalsy();
-        dispatchEvent(form, 'submit');
+        form.dispatchEvent(new Event('submit'));
 
         expect(component.openLicense.text).toBe('License 1');
         expect(service.addOpenLicense).toHaveBeenCalledTimes(1);
@@ -85,8 +84,8 @@ describe('OpenLicenseFormComponent', () => {
         const button = compiled.querySelector('button');
 
         input.value = '';
-        dispatchEvent(input, 'input');
-        dispatchEvent(input, 'blur');
+        input.dispatchEvent(new Event('input'));
+        input.dispatchEvent(new Event('blur'));
         fixture.detectChanges();
 
         expect(component.openLicense.text).toBe('');
