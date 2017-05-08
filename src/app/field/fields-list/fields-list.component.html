@@ -13,6 +13,9 @@
 
 <div class="row">
   <h3 class="col-md-12">Fields</h3>
+  <div class="col-md-12">
+    <app-fields-search (onSearchited)="onSearch($event)" [fields]="fields"></app-fields-search>
+  </div>
 </div>
 
 <div class="row">
@@ -25,6 +28,10 @@
         <div class="col-md-6">
           <h4>Description:</h4>
           <p>{{field.description}}</p>
+        </div>
+        <div class="col-md-6">
+          <h4>Additional details:</h4>
+          <p></p>
         </div>
       </div>
     </div>
