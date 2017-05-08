@@ -6,7 +6,6 @@ import { AuthenticationBasicService } from '../../login-basic/authentication-bas
 import { DatasetOwnerService } from '../../user/dataset-owner.service';
 import { Schema } from '../../schema/schema';
 import { SchemaService } from '../../schema/schema.service';
-import {SchemaOwnerService} from "../../user/schema-owner.service";
 
 @Component({
   selector: 'app-dataset-details',
@@ -24,7 +23,6 @@ export class DatasetDetailsComponent implements OnInit {
               private router: Router,
               private datasetService: DatasetService,
               private schemaService: SchemaService,
-              private schemaOwnerService: SchemaOwnerService,
               private authenticationService: AuthenticationBasicService,
               private datasetOwnerService: DatasetOwnerService) { }
 

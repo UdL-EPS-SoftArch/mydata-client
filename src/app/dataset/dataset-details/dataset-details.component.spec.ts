@@ -15,12 +15,11 @@ import { MockAuthenticationBasicService } from '../../../test/mocks/authenticati
 import { User } from '../../login-basic/user';
 import { Owner } from '../../user/owner';
 import { MockDatasetOwnerService } from '../../../test/mocks/dataset-owner.service';
-import {Schema} from "../../schema/schema";
-import {SchemaDetailsComponent} from "../../schema/schema-details/schema-details.component";
-import {SchemaOwnerService} from "../../user/schema-owner.service";
-import {SchemaService} from "../../schema/schema.service";
-import {MockSchemaOwnerService} from "../../../test/mocks/schema-owner.service";
-import {MockSchemaService} from "../../../test/mocks/schema.service";
+import { Schema } from '../../schema/schema';
+import { SchemaOwnerService } from '../../user/schema-owner.service';
+import { SchemaService } from '../../schema/schema.service';
+import { MockSchemaOwnerService } from '../../../test/mocks/schema-owner.service';
+import { MockSchemaService } from '../../../test/mocks/schema.service';
 
 describe('DatasetDetailsComponent', () => {
   let fixture: ComponentFixture<DatasetDetailsComponent>;
