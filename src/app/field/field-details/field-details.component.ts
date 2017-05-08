@@ -11,6 +11,8 @@ import { Field } from '../field';
 export class FieldDetailsComponent implements OnInit {
   public field: Field = new Field();
   public errorMessage: string;
+  public isOwner: boolean;
+
 
   constructor(private route: ActivatedRoute,
               private router: Router,
