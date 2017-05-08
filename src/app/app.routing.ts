@@ -18,6 +18,10 @@ import { TagsListComponent } from './tag/tags-list/tags-list.component';
 import { TagFormComponent } from './tag/tags-form/tags-form.component';
 import { TagDetailsComponent } from './tag/tags-details/tags-details.component';
 import {SchemaEditComponent} from './schema/schema-edit/schema-edit.component';
+import { FieldListComponent } from './field/fields-list/fields-list.component';
+import { FieldFormComponent } from './field/field-form/field-form.component';
+import { FieldDetailsComponent } from './field/field-details/field-details.component';
+import { FieldEditComponent} from './field/field-edit/field-edit.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'about', pathMatch: 'full' },
@@ -30,6 +34,10 @@ export const routes: Routes = [
   { path: 'schemas/new', component: SchemaFormComponent },
   { path: 'schemas/:id', component: SchemaDetailsComponent },
   { path: 'schemas/:id/edit', component: SchemaEditComponent, canActivate: [LoggedInGuard] },
+  { path: 'fields', component: FieldListComponent },
+  { path: 'fields/new', component: FieldFormComponent },
+  { path: 'fields/:id', component: FieldDetailsComponent },
+  { path: 'fields/:id/edit', component: FieldEditComponent, canActivate: [LoggedInGuard] },
   { path: 'openLicenses', component: OpenLicenseListComponent },
   { path: 'openLicenses/new', component: OpenLicenseFormComponent },
   { path: 'openLicenses/:id', component: OpenLicenseDetailsComponent },

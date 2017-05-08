@@ -40,6 +40,8 @@ import { FieldService } from './field/field.service';
 import { FieldDetailsComponent } from './field/field-details/field-details.component';
 import { FieldFormComponent } from './field/field-form/field-form.component';
 import { FieldListComponent } from './field/fields-list/fields-list.component';
+import { FieldSearchComponent } from './field/field-search/fields-search.component';
+
 
 @NgModule({
   declarations: [
@@ -68,7 +70,8 @@ import { FieldListComponent } from './field/fields-list/fields-list.component';
     FieldService,
     FieldDetailsComponent,
     FieldFormComponent,
-    FieldListComponent
+    FieldListComponent,
+    FieldSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +82,7 @@ import { FieldListComponent } from './field/fields-list/fields-list.component';
     LoginBasicModule
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService, DatasetOwnerService,
-              OpenLicenseService, ClosedLicenseService, TagService],
+              OpenLicenseService, ClosedLicenseService, TagService, FieldService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
