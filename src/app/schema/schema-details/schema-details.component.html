@@ -11,6 +11,10 @@
     <h4>Description</h4>
     <p>{{schema.description}}</p>
   </div>
+  <div class="col-md-2">
+    <h4>Owner</h4>
+    <p>{{ownerName}}</p>
+  </div>
   <div class="col-md-2" *ngIf="isOwner">
     <a class="btn btn-primary" role="button" routerLink="{{schema.uri}}/edit">Edit</a>
     <a class="btn btn-danger" role="button" (click)="onDelete(schema)">Delete</a>
