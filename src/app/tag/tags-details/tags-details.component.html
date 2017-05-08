@@ -7,4 +7,7 @@
     <h4>Name</h4>
     <p>{{tag.name}}</p>
   </div>
+  <div class="col-md-2" *ngIf="authenticationService.isAdmin()">
+    <a class="btn btn-danger" role="button" (click)="onDelete(tag)">Delete</a>
+  </div>
 </div>
