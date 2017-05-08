@@ -58,43 +58,43 @@ describe('DatasetFormComponent', () => {
 
   it('should submit new dataset', async(
     inject([Router, Location, DatasetService, DatasetOwnerService, AuthenticationBasicService],
-           (router, location, datasetService, userService, authentication) => {
-      TestBed.createComponent(AppComponent);
-      datasetService.setResponse(response);
-      userService.setResponse(owner);
-      authentication.isLoggedIn.and.returnValue(true);
-      authentication.getCurrentUser.and.returnValue(user);
+      (router, location, datasetService, userService, authentication) => {
+        TestBed.createComponent(AppComponent);
+        datasetService.setResponse(response);
+        userService.setResponse(owner);
+        authentication.isLoggedIn.and.returnValue(true);
+        authentication.getCurrentUser.and.returnValue(user);
 
-      router.navigate(['/datasets/new']).then(() => {
-        expect(location.path()).toBe('/datasets/new');
-        expect(datasetService.getDataset).toHaveBeenCalledTimes(0);
+        router.navigate(['/datasets/new']).then(() => {
+          expect(location.path()).toBe('/datasets/new');
+          expect(datasetService.getDataset).toHaveBeenCalledTimes(0);
 
-        fixture = TestBed.createComponent(DatasetFormComponent);
-        fixture.detectChanges();
-        component = fixture.debugElement.componentInstance;
-        expect(component.dataset.title).toBeUndefined();
+          fixture = TestBed.createComponent(DatasetFormComponent);
+          fixture.detectChanges();
+          component = fixture.debugElement.componentInstance;
+          expect(component.dataset.title).toBeUndefined();
 
-        const compiled = fixture.debugElement.nativeElement;
-        const inputTitle = compiled.querySelector('#title');
-        const inputDescription = compiled.querySelector('#description');
-        const form = compiled.querySelector('form');
-        const button = compiled.querySelector('button');
+          const compiled = fixture.debugElement.nativeElement;
+          const inputTitle = compiled.querySelector('#title');
+          const inputDescription = compiled.querySelector('#description');
+          const form = compiled.querySelector('form');
+          const button = compiled.querySelector('button');
 
-        inputTitle.value = 'Dataset 1';
-        inputTitle.dispatchEvent(new Event('input'));
-        inputDescription.value = 'First Dataset';
-        inputDescription.dispatchEvent(new Event('input'));
-        fixture.detectChanges();
-        expect(button.disabled).toBeFalsy();
-        form.dispatchEvent(new Event('submit'));
+          inputTitle.value = 'Dataset 1';
+          inputTitle.dispatchEvent(new Event('input'));
+          inputDescription.value = 'First Dataset';
+          inputDescription.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
+          expect(button.disabled).toBeFalsy();
+          form.dispatchEvent(new Event('submit'));
 
-        expect(component.dataset.title).toBe('Dataset 1');
-        expect(component.dataset.description).toBe('First Dataset');
-        expect(datasetService.addDataset).toHaveBeenCalledTimes(1);
-        expect(datasetService.addDataset.calls.mostRecent().object.fakeResponse.title).toBe('Dataset 1');
-        expect(datasetService.addDataset.calls.mostRecent().object.fakeResponse.description).toBe('First dataset');
-      });
-    })
+          expect(component.dataset.title).toBe('Dataset 1');
+          expect(component.dataset.description).toBe('First Dataset');
+          expect(datasetService.addDataset).toHaveBeenCalledTimes(1);
+          expect(datasetService.addDataset.calls.mostRecent().object.fakeResponse.title).toBe('Dataset 1');
+          expect(datasetService.addDataset.calls.mostRecent().object.fakeResponse.description).toBe('First dataset');
+        });
+      })
   ));
 
   it('should warn if input for title is left empty', async(
@@ -127,4 +127,3 @@ describe('DatasetFormComponent', () => {
     })
   ));
 });
-
