@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TagService } from '../tag.service';
 import { Tag } from '../tag';
-import {AuthenticationBasicService} from '../../login-basic/authentication-basic.service';
+import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
 
 @Component({
   selector: 'app-tag-details',
