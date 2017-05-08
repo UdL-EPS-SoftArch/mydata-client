@@ -52,6 +52,29 @@ describe('Service: AuthenticationBasic', () => {
       }))
     );
 
+    it('should return admin if login succeeds',
+      async(inject([MockBackend, AuthenticationBasicService], (mockBackend, service) => {
+        mockBackend.connections.subscribe(
+          (connection: MockConnection) => {
+            connection.mockRespond(new Response(
+              new ResponseOptions({
+                body: {
+                  username: 'admin',
+                  authorities: [ { authority: 'ADMIN' } ],
+                }})
+            ));
+          });
+
+        service.login('admin', 'password').subscribe(
+          (user: User) => {
+            expect(user.username).toBe('admin');
+            expect(user.authorities.length).toBe(1);
+            expect(user.authorities[0].authority).toBe('ADMIN');
+            expect(user.authorization).toBe('Basic ' + btoa('admin:password'));
+          });
+      }))
+    );
+
     it('should fail if login unsuccessful',
       async(inject([MockBackend, AuthenticationBasicService], (mockBackend, service) => {
         mockBackend.connections.subscribe(
