@@ -80,7 +80,7 @@ import { ClosedLicenseOwnerService } from './user/closed-license-owner.service';
     LoginBasicModule
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService, DatasetOwnerService,
-              OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService,OpenLicenseOwnerService,
+              OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService, OpenLicenseOwnerService,
               ClosedLicenseOwnerService],
   bootstrap: [AppComponent]
 })

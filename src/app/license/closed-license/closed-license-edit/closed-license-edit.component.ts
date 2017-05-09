@@ -22,9 +22,11 @@ export class ClosedLicenseEditComponent implements OnInit {
               private closedLicenseService: ClosedLicenseService,
               private router: Router) {
     this.closedLicenseForm = fb.group({
-      'text': ['ClosedLicense text', Validators.required]
+      'text': ['ClosedLicense text', Validators.required],
+      'price': ['ClosedLicense price', Validators.required]
     });
     this.textCtrl = this.closedLicenseForm.controls['text'];
+    this.textCtrl = this.closedLicenseForm.controls['price'];
   }
 
   ngOnInit() {
