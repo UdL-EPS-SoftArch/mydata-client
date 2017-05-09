@@ -6,9 +6,19 @@
         <div class="form-group row">
             <label class="col-md-3 control-label" for="text">Closed License Text*</label>
             <div class="col-md-9">
-                <input id="text" name="text" type="text" placeholder="Text" class="form-control input-md" [class.has-error]="textCtrl.touched && textCtrl.hasError('required')" [formControl]="closedLicenseForm.controls['title']" [(ngModel)]="closedLicense.text">
+                <input id="text" name="text" type="text" placeholder="Text" class="form-control input-md" [class.has-error]="textCtrl.touched && textCtrl.hasError('required')" [formControl]="closedLicenseForm.controls['text']" [(ngModel)]="closedLicense.text">
                 <div *ngIf="textCtrl.touched && textCtrl.hasError('required')" class="label-warning">
                     A text is required
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-md-3 control-label" for="price">Closed License Price*</label>
+            <div class="col-md-9">
+                <input id="price" name="price" type="number" placeholder="Price" class="form-control input-md" [class.has-error]="textCtrl.touched && textCtrl.hasError('required')" [formControl]="closedLicenseForm.controls['price']" [(ngModel)]="closedLicense.price">
+                <div *ngIf="textCtrl.touched && textCtrl.hasError('required')" class="label-warning">
+                    A price is required
                 </div>
             </div>
         </div>
