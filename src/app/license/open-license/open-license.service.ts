@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { OpenLicense } from './open-license';
+import { Dataset } from '../../dataset/dataset';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
@@ -45,4 +46,10 @@ export class OpenLicenseService {
       .map((res: Response) => res.json()._embedded.openLicenses.map(json => new OpenLicense(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
+
+  getDatasetsOfOpenLicense(uri: string): Observable<Dataset[]> {
+    return this.http.get(`${environment.API}${uri}/datasets`)
+      .map((res: Response) => res.json()._embedded.datasets.map(json => new Dataset(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }  
 }
