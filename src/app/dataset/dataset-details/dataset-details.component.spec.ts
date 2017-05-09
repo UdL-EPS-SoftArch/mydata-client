@@ -72,7 +72,7 @@ describe('DatasetDetailsComponent', () => {
         { provide: DatasetOwnerService, useClass: MockDatasetOwnerService },
         { provide: SchemaService, useClass: MockSchemaService },
         { provide: SchemaOwnerService, useClass: MockSchemaOwnerService },
-        { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService },],
+        { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService }],
 
       imports: [ RouterTestingModule.withRoutes([
           { path: 'datasets/:id', component: DatasetDetailsComponent }
@@ -86,7 +86,7 @@ describe('DatasetDetailsComponent', () => {
            (router, location, datasetService, datasetOwnerService, authentication, schemaService, authenticationService) => {
       TestBed.createComponent(AppComponent);
       datasetService.setResponse(dataset1);
-      schemaService.setResponse(schema1)
+      schemaService.setResponse(schema1);
       datasetOwnerService.setResponse(owner);
       authentication.isLoggedIn.and.returnValue(true);
       authentication.getCurrentUser.and.returnValue(new User({'username': 'owner'}));
@@ -112,7 +112,7 @@ describe('DatasetDetailsComponent', () => {
   ));
 
   it('should fetch and render the requested dataset non-editable when not owner', async(
-    inject([Router, Location, DatasetService, DatasetOwnerService, AuthenticationBasicService,SchemaService, AuthenticationBasicService],
+    inject([Router, Location, DatasetService, DatasetOwnerService, AuthenticationBasicService, SchemaService, AuthenticationBasicService],
       (router, location, datasetService, datasetOwnerService, authentication, schemaService, authenticationService) => {
         TestBed.createComponent(AppComponent);
         datasetService.setResponse(dataset1);
