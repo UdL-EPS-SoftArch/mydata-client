@@ -14,7 +14,7 @@ import { SchemaService } from '../../schema/schema.service';
 })
 export class DatasetDetailsComponent implements OnInit {
   public dataset: Dataset = new Dataset();
-  public schema: Schema = new Schema(" ");
+  public schema: Schema = new Schema();
 
   public errorMessage: string;
   public isOwner: boolean;
