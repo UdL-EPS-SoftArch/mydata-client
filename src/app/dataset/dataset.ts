@@ -8,6 +8,7 @@ export class Dataset {
   flags = 0;
   _links: any = {};
   schema: string;
+  license: string;
 
   constructor(values: Object = {}) {
     (<any>Object).assign(this, values);
