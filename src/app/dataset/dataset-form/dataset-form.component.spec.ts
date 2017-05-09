@@ -20,6 +20,10 @@ import { Owner } from '../../user/owner';
 import { SchemaService } from '../../schema/schema.service';
 import { MockSchemaService } from '../../../test/mocks/schema.service';
 import { Schema } from '../../schema/schema';
+import { OpenLicenseService } from '../../license/open-license/open-license.service';
+import { ClosedLicenseService } from '../../license/closed-license/closed-license.service';
+import { MockOpenLicenseService } from '../../../test/mocks/open-license.service';
+import { MockClosedLicenseService } from '../../../test/mocks/closed-license.service';
 
 describe('DatasetFormComponent', () => {
   let component: DatasetFormComponent;
@@ -56,7 +60,9 @@ describe('DatasetFormComponent', () => {
         { provide: DatasetService, useClass: MockDatasetService },
         { provide: SchemaService, useClass: MockSchemaService },
         { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService },
-        { provide: DatasetOwnerService, useClass: MockDatasetOwnerService }],
+        { provide: DatasetOwnerService, useClass: MockDatasetOwnerService },
+        { provide: OpenLicenseService, useClass: MockOpenLicenseService },
+        { provide: ClosedLicenseService, useClass: MockClosedLicenseService }],
       imports: [ RouterTestingModule.withRoutes([
         { path: 'datasets/new', component: DatasetFormComponent },
         { path: 'datasets/:id', component: DatasetDetailsComponent }]),
@@ -138,3 +144,4 @@ describe('DatasetFormComponent', () => {
     })
   ));
 });
+
