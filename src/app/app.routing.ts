@@ -19,6 +19,7 @@ import { TagFormComponent } from './tag/tags-form/tags-form.component';
 import { TagDetailsComponent } from './tag/tags-details/tags-details.component';
 import { SchemaEditComponent } from './schema/schema-edit/schema-edit.component';
 import { OpenLicenseEditComponent } from './license/open-license/open-license-edit/open-license-edit.component';
+import { ClosedLicenseEditComponent } from './license/closed-license/closed-license-edit/closed-license-edit.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'about', pathMatch: 'full' },
@@ -38,6 +39,7 @@ export const routes: Routes = [
   { path: 'closedLicenses', component: ClosedLicenseListComponent },
   { path: 'closedLicenses/new', component: ClosedLicenseFormComponent },
   { path: 'closedLicenses/:id', component: ClosedLicenseDetailsComponent },
+  { path: 'closedLicenses/:id/edit', component: ClosedLicenseEditComponent, canActivate: [LoggedInGuard] },
   { path: 'tags', component: TagsListComponent },
   { path: 'tags/new', component: TagFormComponent },
   { path: 'tags/:id', component: TagDetailsComponent },

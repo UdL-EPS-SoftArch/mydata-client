@@ -40,6 +40,8 @@ import { SchemaEditComponent } from './schema/schema-edit/schema-edit.component'
 import { SchemaOwnerService } from './user/schema-owner.service';
 import { OpenLicenseEditComponent } from './license/open-license/open-license-edit/open-license-edit.component';
 import { OpenLicenseOwnerService } from './user/open-license-owner.service';
+import { ClosedLicenseEditComponent } from './license/closed-license/closed-license-edit/closed-license-edit.component';
+import { ClosedLicenseOwnerService } from './user/closed-license-owner.service';
 
 @NgModule({
   declarations: [
@@ -66,7 +68,8 @@ import { OpenLicenseOwnerService } from './user/open-license-owner.service';
     TagsListComponent,
     TagFormComponent,
     SchemaEditComponent,
-    OpenLicenseEditComponent
+    OpenLicenseEditComponent,
+    ClosedLicenseEditComponent
   ],
   imports: [
     BrowserModule,
@@ -77,7 +80,8 @@ import { OpenLicenseOwnerService } from './user/open-license-owner.service';
     LoginBasicModule
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService, DatasetOwnerService,
-              OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService,OpenLicenseOwnerService],
+              OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService,OpenLicenseOwnerService,
+              ClosedLicenseOwnerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
