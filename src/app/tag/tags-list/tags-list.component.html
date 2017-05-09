@@ -13,6 +13,9 @@
 
 <div class="row">
   <h3 class="col-md-12">Tags</h3>
+  <div class="col-md-12">
+    <app-tags-search (onSearchited)="onSearch($event)" [tags]="tags"></app-tags-search>
+  </div>
 </div>
 
 <div class="row">
