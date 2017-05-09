@@ -24,7 +24,7 @@ export class DatafileDetailsComponent implements OnInit {
       .map(params => params['id'])
       .subscribe((id) => {
         const uri = `/dataFiles/${id}`;
-        this.datafileService.getDatafile(uri).subscribe(
+        this.datafileService.getDataFile(uri).subscribe(
           datafile => {
             this.datafile = datafile;
           },

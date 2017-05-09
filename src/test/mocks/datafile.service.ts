@@ -3,19 +3,19 @@ import { SpyObject } from '../helper';
 
 export class MockDataFileService extends SpyObject {
   fakeResponse;
-  getAllDatasets;
-  getDataset;
-  addDataset;
-  getAllDatasetsOrderedByTitle;
+  getAllDatafiles;
+  getDatafile;
+  addDatafile;
+  getAllDatafilesOrderedByTitle;
 
   constructor() {
     super(DataFileService);
 
     this.fakeResponse = null;
-    this.getAllDatasets = this.spy('getAllDataFiles').andReturn(this);
-    this.getDataset = this.spy('getDataFile').andReturn(this);
-    this.addDataset = this.spy('addDataFile').andReturn(this);
-    this.getAllDatasetsOrderedByTitle = this.spy('getAllDataFilesOrderedByTitle').andReturn(this);
+    this.getAllDatafiles = this.spy('getAllDataFiles').andReturn(this);
+    this.getDatafile = this.spy('getDataFile').andReturn(this);
+    this.addDatafile = this.spy('addDataFile').andReturn(this);
+    this.getAllDatafilesOrderedByTitle = this.spy('getAllDataFilesOrderedByTitle').andReturn(this);
   }
 
   subscribe(callback) {

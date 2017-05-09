@@ -14,7 +14,7 @@ export class DatafilesListComponent implements OnInit {
 
 
   ngOnInit() {
-    this.datafileService.getAllDatasetsOrderedByTitle().subscribe(
+    this.datafileService.getAllDataFilesOrderedByTitle().subscribe(
       datafiles => { this.datafiles = datafiles; },
       error => this.errorMessage = <any>error.message
     );
