@@ -6,13 +6,14 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { ClosedLicense } from './closed-license';
+import { Dataset } from '../../dataset/dataset';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class ClosedLicenseService {
 
   constructor(private http: Http,
-              private authentication: AuthenticationBasicService) {}
+    private authentication: AuthenticationBasicService) { }
 
   // GET /closedLicenses
   getAllClosedLicenses(): Observable<ClosedLicense[]> {
@@ -41,8 +42,15 @@ export class ClosedLicenseService {
   }
   // GET /closedLicenses/ + search/findByTextContaining?text
   getClosedLicenseByTextWords(keyword: string): Observable<ClosedLicense[]> {
-  return this.http.get(environment.API + '/closedLicenses/search/findByTextContaining?text=' + keyword)
-    .map((res: Response) => res.json()._embedded.closedLicenses.map(json => new ClosedLicense(json)))
-    .catch((error: any) => Observable.throw(error.json()));
+    return this.http.get(environment.API + '/closedLicenses/search/findByTextContaining?text=' + keyword)
+      .map((res: Response) => res.json()._embedded.closedLicenses.map(json => new ClosedLicense(json)))
+      .catch((error: any) => Observable.throw(error.json()));
   }
+
+  getDatasetsOfClosedLicense(uri: string): Observable<Dataset[]> {
+    return this.http.get(`${environment.API}${uri}/datasets`)
+      .map((res: Response) => res.json()._embedded.datasets.map(json => new Dataset(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
 }

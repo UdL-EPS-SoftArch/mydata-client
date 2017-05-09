@@ -3,12 +3,16 @@
 </div>
 
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-4">
         <h4>Text</h4>
         <p>{{closedLicense.text}}</p>
     </div>
     <div class="col-md-4">
         <h4>Price</h4>
         <p>{{closedLicense.price}}
+    </div>
+    <div class="col-md-4">
+        <h4>Datasets</h4>
+        <a [routerLink]="[closedLicense.uri+'/datasets']">List datasets of {{closedLicense.text}}</a>
     </div>
 </div>

@@ -18,6 +18,7 @@ import { TagsListComponent } from './tag/tags-list/tags-list.component';
 import { TagFormComponent } from './tag/tags-form/tags-form.component';
 import { TagDetailsComponent } from './tag/tags-details/tags-details.component';
 import {SchemaEditComponent} from './schema/schema-edit/schema-edit.component';
+import { ClosedLicenseDatasetListComponent } from './license/closed-license/closed-license-list/closed-license-list-dataset.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'about', pathMatch: 'full' },
@@ -36,6 +37,7 @@ export const routes: Routes = [
   { path: 'closedLicenses', component: ClosedLicenseListComponent },
   { path: 'closedLicenses/new', component: ClosedLicenseFormComponent },
   { path: 'closedLicenses/:id', component: ClosedLicenseDetailsComponent },
+  { path: 'closedLicenses/:id/datasets', component: ClosedLicenseDatasetListComponent },
   { path: 'tags', component: TagsListComponent },
   { path: 'tags/new', component: TagFormComponent },
   { path: 'tags/:id', component: TagDetailsComponent },
