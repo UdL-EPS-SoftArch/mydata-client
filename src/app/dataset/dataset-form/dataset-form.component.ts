@@ -34,8 +34,8 @@ export class DatasetFormComponent implements OnInit {
       'title': ['Dataset title', Validators.required],
       'description': ['Dataset description'],
       'schema': ['Dataset schema'],
-      'openlicense':['Dataset license'],
-      'closedlicense':['Dataset license']
+      'openlicense': ['Dataset license'],
+      'closedlicense': ['Dataset license']
     });
     this.titleCtrl = this.datasetForm.controls['title'];
     this.dataset = new Dataset();
@@ -47,11 +47,11 @@ export class DatasetFormComponent implements OnInit {
       error => this.errorMessage = <any>error.message
     );
     this.openLicenseService.getAllOpenLicenses().subscribe(
-      openLicenses => { this.openLicenses = openLicenses },
+      openLicenses => { this.openLicenses = openLicenses; },
       error => this.errorMessage = <any>error.message
     );
     this.closedLicenseService.getAllClosedLicenses().subscribe(
-      closedLicenses => { this.closedLicenses = closedLicenses },
+      closedLicenses => { this.closedLicenses = closedLicenses; },
       error => this.errorMessage = <any>error.message
     );
   }
