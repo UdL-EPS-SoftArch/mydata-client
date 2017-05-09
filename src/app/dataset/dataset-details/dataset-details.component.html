@@ -7,7 +7,7 @@
     <h4>DataSet Title</h4>
     <p>{{dataset.title}}</p>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-4">
     <h4>DataSet Description</h4>
     <p>{{dataset.description}}</p>
   </div>
@@ -15,13 +15,16 @@
     <h4>Schema Title</h4>
     <p>{{schema.title}}</p>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-4">
     <h4>Schema Description</h4>
     <p>{{schema.description}}</p>
+  </div>
+  <div class="col-md-2">
+    <h4>Owner</h4>
+    <p>{{ownerName}}</p>
   </div>
   <div class="col-md-2" *ngIf="isOwner">
     <a class="btn btn-primary" role="button" routerLink="{{dataset.uri}}/edit">Edit</a>
     <a class="btn btn-danger" role="button" (click)="onDelete(dataset)">Delete</a>
   </div>
-
 </div>

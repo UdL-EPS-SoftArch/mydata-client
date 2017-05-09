@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TagService } from '../tag.service';
 import { Tag } from '../tag';
+import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
 
 @Component({
   selector: 'app-tag-details',
@@ -13,7 +14,9 @@ export class TagDetailsComponent implements OnInit {
   public errorMessage: string;
 
   constructor(private route: ActivatedRoute,
-              private tagService: TagService) { }
+              private router: Router,
+              private tagService: TagService,
+              private authenticationService: AuthenticationBasicService) { }
 
   ngOnInit() {
     this.route.params
@@ -25,5 +28,12 @@ export class TagDetailsComponent implements OnInit {
           error => this.errorMessage = <any>error.message
         );
       });
+  }
+
+  onDelete(tag) {
+    this.tagService.deleteTag(tag).subscribe(
+      response => { this.router.navigate(['/tags']); },
+      error => this.errorMessage = <any>error.message,
+    );
   }
 }

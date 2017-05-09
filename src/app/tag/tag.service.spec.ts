@@ -75,4 +75,21 @@ describe('TagService', () => {
       })));
   });
 
+  describe('#deleteTag(tag)', () => {
+    it('should delete the specified tag',
+      inject([ MockBackend, TagService ], fakeAsync((mockBackend, service) => {
+        const apiResponse = new ResponseOptions({
+          status: 204
+        });
+
+        mockBackend.connections.subscribe((connection: MockConnection) => {
+          expect(connection.request.url).toBe('http://localhost:8080/tags/Tag1');
+          connection.mockRespond(new Response(apiResponse));
+        });
+
+        service.deleteTag(tag1).subscribe((response) => {
+          expect(response.status).toEqual(204);
+        });
+      })));
+  });
 });

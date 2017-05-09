@@ -18,6 +18,7 @@ export class DatasetDetailsComponent implements OnInit {
 
   public errorMessage: string;
   public isOwner: boolean;
+  public ownerName: string;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -44,6 +45,7 @@ export class DatasetDetailsComponent implements OnInit {
             if (this.dataset._links != null) {
               this.datasetOwnerService.getDatasetOwner(this.dataset._links.owner.href).subscribe(
                 owner => {
+                  this.ownerName = owner.getUserName();
                   this.isOwner = this.authenticationService.getCurrentUser().username === owner.getUserName();
                 });
             }
