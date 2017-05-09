@@ -29,7 +29,8 @@ export class SchemasListComponent implements OnInit {
             owner => {
               this.schemaOwners[schema.uri] = owner.getUserName();
             });
-        });},
+        });
+      },
       error => this.errorMessage = <any>error.message
     );
   }
