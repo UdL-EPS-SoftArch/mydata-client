@@ -19,10 +19,10 @@ import { MockDatasetOwnerService } from '../../../test/mocks/dataset-owner.servi
 import { Owner } from '../../user/owner';
 import { SchemaService } from '../../schema/schema.service';
 import { MockSchemaService } from '../../../test/mocks/schema.service';
-import {OpenLicenseService} from "../../license/open-license/open-license.service";
-import {ClosedLicenseService} from "../../license/closed-license/closed-license.service";
-import {MockOpenLicenseService} from "../../../test/mocks/open-license.service";
-import {MockClosedLicenseService} from "../../../test/mocks/closed-license.service";
+import { OpenLicenseService } from '../../license/open-license/open-license.service';
+import { ClosedLicenseService } from '../../license/closed-license/closed-license.service';
+import { MockOpenLicenseService } from '../../../test/mocks/open-license.service';
+import { MockClosedLicenseService } from '../../../test/mocks/closed-license.service';
 
 describe('DatasetFormComponent', () => {
   let component: DatasetFormComponent;
