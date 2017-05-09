@@ -19,7 +19,7 @@ import { MockDatasetOwnerService } from '../../../test/mocks/dataset-owner.servi
 import { Owner } from '../../user/owner';
 import { SchemaService } from '../../schema/schema.service';
 import { MockSchemaService } from '../../../test/mocks/schema.service';
-import {Schema} from "../../schema/schema";
+import { Schema } from '../../schema/schema';
 
 describe('DatasetFormComponent', () => {
   let component: DatasetFormComponent;
