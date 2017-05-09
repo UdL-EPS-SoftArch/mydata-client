@@ -19,6 +19,7 @@ import { MockDatasetOwnerService } from '../../../test/mocks/dataset-owner.servi
 import { Owner } from '../../user/owner';
 import { SchemaService } from '../../schema/schema.service';
 import { MockSchemaService } from '../../../test/mocks/schema.service';
+import {Schema} from "../../schema/schema";
 
 describe('DatasetFormComponent', () => {
   let component: DatasetFormComponent;
@@ -39,6 +40,15 @@ describe('DatasetFormComponent', () => {
     'uri': 'dataOwners/owner',
   });
 
+  const response_schema = new Schema({
+    'uri': '/schemas/1',
+    'title': 'Schema 1',
+    'description': 'First schema',
+    '_links': {
+      'owner': {'href': 'http://localhost/datasets/2/owner'}
+    }
+  });
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ AppComponent, DatasetFormComponent, DatasetDetailsComponent ],
@@ -57,10 +67,11 @@ describe('DatasetFormComponent', () => {
   }));
 
   it('should submit new dataset', async(
-    inject([Router, Location, DatasetService, DatasetOwnerService, AuthenticationBasicService],
-      (router, location, datasetService, userService, authentication) => {
+    inject([Router, Location, DatasetService, DatasetOwnerService, AuthenticationBasicService, SchemaService],
+      (router, location, datasetService, userService, authentication, schemaService) => {
         TestBed.createComponent(AppComponent);
         datasetService.setResponse(response);
+        schemaService.setResponse([response_schema]);
         userService.setResponse(owner);
         authentication.isLoggedIn.and.returnValue(true);
         authentication.getCurrentUser.and.returnValue(user);
