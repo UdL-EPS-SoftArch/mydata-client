@@ -39,6 +39,7 @@ import { TagFormComponent } from './tag/tags-form/tags-form.component';
 import { SchemaEditComponent } from './schema/schema-edit/schema-edit.component';
 import { SchemaOwnerService } from './user/schema-owner.service';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
+import {UserService} from './user/user.service';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,7 @@ import { UserDetailComponent } from './user/user-detail/user-detail.component';
     LoginBasicModule
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService, DatasetOwnerService,
-              OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService],
+              OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
