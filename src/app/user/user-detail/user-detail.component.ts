@@ -21,7 +21,7 @@ export class UserDetailComponent implements OnInit {
       .map(params => params['id'])
       .subscribe((id) => {
         const uri = `/dataOwners/${id}`;
-        const uri2 = `/dataOwners/${id}`;
+        const uri2 = `/dataUsers/${id}`;
         this.userService.getUser(uri).subscribe(
           user => {
             this.user = user;
