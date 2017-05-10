@@ -84,7 +84,7 @@ export class DatasetFormComponent implements OnInit {
       dataFile.content = this.content;
       this.dataFileService.addDataFile(dataFile)
         .subscribe(
-          datafile => { this.router.navigate([datafile.uri]);},
+          datafile => { this.router.navigate([datafile.uri]); },
           error => {
             this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
           });
