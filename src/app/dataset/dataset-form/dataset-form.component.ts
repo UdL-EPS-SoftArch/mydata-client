@@ -6,10 +6,7 @@ import {Router} from '@angular/router';
 import {Schema} from '../../schema/schema';
 import {SchemaService} from '../../schema/schema.service';
 import {DataFile} from '../datafile/datafile';
-import {Observable} from 'rxjs/Observable';
-import {Headers, RequestOptions, Response, Http} from '@angular/http';
-import {environment} from '../../../environments/environment';
-import {AuthenticationBasicService} from '../../login-basic/authentication-basic.service';
+import { DataFileService } from '../datafile/datafile.service';
 
 @Component({
   selector: 'app-dataset-form',
@@ -18,43 +15,26 @@ import {AuthenticationBasicService} from '../../login-basic/authentication-basic
 })
 export class DatasetFormComponent implements OnInit {
   public dataset: Dataset;
-  public datafile: DataFile;
-  public datafileForm: FormGroup;
   public datasetForm: FormGroup;
   public titleCtrl: AbstractControl;
   public errorMessage: string;
   public schemas: Schema[] = [];
-  public filename: string;
   public fileAttached = false;
+  public filename: string;
   public content: string;
 
   constructor(private fb: FormBuilder,
               private router: Router,
               private datasetService: DatasetService,
-              private http: Http,
-              private authentication: AuthenticationBasicService,
+              private dataFileService: DataFileService,
               private schemaService: SchemaService) {
 
-    if ('inputFile' != null) {
-      this.datafileForm = fb.group({
+    this.datasetForm = fb.group({
         'title': ['Datafile title', Validators.required],
         'description': ['Datafile description'],
-        'inputFile': ['Datafile inputFile'],
         'schema': ['Dataset schema']
       });
-    } else {
-      this.datasetForm = fb.group({
-        'title': ['Dataset title', Validators.required],
-        'description': ['Dataset description'],
-        'schema': ['Dataset schema']
-      });
-    }
 
-    this.datasetForm = fb.group({
-      'title': ['Dataset title', Validators.required],
-      'description': ['Dataset description'],
-      'schema': ['Dataset schema']
-    });
     this.titleCtrl = this.datasetForm.controls['title'];
     this.dataset = new Dataset();
   }
@@ -72,10 +52,7 @@ export class DatasetFormComponent implements OnInit {
     const fileList: FileList = event.target.files;
     const file: File = fileList[0];
     const reader = new FileReader();
-
-
     reader.readAsText(file);
-
     reader.onloadend = (e) => {
       this.fileAttached = true;
       this.content = reader.result;
@@ -83,32 +60,21 @@ export class DatasetFormComponent implements OnInit {
     };
   }
 
-
   onSubmit(): void {
     if (this.fileAttached) {
-      const headers = new Headers({'Content-Type': 'application/json'});
-      headers.append('Authorization', this.authentication.getCurrentUser().authorization);
-      const options = new RequestOptions({headers: headers});
-      const body = JSON.stringify({
-        'title': this.dataset.title,
-        'description': this.dataset.description,
-        'schema': this.dataset.schema,
-        'filename': this.filename,
-        'content': this.content
-      });
-
-      this.http.post(`${environment.API}/dataFiles`, body, options)
-        .map((res: Response) => new DataFile(res.json()))
-        .catch((error: any) => Observable.throw(error.json()))
+      const dataFile: DataFile = new DataFile();
+      dataFile.title = this.dataset.title;
+      dataFile.description = this.dataset.description;
+      dataFile.schema = this.dataset.schema;
+      dataFile.filename = this.filename;
+      dataFile.content = this.content;
+      this.dataFileService.addDatafile(dataFile)
         .subscribe(
           datafile => {
             this.router.navigate([datafile.uri]);
-            console.log(Response);
-          },
-          error => {
-            this.errorMessage = <any>error;
-          },
-          () => console.log('random look complete'));
+          }, error => {
+            this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
+          });
     } else {
       this.datasetService.addDataset(this.dataset)
         .subscribe(
