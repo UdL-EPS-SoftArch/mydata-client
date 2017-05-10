@@ -20,12 +20,22 @@ export class UserDetailComponent implements OnInit {
     this.route.params
       .map(params => params['id'])
       .subscribe((id) => {
-        const uri = `/users/${id}`;
+        const uri = `/dataOwners/${id}`;
+        const uri2 = `/dataOwners/${id}`;
         this.userService.getUser(uri).subscribe(
           user => {
             this.user = user;
           },
-          error => this.errorMessage = <any>error.message
+          error => {
+            this.userService.getUser(uri2).subscribe(
+              user => {
+                this.user = user;
+              },
+              error2 => {
+                this.errorMessage = <any>error2.message;
+              }
+            );
+          }
         );
       });
   }

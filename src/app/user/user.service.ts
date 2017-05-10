@@ -5,6 +5,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { Http, Response } from '@angular/http';
 import {User} from './user';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class UserService {
@@ -12,8 +13,7 @@ export class UserService {
   constructor (private http: Http) {}
 
   getUser(uri: any): Observable<User> {
-    console.log(uri);
-    return this.http.get(uri)
+    return this.http.get(`${environment.API}${uri}`)
       .map((res: Response) => new User(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
