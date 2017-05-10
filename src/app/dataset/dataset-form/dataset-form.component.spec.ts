@@ -24,6 +24,8 @@ import { OpenLicenseService } from '../../license/open-license/open-license.serv
 import { ClosedLicenseService } from '../../license/closed-license/closed-license.service';
 import { MockOpenLicenseService } from '../../../test/mocks/open-license.service';
 import { MockClosedLicenseService } from '../../../test/mocks/closed-license.service';
+import { DataFileService} from '../datafile/datafile.service';
+import { MockDataFileService} from '../../../test/mocks/datafile.service';
 
 describe('DatasetFormComponent', () => {
   let component: DatasetFormComponent;
@@ -58,6 +60,7 @@ describe('DatasetFormComponent', () => {
       declarations: [ AppComponent, DatasetFormComponent, DatasetDetailsComponent ],
       providers: [
         { provide: DatasetService, useClass: MockDatasetService },
+        { provide: DataFileService, useClass:  MockDataFileService},
         { provide: SchemaService, useClass: MockSchemaService },
         { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService },
         { provide: DatasetOwnerService, useClass: MockDatasetOwnerService },
@@ -74,7 +77,7 @@ describe('DatasetFormComponent', () => {
 
   it('should submit new dataset', async(
     inject([Router, Location, DatasetService, DatasetOwnerService, AuthenticationBasicService, SchemaService],
-      (router, location, datasetService, userService, authentication, schemaService) => {
+           (router, location, datasetService, userService, authentication, schemaService) => {
         TestBed.createComponent(AppComponent);
         datasetService.setResponse(response);
         schemaService.setResponse([response_schema]);

@@ -5,6 +5,8 @@ import { DatasetService } from '../dataset.service';
 import { Router } from '@angular/router';
 import { Schema } from '../../schema/schema';
 import { SchemaService } from '../../schema/schema.service';
+import { DataFile } from '../datafile/datafile';
+import { DataFileService } from '../datafile/datafile.service';
 import { OpenLicense } from '../../license/open-license/open-license';
 import { OpenLicenseService } from '../../license/open-license/open-license.service';
 import { ClosedLicense } from '../../license/closed-license/closed-license';
@@ -23,10 +25,14 @@ export class DatasetFormComponent implements OnInit {
   public schemas: Schema[] = [];
   public openLicenses: OpenLicense[] = [];
   public closedLicenses: ClosedLicense[] = [];
+  public fileAttached = false;
+  public filename: string;
+  public content: string;
 
   constructor(private fb: FormBuilder,
               private router: Router,
               private datasetService: DatasetService,
+              private dataFileService: DataFileService,
               private schemaService: SchemaService,
               private openLicenseService: OpenLicenseService,
               private closedLicenseService: ClosedLicenseService) {
@@ -56,12 +62,40 @@ export class DatasetFormComponent implements OnInit {
     );
   }
 
+  addDataFile(event): void {
+    const fileList: FileList = event.target.files;
+    const file: File = fileList[0];
+    const reader = new FileReader();
+    reader.readAsText(file);
+    reader.onloadend = (e) => {
+      this.fileAttached = true;
+      this.content = reader.result;
+      this.filename = file.name;
+    };
+  }
+
   onSubmit(): void {
-    this.datasetService.addDataset(this.dataset)
-      .subscribe(
-        dataset => { this.router.navigate([dataset.uri]); },
-        error => {
-          this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
-        });
+    if (this.fileAttached) {
+      const dataFile: DataFile = new DataFile();
+      dataFile.title = this.dataset.title;
+      dataFile.description = this.dataset.description;
+      dataFile.schema = this.dataset.schema;
+      dataFile.filename = this.filename;
+      dataFile.content = this.content;
+      this.dataFileService.addDataFile(dataFile)
+        .subscribe(
+          datafile => { this.router.navigate([datafile.uri]); },
+          error => {
+            this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
+          });
+    } else {
+      this.datasetService.addDataset(this.dataset)
+        .subscribe(
+          dataset => { this.router.navigate([dataset.uri]); },
+          error => {
+            this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
+          });
+    }
+    this.fileAttached = false;
   }
 }
