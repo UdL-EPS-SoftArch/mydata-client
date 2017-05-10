@@ -46,4 +46,9 @@ export class AuthenticationBasicService {
   getCurrentUser(): User {
     return new User(JSON.parse(localStorage.getItem('currentUser')));
   }
+
+  isAdmin(): boolean {
+    const user: User = this.getCurrentUser();
+    return user.authorities[0].authority === 'ROLE_ADMIN';
+  }
 }
