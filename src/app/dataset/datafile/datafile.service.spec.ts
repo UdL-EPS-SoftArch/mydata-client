@@ -8,17 +8,17 @@ import {AuthenticationBasicService} from '../../login-basic/authentication-basic
 
 describe('DataFileService', () => {
 
-  const datafile1 = new DataFile({
+  const dataFile1 = new DataFile({
     'uri': '/dataFiles/1',
     'title': 'Datafile 1',
-    'description': 'First datafile',
+    'description': 'First dataFile',
     'filename': 'Test file',
     'content': 'Testing content 1'
   });
-  const datafile2 = new DataFile({
+  const dataFile2 = new DataFile({
     'uri': '/dataFiles/2',
     'title': 'Datafile 2',
-    'description': 'Second datafile',
+    'description': 'Second dataFile',
     'filename': 'Test file',
     'content': 'Testing content 2'
   });
@@ -26,7 +26,7 @@ describe('DataFileService', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [
-        DataFile, AuthenticationBasicService, MockBackend, BaseRequestOptions,
+        DataFileService, AuthenticationBasicService, MockBackend, BaseRequestOptions,
         {
           provide: Http,
           deps: [MockBackend, BaseRequestOptions],
@@ -39,12 +39,12 @@ describe('DataFileService', () => {
   }));
 
   describe('#getAllDataFiles()', () => {
-    it('should return all datafiles',
+    it('should return all dataFiles',
       inject([MockBackend, DataFileService], fakeAsync((mockBackend, service) => {
         const apiResponse = new ResponseOptions({
           body: {
             _embedded: {
-              dataFiles: [datafile1, datafile2]
+              dataFiles: [dataFile1, dataFile2]
             }
           }
         });
@@ -56,19 +56,19 @@ describe('DataFileService', () => {
 
         service.getAllDataFiles().subscribe((data) => {
           expect(data.length).toBe(2);
-          expect(data[0].title).toEqual(datafile1.title);
-          expect(data[1].title).toEqual(datafile2.title);
-          expect(data[0].description).toEqual(datafile1.description);
-          expect(data[1].description).toEqual(datafile2.description);
+          expect(data[0].title).toEqual(dataFile1.title);
+          expect(data[1].title).toEqual(dataFile2.title);
+          expect(data[0].description).toEqual(dataFile1.description);
+          expect(data[1].description).toEqual(dataFile2.description);
         });
       })));
   });
 
   describe('#getDataFile(uri)', () => {
-    it('should return the datafile with provided uri',
+    it('should return the dataFile with provided uri',
       inject([MockBackend, DataFileService], fakeAsync((mockBackend, service) => {
         const apiResponse = new ResponseOptions({
-          body: JSON.stringify(datafile1)
+          body: JSON.stringify(dataFile1)
         });
 
         mockBackend.connections.subscribe((connection: MockConnection) => {
@@ -76,27 +76,27 @@ describe('DataFileService', () => {
           connection.mockRespond(new Response(apiResponse));
         });
 
-        service.getDatafile('/dataFiles/1').subscribe((data) => {
+        service.getDataFile('/dataFiles/1').subscribe((data) => {
           expect(data.uri).toEqual('/dataFiles/1');
-          expect(data.title).toEqual(datafile1.title);
-          expect(data.description).toEqual(datafile1.description);
+          expect(data.title).toEqual(dataFile1.title);
+          expect(data.description).toEqual(dataFile1.description);
         });
       })));
   });
 
-  describe('#deleteDataFile(datafile)', () => {
-    it('should delete the specified datafile',
+  describe('#deleteDataFile(dataFile)', () => {
+    it('should delete the specified dataFile',
       inject([MockBackend, DataFileService], fakeAsync((mockBackend, service) => {
         const apiResponse = new ResponseOptions({
           status: 204
         });
 
         mockBackend.connections.subscribe((connection: MockConnection) => {
-          expect(connection.request.url).toBe('http://localhost:8080/datafiles/1');
+          expect(connection.request.url).toBe('http://localhost:8080/dataFiles/1');
           connection.mockRespond(new Response(apiResponse));
         });
 
-        service.deleteDataFile(datafile1).subscribe((response) => {
+        service.deleteDataFile(dataFile1).subscribe((response) => {
           expect(response.status).toEqual(204);
         });
       })));

@@ -4,8 +4,9 @@ import { SpyObject } from '../helper';
 export class MockDataFileService extends SpyObject {
   fakeResponse;
   getAllDatafiles;
-  getDatafile;
-  addDatafile;
+  getDataFile;
+  addDataFile;
+  deleteDataFile;
   getAllDatafilesOrderedByTitle;
 
   constructor() {
@@ -13,8 +14,9 @@ export class MockDataFileService extends SpyObject {
 
     this.fakeResponse = null;
     this.getAllDatafiles = this.spy('getAllDataFiles').andReturn(this);
-    this.getDatafile = this.spy('getDataFile').andReturn(this);
-    this.addDatafile = this.spy('addDataFile').andReturn(this);
+    this.getDataFile = this.spy('getDataFile').andReturn(this);
+    this.addDataFile = this.spy('addDataFile').andReturn(this);
+    this.deleteDataFile = this.spy('deleteDataFile').andReturn(this);
     this.getAllDatafilesOrderedByTitle = this.spy('getAllDataFilesOrderedByTitle').andReturn(this);
   }
 

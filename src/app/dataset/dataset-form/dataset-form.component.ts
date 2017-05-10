@@ -68,7 +68,7 @@ export class DatasetFormComponent implements OnInit {
       dataFile.schema = this.dataset.schema;
       dataFile.filename = this.filename;
       dataFile.content = this.content;
-      this.dataFileService.addDatafile(dataFile)
+      this.dataFileService.addDataFile(dataFile)
         .subscribe(
           datafile => {
             this.router.navigate([datafile.uri]);
