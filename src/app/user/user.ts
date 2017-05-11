@@ -1,5 +1,6 @@
 export class User {
   uri: string;
+  authorities: any = [];
   _links: any = {};
 
   constructor(values: Object = {}) {
