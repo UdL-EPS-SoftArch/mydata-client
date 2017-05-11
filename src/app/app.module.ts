@@ -1,8 +1,8 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { RouterModule } from '@angular/router';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpModule} from '@angular/http';
+import {RouterModule} from '@angular/router';
 
 import { routes } from './app.routing';
 import { AppComponent } from './app.component';
@@ -40,6 +40,9 @@ import { SchemaEditComponent } from './schema/schema-edit/schema-edit.component'
 import { SchemaOwnerService } from './user/schema-owner.service';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
 import {UserService} from './user/user.service';
+import {DatafilesListComponent} from './dataset/datafile-list/datafiles-list.component';
+import {DatafileDetailsComponent} from './dataset/datafile-list/datafile-details.component';
+import {DataFileService} from './dataset/datafile/datafile.service';
 
 @NgModule({
   declarations: [
@@ -47,6 +50,7 @@ import {UserService} from './user/user.service';
     DatasetFormComponent,
     AboutComponent,
     DatasetsListComponent,
+    DatafilesListComponent,
     DatasetDetailsComponent,
     SchemaFormComponent,
     SchemasListComponent,
@@ -66,7 +70,8 @@ import {UserService} from './user/user.service';
     TagsListComponent,
     TagFormComponent,
     SchemaEditComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    DatafileDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -77,7 +82,8 @@ import {UserService} from './user/user.service';
     LoginBasicModule
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService, DatasetOwnerService,
-              OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService, UserService],
+    OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService, DataFileService, UserService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
