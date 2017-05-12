@@ -21,7 +21,8 @@ describe('FieldDetailsComponent', () => {
   let component: FieldDetailsComponent;
 
   const field1 = new Field({
-    'uri': '/fields/1',
+    'uri': '/',
+    //'uri': '/fields/1',
     'title': 'Field 1',
     'description': 'First field',
     '_links': {

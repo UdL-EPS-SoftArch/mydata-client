@@ -23,11 +23,12 @@ describe('FieldFormComponent', () => {
   let fixture: ComponentFixture<FieldFormComponent>;
 
   const response = new Field({
-    'uri': '/fields/1',
+    'uri': '/',
+    //'uri': '/fields/1',
     'title': 'Field 1',
     'description': 'First field',
     '_links': {
-      'owner': {'href': 'http://localhost/datasets/2/owner'}
+      'owner': {'href': 'http://localhost/fields/1/owner'}
     }
   });
 
@@ -36,7 +37,7 @@ describe('FieldFormComponent', () => {
   });
 
   const owner = new Owner({
-    'uri': 'dataOwners/owner',
+    'uri': 'fieldOwners/owner',
   });
 
   beforeEach(async(() => {
