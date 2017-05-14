@@ -38,6 +38,13 @@ import { TagsListComponent } from './tag/tags-list/tags-list.component';
 import { TagFormComponent } from './tag/tags-form/tags-form.component';
 import { SchemaEditComponent } from './schema/schema-edit/schema-edit.component';
 import { SchemaOwnerService } from './user/schema-owner.service';
+import {CommentDetailsComponent} from './comment/comment-details/comment-details.component';
+import {CommentEditComponent} from './comment/comment-edit/comment-edit.component';
+import {CommentFormComponent} from './comment/comment-form/comment-form.component';
+import {CommentListComponent} from './comment/comment-list/comment-list.component';
+import {CommentSearchComponent} from './comment/comment-search/comment-search.component';
+import {CommentService} from './comment/comment.service';
+import {CommentOwnerService} from './user/comment-owner.service';
 
 @NgModule({
   declarations: [
@@ -63,7 +70,12 @@ import { SchemaOwnerService } from './user/schema-owner.service';
     TagDetailsComponent,
     TagsListComponent,
     TagFormComponent,
-    SchemaEditComponent
+    SchemaEditComponent,
+    CommentDetailsComponent,
+    CommentEditComponent,
+    CommentFormComponent,
+    CommentListComponent,
+    CommentSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +86,7 @@ import { SchemaOwnerService } from './user/schema-owner.service';
     LoginBasicModule
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService, DatasetOwnerService,
-              OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService],
+              OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService, CommentService, CommentOwnerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
