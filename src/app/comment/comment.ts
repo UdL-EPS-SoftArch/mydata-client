@@ -1,9 +1,9 @@
-import {Dataset} from "../dataset/dataset";
-import {User} from "../login-basic/user";
-/**
- * Created by santi on 25/04/17.
- */
-export class Comment{
+import {Dataset} from '../dataset/dataset';
+import {User} from '../login-basic/user';
+
+
+
+export class Comment {
   uri: string;
   text: string;
   dataset: Dataset;
@@ -11,7 +11,7 @@ export class Comment{
   dateTime: string;
   _links: any = {};
 
-  constructor(values: Object = {}){
+  constructor(values: Object = {}) {
     (<any>Object).assign(this, values);
   }
 }

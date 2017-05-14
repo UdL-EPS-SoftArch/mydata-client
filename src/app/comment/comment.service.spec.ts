@@ -10,7 +10,7 @@ describe('CommentService', () => {
 
   const comment1 = new Comment({
     'uri': '/comments/1',
-    'text': 'Primer comentari'
+    'text': 'First comment'
   });
   const comment2 = new Comment({
     'uri': '/comments/2',
@@ -65,11 +65,27 @@ describe('CommentService', () => {
           connection.mockRespond(new Response(apiResponse));
         });
 
-        service.getDataset('/comments/1').subscribe((data) => {
+        service.getComment('/comments/1').subscribe((data) => {
           expect(data.uri).toEqual('/comments/1');
           expect(data.text).toEqual(comment1.text);
         });
       })));
   });
+  describe('#deleteComment(comment)', () => {
+    it('should delete the specified comment',
+      inject([ MockBackend, CommentService ], fakeAsync((mockBackend, service) => {
+        const apiResponse = new ResponseOptions({
+          status: 204
+        });
 
+        mockBackend.connections.subscribe((connection: MockConnection) => {
+          expect(connection.request.url).toBe('http://localhost:8080/comments/1');
+          connection.mockRespond(new Response(apiResponse));
+        });
+
+        service.deleteComment(comment1).subscribe((response) => {
+          expect(response.status).toEqual(204);
+        });
+      })));
+  });
 });
