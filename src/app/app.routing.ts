@@ -18,6 +18,10 @@ import { TagsListComponent } from './tag/tags-list/tags-list.component';
 import { TagFormComponent } from './tag/tags-form/tags-form.component';
 import { TagDetailsComponent } from './tag/tags-details/tags-details.component';
 import {SchemaEditComponent} from './schema/schema-edit/schema-edit.component';
+import {CommentListComponent} from './comment/comment-list/comment-list.component';
+import {CommentFormComponent} from './comment/comment-form/comment-form.component';
+import {CommentDetailsComponent} from './comment/comment-details/comment-details.component';
+import {CommentEditComponent} from './comment/comment-edit/comment-edit.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'about', pathMatch: 'full' },
@@ -39,4 +43,8 @@ export const routes: Routes = [
   { path: 'tags', component: TagsListComponent },
   { path: 'tags/new', component: TagFormComponent },
   { path: 'tags/:id', component: TagDetailsComponent },
+  { path: 'comments', component: CommentListComponent },
+  { path: 'comments/new', component: CommentFormComponent },
+  { path: 'comments/:id', component: CommentDetailsComponent },
+  {path: 'comments/:id/edit', component: CommentEditComponent, canActivate: [LoggedInGuard] }
 ];
