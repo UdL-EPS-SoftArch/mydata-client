@@ -26,3 +26,20 @@
     </div>
   </div>
 </div>
+
+<div class="row">
+  <div class="panel-group col-md-12">
+    <div class="panel panel-default" >
+      <div class="panel-heading">
+        <h4>Schemas</h4>
+      </div>
+      <div class="panel-body" *ngFor="let schema of schemas">
+        <div class="col-md-6">
+          <h4>Title: <a routerLink="{{schema.uri}}">{{schema.title}}</a></h4>
+          <h4>Description:</h4>
+          <p>{{schema.description}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

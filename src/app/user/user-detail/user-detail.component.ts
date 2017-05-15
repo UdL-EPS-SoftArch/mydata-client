@@ -3,6 +3,7 @@ import {User} from '../user';
 import {ActivatedRoute} from '@angular/router';
 import {UserService} from '../user.service';
 import {Dataset} from '../../dataset/dataset';
+import {Schema} from '../../schema/schema';
 
 @Component({
   selector: 'app-user-detail',
@@ -12,6 +13,7 @@ import {Dataset} from '../../dataset/dataset';
 export class UserDetailComponent implements OnInit {
   public user: User = new User();
   public datasets: Dataset[] = [];
+  public schemas: Schema[] = [];
   public errorMessage: string;
 
   constructor(private route: ActivatedRoute,
@@ -50,10 +52,14 @@ export class UserDetailComponent implements OnInit {
     console.log(user._links.ownsDatasets.href);
     console.log(user._links.ownsSchemas.href);
     console.log(user._links.ownsLicenses.href);
-    console.log(user.uri);
     this.userService.getUserDatasets(user.uri + '/ownsDatasets').subscribe(
       datasets => {
         this.datasets = datasets;
+      });
+
+    this.userService.getUserSchemas(user.uri + '/ownsSchemas').subscribe(
+      schemas => {
+        this.schemas = schemas;
       });
   }
 }

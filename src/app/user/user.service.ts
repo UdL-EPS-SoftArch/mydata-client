@@ -7,6 +7,7 @@ import { Http, Response } from '@angular/http';
 import {User} from './user';
 import {environment} from '../../environments/environment';
 import {Dataset} from '../dataset/dataset';
+import {Schema} from '../schema/schema';
 
 @Injectable()
 export class UserService {
@@ -22,6 +23,12 @@ export class UserService {
   getUserDatasets(uri: any): Observable<Dataset[]> {
     return this.http.get(`${environment.API}${uri}`)
       .map((res: Response) => res.json()._embedded.datasets.map(json => new Dataset(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  getUserSchemas(uri: any): Observable<Schema[]> {
+    return this.http.get(`${environment.API}${uri}`)
+      .map((res: Response) => res.json()._embedded.schemas.map(json => new Schema(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
 }
