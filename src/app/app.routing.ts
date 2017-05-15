@@ -22,8 +22,33 @@ import { FieldListComponent } from './field/fields-list/fields-list.component';
 import { FieldFormComponent } from './field/field-form/field-form.component';
 import { FieldDetailsComponent } from './field/field-details/field-details.component';
 import { FieldEditComponent} from './field/field-edit/field-edit.component';
+import { DatafilesListComponent } from './dataset/datafile-list/datafiles-list.component';
+import { DatafileDetailsComponent } from './dataset/datafile-list/datafile-details.component';
+import { SchemasDatasetListComponent } from './schema/schemas-list/schemas-dataset-list.component';
 
 export const routes: Routes = [
+  {path: '', redirectTo: 'about', pathMatch: 'full'},
+  {path: 'about', component: AboutComponent},
+  {path: 'datasets', component: DatasetsListComponent},
+  {path: 'dataFiles', component: DatafilesListComponent},
+  {path: 'dataFiles/:id', component: DatafileDetailsComponent},
+  {path: 'datasets/new', component: DatasetFormComponent},
+  {path: 'datasets/:id', component: DatasetDetailsComponent},
+  {path: 'datasets/:id/edit', component: DatasetEditComponent, canActivate: [LoggedInGuard]},
+  {path: 'schemas', component: SchemasListComponent},
+  {path: 'schemas/new', component: SchemaFormComponent},
+  {path: 'schemas/:id', component: SchemaDetailsComponent},
+  {path: 'schemas/:id/edit', component: SchemaEditComponent, canActivate: [LoggedInGuard]},
+  {path: 'schemas/:id/datasets', component: SchemasDatasetListComponent },
+  {path: 'openLicenses', component: OpenLicenseListComponent},
+  {path: 'openLicenses/new', component: OpenLicenseFormComponent},
+  {path: 'openLicenses/:id', component: OpenLicenseDetailsComponent},
+  {path: 'closedLicenses', component: ClosedLicenseListComponent},
+  {path: 'closedLicenses/new', component: ClosedLicenseFormComponent},
+  {path: 'closedLicenses/:id', component: ClosedLicenseDetailsComponent},
+  {path: 'tags', component: TagsListComponent},
+  {path: 'tags/new', component: TagFormComponent},
+  {path: 'tags/:id', component: TagDetailsComponent},
   { path: '', redirectTo: 'about', pathMatch: 'full' },
   { path: 'about', component: AboutComponent },
   { path: 'datasets', component: DatasetsListComponent },

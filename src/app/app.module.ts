@@ -42,6 +42,12 @@ import { FieldFormComponent } from './field/field-form/field-form.component';
 import { FieldListComponent } from './field/fields-list/fields-list.component';
 import { FieldSearchComponent } from './field/field-search/fields-search.component';
 
+import { SchemaEditComponent } from './schema/schema-edit/schema-edit.component';
+import { SchemaOwnerService } from './user/schema-owner.service';
+import { DataFileService } from './dataset/datafile/datafile.service';
+import { DatafilesListComponent } from './dataset/datafile-list/datafiles-list.component';
+import { DatafileDetailsComponent } from './dataset/datafile-list/datafile-details.component';
+import { SchemasDatasetListComponent } from './schema/schemas-list/schemas-dataset-list.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +55,7 @@ import { FieldSearchComponent } from './field/field-search/fields-search.compone
     DatasetFormComponent,
     AboutComponent,
     DatasetsListComponent,
+    DatafilesListComponent,
     DatasetDetailsComponent,
     SchemaFormComponent,
     SchemasListComponent,
@@ -67,6 +74,9 @@ import { FieldSearchComponent } from './field/field-search/fields-search.compone
     TagDetailsComponent,
     TagsListComponent,
     TagFormComponent,
+    SchemaEditComponent,
+    DatafileDetailsComponent,
+    SchemasDatasetListComponent,
     FieldService,
     FieldDetailsComponent,
     FieldFormComponent,
@@ -82,7 +92,7 @@ import { FieldSearchComponent } from './field/field-search/fields-search.compone
     LoginBasicModule
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService, DatasetOwnerService,
-              OpenLicenseService, ClosedLicenseService, TagService, FieldService],
+    OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService, DataFileService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
