@@ -9,10 +9,10 @@ import { AppComponent } from '../../app.component';
 import { FieldDetailsComponent } from './field-details.component';
 import { Field } from '../field';
 import { FieldService } from '../field.service';
-import {AuthenticationBasicService} from "../../login-basic/authentication-basic.service";
-import {MockAuthenticationBasicService} from "../../../test/mocks/authentication-basic.service";
+import {AuthenticationBasicService} from '../../login-basic/authentication-basic.service';
+import {MockAuthenticationBasicService} from '../../../test/mocks/authentication-basic.service';
 
-import {Schema} from "../../schema/schema";
+import {Schema} from '../../schema/schema';
 
 describe('FieldDetailsComponent', () => {
   let fixture: ComponentFixture<FieldDetailsComponent>;
@@ -58,7 +58,7 @@ describe('FieldDetailsComponent', () => {
   }));
 
   it('should fetch and render the requested field editable when owner', async(
-    inject([Router, Location, FieldService,AuthenticationBasicService],
+    inject([Router, Location, FieldService, AuthenticationBasicService],
       (router, location, fieldService, authentication) => {
         TestBed.createComponent(AppComponent);
         fieldService.setResponse(field1);

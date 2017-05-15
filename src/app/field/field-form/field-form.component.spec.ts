@@ -14,7 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { User } from '../../login-basic/user';
 import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
 import { MockAuthenticationBasicService } from '../../../test/mocks/authentication-basic.service';
-import {Schema} from "../../schema/schema";
+import {Schema} from '../../schema/schema';
 
 describe('FieldFormComponent', () => {
   let component: FieldFormComponent;
@@ -59,7 +59,7 @@ describe('FieldFormComponent', () => {
 
   it('should submit new field', async(
     inject([Router, Location, FieldService, AuthenticationBasicService],
-      (router, location, service,authentication) => {
+      (router, location, service, authentication) => {
         TestBed.createComponent(AppComponent);
         service.setResponse(response);
 
