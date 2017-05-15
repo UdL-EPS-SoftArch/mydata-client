@@ -8,7 +8,11 @@ export class User {
   }
 
   getUserName(): string {
-    return this.uri.split('/').pop();
+    if (this.uri) {
+      return this.uri.split('/').pop();
+    } else {
+      return '';
+    }
   }
 
   getData(): string {
