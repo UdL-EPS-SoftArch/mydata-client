@@ -12,11 +12,8 @@ import { Field } from '../field';
 import { FieldService } from '../field.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { User } from '../../login-basic/user';
-import { Owner } from '../../user/owner';
 import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
 import { MockAuthenticationBasicService } from '../../../test/mocks/authentication-basic.service';
-import { FieldOwnerService } from '../../user/field-owner.service';
-import { MockFieldOwnerService } from '../../../test/mocks/field-owner.service';
 import {Schema} from "../../schema/schema";
 
 describe('FieldFormComponent', () => {

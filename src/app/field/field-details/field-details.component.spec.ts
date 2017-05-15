@@ -9,12 +9,9 @@ import { AppComponent } from '../../app.component';
 import { FieldDetailsComponent } from './field-details.component';
 import { Field } from '../field';
 import { FieldService } from '../field.service';
-import {Owner} from "../../user/owner";
 import {AuthenticationBasicService} from "../../login-basic/authentication-basic.service";
 import {MockAuthenticationBasicService} from "../../../test/mocks/authentication-basic.service";
-import {FieldOwnerService} from "../../user/field-owner.service";
-import {MockFieldOwnerService} from "../../../test/mocks/field-owner.service";
-import {User} from "../../login-basic/user";
+
 import {Schema} from "../../schema/schema";
 
 describe('FieldDetailsComponent', () => {
