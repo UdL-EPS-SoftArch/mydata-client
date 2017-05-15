@@ -15,6 +15,7 @@ import {MockAuthenticationBasicService} from "../../../test/mocks/authentication
 import {FieldOwnerService} from "../../user/field-owner.service";
 import {MockFieldOwnerService} from "../../../test/mocks/field-owner.service";
 import {User} from "../../login-basic/user";
+import {Schema} from "../../schema/schema";
 
 describe('FieldDetailsComponent', () => {
   let fixture: ComponentFixture<FieldDetailsComponent>;
@@ -37,8 +38,13 @@ describe('FieldDetailsComponent', () => {
     }
   });
 
-  const owner = new Owner({
-    'uri': 'fieldOwners/owner',
+  const schema = new Schema({
+    'uri': '/schemas/1',
+    'title': 'Schema 1',
+    'description': 'First schema',
+    '_links': {
+      'owner': {'href': 'http://localhost/datasets/2/owner'}
+    }
   });
 
   beforeEach(async(() => {
