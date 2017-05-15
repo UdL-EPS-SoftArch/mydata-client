@@ -4,6 +4,8 @@ import {ActivatedRoute} from '@angular/router';
 import {UserService} from '../user.service';
 import {Dataset} from '../../dataset/dataset';
 import {Schema} from '../../schema/schema';
+import {OpenLicense} from '../../license/open-license/open-license';
+import {ClosedLicense} from '../../license/closed-license/closed-license';
 
 @Component({
   selector: 'app-user-detail',
@@ -14,6 +16,8 @@ export class UserDetailComponent implements OnInit {
   public user: User = new User();
   public datasets: Dataset[] = [];
   public schemas: Schema[] = [];
+  public openLicenses: OpenLicense[] = [];
+  public closedLicenses: ClosedLicense[] = [];
   public errorMessage: string;
 
   constructor(private route: ActivatedRoute,
@@ -60,6 +64,16 @@ export class UserDetailComponent implements OnInit {
     this.userService.getUserSchemas(user.uri + '/ownsSchemas').subscribe(
       schemas => {
         this.schemas = schemas;
+      });
+
+    this.userService.getUserOpenLicenses(user.uri + '/ownsLicenses').subscribe(
+      licenses => {
+        this.openLicenses = licenses;
+      });
+
+    this.userService.getUserClosedLicenses(user.uri + '/ownsLicenses').subscribe(
+      licenses => {
+        this.openLicenses = licenses;
       });
   }
 }

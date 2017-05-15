@@ -43,3 +43,34 @@
     </div>
   </div>
 </div>
+
+<div class="row">
+  <div class="panel-group col-md-12">
+    <div class="panel panel-default" >
+      <div class="panel-heading">
+        <h4>Open Licenses</h4>
+      </div>
+      <div class="panel-body" *ngFor="let openLicense of openLicenses">
+        <div class="col-md-6">
+          <h4>Title: <a routerLink="{{openLicense.uri}}">{{openLicense.text}}</a></h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="panel-group col-md-12">
+    <div class="panel panel-default" >
+      <div class="panel-heading">
+        <h4>Closed Licenses</h4>
+      </div>
+      <div class="panel-body" *ngFor="let closedLicense of closedLicenses">
+        <div class="col-md-6">
+          <h4>Title: <a routerLink="{{closedLicense.uri}}">{{closedLicense.text}}</a></h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

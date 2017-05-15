@@ -8,6 +8,8 @@ import {User} from './user';
 import {environment} from '../../environments/environment';
 import {Dataset} from '../dataset/dataset';
 import {Schema} from '../schema/schema';
+import {OpenLicense} from '../license/open-license/open-license';
+import {ClosedLicense} from '../license/closed-license/closed-license';
 
 @Injectable()
 export class UserService {
@@ -29,6 +31,18 @@ export class UserService {
   getUserSchemas(uri: any): Observable<Schema[]> {
     return this.http.get(`${environment.API}${uri}`)
       .map((res: Response) => res.json()._embedded.schemas.map(json => new Schema(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  getUserOpenLicenses(uri: any): Observable<OpenLicense[]> {
+    return this.http.get(`${environment.API}${uri}`)
+      .map((res: Response) => res.json()._embedded.openLicenses.map(json => new OpenLicense(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  getUserClosedLicenses(uri: any): Observable<ClosedLicense[]> {
+    return this.http.get(`${environment.API}${uri}`)
+      .map((res: Response) => res.json()._embedded.closedLicenses.map(json => new ClosedLicense(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
 }
