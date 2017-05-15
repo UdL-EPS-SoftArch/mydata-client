@@ -1,6 +1,7 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { DatasetService } from '../dataset.service';
 import { Dataset } from '../dataset';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -14,13 +15,20 @@ export class DatasetsSearchComponent {
   datasets: Dataset[];
   @Output()
   onSearchited: EventEmitter<any> = new EventEmitter();
+  private schema: string = null;
 
   public errorMessage: string;
-  constructor(private datasetService: DatasetService) {
+  constructor(private datasetService: DatasetService,
+              private route: ActivatedRoute) {
   }
 
   performSearch(searchTerm: string): void {
-    this.datasetService.getDatasetByDescriptionWords(searchTerm).subscribe(
+    this.route.params
+      .map(params => params['id'])
+      .subscribe((id) => {
+        if (id != null) { this.schema = `/schemas/${id}`; }
+      });
+    this.datasetService.getDatasetByDescriptionWords(searchTerm, this.schema).subscribe(
       datasets => {
         // Send to output emitter
         this.onSearchited.emit(datasets);
