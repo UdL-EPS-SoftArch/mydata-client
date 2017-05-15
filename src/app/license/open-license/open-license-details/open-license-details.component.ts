@@ -26,8 +26,8 @@ export class OpenLicenseDetailsComponent implements OnInit {
       .subscribe((id) => {
         const uri = `/openLicenses/${id}`;
         this.openLicenseService.getOpenLicense(uri).subscribe(
-          openLicense => { this.openLicense = openLicense; 
-          if(this.openLicense._links != null) {
+          openLicense => { this.openLicense = openLicense;
+          if (this.openLicense._links != null) {
               this.openLicenseOwnerService.getOpenLicenseOwner(this.openLicense._links.owner.href).subscribe(
                 owner => {
                   this.isOwner = this.authenticationService.getCurrentUser().username === owner.getUserName();

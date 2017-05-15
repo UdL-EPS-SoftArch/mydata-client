@@ -26,8 +26,8 @@ export class ClosedLicenseDetailsComponent implements OnInit {
       .subscribe((id) => {
         const uri = `/closedLicenses/${id}`;
         this.closedLicenseService.getClosedLicense(uri).subscribe(
-          closedLicense => { this.closedLicense = closedLicense; 
-          if(this.closedLicense._links != null) {
+          closedLicense => { this.closedLicense = closedLicense;
+          if (this.closedLicense._links != null) {
               this.closedLicenseOwnerService.getClosedLicenseOwner(this.closedLicense._links.owner.href).subscribe(
                 owner => {
                   this.isOwner = this.authenticationService.getCurrentUser().username === owner.getUserName();
