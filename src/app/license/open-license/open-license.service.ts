@@ -51,5 +51,5 @@ export class OpenLicenseService {
     return this.http.get(`${environment.API}${uri}/datasets`)
       .map((res: Response) => res.json()._embedded.datasets.map(json => new Dataset(json)))
       .catch((error: any) => Observable.throw(error.json()));
-  }  
+  }
 }
