@@ -14,6 +14,7 @@ export class SchemaDetailsComponent implements OnInit {
   public schema: Schema = new Schema();
   public errorMessage: string;
   public isOwner: boolean;
+  public ownerName: string;
 
 
   constructor(private route: ActivatedRoute,
@@ -33,6 +34,7 @@ export class SchemaDetailsComponent implements OnInit {
             if (this.schema._links != null) {
               this.schemaOwnerService.getSchemaOwner(this.schema._links.owner.href).subscribe(
                 owner => {
+                  this.ownerName = owner.getUserName();
                   this.isOwner = this.authenticationService.getCurrentUser().username === owner.getUserName();
                 });
             }
