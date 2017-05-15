@@ -17,18 +17,18 @@ import { AuthenticationBasicService } from '../../login-basic/authentication-bas
 import { MockAuthenticationBasicService } from '../../../test/mocks/authentication-basic.service';
 import { FieldOwnerService } from '../../user/field-owner.service';
 import { MockFieldOwnerService } from '../../../test/mocks/field-owner.service';
+import {Schema} from "../../schema/schema";
 
 describe('FieldFormComponent', () => {
   let component: FieldFormComponent;
   let fixture: ComponentFixture<FieldFormComponent>;
 
   const response = new Field({
-    'uri': '/',
-    //'uri': '/fields/1',
+    'uri': '/fields/1',
     'title': 'Field 1',
     'description': 'First field',
     '_links': {
-      'owner': {'href': 'http://localhost/fields/1/owner'}
+      'partOf': {'href': 'http://localhost/fields/1/partOf'}
     }
   });
 
@@ -36,16 +36,20 @@ describe('FieldFormComponent', () => {
     'username': 'user'
   });
 
-  const owner = new Owner({
-    'uri': 'fieldOwners/owner',
+  const schema = new Schema({
+    'uri': '/schemas/1',
+    'title': 'Schema 1',
+    'description': 'First schema',
+    '_links': {
+      'owner': {'href': 'http://localhost/datasets/2/owner'}
+    }
   });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ AppComponent, FieldFormComponent, FieldDetailsComponent ],
       providers: [ { provide: FieldService, useClass: MockFieldService },
-        { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService },
-        { provide: FieldOwnerService, useClass: MockFieldOwnerService }],
+        { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService }],
       imports: [ RouterTestingModule.withRoutes([
         { path: 'fields/new', component: FieldFormComponent },
         { path: 'fields/:id', component: FieldDetailsComponent }]),
@@ -57,13 +61,12 @@ describe('FieldFormComponent', () => {
 
 
   it('should submit new field', async(
-    inject([Router, Location, FieldService, FieldOwnerService, AuthenticationBasicService],
-      (router, location, service,  userService, authentication) => {
+    inject([Router, Location, FieldService, AuthenticationBasicService],
+      (router, location, service,authentication) => {
         TestBed.createComponent(AppComponent);
         service.setResponse(response);
-        userService.setResponse(owner);
-        authentication.isLoggedIn.and.returnValue(true);
-        authentication.getCurrentUser.and.returnValue(user);
+
+
 
         router.navigate(['/fields/new']).then(() => {
           expect(location.path()).toBe('/fields/new');

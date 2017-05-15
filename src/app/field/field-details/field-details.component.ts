@@ -19,8 +19,7 @@ export class FieldDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private fieldService: FieldService,
-              private authenticationService: AuthenticationBasicService,
-              private fieldOwnerService: FieldOwnerService) { }
+              private authenticationService: AuthenticationBasicService) { }
 
   ngOnInit() {
     this.route.params
@@ -30,12 +29,7 @@ export class FieldDetailsComponent implements OnInit {
         this.fieldService.getField(uri).subscribe(
           field => {
             this.field = field;
-            if (this.field._links != null) {
-              this.fieldOwnerService.getFieldOwner(this.field._links.owner.href).subscribe(
-                owner => {
-                  this.isOwner = this.authenticationService.getCurrentUser().username === owner.getUserName();
-                });
-            }
+
           },
           error => this.errorMessage = <any>error.message
         );
