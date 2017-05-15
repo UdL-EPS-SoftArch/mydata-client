@@ -38,6 +38,10 @@ import { TagsListComponent } from './tag/tags-list/tags-list.component';
 import { TagFormComponent } from './tag/tags-form/tags-form.component';
 import { SchemaEditComponent } from './schema/schema-edit/schema-edit.component';
 import { SchemaOwnerService } from './user/schema-owner.service';
+import { DataFileService } from './dataset/datafile/datafile.service';
+import { DatafilesListComponent } from './dataset/datafile-list/datafiles-list.component';
+import { DatafileDetailsComponent } from './dataset/datafile-list/datafile-details.component';
+import { SchemasDatasetListComponent } from './schema/schemas-list/schemas-dataset-list.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +49,7 @@ import { SchemaOwnerService } from './user/schema-owner.service';
     DatasetFormComponent,
     AboutComponent,
     DatasetsListComponent,
+    DatafilesListComponent,
     DatasetDetailsComponent,
     SchemaFormComponent,
     SchemasListComponent,
@@ -63,7 +68,9 @@ import { SchemaOwnerService } from './user/schema-owner.service';
     TagDetailsComponent,
     TagsListComponent,
     TagFormComponent,
-    SchemaEditComponent
+    SchemaEditComponent,
+    DatafileDetailsComponent,
+    SchemasDatasetListComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +81,7 @@ import { SchemaOwnerService } from './user/schema-owner.service';
     LoginBasicModule
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService, DatasetOwnerService,
-              OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService],
+    OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService, DataFileService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

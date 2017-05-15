@@ -4,6 +4,8 @@ import { DatasetService } from '../dataset.service';
 import { Dataset } from '../dataset';
 import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
 import { DatasetOwnerService } from '../../user/dataset-owner.service';
+import { Schema } from '../../schema/schema';
+import { SchemaService } from '../../schema/schema.service';
 
 @Component({
   selector: 'app-dataset-details',
@@ -12,6 +14,8 @@ import { DatasetOwnerService } from '../../user/dataset-owner.service';
 })
 export class DatasetDetailsComponent implements OnInit {
   public dataset: Dataset = new Dataset();
+  public schema: Schema = new Schema();
+
   public errorMessage: string;
   public isOwner: boolean;
   public ownerName: string;
@@ -19,6 +23,7 @@ export class DatasetDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private datasetService: DatasetService,
+              private schemaService: SchemaService,
               private authenticationService: AuthenticationBasicService,
               private datasetOwnerService: DatasetOwnerService) { }
 
@@ -30,17 +35,27 @@ export class DatasetDetailsComponent implements OnInit {
         this.datasetService.getDataset(uri).subscribe(
           dataset => {
             this.dataset = dataset;
+            const uri_schema = `/datasets/${id}/schema`;
+            this.schemaService.getSchema(uri_schema).subscribe(
+              schema => {
+                this.schema = schema;
+
+              }
+            );
             if (this.dataset._links != null) {
               this.datasetOwnerService.getDatasetOwner(this.dataset._links.owner.href).subscribe(
                 owner => {
                   this.ownerName = owner.getUserName();
                   this.isOwner = this.authenticationService.getCurrentUser().username === owner.getUserName();
-              });
+                });
             }
           },
           error => this.errorMessage = <any>error.message,
         );
+
       });
+
+
   }
 
   onDelete(dataset) {

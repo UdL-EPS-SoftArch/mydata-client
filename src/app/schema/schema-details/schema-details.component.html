@@ -3,17 +3,21 @@
 </div>
 
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-3">
     <h4>Title</h4>
     <p>{{schema.title}}</p>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-3">
     <h4>Description</h4>
     <p>{{schema.description}}</p>
   </div>
-  <div class="col-md-2">
+  <div class="col-md-3">
     <h4>Owner</h4>
     <p>{{ownerName}}</p>
+  </div>
+  <div class="col-md-3">
+    <h4>Datasets</h4>
+    <a [routerLink]="[schema.uri+'/datasets']">List datasets of {{schema.title}}</a>
   </div>
   <div class="col-md-2" *ngIf="isOwner">
     <a class="btn btn-primary" role="button" routerLink="{{schema.uri}}/edit">Edit</a>

@@ -5,6 +5,12 @@ import { DatasetService } from '../dataset.service';
 import { Router } from '@angular/router';
 import { Schema } from '../../schema/schema';
 import { SchemaService } from '../../schema/schema.service';
+import { DataFile } from '../datafile/datafile';
+import { DataFileService } from '../datafile/datafile.service';
+import { OpenLicense } from '../../license/open-license/open-license';
+import { OpenLicenseService } from '../../license/open-license/open-license.service';
+import { ClosedLicense } from '../../license/closed-license/closed-license';
+import { ClosedLicenseService } from '../../license/closed-license/closed-license.service';
 
 @Component({
   selector: 'app-dataset-form',
@@ -17,15 +23,25 @@ export class DatasetFormComponent implements OnInit {
   public titleCtrl: AbstractControl;
   public errorMessage: string;
   public schemas: Schema[] = [];
+  public openLicenses: OpenLicense[] = [];
+  public closedLicenses: ClosedLicense[] = [];
+  public fileAttached = false;
+  public filename: string;
+  public content: string;
 
   constructor(private fb: FormBuilder,
               private router: Router,
               private datasetService: DatasetService,
-              private schemaService: SchemaService) {
+              private dataFileService: DataFileService,
+              private schemaService: SchemaService,
+              private openLicenseService: OpenLicenseService,
+              private closedLicenseService: ClosedLicenseService) {
     this.datasetForm = fb.group({
       'title': ['Dataset title', Validators.required],
       'description': ['Dataset description'],
-      'schema': ['Dataset schema']
+      'schema': ['Dataset schema'],
+      'openlicense': ['Dataset license'],
+      'closedlicense': ['Dataset license']
     });
     this.titleCtrl = this.datasetForm.controls['title'];
     this.dataset = new Dataset();
@@ -36,14 +52,50 @@ export class DatasetFormComponent implements OnInit {
       schemas => { this.schemas = schemas; },
       error => this.errorMessage = <any>error.message
     );
+    this.openLicenseService.getAllOpenLicenses().subscribe(
+      openLicenses => { this.openLicenses = openLicenses; },
+      error => this.errorMessage = <any>error.message
+    );
+    this.closedLicenseService.getAllClosedLicenses().subscribe(
+      closedLicenses => { this.closedLicenses = closedLicenses; },
+      error => this.errorMessage = <any>error.message
+    );
+  }
+
+  addDataFile(event): void {
+    const fileList: FileList = event.target.files;
+    const file: File = fileList[0];
+    const reader = new FileReader();
+    reader.readAsText(file);
+    reader.onloadend = (e) => {
+      this.fileAttached = true;
+      this.content = reader.result;
+      this.filename = file.name;
+    };
   }
 
   onSubmit(): void {
-    this.datasetService.addDataset(this.dataset)
-      .subscribe(
-        dataset => { this.router.navigate([dataset.uri]); },
-        error => {
-          this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
-        });
+    if (this.fileAttached) {
+      const dataFile: DataFile = new DataFile();
+      dataFile.title = this.dataset.title;
+      dataFile.description = this.dataset.description;
+      dataFile.schema = this.dataset.schema;
+      dataFile.filename = this.filename;
+      dataFile.content = this.content;
+      this.dataFileService.addDataFile(dataFile)
+        .subscribe(
+          datafile => { this.router.navigate([datafile.uri]); },
+          error => {
+            this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
+          });
+    } else {
+      this.datasetService.addDataset(this.dataset)
+        .subscribe(
+          dataset => { this.router.navigate([dataset.uri]); },
+          error => {
+            this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
+          });
+    }
+    this.fileAttached = false;
   }
 }
