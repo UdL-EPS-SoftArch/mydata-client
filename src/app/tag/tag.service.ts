@@ -28,6 +28,20 @@ export class TagService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
+  // GET /tags/OrderByName
+  getAllTagsOrderedByName(): Observable<Tag[]> {
+    return this.http.get(`${environment.API}/tags?sort=name`)
+      .map((res: Response) => res.json()._embedded.tags.map(json => new Tag(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // GET /tags/ + search/findByNameContaining?name
+  getTagByNameWords(keyword: string): Observable<Tag[]> {
+    return this.http.get(environment.API + '/tags/search/findByNameContaining?name=' + keyword)
+      .map((res: Response) => res.json()._embedded.tags.map(json => new Tag(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
   // POST /tag
   addTag(tag: Tag): Observable<Tag> {
     const body = JSON.stringify(tag);

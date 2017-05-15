@@ -19,6 +19,7 @@ import { SchemasListComponent } from './schema/schemas-list/schemas-list.compone
 import { SchemaDetailsComponent } from './schema/schema-details/schema-details.component';
 import { SchemaService } from './schema/schema.service';
 import { DatasetsSearchComponent} from './dataset/dataset-search/dataset-search.component';
+import { TagsSearchComponent} from './tag/tags-search/tags-search.component';
 import { DatasetEditComponent } from './dataset/dataset-edit/dataset-edit.component';
 import { DatasetOwnerService } from './user/dataset-owner.service';
 import { OpenLicenseFormComponent } from './license/open-license/open-license-form/open-license-form.component';
@@ -55,6 +56,7 @@ import { SchemasDatasetListComponent } from './schema/schemas-list/schemas-datas
     SchemasListComponent,
     SchemaDetailsComponent,
     DatasetsSearchComponent,
+    TagsSearchComponent,
     DatasetEditComponent,
     OpenLicenseFormComponent,
     OpenLicenseListComponent,
