@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {SchemaService} from '../schema.service';
 import {Schema} from '../schema';
+import {SchemaOwnerService} from '../../user/schema-owner.service';
 
 @Component({
   selector: 'app-schemas-list',
@@ -9,9 +10,12 @@ import {Schema} from '../schema';
 })
 export class SchemasListComponent implements OnInit {
   public schemas: Schema[] = [];
+  public schemaOwners: {} = {};
   public errorMessage: string;
 
-  constructor(private schemaService: SchemaService) { }
+  constructor(private schemaService: SchemaService,
+  private schemaOwnerService: SchemaOwnerService) {
+ }
 
   onSearch(schemas) {
     this.schemas = schemas;
@@ -19,7 +23,14 @@ export class SchemasListComponent implements OnInit {
 
   ngOnInit() {
     this.schemaService.getAllSchemas().subscribe(
-      schemas => { this.schemas = schemas; },
+      schemas => { this.schemas = schemas;
+        schemas.forEach(schema => {
+          this.schemaOwnerService.getSchemaOwner(schema._links.owner.href).subscribe(
+            owner => {
+              this.schemaOwners[schema.uri] = owner.getUserName();
+            });
+        });
+      },
       error => this.errorMessage = <any>error.message
     );
   }

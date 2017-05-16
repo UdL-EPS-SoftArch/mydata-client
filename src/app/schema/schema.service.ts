@@ -7,6 +7,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { Schema } from './schema';
 import { environment } from '../../environments/environment';
+import { Dataset } from '../dataset/dataset';
 
 @Injectable()
 export class SchemaService {
@@ -32,6 +33,13 @@ export class SchemaService {
   getSchemaByDescriptionWords(keyword: string): Observable<Schema[]> {
     return this.http.get(environment.API + '/schemas/search/findByDescriptionContaining?description=' + keyword)
       .map((res: Response) => res.json()._embedded.schemas.map(json => new Schema(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // GET /schemas/id/datasets
+  getDatasetsOfSchema(uri: string): Observable<Dataset[]> {
+    return this.http.get(`${environment.API}${uri}/datasets`)
+      .map((res: Response) => res.json()._embedded.datasets.map(json => new Dataset(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
 
