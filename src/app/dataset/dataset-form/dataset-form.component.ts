@@ -26,6 +26,7 @@ export class DatasetFormComponent implements OnInit {
   public openLicenses: OpenLicense[] = [];
   public closedLicenses: ClosedLicense[] = [];
   public fileAttached = false;
+  public separator: string = ",";
   public filename: string;
   public content: string;
 
@@ -41,7 +42,8 @@ export class DatasetFormComponent implements OnInit {
       'description': ['Dataset description'],
       'schema': ['Dataset schema'],
       'openlicense': ['Dataset license'],
-      'closedlicense': ['Dataset license']
+      'closedlicense': ['Dataset license'],
+      'separator': ['DataFile separator']
     });
     this.titleCtrl = this.datasetForm.controls['title'];
     this.dataset = new Dataset();
@@ -82,6 +84,7 @@ export class DatasetFormComponent implements OnInit {
       dataFile.schema = this.dataset.schema;
       dataFile.filename = this.filename;
       dataFile.content = this.content;
+      dataFile.separator = this.separator;
       this.dataFileService.addDataFile(dataFile)
         .subscribe(
           datafile => { this.router.navigate([datafile.uri]); },
