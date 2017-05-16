@@ -37,8 +37,12 @@ export class DatasetService {
   }
 
   // GET /datasets/ + search/findByDescriptionContaining?description
-  getDatasetByDescriptionWords(keyword: string): Observable<Dataset[]> {
-    return this.http.get(environment.API + '/datasets/search/findByDescriptionContaining?description=' + keyword)
+  getDatasetByDescriptionWords(keyword: string, schema: string): Observable<Dataset[]> {
+    const uri = schema != null ?
+      '/datasets/search/findByDescriptionContainingAndSchema?description=' + keyword + '&schema=' + schema :
+      '/datasets/search/findByDescriptionContaining?description=' + keyword;
+
+    return this.http.get(environment.API + uri)
       .map((res: Response) => res.json()._embedded.datasets.map(json => new Dataset(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
