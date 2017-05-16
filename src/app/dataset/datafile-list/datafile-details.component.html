@@ -20,6 +20,14 @@
     <h4>Content</h4>
     <p>{{datafile.content}}</p>
   </div>
+  <div class="col-md-4">
+    <h4>Schema Title</h4>
+    <p>{{schema.title}}</p>
+  </div>
+  <div class="col-md-4">
+    <h4>Schema Description</h4>
+    <p>{{schema.description}}</p>
+  </div>
   <div class="col-md-2" *ngIf="isOwner">
     <a class="btn btn-primary" role="button" routerLink="{{datafile.uri}}/edit">Edit</a>
     <a class="btn btn-danger" role="button" (click)="onDelete(datafile)">Delete</a>
