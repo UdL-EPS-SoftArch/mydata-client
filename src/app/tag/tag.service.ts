@@ -28,6 +28,20 @@ export class TagService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
+  // GET /tags/OrderByName
+  getAllTagsOrderedByName(): Observable<Tag[]> {
+    return this.http.get(`${environment.API}/tags?sort=name`)
+      .map((res: Response) => res.json()._embedded.tags.map(json => new Tag(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // GET /tags/ + search/findByNameContaining?name
+  getTagByNameWords(keyword: string): Observable<Tag[]> {
+    return this.http.get(environment.API + '/tags/search/findByNameContaining?name=' + keyword)
+      .map((res: Response) => res.json()._embedded.tags.map(json => new Tag(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
   // POST /tag
   addTag(tag: Tag): Observable<Tag> {
     const body = JSON.stringify(tag);
@@ -37,6 +51,29 @@ export class TagService {
 
     return this.http.post(`${environment.API}/tags`, body, options)
       .map((res: Response) => new Tag(res.json()))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // PUT /tags/id
+  updateTag(tag: Tag): Observable<Tag> {
+    const body = JSON.stringify(tag);
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
+    const options = new RequestOptions({ headers: headers });
+
+    return this.http.put(`${environment.API}${tag.uri}`, body, options)
+      .map((res: Response) => new Tag(res.json()))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // DELETE /tags/{id}
+  deleteTag(tag: Tag): Observable<Response> {
+    const headers = new Headers({'Content-Type': 'application/json'});
+    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
+    const options = new RequestOptions({headers: headers});
+
+    return this.http.delete(environment.API + tag.uri, options)
+      .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error.json()));
   }
 }

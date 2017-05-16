@@ -18,6 +18,9 @@ import { TagsListComponent } from './tag/tags-list/tags-list.component';
 import { TagFormComponent } from './tag/tags-form/tags-form.component';
 import { TagDetailsComponent } from './tag/tags-details/tags-details.component';
 import { SchemaEditComponent } from './schema/schema-edit/schema-edit.component';
+import { DatafilesListComponent } from './dataset/datafile-list/datafiles-list.component';
+import { DatafileDetailsComponent } from './dataset/datafile-list/datafile-details.component';
+import { SchemasDatasetListComponent } from './schema/schemas-list/schemas-dataset-list.component';
 import { OpenLicenseEditComponent } from './license/open-license/open-license-edit/open-license-edit.component';
 import { ClosedLicenseEditComponent } from './license/closed-license/closed-license-edit/closed-license-edit.component';
 
@@ -28,10 +31,13 @@ export const routes: Routes = [
   { path: 'datasets/new', component: DatasetFormComponent },
   { path: 'datasets/:id', component: DatasetDetailsComponent },
   { path: 'datasets/:id/edit', component: DatasetEditComponent, canActivate: [LoggedInGuard] },
+  { path: 'dataFiles', component: DatafilesListComponent },
+  { path: 'dataFiles/:id', component: DatafileDetailsComponent },
   { path: 'schemas', component: SchemasListComponent },
   { path: 'schemas/new', component: SchemaFormComponent },
   { path: 'schemas/:id', component: SchemaDetailsComponent },
   { path: 'schemas/:id/edit', component: SchemaEditComponent, canActivate: [LoggedInGuard] },
+  { path: 'schemas/:id/datasets', component: SchemasDatasetListComponent },
   { path: 'openLicenses', component: OpenLicenseListComponent },
   { path: 'openLicenses/new', component: OpenLicenseFormComponent },
   { path: 'openLicenses/:id', component: OpenLicenseDetailsComponent },
