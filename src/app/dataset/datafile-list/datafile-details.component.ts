@@ -36,7 +36,7 @@ export class DatafileDetailsComponent implements OnInit {
               schema => {
                 this.schema = schema;
 
-              })
+              });
           },
           error => this.errorMessage = <any>error.message,
         );
