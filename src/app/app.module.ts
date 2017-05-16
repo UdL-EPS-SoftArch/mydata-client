@@ -41,6 +41,7 @@ import { FieldService } from './field/field.service';
 import { FieldDetailsComponent } from './field/field-details/field-details.component';
 import { FieldFormComponent } from './field/field-form/field-form.component';
 import { FieldListComponent } from './field/fields-list/fields-list.component';
+import { FieldEditComponent } from './field/field-edit/field-edit.component';
 import { FieldSearchComponent } from './field/field-search/fields-search.component';
 
 import { SchemaEditComponent } from './schema/schema-edit/schema-edit.component';
@@ -79,10 +80,10 @@ import { SchemasDatasetListComponent } from './schema/schemas-list/schemas-datas
     SchemaEditComponent,
     DatafileDetailsComponent,
     SchemasDatasetListComponent,
-    FieldService,
     FieldDetailsComponent,
     FieldFormComponent,
     FieldListComponent,
+    FieldEditComponent,
     FieldSearchComponent
   ],
   imports: [
@@ -94,7 +95,7 @@ import { SchemasDatasetListComponent } from './schema/schemas-list/schemas-datas
     LoginBasicModule
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService, DatasetOwnerService,
-    OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService, DataFileService],
+    OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService, DataFileService, FieldService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
