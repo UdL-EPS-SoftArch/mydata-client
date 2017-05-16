@@ -75,7 +75,7 @@
     <div *ngIf="fileAttached" class="form-group row">
       <label class="col-md-3 control-label" for="separator">DataFile Separator*</label>
       <div class="col-md-9">
-        <input id="separator" name="separator" type="text" placeholder="Separator" class="form-control input-md"
+        <input id="separator" name="separator" type="text" value="," placeholder="Separator" class="form-control input-md"
                [formControl]="datasetForm.controls['separator']"
                [(ngModel)]="separator">
       </div>

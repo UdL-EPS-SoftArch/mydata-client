@@ -26,7 +26,7 @@ export class DatasetFormComponent implements OnInit {
   public openLicenses: OpenLicense[] = [];
   public closedLicenses: ClosedLicense[] = [];
   public fileAttached = false;
-  public separator: string = ",";
+  public separator: string;
   public filename: string;
   public content: string;
 
