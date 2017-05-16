@@ -21,6 +21,7 @@ import { SchemaEditComponent } from './schema/schema-edit/schema-edit.component'
 import { DatafilesListComponent } from './dataset/datafile-list/datafiles-list.component';
 import { DatafileDetailsComponent } from './dataset/datafile-list/datafile-details.component';
 import { SchemasDatasetListComponent } from './schema/schemas-list/schemas-dataset-list.component';
+import { DataFileEditComponent } from './dataset/datafile-edit/datafile-edit.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: 'about', pathMatch: 'full'},
@@ -28,6 +29,7 @@ export const routes: Routes = [
   {path: 'datasets', component: DatasetsListComponent},
   {path: 'dataFiles', component: DatafilesListComponent},
   {path: 'dataFiles/:id', component: DatafileDetailsComponent},
+  {path: 'dataFiles/:id/edit', component: DataFileEditComponent},
   {path: 'datasets/new', component: DatasetFormComponent},
   {path: 'datasets/:id', component: DatasetDetailsComponent},
   {path: 'datasets/:id/edit', component: DatasetEditComponent, canActivate: [LoggedInGuard]},
