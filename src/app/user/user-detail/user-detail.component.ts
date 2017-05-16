@@ -51,11 +51,6 @@ export class UserDetailComponent implements OnInit {
   }
 
   getUserInfo (user: User): void {
-    console.log(user.authorities[0].authority);
-    console.log(user._links.sharedDatasets.href);
-    console.log(user._links.ownsDatasets.href);
-    console.log(user._links.ownsSchemas.href);
-    console.log(user._links.ownsLicenses.href);
     this.userService.getUserDatasets(user.uri + '/ownsDatasets').subscribe(
       datasets => {
         this.datasets = datasets;
