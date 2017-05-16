@@ -68,7 +68,7 @@ export class UserDetailComponent implements OnInit {
 
     this.userService.getUserClosedLicenses(user.uri + '/ownsLicenses').subscribe(
       licenses => {
-        this.openLicenses = licenses;
+        this.closedLicenses = licenses;
       });
   }
 }
