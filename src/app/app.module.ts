@@ -43,7 +43,7 @@ import { DataFileService } from './dataset/datafile/datafile.service';
 import { DatafilesListComponent } from './dataset/datafile-list/datafiles-list.component';
 import { DatafileDetailsComponent } from './dataset/datafile-list/datafile-details.component';
 import { SchemasDatasetListComponent } from './schema/schemas-list/schemas-dataset-list.component';
-import {DataFileEditComponent} from "./dataset/datafile-edit/datafile-edit.component";
+import { DataFileEditComponent } from './dataset/datafile-edit/datafile-edit.component';
 
 @NgModule({
   declarations: [
