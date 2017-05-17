@@ -57,6 +57,7 @@ import { ClosedLicenseOwnerService } from './user/closed-license-owner.service';
 import { ClosedLicenseDatasetListComponent } from './license/closed-license/closed-license-list/closed-license-list-dataset.component';
 import { OpenLicenseDatasetListComponent } from './license/open-license/open-license-list/open-license-list-dataset.component';
 import { DataFileEditComponent } from './dataset/datafile-edit/datafile-edit.component';
+import { TagEditComponent } from './tag/tags-edit/tags-edit.component';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { DataFileEditComponent } from './dataset/datafile-edit/datafile-edit.com
     TagDetailsComponent,
     TagsListComponent,
     TagFormComponent,
+    TagEditComponent,
     SchemaEditComponent,
     DatafileDetailsComponent,
     SchemasDatasetListComponent,
