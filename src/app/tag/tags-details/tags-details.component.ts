@@ -24,10 +24,14 @@ export class TagDetailsComponent implements OnInit {
       .subscribe((id) => {
         const uri = `/tags/${id}`;
         this.tagService.getTag(uri).subscribe(
-          tag => { this.tag = tag; },
+          tag => this.tag = tag,
           error => this.errorMessage = <any>error.message
         );
       });
+  }
+
+  isAdmin(): boolean {
+    return this.authenticationService.isAdmin();
   }
 
   onDelete(tag) {
