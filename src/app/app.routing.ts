@@ -23,6 +23,8 @@ import { DatafileDetailsComponent } from './dataset/datafile-list/datafile-detai
 import { SchemasDatasetListComponent } from './schema/schemas-list/schemas-dataset-list.component';
 import { OpenLicenseEditComponent } from './license/open-license/open-license-edit/open-license-edit.component';
 import { ClosedLicenseEditComponent } from './license/closed-license/closed-license-edit/closed-license-edit.component';
+import { ClosedLicenseDatasetListComponent } from './license/closed-license/closed-license-list/closed-license-list-dataset.component';
+import { OpenLicenseDatasetListComponent } from './license/open-license/open-license-list/open-license-list-dataset.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'about', pathMatch: 'full' },
@@ -42,10 +44,12 @@ export const routes: Routes = [
   { path: 'openLicenses/new', component: OpenLicenseFormComponent },
   { path: 'openLicenses/:id', component: OpenLicenseDetailsComponent },
   { path: 'openLicenses/:id/edit', component: OpenLicenseEditComponent, canActivate: [LoggedInGuard] },
+  { path: 'openLicenses/:id/datasets', component: OpenLicenseDatasetListComponent },
   { path: 'closedLicenses', component: ClosedLicenseListComponent },
   { path: 'closedLicenses/new', component: ClosedLicenseFormComponent },
   { path: 'closedLicenses/:id', component: ClosedLicenseDetailsComponent },
   { path: 'closedLicenses/:id/edit', component: ClosedLicenseEditComponent, canActivate: [LoggedInGuard] },
+  { path: 'closedLicenses/:id/datasets', component: ClosedLicenseDatasetListComponent },
   { path: 'tags', component: TagsListComponent },
   { path: 'tags/new', component: TagFormComponent },
   { path: 'tags/:id', component: TagDetailsComponent },
