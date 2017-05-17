@@ -50,6 +50,10 @@ import { DataFileService } from './dataset/datafile/datafile.service';
 import { DatafilesListComponent } from './dataset/datafile-list/datafiles-list.component';
 import { DatafileDetailsComponent } from './dataset/datafile-list/datafile-details.component';
 import { SchemasDatasetListComponent } from './schema/schemas-list/schemas-dataset-list.component';
+import { OpenLicenseEditComponent } from './license/open-license/open-license-edit/open-license-edit.component';
+import { OpenLicenseOwnerService } from './user/open-license-owner.service';
+import { ClosedLicenseEditComponent } from './license/closed-license/closed-license-edit/closed-license-edit.component';
+import { ClosedLicenseOwnerService } from './user/closed-license-owner.service';
 
 @NgModule({
   declarations: [
@@ -84,7 +88,10 @@ import { SchemasDatasetListComponent } from './schema/schemas-list/schemas-datas
     FieldFormComponent,
     FieldListComponent,
     FieldEditComponent,
-    FieldSearchComponent
+    FieldSearchComponent,
+    SchemasDatasetListComponent,
+    OpenLicenseEditComponent,
+    ClosedLicenseEditComponent
   ],
   imports: [
     BrowserModule,
@@ -95,7 +102,9 @@ import { SchemasDatasetListComponent } from './schema/schemas-list/schemas-datas
     LoginBasicModule
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService, DatasetOwnerService,
-    OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService, DataFileService, FieldService],
+    OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService, DataFileService, FieldService,
+              OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService, DataFileService, OpenLicenseOwnerService,
+              ClosedLicenseOwnerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

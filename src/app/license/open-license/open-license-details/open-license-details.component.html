@@ -7,4 +7,7 @@
         <h4>Text</h4>
         <p>{{openLicense.text}}</p>
     </div>
+    <div class="col-md-2" *ngIf="isOwner">
+        <a class="btn btn-lg btn-primary" role="button" routerLink="{{openLicense.uri}}/edit">Edit Open License</a>
+    </div>
 </div>
