@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { OpenLicense } from './open-license';
+import { Dataset } from '../../dataset/dataset';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
@@ -43,6 +44,24 @@ export class OpenLicenseService {
   getOpenLicenseByTextWords(keyword: string): Observable<OpenLicense[]> {
     return this.http.get(environment.API + '/openLicenses/search/findByTextContaining?text=' + keyword)
       .map((res: Response) => res.json()._embedded.openLicenses.map(json => new OpenLicense(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  getDatasetsOfOpenLicense(uri: string): Observable<Dataset[]> {
+    return this.http.get(`${environment.API}${uri}/datasets`)
+      .map((res: Response) => res.json()._embedded.datasets.map(json => new Dataset(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // PUT /openLicense/id
+  updateOpenLicense(openLicense: OpenLicense): Observable<OpenLicense> {
+    const body = JSON.stringify(openLicense);
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
+    const options = new RequestOptions({ headers: headers });
+
+    return this.http.put(`${environment.API}${openLicense.uri}`, body, options)
+      .map((res: Response) => new OpenLicense(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
 }
