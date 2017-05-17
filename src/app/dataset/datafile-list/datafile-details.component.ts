@@ -4,7 +4,10 @@ import { DataFileService } from '../datafile/datafile.service';
 import { DataFile } from '../datafile/datafile';
 import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
 import { DatasetOwnerService } from '../../user/dataset-owner.service';
+import { SchemaService } from '../../schema/schema.service';
+import { Schema } from '../../schema/schema';
 
+declare const require: any;
 
 @Component({
   selector: 'app-datafile-details',
@@ -12,6 +15,7 @@ import { DatasetOwnerService } from '../../user/dataset-owner.service';
 })
 export class DatafileDetailsComponent implements OnInit {
   public datafile: DataFile = new DataFile();
+  public schema: Schema = new Schema();
   public errorMessage: string;
   public isOwner: boolean;
   public ownerName: string;
@@ -21,6 +25,7 @@ export class DatafileDetailsComponent implements OnInit {
               private datafileService: DataFileService,
               private authenticationService: AuthenticationBasicService,
               private datasetOwnerService: DatasetOwnerService) { }
+              private schemaService: SchemaService) { }
 
   ngOnInit() {
     this.route.params
@@ -37,6 +42,12 @@ export class DatafileDetailsComponent implements OnInit {
                   this.isOwner = this.authenticationService.getCurrentUser().username === owner.getUserName();
                 });
             }
+            const uri_schema = `/datasets/${id}/schema`;
+            this.schemaService.getSchema(uri_schema).subscribe(
+              schema => {
+                this.schema = schema;
+
+              });
           },
           error => this.errorMessage = <any>error.message,
         );
@@ -48,6 +59,10 @@ export class DatafileDetailsComponent implements OnInit {
       response => { this.router.navigate(['/dataFiles']); },
       error => this.errorMessage = <any>error.message,
     );
-  }
 
+  onDownload(dataFile: DataFile) {
+    const fileSaver = require('file-saver');
+    const blob = new Blob([dataFile.content], {type: 'text/plain;charset=utf-8'});
+    fileSaver.saveAs(blob, dataFile.filename);
+  }
 }
