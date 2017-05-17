@@ -37,11 +37,10 @@ import {AuthenticationBasicService} from './login-basic/authentication-basic.ser
 import {LoggedInGuard} from './login-basic/loggedin.guard';
 import {DatasetService} from './dataset/dataset.service';
 import {SchemaService} from './schema/schema.service';
-import {DatasetOwnerService} from './user/dataset-owner.service';
 import {OpenLicenseService} from './license/open-license/open-license.service';
 import {ClosedLicenseService} from './license/closed-license/closed-license.service';
 import {TagService} from './tag/tag.service';
-import {SchemaOwnerService} from './user/schema-owner.service';
+import {OwnerService} from './user/owner.service';
 import {DataFileService} from './dataset/datafile/datafile.service';
 import {UserService} from './user/user.service';
 
@@ -84,8 +83,8 @@ import {UserService} from './user/user.service';
     RouterModule.forRoot(routes),
     LoginBasicModule
   ],
-  providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService, DatasetOwnerService,
-    OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService, DataFileService, UserService],
+  providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService,
+    OpenLicenseService, ClosedLicenseService, TagService, OwnerService, DataFileService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

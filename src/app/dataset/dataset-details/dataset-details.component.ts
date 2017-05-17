@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DatasetService } from '../dataset.service';
-import { Dataset } from '../dataset';
-import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
-import { DatasetOwnerService } from '../../user/dataset-owner.service';
-import { Schema } from '../../schema/schema';
-import { SchemaService } from '../../schema/schema.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {DatasetService} from '../dataset.service';
+import {Dataset} from '../dataset';
+import {AuthenticationBasicService} from '../../login-basic/authentication-basic.service';
+import {OwnerService} from '../../user/owner.service';
+import {Schema} from '../../schema/schema';
+import {SchemaService} from '../../schema/schema.service';
 
 @Component({
   selector: 'app-dataset-details',
@@ -25,7 +25,8 @@ export class DatasetDetailsComponent implements OnInit {
               private datasetService: DatasetService,
               private schemaService: SchemaService,
               private authenticationService: AuthenticationBasicService,
-              private datasetOwnerService: DatasetOwnerService) { }
+              private ownerService: OwnerService) {
+  }
 
   ngOnInit() {
     this.route.params
@@ -43,14 +44,14 @@ export class DatasetDetailsComponent implements OnInit {
               }
             );
             if (this.dataset._links != null) {
-              this.datasetOwnerService.getDatasetOwner(this.dataset._links.owner.href).subscribe(
+              this.ownerService.getOwner(this.dataset._links.owner.href).subscribe(
                 owner => {
                   this.ownerName = owner.getUserName();
                   this.isOwner = this.authenticationService.getCurrentUser().username === owner.getUserName();
                 });
             }
           },
-          error => this.errorMessage = <any>error.message,
+          error => this.errorMessage = <any>error.message
         );
 
       });
@@ -60,8 +61,10 @@ export class DatasetDetailsComponent implements OnInit {
 
   onDelete(dataset) {
     this.datasetService.deleteDataset(dataset).subscribe(
-      response => { this.router.navigate(['/datasets']); },
-      error => this.errorMessage = <any>error.message,
+      response => {
+        this.router.navigate(['/datasets']);
+      },
+      error => this.errorMessage = <any>error.message
     );
   }
 }

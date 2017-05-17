@@ -15,8 +15,8 @@ import { User } from '../../login-basic/user';
 import { Owner } from '../../user/owner';
 import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
 import { MockAuthenticationBasicService } from '../../../test/mocks/authentication-basic.service';
-import { SchemaOwnerService } from '../../user/schema-owner.service';
-import { MockSchemaOwnerService } from '../../../test/mocks/schema-owner.service';
+import { SchemaOwnerService } from '../../user/owner.service';
+import { MockSchemaOwnerService } from '../../../test/mocks/owner.service';
 
 describe('SchemaFormComponent', () => {
   let component: SchemaFormComponent;
