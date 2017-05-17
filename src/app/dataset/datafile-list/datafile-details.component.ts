@@ -6,6 +6,7 @@ import { AuthenticationBasicService } from '../../login-basic/authentication-bas
 import { SchemaService } from '../../schema/schema.service';
 import { Schema } from '../../schema/schema';
 
+declare const require: any;
 
 @Component({
   selector: 'app-datafile-details',
@@ -41,6 +42,12 @@ export class DatafileDetailsComponent implements OnInit {
           error => this.errorMessage = <any>error.message,
         );
       });
+  }
+
+  onDownload(dataFile: DataFile) {
+    const fileSaver = require('file-saver');
+    const blob = new Blob([dataFile.content], {type: 'text/plain;charset=utf-8'});
+    fileSaver.saveAs(blob, dataFile.filename);
   }
 
 }
