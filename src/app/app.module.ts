@@ -43,7 +43,6 @@ import { FieldFormComponent } from './field/field-form/field-form.component';
 import { FieldListComponent } from './field/fields-list/fields-list.component';
 import { FieldEditComponent } from './field/field-edit/field-edit.component';
 import { FieldSearchComponent } from './field/field-search/fields-search.component';
-
 import { SchemaEditComponent } from './schema/schema-edit/schema-edit.component';
 import { SchemaOwnerService } from './user/schema-owner.service';
 import { DataFileService } from './dataset/datafile/datafile.service';
