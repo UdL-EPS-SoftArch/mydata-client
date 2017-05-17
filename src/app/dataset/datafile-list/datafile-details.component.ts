@@ -24,7 +24,7 @@ export class DatafileDetailsComponent implements OnInit {
               private router: Router,
               private datafileService: DataFileService,
               private authenticationService: AuthenticationBasicService,
-              private datasetOwnerService: DatasetOwnerService) { }
+              private datasetOwnerService: DatasetOwnerService,
               private schemaService: SchemaService) { }
 
   ngOnInit() {
@@ -56,9 +56,12 @@ export class DatafileDetailsComponent implements OnInit {
 
   onDelete(datafile) {
     this.datafileService.deleteDataFile(datafile).subscribe(
-      response => { this.router.navigate(['/dataFiles']); },
+      response => {
+        this.router.navigate(['/dataFiles']);
+      },
       error => this.errorMessage = <any>error.message,
     );
+  }
 
   onDownload(dataFile: DataFile) {
     const fileSaver = require('file-saver');
