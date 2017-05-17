@@ -20,6 +20,11 @@
     <h4>Content</h4>
     <p>{{datafile.content}}</p>
   </div>
+
+  <div class="col-md-3">
+    <a class="btn btn-info" role="button" (click)="onDownload(datafile)">Download file</a>
+  </div>
+
   <div class="col-md-2" *ngIf="isOwner">
     <a class="btn btn-primary" role="button" routerLink="{{datafile.uri}}/edit">Edit</a>
     <a class="btn btn-danger" role="button" (click)="onDelete(datafile)">Delete</a>

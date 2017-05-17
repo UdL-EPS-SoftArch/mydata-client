@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DataFileService } from '../datafile/datafile.service';
 import { DataFile } from '../datafile/datafile';
 import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
-
+declare const require: any;
 
 @Component({
   selector: 'app-datafile-details',
@@ -31,6 +31,12 @@ export class DatafileDetailsComponent implements OnInit {
           error => this.errorMessage = <any>error.message,
         );
       });
+  }
+
+  onDownload(dataFile: DataFile) {
+    const fileSaver = require('file-saver');
+    const blob = new Blob([dataFile.content], {type: 'text/plain;charset=utf-8'});
+    fileSaver.saveAs(blob, dataFile.filename);
   }
 
 }
