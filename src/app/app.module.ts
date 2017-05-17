@@ -18,6 +18,7 @@ import { SchemaFormComponent } from './schema/schema-form/schema-form.component'
 import { SchemasListComponent } from './schema/schemas-list/schemas-list.component';
 import { SchemaDetailsComponent } from './schema/schema-details/schema-details.component';
 import { SchemaService } from './schema/schema.service';
+import { DatafilesSearchComponent } from './dataset/datafile-search/datafile-search.component';
 import { DatasetsSearchComponent} from './dataset/dataset-search/dataset-search.component';
 import { TagsSearchComponent} from './tag/tags-search/tags-search.component';
 import { DatasetEditComponent } from './dataset/dataset-edit/dataset-edit.component';
@@ -69,6 +70,7 @@ import { DataFileEditComponent } from './dataset/datafile-edit/datafile-edit.com
     SchemasListComponent,
     SchemaDetailsComponent,
     DatasetsSearchComponent,
+    DatafilesSearchComponent,
     TagsSearchComponent,
     DatasetEditComponent,
     OpenLicenseFormComponent,
