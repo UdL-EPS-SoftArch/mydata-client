@@ -17,10 +17,18 @@ import { ClosedLicenseDetailsComponent } from './license/closed-license/closed-l
 import { TagsListComponent } from './tag/tags-list/tags-list.component';
 import { TagFormComponent } from './tag/tags-form/tags-form.component';
 import { TagDetailsComponent } from './tag/tags-details/tags-details.component';
-import { SchemaEditComponent } from './schema/schema-edit/schema-edit.component';
+import {SchemaEditComponent} from './schema/schema-edit/schema-edit.component';
+import { FieldListComponent } from './field/fields-list/fields-list.component';
+import { FieldFormComponent } from './field/field-form/field-form.component';
+import { FieldDetailsComponent } from './field/field-details/field-details.component';
+import { FieldEditComponent} from './field/field-edit/field-edit.component';
 import { DatafilesListComponent } from './dataset/datafile-list/datafiles-list.component';
 import { DatafileDetailsComponent } from './dataset/datafile-list/datafile-details.component';
 import { SchemasDatasetListComponent } from './schema/schemas-list/schemas-dataset-list.component';
+import { OpenLicenseEditComponent } from './license/open-license/open-license-edit/open-license-edit.component';
+import { ClosedLicenseEditComponent } from './license/closed-license/closed-license-edit/closed-license-edit.component';
+import { ClosedLicenseDatasetListComponent } from './license/closed-license/closed-license-list/closed-license-list-dataset.component';
+import { OpenLicenseDatasetListComponent } from './license/open-license/open-license-list/open-license-list-dataset.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: 'about', pathMatch: 'full'},
@@ -45,4 +53,53 @@ export const routes: Routes = [
   {path: 'tags', component: TagsListComponent},
   {path: 'tags/new', component: TagFormComponent},
   {path: 'tags/:id', component: TagDetailsComponent},
+  { path: '', redirectTo: 'about', pathMatch: 'full' },
+  { path: 'about', component: AboutComponent },
+  { path: 'datasets', component: DatasetsListComponent },
+  { path: 'datasets/new', component: DatasetFormComponent },
+  { path: 'datasets/:id', component: DatasetDetailsComponent },
+  { path: 'datasets/:id/edit', component: DatasetEditComponent, canActivate: [LoggedInGuard] },
+  { path: 'schemas', component: SchemasListComponent },
+  { path: 'schemas/new', component: SchemaFormComponent },
+  { path: 'schemas/:id', component: SchemaDetailsComponent },
+  { path: 'schemas/:id/edit', component: SchemaEditComponent, canActivate: [LoggedInGuard] },
+  { path: 'fields', component: FieldListComponent },
+  { path: 'fields/new', component: FieldFormComponent },
+  { path: 'fields/:id', component: FieldDetailsComponent },
+  { path: 'fields/:id/edit', component: FieldEditComponent, canActivate: [LoggedInGuard] },
+  { path: 'openLicenses', component: OpenLicenseListComponent },
+  { path: 'openLicenses/new', component: OpenLicenseFormComponent },
+  { path: 'openLicenses/:id', component: OpenLicenseDetailsComponent },
+  { path: 'closedLicenses', component: ClosedLicenseListComponent },
+  { path: 'closedLicenses/new', component: ClosedLicenseFormComponent },
+  { path: 'closedLicenses/:id', component: ClosedLicenseDetailsComponent },
+  { path: 'tags', component: TagsListComponent },
+  { path: 'tags/new', component: TagFormComponent },
+  { path: 'tags/:id', component: TagDetailsComponent },
+  { path: '', redirectTo: 'about', pathMatch: 'full' },
+  { path: 'about', component: AboutComponent },
+  { path: 'datasets', component: DatasetsListComponent },
+  { path: 'datasets/new', component: DatasetFormComponent },
+  { path: 'datasets/:id', component: DatasetDetailsComponent },
+  { path: 'datasets/:id/edit', component: DatasetEditComponent, canActivate: [LoggedInGuard] },
+  { path: 'dataFiles', component: DatafilesListComponent },
+  { path: 'dataFiles/:id', component: DatafileDetailsComponent },
+  { path: 'schemas', component: SchemasListComponent },
+  { path: 'schemas/new', component: SchemaFormComponent },
+  { path: 'schemas/:id', component: SchemaDetailsComponent },
+  { path: 'schemas/:id/edit', component: SchemaEditComponent, canActivate: [LoggedInGuard] },
+  { path: 'schemas/:id/datasets', component: SchemasDatasetListComponent },
+  { path: 'openLicenses', component: OpenLicenseListComponent },
+  { path: 'openLicenses/new', component: OpenLicenseFormComponent },
+  { path: 'openLicenses/:id', component: OpenLicenseDetailsComponent },
+  { path: 'openLicenses/:id/edit', component: OpenLicenseEditComponent, canActivate: [LoggedInGuard] },
+  { path: 'openLicenses/:id/datasets', component: OpenLicenseDatasetListComponent },
+  { path: 'closedLicenses', component: ClosedLicenseListComponent },
+  { path: 'closedLicenses/new', component: ClosedLicenseFormComponent },
+  { path: 'closedLicenses/:id', component: ClosedLicenseDetailsComponent },
+  { path: 'closedLicenses/:id/edit', component: ClosedLicenseEditComponent, canActivate: [LoggedInGuard] },
+  { path: 'closedLicenses/:id/datasets', component: ClosedLicenseDatasetListComponent },
+  { path: 'tags', component: TagsListComponent },
+  { path: 'tags/new', component: TagFormComponent },
+  { path: 'tags/:id', component: TagDetailsComponent },
 ];

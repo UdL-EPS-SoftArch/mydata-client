@@ -37,12 +37,24 @@ import { TagService } from './tag/tag.service';
 import { TagDetailsComponent } from './tag/tags-details/tags-details.component';
 import { TagsListComponent } from './tag/tags-list/tags-list.component';
 import { TagFormComponent } from './tag/tags-form/tags-form.component';
+import { FieldService } from './field/field.service';
+import { FieldDetailsComponent } from './field/field-details/field-details.component';
+import { FieldFormComponent } from './field/field-form/field-form.component';
+import { FieldListComponent } from './field/fields-list/fields-list.component';
+import { FieldEditComponent } from './field/field-edit/field-edit.component';
+import { FieldSearchComponent } from './field/field-search/fields-search.component';
 import { SchemaEditComponent } from './schema/schema-edit/schema-edit.component';
 import { SchemaOwnerService } from './user/schema-owner.service';
 import { DataFileService } from './dataset/datafile/datafile.service';
 import { DatafilesListComponent } from './dataset/datafile-list/datafiles-list.component';
 import { DatafileDetailsComponent } from './dataset/datafile-list/datafile-details.component';
 import { SchemasDatasetListComponent } from './schema/schemas-list/schemas-dataset-list.component';
+import { OpenLicenseEditComponent } from './license/open-license/open-license-edit/open-license-edit.component';
+import { OpenLicenseOwnerService } from './user/open-license-owner.service';
+import { ClosedLicenseEditComponent } from './license/closed-license/closed-license-edit/closed-license-edit.component';
+import { ClosedLicenseOwnerService } from './user/closed-license-owner.service';
+import { ClosedLicenseDatasetListComponent } from './license/closed-license/closed-license-list/closed-license-list-dataset.component';
+import { OpenLicenseDatasetListComponent } from './license/open-license/open-license-list/open-license-list-dataset.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +84,18 @@ import { SchemasDatasetListComponent } from './schema/schemas-list/schemas-datas
     TagFormComponent,
     SchemaEditComponent,
     DatafileDetailsComponent,
-    SchemasDatasetListComponent
+    SchemasDatasetListComponent,
+    FieldDetailsComponent,
+    FieldFormComponent,
+    FieldListComponent,
+    FieldEditComponent,
+    FieldSearchComponent,
+    SchemasDatasetListComponent,
+    OpenLicenseEditComponent,
+    ClosedLicenseEditComponent,
+    SchemaEditComponent,
+    ClosedLicenseDatasetListComponent,
+    OpenLicenseDatasetListComponent
   ],
   imports: [
     BrowserModule,
@@ -83,7 +106,8 @@ import { SchemasDatasetListComponent } from './schema/schemas-list/schemas-datas
     LoginBasicModule
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService, DatasetOwnerService,
-    OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService, DataFileService],
+              OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService, DataFileService, FieldService,
+              OpenLicenseOwnerService, ClosedLicenseOwnerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
