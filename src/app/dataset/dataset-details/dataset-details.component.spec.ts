@@ -15,6 +15,11 @@ import { MockAuthenticationBasicService } from '../../../test/mocks/authenticati
 import { User } from '../../login-basic/user';
 import { Owner } from '../../user/owner';
 import { MockDatasetOwnerService } from '../../../test/mocks/dataset-owner.service';
+import { Schema } from '../../schema/schema';
+import { SchemaOwnerService } from '../../user/schema-owner.service';
+import { SchemaService } from '../../schema/schema.service';
+import { MockSchemaOwnerService } from '../../../test/mocks/schema-owner.service';
+import { MockSchemaService } from '../../../test/mocks/schema.service';
 
 describe('DatasetDetailsComponent', () => {
   let fixture: ComponentFixture<DatasetDetailsComponent>;
@@ -40,13 +45,35 @@ describe('DatasetDetailsComponent', () => {
     'uri': 'dataOwners/owner',
   });
 
+  const schema1 = new Schema({
+    'uri': '/schemas/1',
+    'title': 'Schema 1',
+    'description': 'First schema',
+    '_links': {
+      'owner': { 'href': 'http://localhost/schemas/1/owner' }
+    }
+  });
+  const schema2 = new Schema({
+    'uri': '/schemas/2',
+    'title': 'Schema 2',
+    'description': 'Second schema',
+    '_links': {
+      'owner': { 'href': 'http://localhost/schemas/2/owner' }
+    }
+  });
+
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ AppComponent, DatasetDetailsComponent ],
       providers: [
         { provide: DatasetService, useClass: MockDatasetService },
         { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService },
-        { provide: DatasetOwnerService, useClass: MockDatasetOwnerService }],
+        { provide: DatasetOwnerService, useClass: MockDatasetOwnerService },
+        { provide: SchemaService, useClass: MockSchemaService },
+        { provide: SchemaOwnerService, useClass: MockSchemaOwnerService },
+        { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService }],
+
       imports: [ RouterTestingModule.withRoutes([
           { path: 'datasets/:id', component: DatasetDetailsComponent }
         ])],
@@ -55,10 +82,11 @@ describe('DatasetDetailsComponent', () => {
   }));
 
   it('should fetch and render the requested dataset editable when owner', async(
-    inject([Router, Location, DatasetService, DatasetOwnerService, AuthenticationBasicService],
-           (router, location, datasetService, datasetOwnerService, authentication) => {
+    inject([Router, Location, DatasetService, DatasetOwnerService, AuthenticationBasicService, SchemaService],
+           (router, location, datasetService, datasetOwnerService, authentication, schemaService) => {
       TestBed.createComponent(AppComponent);
       datasetService.setResponse(dataset1);
+      schemaService.setResponse(schema1);
       datasetOwnerService.setResponse(owner);
       authentication.isLoggedIn.and.returnValue(true);
       authentication.getCurrentUser.and.returnValue(new User({'username': 'owner'}));
@@ -82,10 +110,11 @@ describe('DatasetDetailsComponent', () => {
   ));
 
   it('should fetch and render the requested dataset non-editable when not owner', async(
-    inject([Router, Location, DatasetService, DatasetOwnerService, AuthenticationBasicService],
-      (router, location, datasetService, datasetOwnerService, authentication) => {
+    inject([Router, Location, DatasetService, DatasetOwnerService, AuthenticationBasicService, SchemaService],
+      (router, location, datasetService, datasetOwnerService, authentication, schemaService) => {
         TestBed.createComponent(AppComponent);
         datasetService.setResponse(dataset1);
+        schemaService.setResponse(schema1);
         datasetOwnerService.setResponse(owner);
         authentication.isLoggedIn.and.returnValue(true);
         authentication.getCurrentUser.and.returnValue(new User({'username': 'user'}));
@@ -103,3 +132,5 @@ describe('DatasetDetailsComponent', () => {
       })
   ));
 });
+
+

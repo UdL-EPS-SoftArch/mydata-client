@@ -19,6 +19,7 @@ import { SchemasListComponent } from './schema/schemas-list/schemas-list.compone
 import { SchemaDetailsComponent } from './schema/schema-details/schema-details.component';
 import { SchemaService } from './schema/schema.service';
 import { DatasetsSearchComponent} from './dataset/dataset-search/dataset-search.component';
+import { TagsSearchComponent} from './tag/tags-search/tags-search.component';
 import { DatasetEditComponent } from './dataset/dataset-edit/dataset-edit.component';
 import { DatasetOwnerService } from './user/dataset-owner.service';
 import { OpenLicenseFormComponent } from './license/open-license/open-license-form/open-license-form.component';
@@ -38,6 +39,14 @@ import { TagsListComponent } from './tag/tags-list/tags-list.component';
 import { TagFormComponent } from './tag/tags-form/tags-form.component';
 import { SchemaEditComponent } from './schema/schema-edit/schema-edit.component';
 import { SchemaOwnerService } from './user/schema-owner.service';
+import { DataFileService } from './dataset/datafile/datafile.service';
+import { DatafilesListComponent } from './dataset/datafile-list/datafiles-list.component';
+import { DatafileDetailsComponent } from './dataset/datafile-list/datafile-details.component';
+import { SchemasDatasetListComponent } from './schema/schemas-list/schemas-dataset-list.component';
+import { OpenLicenseEditComponent } from './license/open-license/open-license-edit/open-license-edit.component';
+import { OpenLicenseOwnerService } from './user/open-license-owner.service';
+import { ClosedLicenseEditComponent } from './license/closed-license/closed-license-edit/closed-license-edit.component';
+import { ClosedLicenseOwnerService } from './user/closed-license-owner.service';
 import { ClosedLicenseDatasetListComponent } from './license/closed-license/closed-license-list/closed-license-list-dataset.component';
 import { OpenLicenseDatasetListComponent } from './license/open-license/open-license-list/open-license-list-dataset.component';
 
@@ -47,11 +56,13 @@ import { OpenLicenseDatasetListComponent } from './license/open-license/open-lic
     DatasetFormComponent,
     AboutComponent,
     DatasetsListComponent,
+    DatafilesListComponent,
     DatasetDetailsComponent,
     SchemaFormComponent,
     SchemasListComponent,
     SchemaDetailsComponent,
     DatasetsSearchComponent,
+    TagsSearchComponent,
     DatasetEditComponent,
     OpenLicenseFormComponent,
     OpenLicenseListComponent,
@@ -66,6 +77,11 @@ import { OpenLicenseDatasetListComponent } from './license/open-license/open-lic
     TagsListComponent,
     TagFormComponent,
     SchemaEditComponent,
+    DatafileDetailsComponent,
+    SchemasDatasetListComponent,
+    OpenLicenseEditComponent,
+    ClosedLicenseEditComponent,
+    SchemaEditComponent,
     ClosedLicenseDatasetListComponent,
     OpenLicenseDatasetListComponent
   ],
@@ -78,7 +94,8 @@ import { OpenLicenseDatasetListComponent } from './license/open-license/open-lic
     LoginBasicModule
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService, DatasetOwnerService,
-              OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService],
+              OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService, DataFileService,
+              OpenLicenseOwnerService, ClosedLicenseOwnerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -52,4 +52,16 @@ export class OpenLicenseService {
       .map((res: Response) => res.json()._embedded.datasets.map(json => new Dataset(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
+
+  // PUT /openLicense/id
+  updateOpenLicense(openLicense: OpenLicense): Observable<OpenLicense> {
+    const body = JSON.stringify(openLicense);
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
+    const options = new RequestOptions({ headers: headers });
+
+    return this.http.put(`${environment.API}${openLicense.uri}`, body, options)
+      .map((res: Response) => new OpenLicense(res.json()))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
 }

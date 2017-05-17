@@ -9,6 +9,12 @@ import { AppComponent } from '../../../app.component';
 import { OpenLicenseDetailsComponent } from './open-license-details.component';
 import { OpenLicense } from '../open-license';
 import { OpenLicenseService } from '../open-license.service';
+import { Owner } from '../../../user/owner';
+import { OpenLicenseOwnerService } from '../../../user/open-license-owner.service';
+import { AuthenticationBasicService } from '../../../login-basic/authentication-basic.service';
+import { MockAuthenticationBasicService } from '../../../../test/mocks/authentication-basic.service';
+import { MockOpenLicenseOwnerService } from '../../../../test/mocks/open-license-owner.service';
+import { User } from '../../../login-basic/user';
 
 describe('OpenLicenseDetailsComponent', () => {
   let fixture: ComponentFixture<OpenLicenseDetailsComponent>;
@@ -16,17 +22,30 @@ describe('OpenLicenseDetailsComponent', () => {
 
   const openLicense1 = new OpenLicense({
     'uri': '/openLicenses/1',
-    'text': 'License 1'
+    'text': 'License 1',
+    '_links': {
+      'owner': { 'href': 'http://localhost/openLicenses/1/owner' }
+    }
   });
   const openLicense2 = new OpenLicense({
     'uri': '/openLicenses/2',
-    'text': 'License 2'
+    'text': 'License 2',
+    '_links': {
+      'owner': { 'href': 'http://localhost/openLicenses/2/owner' }
+    }
+  });
+  const owner = new Owner({
+    'uri': 'dataOwners/owner',
   });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ AppComponent, OpenLicenseDetailsComponent ],
-      providers: [ { provide: OpenLicenseService, useClass: MockOpenLicenseService } ],
+      providers: [
+        { provide: OpenLicenseService, useClass: MockOpenLicenseService },
+        { provide: OpenLicenseOwnerService, useClass: MockOpenLicenseOwnerService },
+        { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService },
+      ],
       imports: [ RouterTestingModule.withRoutes([
           { path: 'openLicenses/:id', component: OpenLicenseDetailsComponent }
         ])],
@@ -35,9 +54,13 @@ describe('OpenLicenseDetailsComponent', () => {
   }));
 
   it('should fetch and render the requested openLicense', async(
-    inject([Router, Location, OpenLicenseService], (router, location, service) => {
+    inject([Router, Location, OpenLicenseService, OpenLicenseOwnerService, AuthenticationBasicService],
+      (router, location, service, openLicenseOwnerService, authentication) => {
       TestBed.createComponent(AppComponent);
       service.setResponse(openLicense1);
+      openLicenseOwnerService.setResponse(owner);
+      authentication.isLoggedIn.and.returnValue(true);
+      authentication.getCurrentUser.and.returnValue(new User({'username': 'user'}));
 
       router.navigate(['/openLicenses/1']).then(() => {
         expect(location.path()).toBe('/openLicenses/1');

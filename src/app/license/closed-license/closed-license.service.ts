@@ -13,7 +13,7 @@ import { environment } from '../../../environments/environment';
 export class ClosedLicenseService {
 
   constructor(private http: Http,
-    private authentication: AuthenticationBasicService) { }
+              private authentication: AuthenticationBasicService) {}
 
   // GET /closedLicenses
   getAllClosedLicenses(): Observable<ClosedLicense[]> {
@@ -40,6 +40,7 @@ export class ClosedLicenseService {
       .map((res: Response) => new ClosedLicense(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
+
   // GET /closedLicenses/ + search/findByTextContaining?text
   getClosedLicenseByTextWords(keyword: string): Observable<ClosedLicense[]> {
     return this.http.get(environment.API + '/closedLicenses/search/findByTextContaining?text=' + keyword)
@@ -53,4 +54,14 @@ export class ClosedLicenseService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
+  // PUT /closedLicense/id
+  updateClosedLicense(closedLicense: ClosedLicense): Observable<ClosedLicense> {
+  const body = JSON.stringify(closedLicense);
+  const headers = new Headers({ 'Content-Type': 'application/json' });
+  headers.append('Authorization', this.authentication.getCurrentUser().authorization);
+  const options = new RequestOptions({ headers: headers });
+  return this.http.put(`${environment.API}${closedLicense.uri}`, body, options)
+    .map((res: Response) => new ClosedLicense(res.json()))
+    .catch((error: any) => Observable.throw(error.json()));
+  }
 }
