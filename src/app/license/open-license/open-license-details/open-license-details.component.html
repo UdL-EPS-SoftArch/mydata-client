@@ -3,9 +3,13 @@
 </div>
 
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-4">
         <h4>Text</h4>
         <p>{{openLicense.text}}</p>
+    </div>
+    <div class="col-md-4">
+        <h4>Datasets</h4>
+        <a [routerLink]="[openLicense.uri+'/datasets']">List datasets of {{openLicense.text}}</a>
     </div>
     <div class="col-md-2" *ngIf="isOwner">
         <a class="btn btn-lg btn-primary" role="button" routerLink="{{openLicense.uri}}/edit">Edit Open License</a>
