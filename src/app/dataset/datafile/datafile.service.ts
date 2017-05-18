@@ -6,6 +6,7 @@ import { DataFile } from './datafile';
 import { Injectable } from '@angular/core';
 import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
 
+
 @Injectable()
 export class DataFileService {
 
@@ -54,6 +55,18 @@ export class DataFileService {
 
     return this.http.delete(environment.API + dataFile.uri, options)
       .map((res: Response) => res)
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // PUT /dataFiles/id
+  updateDataFile(datafile: DataFile): Observable<DataFile> {
+    const body = JSON.stringify(datafile);
+    const headers = new Headers({'Content-Type': 'application/json'});
+    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
+    const options = new RequestOptions({headers: headers});
+
+    return this.http.put(`${environment.API}${datafile.uri}`, body, options)
+      .map((res: Response) => new DataFile(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
 }

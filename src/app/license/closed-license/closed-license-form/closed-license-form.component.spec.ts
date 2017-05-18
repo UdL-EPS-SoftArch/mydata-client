@@ -11,6 +11,12 @@ import { ClosedLicenseDetailsComponent } from '../closed-license-details/closed-
 import { ClosedLicense } from '../closed-license';
 import { ClosedLicenseService } from '../closed-license.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthenticationBasicService } from '../../../login-basic/authentication-basic.service';
+import { MockAuthenticationBasicService } from '../../../../test/mocks/authentication-basic.service';
+import { User } from '../../../login-basic/user';
+import { Owner } from '../../../user/owner';
+import {OwnerService} from '../../../user/owner.service';
+import {MockOwnerService} from '../../../../test/mocks/owner.service';
 
 describe('ClosedLicenseFormComponent', () => {
   let component: ClosedLicenseFormComponent;
@@ -20,13 +26,22 @@ describe('ClosedLicenseFormComponent', () => {
     'uri': '/closedLicenses/1',
     'text': 'License 1',
     'price': 10.0,
-    '_links': {}
+    '_links': {
+      'owner': { 'href': 'http://localhost/closedLicenses/1/owner' }
+    }
+  });
+  const owner = new Owner({
+    'uri': 'dataOwners/owner',
   });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ AppComponent, ClosedLicenseFormComponent, ClosedLicenseDetailsComponent ],
-      providers: [ { provide: ClosedLicenseService, useClass: MockClosedLicenseService } ],
+      providers: [
+        { provide: ClosedLicenseService, useClass: MockClosedLicenseService },
+        { provide: OwnerService, useClass: MockOwnerService },
+        { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService },
+      ],
       imports: [ RouterTestingModule.withRoutes([
         { path: 'closedLicenses/new', component: ClosedLicenseFormComponent },
         { path: 'closedLicenses/:id', component: ClosedLicenseDetailsComponent }]),
@@ -37,9 +52,13 @@ describe('ClosedLicenseFormComponent', () => {
   }));
 
   it('should submit new license', async(
-    inject([Router, Location, ClosedLicenseService], (router, location, service) => {
+    inject([Router, Location, ClosedLicenseService, OwnerService, AuthenticationBasicService],
+      (router, location, service, closedLicenseOwnerService, authentication) => {
       TestBed.createComponent(AppComponent);
       service.setResponse(response);
+      closedLicenseOwnerService.setResponse(owner);
+      authentication.isLoggedIn.and.returnValue(true);
+      authentication.getCurrentUser.and.returnValue(new User({'username': 'user'}));
 
       router.navigate(['/closedLicenses/new']).then(() => {
         expect(location.path()).toBe('/closedLicenses/new');

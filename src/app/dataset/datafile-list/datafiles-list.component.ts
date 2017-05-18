@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {DataFile} from '../datafile/datafile';
-import {DataFileService} from '../datafile/datafile.service';
+import { Component, OnInit } from '@angular/core';
+import { DataFile } from '../datafile/datafile';
+import { DataFileService } from '../datafile/datafile.service';
 
 @Component({
   selector: 'app-datafiles-list',
@@ -12,6 +12,9 @@ export class DatafilesListComponent implements OnInit {
 
   constructor(private datafileService: DataFileService) { }
 
+  onSearch(datafiles) {
+    this.datafiles = datafiles;
+  }
 
   ngOnInit() {
     this.datafileService.getAllDataFilesOrderedByTitle().subscribe(
