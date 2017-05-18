@@ -58,7 +58,7 @@ export const routes: Routes = [
   { path: 'comments', component: CommentListComponent },
   { path: 'comments/new', component: CommentFormComponent },
   { path: 'comments/:id', component: CommentDetailsComponent },
-  {path: 'comments/:id/edit', component: CommentEditComponent, canActivate: [LoggedInGuard] }
+  {path: 'comments/:id/edit', component: CommentEditComponent, canActivate: [LoggedInGuard] },
   { path: '', redirectTo: 'about', pathMatch: 'full' },
   { path: 'about', component: AboutComponent },
   { path: 'datasets', component: DatasetsListComponent },
