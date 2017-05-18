@@ -11,7 +11,8 @@ import { OpenLicenseDetailsComponent } from '../open-license-details/open-licens
 import { OpenLicense } from '../open-license';
 import { OpenLicenseService } from '../open-license.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthenticationBasicService } from '../../../login-basic/authentication-basic.service';import { MockAuthenticationBasicService } from '../../../../test/mocks/authentication-basic.service';
+import { AuthenticationBasicService } from '../../../login-basic/authentication-basic.service';
+import { MockAuthenticationBasicService } from '../../../../test/mocks/authentication-basic.service';
 import { User } from '../../../login-basic/user';
 import { Owner } from '../../../user/owner';
 import {MockOwnerService} from '../../../../test/mocks/owner.service';

@@ -33,13 +33,13 @@ export class UserDetailComponent implements OnInit {
         this.userService.getUser(uri).subscribe(
           user => {
             this.user = user;
-            this.getUserInfo(this.user);
+            this.getUserInfo(user);
           },
           error => {
             this.userService.getUser(uri2).subscribe(
               user => {
                 this.user = user;
-                this.getUserInfo(this.user);
+                this.getUserInfo(user);
               },
               error2 => {
                 this.errorMessage = <any>error2.message;
