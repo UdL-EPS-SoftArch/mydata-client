@@ -22,8 +22,7 @@ export class CommentEditComponent implements OnInit {
               private commentService: CommentService,
               private router: Router) {
     this.commentForm = fb.group({
-      'dataset': ['Comment dataset', Validators.required],
-      'text': ['Comment text']
+      'text': ['Comment text', Validators.required]
     });
     this.textCtrl = this.commentForm.controls['text'];
   }

@@ -8,18 +8,18 @@ import { Comment } from '../comment';
   styleUrls: ['./comment-list.component.css']
 })
 export class CommentListComponent implements OnInit {
-  public comment: Comment[] = [];
+  public comments: Comment[] = [];
   public errorMessage: string;
 
   constructor(private commentService: CommentService) { }
 
-  onSearch(comment) {
-    this.comment = comment;
+  onSearch(comments) {
+    this.comments = comments;
   }
 
   ngOnInit() {
     this.commentService.getAllComments().subscribe(
-      comment => { this.comment = comment; },
+      comments => { this.comments = comments; },
       error => this.errorMessage = <any>error.message
     );
   }

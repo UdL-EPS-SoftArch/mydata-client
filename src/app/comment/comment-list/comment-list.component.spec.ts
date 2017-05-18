@@ -16,11 +16,11 @@ describe('CommentListComponent', () => {
 
   const comment1 = new Comment({
     'uri': '/comments/1',
-    'text': 'First comment'
+    'text': 'First Comment'
   });
   const comment2 = new Comment({
     'uri': '/comments/2',
-    'text': 'Second comment'
+    'text': 'Second Comment'
   });
 
   beforeEach(async(() => {
@@ -46,8 +46,8 @@ describe('CommentListComponent', () => {
         fixture = TestBed.createComponent(CommentListComponent);
         fixture.detectChanges();
         component = fixture.debugElement.componentInstance;
-        expect(component.comment[0].text).toBe('First Comment');
-        expect(component.comment[1].text).toBe('Second Comment');
+        expect(component.comments[0].text).toBe('First Comment');
+        expect(component.comments[1].text).toBe('Second Comment');
 
         const compiled = fixture.debugElement.nativeElement;
         expect(compiled.querySelectorAll('.panel-heading')[0].innerHTML).toContain('First Comment');

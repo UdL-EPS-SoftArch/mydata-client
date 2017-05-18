@@ -3,8 +3,8 @@ import {TestBed, inject, async, fakeAsync, tick} from '@angular/core/testing';
 import { CommentService } from './comment.service';
 import { Comment } from './comment';
 import { MockBackend, MockConnection } from '@angular/http/testing';
-import {Response, ResponseOptions, HttpModule, Http, BaseRequestOptions, ConnectionBackend} from "@angular/http";
-import {AuthenticationBasicService} from "../login-basic/authentication-basic.service";
+import {Response, ResponseOptions, HttpModule, Http, BaseRequestOptions, ConnectionBackend} from '@angular/http';
+import {AuthenticationBasicService} from '../login-basic/authentication-basic.service';
 
 describe('CommentService', () => {
 
@@ -24,7 +24,7 @@ describe('CommentService', () => {
         {
           provide: Http,
           deps: [MockBackend, BaseRequestOptions],
-          useFactory: (backend:ConnectionBackend, defaultOptions:BaseRequestOptions) => {
+          useFactory: (backend: ConnectionBackend, defaultOptions: BaseRequestOptions) => {
             return new Http(backend, defaultOptions);
           }
         }],
@@ -38,7 +38,7 @@ describe('CommentService', () => {
         const apiResponse = new ResponseOptions({
           body: {
             _embedded: {
-              datasets: [ comment1, comment2]}}});
+              Comments: [ comment1, comment2]}}});
 
         mockBackend.connections.subscribe((connection: MockConnection) => {
           expect(connection.request.url).toBe('http://localhost:8080/comments');

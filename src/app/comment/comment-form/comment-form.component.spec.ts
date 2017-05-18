@@ -1,22 +1,25 @@
-import { CommentFormComponent } from './comment-form.component';
-import { ComponentFixture, async, TestBed, inject } from '@angular/core/testing';
-import { Comment } from '../comment';
-import { AppComponent } from '../../app.component';
-import { MockCommentService } from '../../../test/mocks/comment.service';
-import { CommentService } from '../comment.service';
-import { RouterTestingModule } from '@angular/router/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { CommentDetailsComponent } from '../comment-details/comment-details.component';
-import { Router } from '@angular/router';
-import { Location } from '@angular/common';
+import {CommentFormComponent} from './comment-form.component';
+import {ComponentFixture, async, TestBed, inject} from '@angular/core/testing';
+import {Comment} from '../comment';
+import {AppComponent} from '../../app.component';
+import {MockCommentService} from '../../../test/mocks/comment.service';
+import {CommentService} from '../comment.service';
+import {RouterTestingModule} from '@angular/router/testing';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NO_ERRORS_SCHEMA} from '@angular/core';
+import {CommentDetailsComponent} from '../comment-details/comment-details.component';
+import {Router} from '@angular/router';
+import {Location} from '@angular/common';
+import {AuthenticationBasicService} from '../../login-basic/authentication-basic.service';
+import {MockAuthenticationBasicService} from '../../../test/mocks/authentication-basic.service';
+import {CommentOwnerService} from '../../user/comment-owner.service';
 
 
 describe('CommentFormComponent', () => {
   let component: CommentFormComponent;
   let fixture: ComponentFixture<CommentFormComponent>;
 
-  const response = new Comment({
+  const comment = new Comment({
     'uri': '/comments/1',
     'text': 'First Comment',
     '_links': {}
@@ -25,7 +28,10 @@ describe('CommentFormComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [AppComponent, CommentFormComponent, CommentDetailsComponent],
-      providers: [{provide: CommentService, useClass: MockCommentService}],
+      providers: [
+        {provide: CommentService, useClass: MockCommentService},
+        {provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService},
+        {provide: CommentOwnerService, useClass: MockCommentService}],
       imports: [RouterTestingModule.withRoutes([
         {path: 'comments/new', component: CommentFormComponent},
         {path: 'comments/:id', component: CommentDetailsComponent}]),
@@ -38,7 +44,7 @@ describe('CommentFormComponent', () => {
   it('should submit new comment', async(
     inject([Router, Location, CommentService], (router, location, service) => {
       TestBed.createComponent(AppComponent);
-      service.setResponse(response);
+      service.setResponse(comment);
 
       router.navigate(['/comments/new']).then(() => {
         expect(location.path()).toBe('/comments/new');
@@ -47,15 +53,15 @@ describe('CommentFormComponent', () => {
         fixture = TestBed.createComponent(CommentFormComponent);
         fixture.detectChanges();
         component = fixture.debugElement.componentInstance;
-        expect(component.comment.dataset).toBeUndefined();
+        expect(component.comment.text).toBeUndefined();
 
         const compiled = fixture.debugElement.nativeElement;
-        const inputName = compiled.querySelector('#name');
+        const inputText = compiled.querySelector('#text');
         const form = compiled.querySelector('form');
         const button = compiled.querySelector('button');
 
-        inputName.value = 'Comment1';
-        inputName.dispatchEvent(new Event('input'));
+        inputText.value = 'First Comment';
+        inputText.dispatchEvent(new Event('input'));
         fixture.detectChanges();
         expect(button.disabled).toBeFalsy();
         form.dispatchEvent(new Event('submit'));
@@ -80,7 +86,7 @@ describe('CommentFormComponent', () => {
         component = fixture.debugElement.componentInstance;
 
         const compiled = fixture.debugElement.nativeElement;
-        const input = compiled.quecrySelector('#name');
+        const input = compiled.querySelector('#text');
         const button = compiled.querySelector('button');
 
         input.value = '';

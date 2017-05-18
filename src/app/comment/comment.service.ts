@@ -1,11 +1,11 @@
 import {AuthenticationBasicService} from '../login-basic/authentication-basic.service';
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
-import {Observable} from 'rxjs';
+import {Observable} from 'rxjs/Observable';
 import {environment} from '../../environments/environment';
 import {Comment} from './comment';
-import {Dataset} from '../dataset/dataset';
+import {Injectable} from '@angular/core';
 
-
+@Injectable()
 export class CommentService {
 
   constructor(private http: Http,
@@ -14,8 +14,8 @@ export class CommentService {
 
   // GET /comments
   getAllComments(): Observable<Comment[]> {
-    return this.http.get(`${environment.API}/datasets`)
-      .map((res: Response) => res.json()._embedded.comments.map(json => new Comment(json)))
+    return this.http.get(`${environment.API}/comments`)
+      .map((res: Response) => res.json()._embedded.Comments.map(json => new Comment(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
 
@@ -28,13 +28,13 @@ export class CommentService {
 
   // GET /comments/OrderById
   getAllCommentsOrderedById(): Observable<Comment[]> {
-    return this.http.get(`${environment.API}/datasets?sort=id`)
+    return this.http.get(`${environment.API}/comments?sort=id`)
       .map((res: Response) => res.json()._embedded.comments.map(json => new Comment(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
 
   // GET /comments/ + search/findByDatasetContaining?dataset
-  getCommentByDataset(dataset: Dataset.title): Observable<Comment[]> {
+  getCommentByDataset(dataset: string): Observable<Comment[]> {
     return this.http.get(environment.API + '/comments/search/findByDatasetContaining?dataset=' + dataset)
       .map((res: Response) => res.json()._embedded.comments.map(json => new Comment(json)))
       .catch((error: any) => Observable.throw(error.json()));
