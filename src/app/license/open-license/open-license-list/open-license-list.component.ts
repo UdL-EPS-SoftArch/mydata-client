@@ -22,11 +22,11 @@ export class OpenLicenseListComponent implements OnInit {
 
   ngOnInit() {
     this.openLicenseService.getAllOpenLicenses().subscribe(
-      openLicense => { this.openLicenses = openLicense; 
-      openLicense.forEach(openLicense =>{
-        this.licenseOwner.getLicenseOwner(openLicense._links.owner.href).subscribe(
-          owner =>{
-            this.licenseOwner[openLicense.uri] = owner.getUserName();
+      openLicense => { this.openLicenses = openLicense;
+      openLicense.forEach( openLicenses => {
+        this.licenseOwner.getLicenseOwner(openLicenses._links.owner.href).subscribe(
+          owner => {
+            this.licenseOwner[openLicenses.uri] = owner.getUserName();
           });
         });
       },

@@ -82,7 +82,7 @@ import { LicenseOwnerService } from './user/license-owner.service';
     LoginBasicModule
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService, DatasetOwnerService,
-    OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService, DataFileService,LicenseOwnerService],
+    OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService, DataFileService, LicenseOwnerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

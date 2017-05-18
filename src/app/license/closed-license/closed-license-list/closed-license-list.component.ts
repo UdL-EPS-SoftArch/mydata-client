@@ -23,9 +23,9 @@ export class ClosedLicenseListComponent implements OnInit {
   ngOnInit() {
     this.closedLicenseService.getAllClosedLicenses().subscribe(
       closedLicenses => { this.closedLicenses = closedLicenses;
-        closedLicenses.forEach(closedLicense =>{
+        closedLicenses.forEach( closedLicense => {
         this.licenseOwner.getLicenseOwner(closedLicense._links.owner.href).subscribe(
-          owner =>{
+          owner => {
             this.licenseOwner[closedLicense.uri] = owner.getUserName();
           });
         });
