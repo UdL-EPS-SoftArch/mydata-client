@@ -82,16 +82,14 @@ describe('DatasetDetailsComponent', () => {
   }));
 
   it('should fetch and render the requested dataset editable when owner', async(
-    inject([Router, Location, DatasetService, DatasetOwnerService, AuthenticationBasicService, SchemaService, AuthenticationBasicService],
-           (router, location, datasetService, datasetOwnerService, authentication, schemaService, authenticationService) => {
+    inject([Router, Location, DatasetService, DatasetOwnerService, AuthenticationBasicService, SchemaService],
+           (router, location, datasetService, datasetOwnerService, authentication, schemaService) => {
       TestBed.createComponent(AppComponent);
       datasetService.setResponse(dataset1);
       schemaService.setResponse(schema1);
       datasetOwnerService.setResponse(owner);
       authentication.isLoggedIn.and.returnValue(true);
       authentication.getCurrentUser.and.returnValue(new User({'username': 'owner'}));
-      authenticationService.isLoggedIn.and.returnValue(true);
-      authenticationService.getCurrentUser.and.returnValue(new User({'username': 'owner'}));
 
       router.navigate(['/datasets/1']).then(() => {
         expect(location.path()).toBe('/datasets/1');
@@ -112,16 +110,14 @@ describe('DatasetDetailsComponent', () => {
   ));
 
   it('should fetch and render the requested dataset non-editable when not owner', async(
-    inject([Router, Location, DatasetService, DatasetOwnerService, AuthenticationBasicService, SchemaService, AuthenticationBasicService],
-      (router, location, datasetService, datasetOwnerService, authentication, schemaService, authenticationService) => {
+    inject([Router, Location, DatasetService, DatasetOwnerService, AuthenticationBasicService, SchemaService],
+      (router, location, datasetService, datasetOwnerService, authentication, schemaService) => {
         TestBed.createComponent(AppComponent);
         datasetService.setResponse(dataset1);
         schemaService.setResponse(schema1);
         datasetOwnerService.setResponse(owner);
         authentication.isLoggedIn.and.returnValue(true);
         authentication.getCurrentUser.and.returnValue(new User({'username': 'user'}));
-        authenticationService.isLoggedIn.and.returnValue(true);
-        authenticationService.getCurrentUser.and.returnValue(new User({'username': 'user'}));
 
         router.navigate(['/datasets/1']).then(() => {
           expect(datasetService.getDataset).toHaveBeenCalledWith('/datasets/1');

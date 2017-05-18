@@ -45,6 +45,60 @@ import {CommentListComponent} from './comment/comment-list/comment-list.componen
 import {CommentSearchComponent} from './comment/comment-search/comment-search.component';
 import {CommentService} from './comment/comment.service';
 import {CommentOwnerService} from './user/comment-owner.service';
+import { routes } from './app.routing';
+import { AppComponent } from './app.component';
+import { DatasetFormComponent } from './dataset/dataset-form/dataset-form.component';
+import { AboutComponent } from './about/about.component';
+import { DatasetService } from './dataset/dataset.service';
+import { LoginBasicModule } from './login-basic/login-basic.module';
+import { AuthenticationBasicService } from './login-basic/authentication-basic.service';
+import { LoggedInGuard } from './login-basic/loggedin.guard';
+import { DatasetsListComponent } from './dataset/datasets-list/datasets-list.component';
+import { DatasetDetailsComponent } from './dataset/dataset-details/dataset-details.component';
+import { SchemaFormComponent } from './schema/schema-form/schema-form.component';
+import { SchemasListComponent } from './schema/schemas-list/schemas-list.component';
+import { SchemaDetailsComponent } from './schema/schema-details/schema-details.component';
+import { SchemaService } from './schema/schema.service';
+import { DatafilesSearchComponent } from './dataset/datafile-search/datafile-search.component';
+import { DatasetsSearchComponent} from './dataset/dataset-search/dataset-search.component';
+import { TagsSearchComponent} from './tag/tags-search/tags-search.component';
+import { DatasetEditComponent } from './dataset/dataset-edit/dataset-edit.component';
+import { DatasetOwnerService } from './user/dataset-owner.service';
+import { OpenLicenseFormComponent } from './license/open-license/open-license-form/open-license-form.component';
+import { OpenLicenseListComponent } from './license/open-license/open-license-list/open-license-list.component';
+import { OpenLicenseDetailsComponent } from './license/open-license/open-license-details/open-license-details.component';
+import { OpenLicenseService } from './license/open-license/open-license.service';
+import { SchemaSearchComponent } from './schema/schemas-search/schemas-search.component';
+import { ClosedLicenseFormComponent } from './license/closed-license/closed-license-form/closed-license-form.component';
+import { ClosedLicenseListComponent } from './license/closed-license/closed-license-list/closed-license-list.component';
+import { ClosedLicenseDetailsComponent } from './license/closed-license/closed-license-details/closed-license-details.component';
+import { ClosedLicenseService } from './license/closed-license/closed-license.service';
+import { OpenLicenseSearchComponent } from './license/open-license/open-license-search/open-license-search.component';
+import { ClosedLicenseSearchComponent } from './license/closed-license/closed-license-search/closed-license-search.component';
+import { TagService } from './tag/tag.service';
+import { TagDetailsComponent } from './tag/tags-details/tags-details.component';
+import { TagsListComponent } from './tag/tags-list/tags-list.component';
+import { TagFormComponent } from './tag/tags-form/tags-form.component';
+import { FieldService } from './field/field.service';
+import { FieldDetailsComponent } from './field/field-details/field-details.component';
+import { FieldFormComponent } from './field/field-form/field-form.component';
+import { FieldListComponent } from './field/fields-list/fields-list.component';
+import { FieldEditComponent } from './field/field-edit/field-edit.component';
+import { FieldSearchComponent } from './field/field-search/fields-search.component';
+import { SchemaEditComponent } from './schema/schema-edit/schema-edit.component';
+import { SchemaOwnerService } from './user/schema-owner.service';
+import { DataFileService } from './dataset/datafile/datafile.service';
+import { DatafilesListComponent } from './dataset/datafile-list/datafiles-list.component';
+import { DatafileDetailsComponent } from './dataset/datafile-list/datafile-details.component';
+import { SchemasDatasetListComponent } from './schema/schemas-list/schemas-dataset-list.component';
+import { OpenLicenseEditComponent } from './license/open-license/open-license-edit/open-license-edit.component';
+import { OpenLicenseOwnerService } from './user/open-license-owner.service';
+import { ClosedLicenseEditComponent } from './license/closed-license/closed-license-edit/closed-license-edit.component';
+import { ClosedLicenseOwnerService } from './user/closed-license-owner.service';
+import { ClosedLicenseDatasetListComponent } from './license/closed-license/closed-license-list/closed-license-list-dataset.component';
+import { OpenLicenseDatasetListComponent } from './license/open-license/open-license-list/open-license-list-dataset.component';
+import { DataFileEditComponent } from './dataset/datafile-edit/datafile-edit.component';
+import { TagEditComponent } from './tag/tags-edit/tags-edit.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +111,8 @@ import {CommentOwnerService} from './user/comment-owner.service';
     SchemasListComponent,
     SchemaDetailsComponent,
     DatasetsSearchComponent,
+    DatafilesSearchComponent,
+    TagsSearchComponent,
     DatasetEditComponent,
     OpenLicenseFormComponent,
     OpenLicenseListComponent,
@@ -70,12 +126,27 @@ import {CommentOwnerService} from './user/comment-owner.service';
     TagDetailsComponent,
     TagsListComponent,
     TagFormComponent,
+    TagEditComponent,
     SchemaEditComponent,
     CommentDetailsComponent,
     CommentEditComponent,
     CommentFormComponent,
     CommentListComponent,
     CommentSearchComponent
+    DatafileDetailsComponent,
+    SchemasDatasetListComponent,
+    FieldDetailsComponent,
+    FieldFormComponent,
+    FieldListComponent,
+    FieldEditComponent,
+    FieldSearchComponent,
+    SchemasDatasetListComponent,
+    OpenLicenseEditComponent,
+    ClosedLicenseEditComponent,
+    SchemaEditComponent,
+    ClosedLicenseDatasetListComponent,
+    OpenLicenseDatasetListComponent,
+    DataFileEditComponent
   ],
   imports: [
     BrowserModule,
@@ -86,7 +157,9 @@ import {CommentOwnerService} from './user/comment-owner.service';
     LoginBasicModule
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService, DatasetOwnerService,
-              OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService, CommentService, CommentOwnerService],
+              OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService, CommentService, CommentOwnerService,
+              OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService, DataFileService, FieldService,
+              OpenLicenseOwnerService, ClosedLicenseOwnerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

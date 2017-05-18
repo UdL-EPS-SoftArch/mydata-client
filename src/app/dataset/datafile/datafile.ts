@@ -4,6 +4,7 @@ export class DataFile {
   description: string;
   filename: string;
   content: string;
+  separator: string;
   dateTime: string;
   lastModified: string;
   blocked = false;

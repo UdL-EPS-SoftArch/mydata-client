@@ -13,14 +13,16 @@ describe('DataFileService', () => {
     'title': 'Datafile 1',
     'description': 'First dataFile',
     'filename': 'Test file',
-    'content': 'Testing content 1'
+    'content': 'Testing content 1',
+    'separator': '[SEPARATOR1]'
   });
   const dataFile2 = new DataFile({
     'uri': '/dataFiles/2',
     'title': 'Datafile 2',
     'description': 'Second dataFile',
     'filename': 'Test file',
-    'content': 'Testing content 2'
+    'content': 'Testing content 2',
+    'separator': '[SEPARATOR2]'
   });
 
   beforeEach(async(() => {
@@ -60,6 +62,8 @@ describe('DataFileService', () => {
           expect(data[1].title).toEqual(dataFile2.title);
           expect(data[0].description).toEqual(dataFile1.description);
           expect(data[1].description).toEqual(dataFile2.description);
+          expect(data[0].separator).toEqual(dataFile1.separator);
+          expect(data[1].separator).toEqual(dataFile2.separator);
         });
       })));
   });
