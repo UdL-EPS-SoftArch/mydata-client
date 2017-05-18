@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OpenLicenseService } from '../open-license.service';
 import { OpenLicense } from '../open-license';
-import {LicenseOwnerService} from '../../../user/license-owner.service';
+import { OpenLicenseOwnerService} from '../../../user/open-license-owner.service';
 import { AuthenticationBasicService } from '../../../login-basic/authentication-basic.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class OpenLicenseDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private openLicenseService: OpenLicenseService,
-              private licenseOwner: LicenseOwnerService,
+              private licenseOwner: OpenLicenseOwnerService,
               private authenticationService: AuthenticationBasicService) { }
 
   ngOnInit() {
@@ -28,7 +28,7 @@ export class OpenLicenseDetailsComponent implements OnInit {
         const uri = `/openLicenses/${id}`;
         this.openLicenseService.getOpenLicense(uri).subscribe(
           openLicense => { this.openLicense = openLicense;
-          this.licenseOwner.getLicenseOwner(this.openLicense._links.owner.href).subscribe(
+          this.licenseOwner.getOpenLicenseOwner(this.openLicense._links.owner.href).subscribe(
             owner => {
               this.ownerName = owner.getUserName();
               this.isOwner = this.authenticationService.getCurrentUser().username === owner.getUserName();

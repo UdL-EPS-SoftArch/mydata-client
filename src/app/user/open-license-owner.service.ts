@@ -8,11 +8,11 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { environment } from '../../environments/environment';
 
 @Injectable()
-export class LicenseOwnerService {
+export class OpenLicenseOwnerService {
 
   constructor (private http: Http) {}
 
-  getLicenseOwner(uri: any): Observable<Owner> {
+  getOpenLicenseOwner(uri: any): Observable<Owner> {
     return this.http.get(uri)
       .map((res: Response) => new Owner(res.json()))
       .catch((error: any) => Observable.throw(error.json()));

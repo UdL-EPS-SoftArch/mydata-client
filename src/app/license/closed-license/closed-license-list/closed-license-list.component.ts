@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClosedLicenseService } from '../closed-license.service';
 import { ClosedLicense } from '../closed-license';
-import {LicenseOwnerService} from '../../../user/license-owner.service';
+import { ClosedLicenseOwnerService } from '../../../user/closed-license-owner.service';
 
 @Component({
   selector: 'app-closed-license-list',
@@ -14,7 +14,7 @@ export class ClosedLicenseListComponent implements OnInit {
   public licenseOwners: {} = {};
 
   constructor(private closedLicenseService: ClosedLicenseService,
-  private licenseOwner: LicenseOwnerService) { }
+  private licenseOwner: ClosedLicenseOwnerService) { }
 
   onSearch(closedLicenses) {
     this.closedLicenses = closedLicenses;
@@ -24,7 +24,7 @@ export class ClosedLicenseListComponent implements OnInit {
     this.closedLicenseService.getAllClosedLicenses().subscribe(
       closedLicenses => { this.closedLicenses = closedLicenses;
         closedLicenses.forEach( closedLicense => {
-        this.licenseOwner.getLicenseOwner(closedLicense._links.owner.href).subscribe(
+        this.licenseOwner.getClosedLicenseOwner(closedLicense._links.owner.href).subscribe(
           owner => {
             this.licenseOwner[closedLicense.uri] = owner.getUserName();
           });

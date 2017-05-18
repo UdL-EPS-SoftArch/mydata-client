@@ -42,7 +42,8 @@ import { DataFileService } from './dataset/datafile/datafile.service';
 import { DatafilesListComponent } from './dataset/datafile-list/datafiles-list.component';
 import { DatafileDetailsComponent } from './dataset/datafile-list/datafile-details.component';
 import { SchemasDatasetListComponent } from './schema/schemas-list/schemas-dataset-list.component';
-import { LicenseOwnerService } from './user/license-owner.service';
+import { OpenLicenseOwnerService } from './user/open-license-owner.service';
+import { ClosedLicenseOwnerService } from './user/closed-license-owner.service';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { LicenseOwnerService } from './user/license-owner.service';
     LoginBasicModule
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService, DatasetOwnerService,
-    OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService, DataFileService, LicenseOwnerService],
+    OpenLicenseService, ClosedLicenseService, TagService, SchemaOwnerService, DataFileService, ClosedLicenseOwnerService,
+    OpenLicenseOwnerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
