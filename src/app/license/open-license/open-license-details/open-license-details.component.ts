@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OpenLicenseService } from '../open-license.service';
 import { OpenLicense } from '../open-license';
-import { OpenLicenseOwnerService} from '../../../user/open-license-owner.service';
 import { AuthenticationBasicService } from '../../../login-basic/authentication-basic.service';
+import { OwnerService } from '../../../user/owner.service';
 
 @Component({
   selector: 'app-open-license-details',
@@ -18,8 +18,8 @@ export class OpenLicenseDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private openLicenseService: OpenLicenseService,
-              private licenseOwner: OpenLicenseOwnerService,
-              private authenticationService: AuthenticationBasicService) { }
+              private authenticationService: AuthenticationBasicService,
+              private ownerService: OwnerService) { }
 
   ngOnInit() {
     this.route.params
@@ -27,12 +27,15 @@ export class OpenLicenseDetailsComponent implements OnInit {
       .subscribe((id) => {
         const uri = `/openLicenses/${id}`;
         this.openLicenseService.getOpenLicense(uri).subscribe(
-          openLicense => { this.openLicense = openLicense;
-          this.licenseOwner.getOpenLicenseOwner(this.openLicense._links.owner.href).subscribe(
-            owner => {
-              this.ownerName = owner.getUserName();
-              this.isOwner = this.authenticationService.getCurrentUser().username === owner.getUserName();
-            });
+          openLicense => {
+            this.openLicense = openLicense;
+            if (this.openLicense._links != null) {
+              this.ownerService.getOwner(this.openLicense._links.owner.href).subscribe(
+                owner => {
+                  this.ownerName = owner.getUserName();
+                  this.isOwner = this.authenticationService.getCurrentUser().username === owner.getUserName();
+              });
+            }
           },
           error => this.errorMessage = <any>error.message
         );

@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DatasetService } from '../dataset.service';
 import { Dataset } from '../dataset';
 import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
-import { DatasetOwnerService } from '../../user/dataset-owner.service';
+import { OwnerService } from '../../user/owner.service';
 import { Schema } from '../../schema/schema';
 import { SchemaService } from '../../schema/schema.service';
 import { OpenLicenseService } from '../../license/open-license/open-license.service';
@@ -33,7 +33,8 @@ export class DatasetDetailsComponent implements OnInit {
               private openLicenseService: OpenLicenseService,
               private closedLicenseService: ClosedLicenseService,
               private authenticationService: AuthenticationBasicService,
-              private datasetOwnerService: DatasetOwnerService) { }
+              private ownerService: OwnerService) {
+  }
 
   ngOnInit() {
     this.route.params
@@ -62,19 +63,16 @@ export class DatasetDetailsComponent implements OnInit {
               }
             );
             if (this.dataset._links != null) {
-              this.datasetOwnerService.getDatasetOwner(this.dataset._links.owner.href).subscribe(
+              this.ownerService.getOwner(this.dataset._links.owner.href).subscribe(
                 owner => {
                   this.ownerName = owner.getUserName();
                   this.isOwner = this.authenticationService.getCurrentUser().username === owner.getUserName();
                 });
             }
           },
-          error => this.errorMessage = <any>error.message,
+          error => this.errorMessage = <any>error.message
         );
-
       });
-
-
   }
 
   onDelete(dataset) {

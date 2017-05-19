@@ -7,9 +7,13 @@
     <h4>Title</h4>
     <p>{{schema.title}}</p>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-3">
     <h4>Description</h4>
     <p>{{schema.description}}</p>
+  </div>
+  <div class="col-md-3">
+    <h4>Owner</h4>
+    <a [routerLink]="['/users/'+ownerName]">{{ownerName}}</a>
   </div>
   <div class="col-md-3">
     <h4>Datasets</h4>

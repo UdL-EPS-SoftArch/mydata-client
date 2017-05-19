@@ -7,11 +7,11 @@ import 'rxjs/add/observable/throw';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
 @Injectable()
-export class SchemaOwnerService {
+export class CommentOwnerService {
 
   constructor (private http: Http) {}
 
-  getSchemaOwner(uri: any): Observable<Owner> {
+  getCommentOwner(uri: any): Observable<Owner> {
     return this.http.get(uri)
       .map((res: Response) => new Owner(res.json()))
       .catch((error: any) => Observable.throw(error.json()));

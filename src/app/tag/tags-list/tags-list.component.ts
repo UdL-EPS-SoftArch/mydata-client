@@ -13,6 +13,10 @@ export class TagsListComponent implements OnInit {
 
   constructor(private tagService: TagService) { }
 
+  onSearch(tags) {
+    this.tags = tags;
+  }
+
   ngOnInit() {
     this.tagService.getAllTags().subscribe(
       tags => { this.tags = tags; },

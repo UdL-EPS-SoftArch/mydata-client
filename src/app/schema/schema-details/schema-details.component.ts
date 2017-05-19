@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { SchemaService } from '../schema.service';
-import { Schema } from '../schema';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {SchemaService} from '../schema.service';
+import {Schema} from '../schema';
 import {AuthenticationBasicService} from '../../login-basic/authentication-basic.service';
-import {SchemaOwnerService} from '../../user/schema-owner.service';
+import {OwnerService} from '../../user/owner.service';
 
 @Component({
   selector: 'app-schema-details',
@@ -14,13 +14,15 @@ export class SchemaDetailsComponent implements OnInit {
   public schema: Schema = new Schema();
   public errorMessage: string;
   public isOwner: boolean;
+  public ownerName: string;
 
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private schemaService: SchemaService,
               private authenticationService: AuthenticationBasicService,
-              private schemaOwnerService: SchemaOwnerService) { }
+              private ownerService: OwnerService) {
+  }
 
   ngOnInit() {
     this.route.params
@@ -31,8 +33,9 @@ export class SchemaDetailsComponent implements OnInit {
           schema => {
             this.schema = schema;
             if (this.schema._links != null) {
-              this.schemaOwnerService.getSchemaOwner(this.schema._links.owner.href).subscribe(
+              this.ownerService.getOwner(this.schema._links.owner.href).subscribe(
                 owner => {
+                  this.ownerName = owner.getUserName();
                   this.isOwner = this.authenticationService.getCurrentUser().username === owner.getUserName();
                 });
             }
@@ -44,8 +47,10 @@ export class SchemaDetailsComponent implements OnInit {
 
   onDelete(schema) {
     this.schemaService.deleteSchema(schema).subscribe(
-      response => { this.router.navigate(['/schemas']); },
-      error => this.errorMessage = <any>error.message,
+      response => {
+        this.router.navigate(['/schemas']);
+      },
+      error => this.errorMessage = <any>error.message
     );
   }
 }
