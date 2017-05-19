@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FieldService } from '../field.service';
 import { Field } from '../field';
-import {AuthenticationBasicService} from '../../login-basic/authentication-basic.service';
-import {FieldOwnerService} from '../../user/field-owner.service';
+import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
 
 @Component({
   selector: 'app-field-details',
@@ -18,8 +17,7 @@ export class FieldDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private fieldService: FieldService,
-              private authenticationService: AuthenticationBasicService) { }
+              private fieldService: FieldService) { }
 
   ngOnInit() {
     this.route.params
