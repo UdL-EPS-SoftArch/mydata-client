@@ -54,9 +54,16 @@ import { ClosedLicenseDatasetListComponent } from './license/closed-license/clos
 import { OpenLicenseDatasetListComponent } from './license/open-license/open-license-list/open-license-list-dataset.component';
 import { DataFileEditComponent } from './dataset/datafile-edit/datafile-edit.component';
 import { TagEditComponent } from './tag/tags-edit/tags-edit.component';
-import {OwnerService} from './user/owner.service';
-import {UserService} from './user/user.service';
-import {UserDetailComponent} from './user/user-detail/user-detail.component';
+import { OwnerService } from './user/owner.service';
+import { UserService } from './user/user.service';
+import { UserDetailComponent } from './user/user-detail/user-detail.component';
+import { CommentDetailsComponent } from './comment/comment-details/comment-details.component';
+import { CommentEditComponent } from './comment/comment-edit/comment-edit.component';
+import { CommentFormComponent } from './comment/comment-form/comment-form.component';
+import { CommentListComponent } from './comment/comment-list/comment-list.component';
+import { CommentSearchComponent } from './comment/comment-search/comment-search.component';
+import { CommentService } from './comment/comment.service';
+import { CommentOwnerService } from './user/comment-owner.service';
 
 @NgModule({
   declarations: [
@@ -88,6 +95,11 @@ import {UserDetailComponent} from './user/user-detail/user-detail.component';
     TagEditComponent,
     SchemaEditComponent,
     UserDetailComponent,
+    CommentDetailsComponent,
+    CommentEditComponent,
+    CommentFormComponent,
+    CommentListComponent,
+    CommentSearchComponent,
     DatafileDetailsComponent,
     SchemasDatasetListComponent,
     FieldDetailsComponent,
@@ -113,8 +125,7 @@ import {UserDetailComponent} from './user/user-detail/user-detail.component';
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService,
               OpenLicenseService, ClosedLicenseService, TagService, OwnerService, DataFileService, UserService,
-              FieldService],
+              FieldService, CommentService, CommentOwnerService],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule { }

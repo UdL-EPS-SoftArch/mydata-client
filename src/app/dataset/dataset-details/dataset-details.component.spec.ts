@@ -65,7 +65,6 @@ describe('DatasetDetailsComponent', () => {
       declarations: [AppComponent, DatasetDetailsComponent],
       providers: [
         {provide: DatasetService, useClass: MockDatasetService},
-        {provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService},
         {provide: SchemaService, useClass: MockSchemaService},
         {provide: OwnerService, useClass: MockOwnerService},
         {provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService}],
