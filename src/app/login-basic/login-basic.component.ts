@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { AuthenticationBasicService } from './authentication-basic.service';
 import { ModalDirective } from 'ngx-bootstrap';
+import {User} from './user';
 
 @Component({
   selector: 'app-login-basic,[app-login-basic]',
@@ -51,5 +52,9 @@ export class LoginBasicComponent implements OnInit {
 
   isLoggedIn(): boolean {
     return this.authenticationService.isLoggedIn();
+  }
+
+  getUser(): User {
+    return this.authenticationService.getCurrentUser();
   }
 }

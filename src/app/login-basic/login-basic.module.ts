@@ -5,6 +5,10 @@ import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { ModalModule, AlertModule } from 'ngx-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { routes } from '../app.routing';
+
+
 
 @NgModule({
   imports: [
@@ -13,6 +17,7 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     ModalModule.forRoot(),
     AlertModule.forRoot(),
+    RouterModule.forRoot(routes),
   ],
   providers: [AuthenticationBasicService],
   declarations: [LoginBasicComponent],

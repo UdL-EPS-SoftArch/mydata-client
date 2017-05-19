@@ -15,8 +15,8 @@ import { User } from '../../login-basic/user';
 import { Owner } from '../../user/owner';
 import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
 import { MockAuthenticationBasicService } from '../../../test/mocks/authentication-basic.service';
-import { SchemaOwnerService } from '../../user/schema-owner.service';
-import { MockSchemaOwnerService } from '../../../test/mocks/schema-owner.service';
+import {OwnerService} from '../../user/owner.service';
+import {MockOwnerService} from '../../../test/mocks/owner.service';
 
 describe('SchemaFormComponent', () => {
   let component: SchemaFormComponent;
@@ -44,7 +44,7 @@ describe('SchemaFormComponent', () => {
       declarations: [ AppComponent, SchemaFormComponent, SchemaDetailsComponent ],
       providers: [ { provide: SchemaService, useClass: MockSchemaService },
         { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService },
-        { provide: SchemaOwnerService, useClass: MockSchemaOwnerService }],
+        { provide: OwnerService, useClass: MockOwnerService }],
       imports: [ RouterTestingModule.withRoutes([
         { path: 'schemas/new', component: SchemaFormComponent },
         { path: 'schemas/:id', component: SchemaDetailsComponent }]),
@@ -56,7 +56,7 @@ describe('SchemaFormComponent', () => {
 
 
   it('should submit new schema', async(
-    inject([Router, Location, SchemaService, SchemaOwnerService, AuthenticationBasicService],
+    inject([Router, Location, SchemaService, OwnerService, AuthenticationBasicService],
       (router, location, service,  userService, authentication) => {
       TestBed.createComponent(AppComponent);
       service.setResponse(response);

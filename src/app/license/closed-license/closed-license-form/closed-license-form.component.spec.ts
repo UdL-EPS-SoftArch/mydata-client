@@ -13,10 +13,10 @@ import { ClosedLicenseService } from '../closed-license.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationBasicService } from '../../../login-basic/authentication-basic.service';
 import { MockAuthenticationBasicService } from '../../../../test/mocks/authentication-basic.service';
-import { ClosedLicenseOwnerService } from '../../../user/closed-license-owner.service';
-import { MockClosedLicenseOwnerService } from '../../../../test/mocks/closed-license-owner.service';
 import { User } from '../../../login-basic/user';
 import { Owner } from '../../../user/owner';
+import {OwnerService} from '../../../user/owner.service';
+import {MockOwnerService} from '../../../../test/mocks/owner.service';
 
 describe('ClosedLicenseFormComponent', () => {
   let component: ClosedLicenseFormComponent;
@@ -39,7 +39,7 @@ describe('ClosedLicenseFormComponent', () => {
       declarations: [ AppComponent, ClosedLicenseFormComponent, ClosedLicenseDetailsComponent ],
       providers: [
         { provide: ClosedLicenseService, useClass: MockClosedLicenseService },
-        { provide: ClosedLicenseOwnerService, useClass: MockClosedLicenseOwnerService },
+        { provide: OwnerService, useClass: MockOwnerService },
         { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService },
       ],
       imports: [ RouterTestingModule.withRoutes([
@@ -52,7 +52,7 @@ describe('ClosedLicenseFormComponent', () => {
   }));
 
   it('should submit new license', async(
-    inject([Router, Location, ClosedLicenseService, ClosedLicenseOwnerService, AuthenticationBasicService],
+    inject([Router, Location, ClosedLicenseService, OwnerService, AuthenticationBasicService],
       (router, location, service, closedLicenseOwnerService, authentication) => {
       TestBed.createComponent(AppComponent);
       service.setResponse(response);

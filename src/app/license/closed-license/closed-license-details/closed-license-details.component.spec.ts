@@ -11,10 +11,10 @@ import { ClosedLicense } from '../closed-license';
 import { ClosedLicenseService } from '../closed-license.service';
 import { AuthenticationBasicService } from '../../../login-basic/authentication-basic.service';
 import { MockAuthenticationBasicService } from '../../../../test/mocks/authentication-basic.service';
-import { ClosedLicenseOwnerService } from '../../../user/closed-license-owner.service';
-import { MockClosedLicenseOwnerService } from '../../../../test/mocks/closed-license-owner.service';
 import { Owner } from '../../../user/owner';
 import { User } from '../../../login-basic/user';
+import {OwnerService} from '../../../user/owner.service';
+import {MockOwnerService} from '../../../../test/mocks/owner.service';
 
 describe('ClosedLicenseDetailsComponent', () => {
   let fixture: ComponentFixture<ClosedLicenseDetailsComponent>;
@@ -45,7 +45,7 @@ describe('ClosedLicenseDetailsComponent', () => {
       declarations: [ AppComponent, ClosedLicenseDetailsComponent ],
       providers: [
         { provide: ClosedLicenseService, useClass: MockClosedLicenseService },
-        { provide: ClosedLicenseOwnerService, useClass: MockClosedLicenseOwnerService },
+        { provide: OwnerService, useClass: MockOwnerService },
         { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService },
       ],
       imports: [ RouterTestingModule.withRoutes([
@@ -56,7 +56,7 @@ describe('ClosedLicenseDetailsComponent', () => {
   }));
 
   it('should fetch and render the requested closedLicense', async(
-    inject([Router, Location, ClosedLicenseService, ClosedLicenseOwnerService, AuthenticationBasicService],
+    inject([Router, Location, ClosedLicenseService, OwnerService, AuthenticationBasicService],
       (router, location, service, closedLicenseOwnerService, authentication) => {
       TestBed.createComponent(AppComponent);
       service.setResponse(closedLicense1);
