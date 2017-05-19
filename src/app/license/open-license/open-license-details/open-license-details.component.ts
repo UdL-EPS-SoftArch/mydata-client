@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { OpenLicenseService } from '../open-license.service';
 import { OpenLicense } from '../open-license';
 import { AuthenticationBasicService } from '../../../login-basic/authentication-basic.service';
-import {OwnerService} from '../../../user/owner.service';
+import { OwnerService } from '../../../user/owner.service';
 
 @Component({
   selector: 'app-open-license-details',
@@ -13,12 +13,13 @@ import {OwnerService} from '../../../user/owner.service';
 export class OpenLicenseDetailsComponent implements OnInit {
   public openLicense: OpenLicense = new OpenLicense();
   public errorMessage: string;
+  public ownerName: string;
   public isOwner: boolean;
 
   constructor(private route: ActivatedRoute,
               private openLicenseService: OpenLicenseService,
               private authenticationService: AuthenticationBasicService,
-              private openLicenseOwnerService: OwnerService) { }
+              private ownerService: OwnerService) { }
 
   ngOnInit() {
     this.route.params
@@ -26,10 +27,12 @@ export class OpenLicenseDetailsComponent implements OnInit {
       .subscribe((id) => {
         const uri = `/openLicenses/${id}`;
         this.openLicenseService.getOpenLicense(uri).subscribe(
-          openLicense => { this.openLicense = openLicense;
-          if (this.openLicense._links != null) {
-              this.openLicenseOwnerService.getOwner(this.openLicense._links.owner.href).subscribe(
+          openLicense => {
+            this.openLicense = openLicense;
+            if (this.openLicense._links != null) {
+              this.ownerService.getOwner(this.openLicense._links.owner.href).subscribe(
                 owner => {
+                  this.ownerName = owner.getUserName();
                   this.isOwner = this.authenticationService.getCurrentUser().username === owner.getUserName();
               });
             }

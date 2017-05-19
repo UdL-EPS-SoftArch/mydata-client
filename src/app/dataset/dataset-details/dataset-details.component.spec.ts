@@ -18,6 +18,10 @@ import {OwnerService} from '../../user/owner.service';
 import {SchemaService} from '../../schema/schema.service';
 import {MockOwnerService} from '../../../test/mocks/owner.service';
 import {MockSchemaService} from '../../../test/mocks/schema.service';
+import { OpenLicenseService } from '../../license/open-license/open-license.service';
+import { MockOpenLicenseService } from '../../../test/mocks/open-license.service';
+import { ClosedLicenseService } from '../../license/closed-license/closed-license.service';
+import { MockClosedLicenseService } from '../../../test/mocks/closed-license.service';
 
 describe('DatasetDetailsComponent', () => {
   let fixture: ComponentFixture<DatasetDetailsComponent>;
@@ -67,8 +71,10 @@ describe('DatasetDetailsComponent', () => {
         {provide: DatasetService, useClass: MockDatasetService},
         {provide: SchemaService, useClass: MockSchemaService},
         {provide: OwnerService, useClass: MockOwnerService},
-        {provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService}],
-
+        {provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService},
+        {provide: OpenLicenseService, useClass: MockOpenLicenseService},
+        {provide: ClosedLicenseService, useClass: MockClosedLicenseService},
+      ],
       imports: [RouterTestingModule.withRoutes([
         {path: 'datasets/:id', component: DatasetDetailsComponent}
       ])],
@@ -77,12 +83,15 @@ describe('DatasetDetailsComponent', () => {
   }));
 
   it('should fetch and render the requested dataset editable when owner', async(
-    inject([Router, Location, DatasetService, OwnerService, AuthenticationBasicService, SchemaService],
-      (router, location, datasetService, ownerService, authentication, schemaService) => {
+    inject([Router, Location, DatasetService, OwnerService, AuthenticationBasicService, SchemaService,
+      OpenLicenseService, ClosedLicenseService],
+      (router, location, datasetService, ownerService, authentication, schemaService,
+       openLicenseService, closedLicenseService) => {
         TestBed.createComponent(AppComponent);
         datasetService.setResponse(dataset1);
         schemaService.setResponse(schema1);
         ownerService.setResponse(owner);
+
         authentication.isLoggedIn.and.returnValue(true);
         authentication.getCurrentUser.and.returnValue(new User({'username': 'owner'}));
 

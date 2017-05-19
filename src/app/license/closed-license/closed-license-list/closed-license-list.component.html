@@ -22,7 +22,11 @@
             <div class="panel-body">
                 <div class="col-md-6">
                     <h4>Price:</h4>
-                    <p>{{closedLicense.price}}</p>
+                    <p>{{closedLicense.price}} €</p>
+                </div>
+                <div class="col-md-6">
+                    <h4>Additional details:</h4>
+                    <h5 *ngIf="licenseOwner">Owner: {{licenseOwner[closedLicense.uri]}}</h5>
                 </div>
             </div>
         </div>

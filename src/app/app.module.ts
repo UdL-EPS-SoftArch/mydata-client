@@ -64,6 +64,8 @@ import { CommentListComponent } from './comment/comment-list/comment-list.compon
 import { CommentSearchComponent } from './comment/comment-search/comment-search.component';
 import { CommentService } from './comment/comment.service';
 import { CommentOwnerService } from './user/comment-owner.service';
+import { OpenLicenseOwnerService } from './user/open-license-owner.service';
+import { ClosedLicenseOwnerService } from './user/closed-license-owner.service';
 
 @NgModule({
   declarations: [
@@ -125,7 +127,7 @@ import { CommentOwnerService } from './user/comment-owner.service';
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService,
               OpenLicenseService, ClosedLicenseService, TagService, OwnerService, DataFileService, UserService,
-              FieldService, CommentService, CommentOwnerService],
+              FieldService, CommentService, CommentOwnerService, ClosedLicenseOwnerService, OpenLicenseOwnerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

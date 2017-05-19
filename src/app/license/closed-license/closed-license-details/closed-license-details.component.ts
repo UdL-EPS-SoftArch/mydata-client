@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ClosedLicenseService } from '../closed-license.service';
 import { ClosedLicense } from '../closed-license';
 import { AuthenticationBasicService } from '../../../login-basic/authentication-basic.service';
-import {OwnerService} from '../../../user/owner.service';
+import { OwnerService } from '../../../user/owner.service';
 
 @Component({
   selector: 'app-closed-license-details',
@@ -14,11 +14,12 @@ export class ClosedLicenseDetailsComponent implements OnInit {
   public closedLicense: ClosedLicense = new ClosedLicense();
   public errorMessage: string;
   public isOwner: boolean;
+  public ownerName: string;
 
   constructor(private route: ActivatedRoute,
               private closedLicenseService: ClosedLicenseService,
               private authenticationService: AuthenticationBasicService,
-              private closedLicenseOwnerService: OwnerService) { }
+              private ownerService: OwnerService) { }
 
   ngOnInit() {
     this.route.params
@@ -26,10 +27,12 @@ export class ClosedLicenseDetailsComponent implements OnInit {
       .subscribe((id) => {
         const uri = `/closedLicenses/${id}`;
         this.closedLicenseService.getClosedLicense(uri).subscribe(
-          closedLicense => { this.closedLicense = closedLicense;
-          if (this.closedLicense._links != null) {
-              this.closedLicenseOwnerService.getOwner(this.closedLicense._links.owner.href).subscribe(
+          closedLicense => {
+            this.closedLicense = closedLicense;
+            if (this.closedLicense._links != null) {
+              this.ownerService.getOwner(this.closedLicense._links.owner.href).subscribe(
                 owner => {
+                  this.ownerName = owner.getUserName();
                   this.isOwner = this.authenticationService.getCurrentUser().username === owner.getUserName();
               });
             }

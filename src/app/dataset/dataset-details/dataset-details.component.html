@@ -1,30 +1,46 @@
 <div class="row">
-  <h3>Dataset Details</h3>
+    <h3>Dataset Details</h3>
 </div>
 
 <div class="row">
-  <div class="col-md-4">
-    <h4>DataSet Title</h4>
-    <p>{{dataset.title}}</p>
-  </div>
-  <div class="col-md-4">
-    <h4>DataSet Description</h4>
-    <p>{{dataset.description}}</p>
-  </div>
-  <div class="col-md-4">
-    <h4>Schema Title</h4>
-    <p>{{schema.title}}</p>
-  </div>
-  <div class="col-md-4">
-    <h4>Schema Description</h4>
-    <p>{{schema.description}}</p>
-  </div>
-  <div class="col-md-2">
-    <h4>Owner</h4>
-    <a [routerLink]="['/users/'+ownerName]">{{ownerName}}</a>
-  </div>
-  <div class="col-md-2" *ngIf="isOwner">
-    <a class="btn btn-primary" role="button" routerLink="{{dataset.uri}}/edit">Edit</a>
-    <a class="btn btn-danger" role="button" (click)="onDelete(dataset)">Delete</a>
-  </div>
+    <div class="col-md-4">
+        <h4>DataSet Title</h4>
+        <p>{{dataset.title}}</p>
+    </div>
+    <div class="col-md-4">
+        <h4>DataSet Description</h4>
+        <p>{{dataset.description}}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h4>Schema Title</h4>
+        <p>{{schema.title}}</p>
+    </div>
+    <div class="col-md-4">
+        <h4>Schema Description</h4>
+        <p>{{schema.description}}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <h4>Owner</h4>
+        <a [routerLink]="['/users/'+ownerName]">{{ownerName}}</a>
+    </div>
+    <div *ngIf="openLicense" class="col-md-4">
+        <h4>Open License</h4>
+        <p>{{openLicense.text}}</p>
+    </div>
+    <div *ngIf="closedLicense" class="col-md-2">
+        <h4>Closed License</h4>
+        <p>{{closedLicense.text}}</p>
+    </div>
+    <div *ngIf="closedLicense" class="col-md-2">
+        <h4>Closed License Price</h4>
+        <p>{{closedLicense.price}}</p>
+    </div>
+    <div class="col-md-2" *ngIf="isOwner">
+        <a class="btn btn-primary" role="button" routerLink="{{dataset.uri}}/edit">Edit</a>
+        <a class="btn btn-danger" role="button" (click)="onDelete(dataset)">Delete</a>
+    </div>
 </div>
