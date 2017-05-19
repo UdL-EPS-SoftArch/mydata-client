@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {CommentService } from '../comment.service';
+import { CommentService } from '../comment.service';
 import { Comment } from '../comment';
 import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
-import { CommentOwnerService } from '../../user/comment-owner.service';
+import { OwnerService } from '../../user/owner.service';
 
 
 @Component({
@@ -19,7 +19,7 @@ export class CommentDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private commentService: CommentService,
               private authenticationService: AuthenticationBasicService,
-              private commentOwnerService: CommentOwnerService) {
+              private ownerService: OwnerService) {
   }
 
   ngOnInit() {
@@ -31,7 +31,7 @@ export class CommentDetailsComponent implements OnInit {
           comment => {
             this.comment = comment;
             if (this.comment._links != null) {
-              this.commentOwnerService.getCommentOwner(this.comment._links.owner.href).subscribe(
+              this.ownerService.getOwner(this.comment._links.owner.href).subscribe(
                 owner => {
                   this.isOwner = this.authenticationService.getCurrentUser().username === owner.getUserName();
                 });

@@ -1,19 +1,21 @@
-import {CommentFormComponent} from './comment-form.component';
-import {ComponentFixture, async, TestBed, inject} from '@angular/core/testing';
-import {Comment} from '../comment';
-import {AppComponent} from '../../app.component';
-import {MockCommentService} from '../../../test/mocks/comment.service';
-import {CommentService} from '../comment.service';
-import {RouterTestingModule} from '@angular/router/testing';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {NO_ERRORS_SCHEMA} from '@angular/core';
-import {CommentDetailsComponent} from '../comment-details/comment-details.component';
-import {Router} from '@angular/router';
-import {Location} from '@angular/common';
-import {AuthenticationBasicService} from '../../login-basic/authentication-basic.service';
-import {MockAuthenticationBasicService} from '../../../test/mocks/authentication-basic.service';
-import {CommentOwnerService} from '../../user/comment-owner.service';
-
+import { CommentFormComponent } from './comment-form.component';
+import { ComponentFixture, async, TestBed, inject } from '@angular/core/testing';
+import { Comment } from '../comment';
+import { AppComponent } from '../../app.component';
+import { MockCommentService } from '../../../test/mocks/comment.service';
+import { CommentService } from '../comment.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { CommentDetailsComponent } from '../comment-details/comment-details.component';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
+import { MockAuthenticationBasicService } from '../../../test/mocks/authentication-basic.service';
+import { MockOwnerService } from '../../../test/mocks/owner.service';
+import { OwnerService } from '../../user/owner.service';
+import { Owner } from '../../user/owner';
+import { User } from '../../login-basic/user';
 
 describe('CommentFormComponent', () => {
   let component: CommentFormComponent;
@@ -22,7 +24,15 @@ describe('CommentFormComponent', () => {
   const comment = new Comment({
     'uri': '/comments/1',
     'text': 'First Comment',
-    '_links': {}
+    '_links': {
+      'owner': { 'href': 'http://localhost/comments/1/owner' }
+    }
+  });
+  const user = new User({
+    'username': 'user'
+  });
+  const owner = new Owner({
+    'uri': 'dataOwners/owner'
   });
 
   beforeEach(async(() => {
@@ -31,7 +41,7 @@ describe('CommentFormComponent', () => {
       providers: [
         {provide: CommentService, useClass: MockCommentService},
         {provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService},
-        {provide: CommentOwnerService, useClass: MockCommentService}],
+        {provide: OwnerService, useClass: MockOwnerService}],
       imports: [RouterTestingModule.withRoutes([
         {path: 'comments/new', component: CommentFormComponent},
         {path: 'comments/:id', component: CommentDetailsComponent}]),
@@ -42,9 +52,13 @@ describe('CommentFormComponent', () => {
   }));
 
   it('should submit new comment', async(
-    inject([Router, Location, CommentService], (router, location, service) => {
+    inject([Router, Location, CommentService, OwnerService, AuthenticationBasicService],
+      (router, location, service, ownerService, authentication) => {
       TestBed.createComponent(AppComponent);
       service.setResponse(comment);
+      ownerService.setResponse(owner);
+      authentication.isLoggedIn.and.returnValue(true);
+      authentication.getCurrentUser.and.returnValue(user);
 
       router.navigate(['/comments/new']).then(() => {
         expect(location.path()).toBe('/comments/new');
