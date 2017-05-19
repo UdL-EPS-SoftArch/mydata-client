@@ -21,7 +21,7 @@
   </div>
   <div class="col-md-2">
     <h4>Owner</h4>
-    <p>{{ownerName}}</p>
+    <a [routerLink]="['/users/'+ownerName]">{{ownerName}}</a>
   </div>
   <div class="col-md-2" *ngIf="isOwner">
     <a class="btn btn-primary" role="button" routerLink="{{dataset.uri}}/edit">Edit</a>

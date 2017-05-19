@@ -10,11 +10,11 @@ import { OpenLicenseDetailsComponent } from './open-license-details.component';
 import { OpenLicense } from '../open-license';
 import { OpenLicenseService } from '../open-license.service';
 import { Owner } from '../../../user/owner';
-import { OpenLicenseOwnerService } from '../../../user/open-license-owner.service';
 import { AuthenticationBasicService } from '../../../login-basic/authentication-basic.service';
 import { MockAuthenticationBasicService } from '../../../../test/mocks/authentication-basic.service';
-import { MockOpenLicenseOwnerService } from '../../../../test/mocks/open-license-owner.service';
 import { User } from '../../../login-basic/user';
+import {OwnerService} from '../../../user/owner.service';
+import {MockOwnerService} from '../../../../test/mocks/owner.service';
 
 describe('OpenLicenseDetailsComponent', () => {
   let fixture: ComponentFixture<OpenLicenseDetailsComponent>;
@@ -43,7 +43,7 @@ describe('OpenLicenseDetailsComponent', () => {
       declarations: [ AppComponent, OpenLicenseDetailsComponent ],
       providers: [
         { provide: OpenLicenseService, useClass: MockOpenLicenseService },
-        { provide: OpenLicenseOwnerService, useClass: MockOpenLicenseOwnerService },
+        { provide: OwnerService, useClass: MockOwnerService },
         { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService },
       ],
       imports: [ RouterTestingModule.withRoutes([
@@ -54,7 +54,7 @@ describe('OpenLicenseDetailsComponent', () => {
   }));
 
   it('should fetch and render the requested openLicense', async(
-    inject([Router, Location, OpenLicenseService, OpenLicenseOwnerService, AuthenticationBasicService],
+    inject([Router, Location, OpenLicenseService, OwnerService, AuthenticationBasicService],
       (router, location, service, openLicenseOwnerService, authentication) => {
       TestBed.createComponent(AppComponent);
       service.setResponse(openLicense1);

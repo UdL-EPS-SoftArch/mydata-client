@@ -3,9 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DataFileService } from '../datafile/datafile.service';
 import { DataFile } from '../datafile/datafile';
 import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
-import { DatasetOwnerService } from '../../user/dataset-owner.service';
 import { SchemaService } from '../../schema/schema.service';
 import { Schema } from '../../schema/schema';
+import {OwnerService} from '../../user/owner.service';
 
 declare const require: any;
 
@@ -24,7 +24,7 @@ export class DatafileDetailsComponent implements OnInit {
               private router: Router,
               private datafileService: DataFileService,
               private authenticationService: AuthenticationBasicService,
-              private datasetOwnerService: DatasetOwnerService,
+              private datasetOwnerService: OwnerService,
               private schemaService: SchemaService) { }
 
   ngOnInit() {
@@ -36,7 +36,7 @@ export class DatafileDetailsComponent implements OnInit {
           datafile => {
             this.datafile = datafile;
             if (this.datafile._links != null) {
-              this.datasetOwnerService.getDatasetOwner(this.datafile._links.owner.href).subscribe(
+              this.datasetOwnerService.getOwner(this.datafile._links.owner.href).subscribe(
                 owner => {
                   this.ownerName = owner.getUserName();
                   this.isOwner = this.authenticationService.getCurrentUser().username === owner.getUserName();

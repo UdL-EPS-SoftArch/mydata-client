@@ -11,12 +11,12 @@ import { OpenLicenseDetailsComponent } from '../open-license-details/open-licens
 import { OpenLicense } from '../open-license';
 import { OpenLicenseService } from '../open-license.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { OpenLicenseOwnerService } from '../../../user/open-license-owner.service';
 import { AuthenticationBasicService } from '../../../login-basic/authentication-basic.service';
-import { MockOpenLicenseOwnerService } from '../../../../test/mocks/open-license-owner.service';
 import { MockAuthenticationBasicService } from '../../../../test/mocks/authentication-basic.service';
 import { User } from '../../../login-basic/user';
 import { Owner } from '../../../user/owner';
+import {MockOwnerService} from '../../../../test/mocks/owner.service';
+import {OwnerService} from '../../../user/owner.service';
 
 describe('OpenLicenseFormComponent', () => {
   let component: OpenLicenseFormComponent;
@@ -38,7 +38,7 @@ describe('OpenLicenseFormComponent', () => {
       declarations: [ AppComponent, OpenLicenseFormComponent, OpenLicenseDetailsComponent ],
       providers: [
         { provide: OpenLicenseService, useClass: MockOpenLicenseService },
-        { provide: OpenLicenseOwnerService, useClass: MockOpenLicenseOwnerService },
+        { provide: OwnerService, useClass: MockOwnerService },
         { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService },
         ],
       imports: [ RouterTestingModule.withRoutes([
@@ -51,7 +51,7 @@ describe('OpenLicenseFormComponent', () => {
   }));
 
   it('should submit new license', async(
-    inject([Router, Location, OpenLicenseService, OpenLicenseOwnerService, AuthenticationBasicService],
+    inject([Router, Location, OpenLicenseService, OwnerService, AuthenticationBasicService],
       (router, location, service, openLicenseOwnerService, authentication) => {
       TestBed.createComponent(AppComponent);
       service.setResponse(response);
