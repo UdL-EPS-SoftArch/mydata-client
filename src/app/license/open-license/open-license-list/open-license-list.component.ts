@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OpenLicenseService } from '../open-license.service';
 import { OpenLicense } from '../open-license';
-import { OpenLicenseOwnerService } from '../../../user/open-license-owner.service';
+import { OwnerService } from '../../../user/owner.service';
 
 @Component({
   selector: 'app-open-license-list',
@@ -14,7 +14,7 @@ export class OpenLicenseListComponent implements OnInit {
   public licenseOwners: {} = {};
 
   constructor(private openLicenseService: OpenLicenseService,
-  private licenseOwner: OpenLicenseOwnerService) { }
+              private ownerService: OwnerService) { }
 
   onSearch(openLicense) {
     this.openLicenses = openLicense;
@@ -24,9 +24,9 @@ export class OpenLicenseListComponent implements OnInit {
     this.openLicenseService.getAllOpenLicenses().subscribe(
       openLicense => { this.openLicenses = openLicense;
       openLicense.forEach( openLicenses => {
-        this.licenseOwner.getOpenLicenseOwner(openLicenses._links.owner.href).subscribe(
+        this.ownerService.getOwner(openLicenses._links.owner.href).subscribe(
           owner => {
-            this.licenseOwner[openLicenses.uri] = owner.getUserName();
+            this.licenseOwners[openLicenses.uri] = owner.getUserName();
           });
         });
       },

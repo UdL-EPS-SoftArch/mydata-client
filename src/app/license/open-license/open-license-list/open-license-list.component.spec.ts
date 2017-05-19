@@ -9,6 +9,12 @@ import { AppComponent } from '../../../app.component';
 import { OpenLicenseListComponent } from './open-license-list.component';
 import { OpenLicenseService } from '../open-license.service';
 import { OpenLicense } from '../open-license';
+import { OwnerService } from '../../../user/owner.service';
+import { MockOwnerService } from '../../../../test/mocks/owner.service';
+import { Owner } from '../../../user/owner';
+import { AuthenticationBasicService } from '../../../login-basic/authentication-basic.service';
+import { User } from '../../../login-basic/user';
+import { MockAuthenticationBasicService } from '../../../../test/mocks/authentication-basic.service';
 
 describe('OpenLicenseListComponent', () => {
   let component: OpenLicenseListComponent;
@@ -16,17 +22,30 @@ describe('OpenLicenseListComponent', () => {
 
   const openLicense1 = new OpenLicense({
     'uri': '/openLicenses/1',
-    'text': 'Open License 1'
+    'text': 'Open License 1',
+    '_links': {
+      'owner': {'href': 'http://localhost/openLicenses/1/owner'}
+    }
   });
   const openLicense2 = new OpenLicense({
     'uri': '/openLicenses/2',
-    'text': 'Open License 2'
+    'text': 'Open License 2',
+    '_links': {
+      'owner': {'href': 'http://localhost/openLicenses/2/owner'}
+    }
+  });
+  const owner = new Owner({
+    'uri': 'dataOwners/owner'
   });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ AppComponent, OpenLicenseListComponent ],
-      providers: [ { provide: OpenLicenseService, useClass: MockOpenLicenseService } ],
+      providers: [
+        { provide: OpenLicenseService, useClass: MockOpenLicenseService },
+        { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService },
+        { provide: OwnerService, useClass: MockOwnerService },
+      ],
       imports: [ RouterTestingModule.withRoutes([
         { path: 'openLicenses', component: OpenLicenseListComponent }
       ])],
@@ -35,9 +54,14 @@ describe('OpenLicenseListComponent', () => {
   }));
 
   it('should fetch and render all openLicenses', async(
-    inject([Router, Location, OpenLicenseService], (router, location, service) => {
+    inject([Router, Location, OpenLicenseService, OwnerService, AuthenticationBasicService],
+      (router, location, service, ownerService, authentication) => {
       TestBed.createComponent(AppComponent);
       service.setResponse([openLicense1, openLicense2]);
+      ownerService.setResponse(owner);
+
+      authentication.isLoggedIn.and.returnValue(true);
+      authentication.getCurrentUser.and.returnValue(new User({'username': 'owner'}));
 
       router.navigate(['/openLicenses']).then(() => {
         expect(location.path()).toBe('/openLicenses');
