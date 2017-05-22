@@ -15,7 +15,7 @@ import {SchemaService} from '../../schema/schema.service';
 export class DatasetDetailsComponent implements OnInit {
   public dataset: Dataset = new Dataset();
   public schema: Schema = new Schema();
-
+  public comments: Comment[] = [];
   public errorMessage: string;
   public isOwner: boolean;
   public ownerName: string;
@@ -43,6 +43,13 @@ export class DatasetDetailsComponent implements OnInit {
 
               }
             );
+
+            this.datasetService.getCommentsOfDataset(uri).subscribe(
+              comments => {
+                this.comments = comments;
+              }
+            );
+
             if (this.dataset._links != null) {
               this.ownerService.getOwner(this.dataset._links.owner.href).subscribe(
                 owner => {

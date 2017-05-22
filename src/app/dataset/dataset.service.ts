@@ -81,4 +81,11 @@ export class DatasetService {
       .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error.json()));
   }
+
+  //GET /commentedAbout
+  getCommentsOfDataset(uri: string) {
+    return this.http.get(`${environment.API}${uri}/commentedAbout`)
+      .map((res: Response) => new Dataset(res.json()))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
 }
