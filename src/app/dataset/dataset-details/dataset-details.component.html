@@ -39,7 +39,7 @@
         <h4>Closed License Price</h4>
         <p>{{closedLicense.price}}</p>
     </div>
-    <div> *ngIf="tags" class="col-md-2">
+    <div *ngIf="tags" class="col-md-2">
       <div *ngFor="let tag of tags">
         <h4>{{tag.name}}</h4>
       </div>
