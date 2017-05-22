@@ -7,6 +7,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import {Dataset} from './dataset';
 import {environment} from '../../environments/environment';
+import {Tag} from '../tag/tag';
 
 @Injectable()
 export class DatasetService {
@@ -55,6 +56,13 @@ export class DatasetService {
     const options = new RequestOptions({headers: headers});
 
     return this.http.post(`${environment.API}/datasets`, body, options)
+      .map((res: Response) => new Dataset(res.json()))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  //GET /taggedWith
+  getTagsOfDataset(uri: string): Observable<Tag[]> {
+    return this.http.get(`${environment.API}${uri}/taggedWith`)
       .map((res: Response) => new Dataset(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
