@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { DatasetService } from '../dataset.service';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Schema } from '../../schema/schema';
+import { SchemaService } from '../../schema/schema.service';
 
 
 @Component({
@@ -16,19 +18,27 @@ export class DatasetEditComponent implements OnInit {
   public errorMessage: string;
   public datasetForm: FormGroup;
   public titleCtrl: AbstractControl;
+  public schemas: Schema[] = [];
 
   constructor(private fb: FormBuilder,
               private route: ActivatedRoute,
               private datasetService: DatasetService,
+              private schemaService: SchemaService,
               private router: Router) {
     this.datasetForm = fb.group({
       'title': ['Dataset title', Validators.required],
-      'description': ['Dataset description']
+      'description': ['Dataset description'],
+      'schema': ['Dataset schema'],
     });
     this.titleCtrl = this.datasetForm.controls['title'];
   }
 
   ngOnInit() {
+    this.schemaService.getAllSchemas().subscribe(
+      schemas => { this.schemas = schemas; },
+      error => this.errorMessage = <any>error.message
+    );
+
     this.route.params
       .map(params => params['id'])
       .subscribe((id) => {
@@ -45,7 +55,11 @@ export class DatasetEditComponent implements OnInit {
       .subscribe(
         dataset => { this.router.navigate([dataset.uri]); },
         error => {
-          this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
+          this.errorMessage = error.errors ? <any>error.dataset1errors[0].message : <any>error.message;
         });
+  }
+
+  onChangeSchema(event): void {
+    console.log(this.dataset.schema);
   }
 }
