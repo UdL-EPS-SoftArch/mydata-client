@@ -1,18 +1,18 @@
-import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { MockSchemaService } from '../../../test/mocks/schema.service';
+import {async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
+import {RouterTestingModule} from '@angular/router/testing';
+import {MockSchemaService} from '../../../test/mocks/schema.service';
 
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Location } from '@angular/common';
-import { Router } from '@angular/router';
-import { AppComponent } from '../../app.component';
-import { SchemasListComponent } from './schemas-list.component';
-import { SchemaService } from '../schema.service';
-import { Schema } from '../schema';
+import {NO_ERRORS_SCHEMA} from '@angular/core';
+import {Location} from '@angular/common';
+import {Router} from '@angular/router';
+import {AppComponent} from '../../app.component';
+import {SchemasListComponent} from './schemas-list.component';
+import {SchemaService} from '../schema.service';
+import {Schema} from '../schema';
 import {Owner} from '../../user/owner';
 import {MockAuthenticationBasicService} from '../../../test/mocks/authentication-basic.service';
-import {MockSchemaOwnerService} from '../../../test/mocks/schema-owner.service';
-import {SchemaOwnerService} from '../../user/schema-owner.service';
+import {MockOwnerService} from '../../../test/mocks/owner.service';
+import {OwnerService} from '../../user/owner.service';
 import {AuthenticationBasicService} from '../../login-basic/authentication-basic.service';
 import {User} from '../../login-basic/user';
 
@@ -25,7 +25,7 @@ describe('SchemasListComponent', () => {
     'title': 'Schema 1',
     'description': 'First schema',
     '_links': {
-      'owner': { 'href': 'http://localhost/schemas/1/owner' }
+      'owner': {'href': 'http://localhost/schemas/1/owner'}
     }
   });
   const schema2 = new Schema({
@@ -33,52 +33,52 @@ describe('SchemasListComponent', () => {
     'title': 'Schema 2',
     'description': 'Second schema',
     '_links': {
-      'owner': { 'href': 'http://localhost/schemas/2/owner' }
+      'owner': {'href': 'http://localhost/schemas/2/owner'}
     }
   });
 
   const owner = new Owner({
-    'uri': 'schemaOwners/owner',
+    'uri': 'schemaOwners/owner'
   });
 
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AppComponent, SchemasListComponent ],
-      providers: [ { provide: SchemaService, useClass: MockSchemaService },
-        { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService },
-        { provide: SchemaOwnerService, useClass: MockSchemaOwnerService }],
-      imports: [ RouterTestingModule.withRoutes([
-        { path: 'schemas', component: SchemasListComponent }
+      declarations: [AppComponent, SchemasListComponent],
+      providers: [{provide: SchemaService, useClass: MockSchemaService},
+        {provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService},
+        {provide: OwnerService, useClass: MockOwnerService}],
+      imports: [RouterTestingModule.withRoutes([
+        {path: 'schemas', component: SchemasListComponent}
       ])],
-      schemas: [ NO_ERRORS_SCHEMA ]
+      schemas: [NO_ERRORS_SCHEMA]
     });
   }));
 
   it('should fetch and render all schemas', async(
-    inject([Router, Location, SchemaService, SchemaOwnerService, AuthenticationBasicService],
-      (router, location, service, schemaOwnerService, authentication) => {
-      TestBed.createComponent(AppComponent);
-      service.setResponse([schema1, schema2]);
-      schemaOwnerService.setResponse(owner);
-      authentication.isLoggedIn.and.returnValue(true);
-      authentication.getCurrentUser.and.returnValue(new User({'username': 'owner'}));
+    inject([Router, Location, SchemaService, OwnerService, AuthenticationBasicService],
+      (router, location, service, ownerService, authentication) => {
+        TestBed.createComponent(AppComponent);
+        service.setResponse([schema1, schema2]);
+        ownerService.setResponse(owner);
+        authentication.isLoggedIn.and.returnValue(true);
+        authentication.getCurrentUser.and.returnValue(new User({'username': 'owner'}));
 
-      router.navigate(['/schemas']).then(() => {
-        expect(location.path()).toBe('/schemas');
-        expect(service.getAllSchemas).toHaveBeenCalled();
-        expect(schemaOwnerService.getSchemaOwner).toHaveBeenCalledWith('http://localhost/schemas/1/owner');
+        router.navigate(['/schemas']).then(() => {
+          expect(location.path()).toBe('/schemas');
+          expect(service.getAllSchemas).toHaveBeenCalled();
+          expect(ownerService.getOwner).toHaveBeenCalledWith('http://localhost/schemas/1/owner');
 
-        fixture = TestBed.createComponent(SchemasListComponent);
-        fixture.detectChanges();
-        component = fixture.debugElement.componentInstance;
-        expect(component.schemas[0].title).toBe('Schema 1');
-        expect(component.schemas[1].title).toBe('Schema 2');
+          fixture = TestBed.createComponent(SchemasListComponent);
+          fixture.detectChanges();
+          component = fixture.debugElement.componentInstance;
+          expect(component.schemas[0].title).toBe('Schema 1');
+          expect(component.schemas[1].title).toBe('Schema 2');
 
-        const compiled = fixture.debugElement.nativeElement;
-        expect(compiled.querySelectorAll('.panel-heading')[0].innerHTML).toContain('Schema 1');
-        expect(compiled.querySelectorAll('.panel-heading')[1].innerHTML).toContain('Schema 2');
-      });
-    })
+          const compiled = fixture.debugElement.nativeElement;
+          expect(compiled.querySelectorAll('.panel-heading')[0].innerHTML).toContain('Schema 1');
+          expect(compiled.querySelectorAll('.panel-heading')[1].innerHTML).toContain('Schema 2');
+        });
+      })
   ));
 });

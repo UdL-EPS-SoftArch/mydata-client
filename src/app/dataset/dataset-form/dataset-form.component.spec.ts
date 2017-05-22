@@ -14,8 +14,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
 import { MockAuthenticationBasicService } from '../../../test/mocks/authentication-basic.service';
 import { User } from '../../login-basic/user';
-import { DatasetOwnerService } from '../../user/dataset-owner.service';
-import { MockDatasetOwnerService } from '../../../test/mocks/dataset-owner.service';
 import { Owner } from '../../user/owner';
 import { SchemaService } from '../../schema/schema.service';
 import { MockSchemaService } from '../../../test/mocks/schema.service';
@@ -26,6 +24,8 @@ import { MockOpenLicenseService } from '../../../test/mocks/open-license.service
 import { MockClosedLicenseService } from '../../../test/mocks/closed-license.service';
 import { DataFileService} from '../datafile/datafile.service';
 import { MockDataFileService} from '../../../test/mocks/datafile.service';
+import {MockOwnerService} from '../../../test/mocks/owner.service';
+import {OwnerService} from '../../user/owner.service';
 
 describe('DatasetFormComponent', () => {
   let component: DatasetFormComponent;
@@ -63,7 +63,7 @@ describe('DatasetFormComponent', () => {
         { provide: DataFileService, useClass:  MockDataFileService},
         { provide: SchemaService, useClass: MockSchemaService },
         { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService },
-        { provide: DatasetOwnerService, useClass: MockDatasetOwnerService },
+        { provide: OwnerService, useClass: MockOwnerService },
         { provide: OpenLicenseService, useClass: MockOpenLicenseService },
         { provide: ClosedLicenseService, useClass: MockClosedLicenseService }],
       imports: [ RouterTestingModule.withRoutes([
@@ -76,7 +76,7 @@ describe('DatasetFormComponent', () => {
   }));
 
   it('should submit new dataset', async(
-    inject([Router, Location, DatasetService, DatasetOwnerService, AuthenticationBasicService, SchemaService],
+    inject([Router, Location, DatasetService, OwnerService, AuthenticationBasicService, SchemaService],
            (router, location, datasetService, userService, authentication, schemaService) => {
         TestBed.createComponent(AppComponent);
         datasetService.setResponse(response);

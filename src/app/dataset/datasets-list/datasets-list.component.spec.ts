@@ -1,17 +1,17 @@
-import { async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
-import { RouterTestingModule} from '@angular/router/testing';
-import { MockDatasetService} from '../../../test/mocks/dataset.service';
+import {async, ComponentFixture, inject, TestBed} from '@angular/core/testing';
+import {RouterTestingModule} from '@angular/router/testing';
+import {MockDatasetService} from '../../../test/mocks/dataset.service';
 
-import { NO_ERRORS_SCHEMA} from '@angular/core';
-import { Location} from '@angular/common';
-import { Router} from '@angular/router';
-import { AppComponent} from '../../app.component';
-import { DatasetsListComponent} from './datasets-list.component';
-import { DatasetService} from '../dataset.service';
-import { Dataset} from '../dataset';
-import { DatasetOwnerService} from '../../user/dataset-owner.service';
-import { MockDatasetOwnerService} from '../../../test/mocks/dataset-owner.service';
-import { Owner} from '../../user/owner';
+import {NO_ERRORS_SCHEMA} from '@angular/core';
+import {Location} from '@angular/common';
+import {Router} from '@angular/router';
+import {AppComponent} from '../../app.component';
+import {DatasetsListComponent} from './datasets-list.component';
+import {DatasetService} from '../dataset.service';
+import {Dataset} from '../dataset';
+import {OwnerService} from '../../user/owner.service';
+import {MockOwnerService} from '../../../test/mocks/owner.service';
+import {Owner} from '../../user/owner';
 
 describe('DatasetsListComponent', () => {
   let component: DatasetsListComponent;
@@ -35,14 +35,14 @@ describe('DatasetsListComponent', () => {
   });
 
   const owner = new Owner({
-    'uri': 'dataOwners/owner',
+    'uri': 'dataOwners/owner'
   });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [AppComponent, DatasetsListComponent],
       providers: [{provide: DatasetService, useClass: MockDatasetService},
-        {provide: DatasetOwnerService, useClass: MockDatasetOwnerService}],
+        {provide: OwnerService, useClass: MockOwnerService}],
       imports: [RouterTestingModule.withRoutes([
         {path: 'datasets', component: DatasetsListComponent}
       ])],
@@ -51,10 +51,10 @@ describe('DatasetsListComponent', () => {
   }));
 
   it('should fetch and render all datasets', async(
-    inject([Router, Location, DatasetService, DatasetOwnerService], (router, location, service, datasetOwnerService) => {
+    inject([Router, Location, DatasetService, OwnerService], (router, location, service, ownerService) => {
       TestBed.createComponent(AppComponent);
       service.setResponse([dataset1, dataset2]);
-      datasetOwnerService.setResponse(owner);
+      ownerService.setResponse(owner);
 
       router.navigate(['/datasets']).then(() => {
         expect(location.path()).toBe('/datasets');
