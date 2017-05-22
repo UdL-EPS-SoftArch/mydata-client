@@ -10,6 +10,8 @@ import { OpenLicenseService } from '../../license/open-license/open-license.serv
 import { OpenLicense } from '../../license/open-license/open-license';
 import { ClosedLicenseService } from '../../license/closed-license/closed-license.service';
 import { ClosedLicense } from '../../license/closed-license/closed-license';
+import {Tag} from "../../tag/tag";
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'app-dataset-details',
@@ -21,6 +23,7 @@ export class DatasetDetailsComponent implements OnInit {
   public schema: Schema = new Schema();
   public openLicense: OpenLicense = new OpenLicense();
   public closedLicense: ClosedLicense = new ClosedLicense();
+  public tags: Observable<Tag[]> = new Observable();
 
   public errorMessage: string;
   public isOwner: boolean;
@@ -62,6 +65,9 @@ export class DatasetDetailsComponent implements OnInit {
                 this.closedLicense = closedLicense;
               }
             );
+
+            this.tags = this.datasetService.getTagsOfDataset(uri);
+
             if (this.dataset._links != null) {
               this.ownerService.getOwner(this.dataset._links.owner.href).subscribe(
                 owner => {

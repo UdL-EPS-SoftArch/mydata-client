@@ -39,6 +39,11 @@
         <h4>Closed License Price</h4>
         <p>{{closedLicense.price}}</p>
     </div>
+    <div> *ngIf="tags" class="col-md-2">
+      <div *ngRepeat="tag in tags">
+        <h4>{{tag.name}}</h4>
+      </div>
+    </div>
     <div class="col-md-2" *ngIf="isOwner">
         <a class="btn btn-primary" role="button" routerLink="{{dataset.uri}}/edit">Edit</a>
         <a class="btn btn-danger" role="button" (click)="onDelete(dataset)">Delete</a>
