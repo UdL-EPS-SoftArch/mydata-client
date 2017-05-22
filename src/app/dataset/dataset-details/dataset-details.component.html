@@ -40,7 +40,7 @@
         <p>{{closedLicense.price}}</p>
     </div>
     <div> *ngIf="tags" class="col-md-2">
-      <div *ngRepeat="tag in tags">
+      <div *ngFor="let tag of tags">
         <h4>{{tag.name}}</h4>
       </div>
     </div>

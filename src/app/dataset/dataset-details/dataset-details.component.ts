@@ -23,7 +23,7 @@ export class DatasetDetailsComponent implements OnInit {
   public schema: Schema = new Schema();
   public openLicense: OpenLicense = new OpenLicense();
   public closedLicense: ClosedLicense = new ClosedLicense();
-  public tags: Observable<Tag[]> = new Observable();
+  public tags: Tag[] = [];
 
   public errorMessage: string;
   public isOwner: boolean;
@@ -66,7 +66,11 @@ export class DatasetDetailsComponent implements OnInit {
               }
             );
 
-            this.tags = this.datasetService.getTagsOfDataset(uri);
+            this.datasetService.getTagsOfDataset(uri).subscribe(
+              tags => {
+                this.tags = tags;
+              }
+            );
 
             if (this.dataset._links != null) {
               this.ownerService.getOwner(this.dataset._links.owner.href).subscribe(
