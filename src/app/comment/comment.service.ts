@@ -19,6 +19,13 @@ export class CommentService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
+  // GET /comments ordered by date
+  getAllCommentsOrderedByDate(): Observable<Comment[]> {
+    return this.http.get(`${environment.API}/comments?sort=dateTime`)
+      .map((res: Response) => res.json()._embedded.Comments.map(json => new Comment(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
   // GET /comments/id
   getComment(uri: string): Observable<Comment> {
     return this.http.get(`${environment.API}${uri}`)

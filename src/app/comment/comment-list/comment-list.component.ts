@@ -18,7 +18,7 @@ export class CommentListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.commentService.getAllComments().subscribe(
+    this.commentService.getAllCommentsOrderedByDate().subscribe(
       comments => { this.comments = comments; },
       error => this.errorMessage = <any>error.message
     );
