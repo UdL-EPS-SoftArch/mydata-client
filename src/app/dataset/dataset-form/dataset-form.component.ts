@@ -11,6 +11,9 @@ import { OpenLicense } from '../../license/open-license/open-license';
 import { OpenLicenseService } from '../../license/open-license/open-license.service';
 import { ClosedLicense } from '../../license/closed-license/closed-license';
 import { ClosedLicenseService } from '../../license/closed-license/closed-license.service';
+import { TagService } from '../../tag/tag.service';
+import { Tag } from '../../tag/tag';
+
 
 @Component({
   selector: 'app-dataset-form',
@@ -25,6 +28,7 @@ export class DatasetFormComponent implements OnInit {
   public schemas: Schema[] = [];
   public openLicenses: OpenLicense[] = [];
   public closedLicenses: ClosedLicense[] = [];
+  public tags: Tag[] = [];
   public fileAttached = false;
   public separator: string;
   public filename: string;
@@ -36,14 +40,16 @@ export class DatasetFormComponent implements OnInit {
               private dataFileService: DataFileService,
               private schemaService: SchemaService,
               private openLicenseService: OpenLicenseService,
-              private closedLicenseService: ClosedLicenseService) {
+              private closedLicenseService: ClosedLicenseService,
+              private tagService: TagService) {
     this.datasetForm = fb.group({
       'title': ['Dataset title', Validators.required],
       'description': ['Dataset description'],
       'schema': ['Dataset schema'],
       'openlicense': ['Dataset license'],
       'closedlicense': ['Dataset license'],
-      'separator': ['DataFile separator']
+      'separator': ['DataFile separator'],
+      'taggedWith': ['Dataset tags']
     });
     this.titleCtrl = this.datasetForm.controls['title'];
     this.dataset = new Dataset();
@@ -62,6 +68,13 @@ export class DatasetFormComponent implements OnInit {
       closedLicenses => { this.closedLicenses = closedLicenses; },
       error => this.errorMessage = <any>error.message
     );
+    this.tagService.getAllTags().subscribe(
+      tags => {
+        this.tags = tags;
+      },
+      error => this.errorMessage = <any>error.message
+    );
+
   }
 
   addDataFile(event): void {

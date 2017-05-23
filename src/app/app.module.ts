@@ -64,6 +64,7 @@ import { CommentListComponent } from './comment/comment-list/comment-list.compon
 import { CommentSearchComponent } from './comment/comment-search/comment-search.component';
 import { CommentService } from './comment/comment.service';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -120,7 +121,7 @@ import { CommentService } from './comment/comment.service';
     ReactiveFormsModule,
     HttpModule,
     RouterModule.forRoot(routes),
-    LoginBasicModule
+    LoginBasicModule,
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService,
               OpenLicenseService, ClosedLicenseService, TagService, OwnerService, DataFileService, UserService,
