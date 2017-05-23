@@ -9,41 +9,32 @@
 </div>
 
 <div class="row">
-  <div class="col-md-5">
+  <div class="col-sm-5">
     <h4>DataSet Title</h4>
     <p>{{dataset.title}}</p>
   </div>
-  <div class="col-md-5">
-    <h4>DataSet Description</h4>
-    <p>{{dataset.description}}</p>
+  <div class="col-sm-5">
+    <h4>Schema Title</h4>
+    <p>{{schema.title}}</p>
   </div>
-  <div class="col-md-2">
+  <div class="col-sm-2">
     <h4>Owner</h4>
     <a [routerLink]="['/users/'+ownerName]">{{ownerName}}</a>
   </div>
 </div>
-<div class="row">
-  <div class="col-md-4">
-    <h4>Schema Title</h4>
-    <p>{{schema.title}}</p>
-  </div>
-  <div class="col-md-4">
-    <h4>Schema Description</h4>
-    <p>{{schema.description}}</p>
-  </div>
-</div>
-<div class="row">
 
-  <div *ngIf="openLicense" class="col-md-4">
+<div class="row">
+  <div class="col-sm-6">
+    <h4>DataSet Description</h4>
+    <p>{{dataset.description}}</p>
+  </div>
+  <div *ngIf="openLicense.text" class="col-sm-6">
     <h4>Open License</h4>
     <p>{{openLicense.text}}</p>
   </div>
-  <div *ngIf="closedLicense" class="col-md-2">
+  <div *ngIf="closedLicense.text" class="col-sm-6">
     <h4>Closed License</h4>
     <p>{{closedLicense.text}}</p>
   </div>
-  <div *ngIf="closedLicense" class="col-md-2">
-    <h4>Closed License Price</h4>
-    <p>{{closedLicense.price}}</p>
-  </div>
 </div>
+
