@@ -42,7 +42,7 @@
     <div *ngIf="tags" class="col-md-2">
       <h4>TAGS</h4>
       <div *ngFor="let tag of tags">
-        <p>{{tag.id}}</p>
+          <a href="{{tag.uri}}" class="tagButton">{{tag.id}}</a>
       </div>
     </div>
     <div class="col-md-2" *ngIf="isOwner">
