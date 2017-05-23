@@ -26,6 +26,11 @@ export class DatasetsListComponent implements OnInit {
       datasets => {
         this.datasets = datasets;
         datasets.forEach(dataset => {
+          this.datasetService.getTagsOfDataset(dataset.uri).subscribe(
+            tags => {
+              dataset.tags = tags;
+            }
+          );
           this.ownerService.getOwner(dataset._links.owner.href).subscribe(
             owner => {
               this.datasetOwners[dataset.uri] = owner.getUserName();
