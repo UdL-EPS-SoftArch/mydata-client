@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-4">
     <h4 *ngIf="datafiles.length == 0 && datasets.length == 0">There are no datasets registered</h4>
-    <h4 *ngIf=" datafiles.length > 0 || datasets.length > 0">There are {{datasets.length + datafiles.length}} datasets registered</h4>
+    <h4 *ngIf=" datafiles.length > 0 || datasets.length >0">There are {{datafiles.length + datasets.length}} datasets registered</h4>
   </div>
   <div class="col-md-8">
     <h4>
@@ -15,6 +15,7 @@
   <h3 class="col-md-12">Datasets</h3>
   <div class="col-md-12">
     <app-dataset-search (onSearchited)="onSearch($event)" [datasets]="datasets"></app-dataset-search>
+    <app-datafile-search (onSearchited)="onSearch_datafiles($event)" [datafiles]="datafiles"></app-datafile-search>
   </div>
 </div>
 

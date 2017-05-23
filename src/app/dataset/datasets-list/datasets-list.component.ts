@@ -15,6 +15,7 @@ export class DatasetsListComponent implements OnInit {
   public datafiles: DataFile [] = [];
   public datasetOwners: {} = {};
   public errorMessage: string;
+  public data: Dataset[] = [];
 
   constructor(private datasetService: DatasetService,
               private ownerService: OwnerService,
@@ -23,6 +24,9 @@ export class DatasetsListComponent implements OnInit {
 
   onSearch(datasets) {
     this.datasets = datasets;
+  }
+  onSearch_datafiles(datafiles) {
+    this.datafiles = datafiles;
   }
 
   ngOnInit() {
@@ -38,9 +42,14 @@ export class DatasetsListComponent implements OnInit {
       },
       error => this.errorMessage = <any>error.message
     );
+
     this.datafileService.getAllDataFilesOrderedByTitle().subscribe(
       datafiles => { this.datafiles = datafiles; },
       error => this.errorMessage = <any>error.message
     );
+
+
   }
 }
+
+

@@ -16,6 +16,7 @@ import {MockDataFileService} from '../../../test/mocks/datafile.service';
 import {DataFileService} from '../datafile/datafile.service';
 import {DataFile} from '../datafile/datafile';
 
+
 describe('DatasetsListComponent', () => {
   let component: DatasetsListComponent;
   let fixture: ComponentFixture<DatasetsListComponent>;
@@ -40,7 +41,7 @@ describe('DatasetsListComponent', () => {
   const datafile1 = new DataFile({
     'uri': '/dataFiles/1',
     'title': 'DataFile 1',
-    'description': 'First datafile',
+    'description': 'First DataFile',
     '_links': {
       'owner': {'href': 'http://localhost/dataFiles/1/owner'}
     }
@@ -48,7 +49,7 @@ describe('DatasetsListComponent', () => {
   const datafile2 = new DataFile({
     'uri': '/dataFiles/2',
     'title': 'DataFile 2',
-    'description': 'Second datafile',
+    'description': 'Second DataFile',
     '_links': {
       'owner': {'href': 'http://localhost/dataFiles/2/owner'}
     }
@@ -91,8 +92,8 @@ describe('DatasetsListComponent', () => {
         expect(compiled.querySelectorAll('.panel-heading')[0].innerHTML).toContain('Dataset 1');
         expect(compiled.querySelectorAll('.panel-heading')[1].innerHTML).toContain('Dataset 2');
       });
-
-
     })
   ));
 });
+
+
