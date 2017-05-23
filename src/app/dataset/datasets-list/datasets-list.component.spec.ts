@@ -14,6 +14,7 @@ import {MockOwnerService} from '../../../test/mocks/owner.service';
 import {Owner} from '../../user/owner';
 import {MockDataFileService} from '../../../test/mocks/datafile.service';
 import {DataFileService} from '../datafile/datafile.service';
+import {DataFile} from '../datafile/datafile';
 
 describe('DatasetsListComponent', () => {
   let component: DatasetsListComponent;
@@ -36,6 +37,23 @@ describe('DatasetsListComponent', () => {
     }
   });
 
+  const datafile1 = new DataFile({
+    'uri': '/dataFiles/1',
+    'title': 'DataFile 1',
+    'description': 'First datafile',
+    '_links': {
+      'owner': {'href': 'http://localhost/dataFiles/1/owner'}
+    }
+  });
+  const datafile2 = new DataFile({
+    'uri': '/dataFiles/2',
+    'title': 'DataFile 2',
+    'description': 'Second datafile',
+    '_links': {
+      'owner': {'href': 'http://localhost/dataFiles/2/owner'}
+    }
+  });
+
   const owner = new Owner({
     'uri': 'dataOwners/owner'
   });
@@ -53,9 +71,10 @@ describe('DatasetsListComponent', () => {
   }));
 
   it('should fetch and render all datasets', async(
-    inject([Router, Location, DatasetService, OwnerService], (router, location, service, ownerService) => {
+    inject([Router, Location, DatasetService, OwnerService, DataFileService], (router, location, service, ownerService, datafileService) => {
       TestBed.createComponent(AppComponent);
       service.setResponse([dataset1, dataset2]);
+      datafileService.setResponse([datafile1, datafile2]);
       ownerService.setResponse(owner);
 
       router.navigate(['/datasets']).then(() => {
@@ -72,6 +91,8 @@ describe('DatasetsListComponent', () => {
         expect(compiled.querySelectorAll('.panel-heading')[0].innerHTML).toContain('Dataset 1');
         expect(compiled.querySelectorAll('.panel-heading')[1].innerHTML).toContain('Dataset 2');
       });
+
+
     })
   ));
 });
