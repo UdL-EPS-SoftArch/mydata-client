@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {DatasetService} from '../dataset.service';
 import {Dataset} from '../dataset';
 import {OwnerService} from '../../user/owner.service';
+import {DataFileService} from '../datafile/datafile.service';
+import {DataFile} from '../datafile/datafile';
 
 @Component({
   selector: 'app-datasets-list',
@@ -10,11 +12,13 @@ import {OwnerService} from '../../user/owner.service';
 })
 export class DatasetsListComponent implements OnInit {
   public datasets: Dataset[] = [];
+  public datafiles: DataFile [] = [];
   public datasetOwners: {} = {};
   public errorMessage: string;
 
   constructor(private datasetService: DatasetService,
-              private ownerService: OwnerService) {
+              private ownerService: OwnerService,
+              private datafileService: DataFileService) {
   }
 
   onSearch(datasets) {
@@ -32,6 +36,10 @@ export class DatasetsListComponent implements OnInit {
             });
         });
       },
+      error => this.errorMessage = <any>error.message
+    );
+    this.datafileService.getAllDataFilesOrderedByTitle().subscribe(
+      datafiles => { this.datafiles = datafiles; },
       error => this.errorMessage = <any>error.message
     );
   }

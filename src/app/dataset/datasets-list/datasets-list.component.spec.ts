@@ -12,6 +12,8 @@ import {Dataset} from '../dataset';
 import {OwnerService} from '../../user/owner.service';
 import {MockOwnerService} from '../../../test/mocks/owner.service';
 import {Owner} from '../../user/owner';
+import {MockDataFileService} from '../../../test/mocks/datafile.service';
+import {DataFileService} from '../datafile/datafile.service';
 
 describe('DatasetsListComponent', () => {
   let component: DatasetsListComponent;
@@ -42,7 +44,7 @@ describe('DatasetsListComponent', () => {
     TestBed.configureTestingModule({
       declarations: [AppComponent, DatasetsListComponent],
       providers: [{provide: DatasetService, useClass: MockDatasetService},
-        {provide: OwnerService, useClass: MockOwnerService}],
+        {provide: DataFileService, useClass: MockDataFileService}, {provide: OwnerService, useClass: MockOwnerService}],
       imports: [RouterTestingModule.withRoutes([
         {path: 'datasets', component: DatasetsListComponent}
       ])],
