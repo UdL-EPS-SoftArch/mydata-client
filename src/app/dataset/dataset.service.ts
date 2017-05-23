@@ -63,7 +63,7 @@ export class DatasetService {
   //GET /taggedWith
   getTagsOfDataset(uri: string): Observable<Tag[]> {
     return this.http.get(`${environment.API}${uri}/taggedWith`)
-      .map((res: Response) => new Dataset(res.json()))
+      .map((res: Response) => res.json()._embedded.tags.map(json => new Tag(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
 

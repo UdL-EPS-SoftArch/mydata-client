@@ -40,8 +40,9 @@
         <p>{{closedLicense.price}}</p>
     </div>
     <div *ngIf="tags" class="col-md-2">
+      <h4>TAGS</h4>
       <div *ngFor="let tag of tags">
-        <h4>{{tag.name}}</h4>
+        <p>{{tag.id}}</p>
       </div>
     </div>
     <div class="col-md-2" *ngIf="isOwner">
