@@ -25,7 +25,7 @@ export class DatasetFormComponent implements OnInit {
   public schemas: Schema[] = [];
   public openLicenses: OpenLicense[] = [];
   public closedLicenses: ClosedLicense[] = [];
-  public fileAttached = false;
+  public fileAttached: boolean = false;
   public separator: string;
   public filename: string;
   public content: string;

@@ -1,31 +1,31 @@
-import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { MockDatasetService } from '../../../test/mocks/dataset.service';
-
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { Location } from '@angular/common';
-import { Router} from '@angular/router';
-import { AppComponent } from '../../app.component';
-import { DatasetFormComponent } from './dataset-form.component';
-import { DatasetDetailsComponent } from '../dataset-details/dataset-details.component';
-import { Dataset } from '../dataset';
-import { DatasetService } from '../dataset.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
-import { MockAuthenticationBasicService } from '../../../test/mocks/authentication-basic.service';
-import { User } from '../../login-basic/user';
-import { Owner } from '../../user/owner';
-import { SchemaService } from '../../schema/schema.service';
-import { MockSchemaService } from '../../../test/mocks/schema.service';
-import { Schema } from '../../schema/schema';
-import { OpenLicenseService } from '../../license/open-license/open-license.service';
-import { ClosedLicenseService } from '../../license/closed-license/closed-license.service';
-import { MockOpenLicenseService } from '../../../test/mocks/open-license.service';
-import { MockClosedLicenseService } from '../../../test/mocks/closed-license.service';
-import { DataFileService} from '../datafile/datafile.service';
-import { MockDataFileService} from '../../../test/mocks/datafile.service';
-import {MockOwnerService} from '../../../test/mocks/owner.service';
-import {OwnerService} from '../../user/owner.service';
+import {async, ComponentFixture, TestBed, inject} from "@angular/core/testing";
+import {RouterTestingModule} from "@angular/router/testing";
+import {MockDatasetService} from "../../../test/mocks/dataset.service";
+import {NO_ERRORS_SCHEMA} from "@angular/core";
+import {Location} from "@angular/common";
+import {Router} from "@angular/router";
+import {AppComponent} from "../../app.component";
+import {DatasetFormComponent} from "./dataset-form.component";
+import {DatasetDetailsComponent} from "../dataset-details/dataset-details.component";
+import {Dataset} from "../dataset";
+import {DatasetService} from "../dataset.service";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {AuthenticationBasicService} from "../../login-basic/authentication-basic.service";
+import {MockAuthenticationBasicService} from "../../../test/mocks/authentication-basic.service";
+import {User} from "../../login-basic/user";
+import {Owner} from "../../user/owner";
+import {SchemaService} from "../../schema/schema.service";
+import {MockSchemaService} from "../../../test/mocks/schema.service";
+import {Schema} from "../../schema/schema";
+import {OpenLicenseService} from "../../license/open-license/open-license.service";
+import {ClosedLicenseService} from "../../license/closed-license/closed-license.service";
+import {MockOpenLicenseService} from "../../../test/mocks/open-license.service";
+import {MockClosedLicenseService} from "../../../test/mocks/closed-license.service";
+import {DataFileService} from "../datafile/datafile.service";
+import {MockDataFileService} from "../../../test/mocks/datafile.service";
+import {MockOwnerService} from "../../../test/mocks/owner.service";
+import {OwnerService} from "../../user/owner.service";
+import {OpenLicense} from "../../license/open-license/open-license";
 
 describe('DatasetFormComponent', () => {
   let component: DatasetFormComponent;
@@ -55,32 +55,53 @@ describe('DatasetFormComponent', () => {
     }
   });
 
+  const response_license = new OpenLicense({
+    'uri': '/openLicenses/1',
+    'text': ' Open License 1',
+    'description': 'First schema',
+    '_links': {
+      'self': {
+        'href': 'http://localhost:8080/openLicenses/1'
+      },
+      'openLicense': {
+        'href': 'http://localhost:8080/openLicenses/1'
+      },
+      'datasets': {
+        'href': 'http://localhost:8080/openLicenses/1/datasets'
+      },
+      'owner': {
+        'href': 'http://localhost:8080/openLicenses/1/owner'
+      }
+    }
+  });
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AppComponent, DatasetFormComponent, DatasetDetailsComponent ],
+      declarations: [AppComponent, DatasetFormComponent, DatasetDetailsComponent],
       providers: [
-        { provide: DatasetService, useClass: MockDatasetService },
-        { provide: DataFileService, useClass:  MockDataFileService},
-        { provide: SchemaService, useClass: MockSchemaService },
-        { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService },
-        { provide: OwnerService, useClass: MockOwnerService },
-        { provide: OpenLicenseService, useClass: MockOpenLicenseService },
-        { provide: ClosedLicenseService, useClass: MockClosedLicenseService }],
-      imports: [ RouterTestingModule.withRoutes([
-        { path: 'datasets/new', component: DatasetFormComponent },
-        { path: 'datasets/:id', component: DatasetDetailsComponent }]),
+        {provide: DatasetService, useClass: MockDatasetService},
+        {provide: DataFileService, useClass: MockDataFileService},
+        {provide: SchemaService, useClass: MockSchemaService},
+        {provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService},
+        {provide: OwnerService, useClass: MockOwnerService},
+        {provide: OpenLicenseService, useClass: MockOpenLicenseService},
+        {provide: ClosedLicenseService, useClass: MockClosedLicenseService}],
+      imports: [RouterTestingModule.withRoutes([
+        {path: 'datasets/new', component: DatasetFormComponent},
+        {path: 'datasets/:id', component: DatasetDetailsComponent}]),
         FormsModule, ReactiveFormsModule
       ],
-      schemas: [ NO_ERRORS_SCHEMA ]
+      schemas: [NO_ERRORS_SCHEMA]
     });
   }));
 
   it('should submit new dataset', async(
-    inject([Router, Location, DatasetService, OwnerService, AuthenticationBasicService, SchemaService],
-           (router, location, datasetService, userService, authentication, schemaService) => {
+    inject([Router, Location, DatasetService, OwnerService, AuthenticationBasicService, SchemaService, OpenLicenseService],
+      (router, location, datasetService, userService, authentication, schemaService, openLicenseService) => {
         TestBed.createComponent(AppComponent);
         datasetService.setResponse(response);
         schemaService.setResponse([response_schema]);
+        openLicenseService.setResponse([response_license]);
         userService.setResponse(owner);
         authentication.isLoggedIn.and.returnValue(true);
         authentication.getCurrentUser.and.returnValue(user);
@@ -97,19 +118,27 @@ describe('DatasetFormComponent', () => {
           const compiled = fixture.debugElement.nativeElement;
           const inputTitle = compiled.querySelector('#title');
           const inputDescription = compiled.querySelector('#description');
+          const inputSchema = compiled.querySelector('#schema');
+          const inputLicense = compiled.querySelector('#openlicense');
           const form = compiled.querySelector('form');
-          const button = compiled.querySelector('button');
+          const button = compiled.querySelector('#createDataset');
+
 
           inputTitle.value = 'Dataset 1';
           inputTitle.dispatchEvent(new Event('input'));
           inputDescription.value = 'First Dataset';
           inputDescription.dispatchEvent(new Event('input'));
+          inputSchema.value = '0: /schemas/1';
+          inputSchema.dispatchEvent(new Event('change'));
+          inputLicense.value = '0: /openLicenses/1';
+          inputLicense.dispatchEvent(new Event('change'));
           fixture.detectChanges();
           expect(button.disabled).toBeFalsy();
           form.dispatchEvent(new Event('submit'));
 
           expect(component.dataset.title).toBe('Dataset 1');
           expect(component.dataset.description).toBe('First Dataset');
+          expect(component.dataset.schema).toBe('/schemas/1');
           expect(datasetService.addDataset).toHaveBeenCalledTimes(1);
           expect(datasetService.addDataset.calls.mostRecent().object.fakeResponse.title).toBe('Dataset 1');
           expect(datasetService.addDataset.calls.mostRecent().object.fakeResponse.description).toBe('First dataset');
