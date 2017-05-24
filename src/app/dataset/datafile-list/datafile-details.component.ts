@@ -63,9 +63,9 @@ export class DatafileDetailsComponent implements OnInit {
     );
   }
 
-  /*onDownload(dataFile: DataFile) {
+  onDownload(dataFile: DataFile) {
     const fileSaver = require('file-saver');
     const blob = new Blob([dataFile.content], {type: 'text/plain;charset=utf-8'});
     fileSaver.saveAs(blob, dataFile.filename);
-  }*/
+  }
 }
