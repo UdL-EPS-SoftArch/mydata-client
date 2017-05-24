@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { ClosedLicenseService } from '../closed-license.service';
 import { ClosedLicense } from '../closed-license';
 import { OwnerService } from '../../../user/owner.service';
@@ -14,8 +13,7 @@ export class ClosedLicenseListComponent implements OnInit {
   public errorMessage: string;
   public licenseOwners: {} = {};
 
-  constructor(private router: Router,
-              private closedLicenseService: ClosedLicenseService,
+  constructor(private closedLicenseService: ClosedLicenseService,
               private ownerService: OwnerService) { }
 
   onSearch(closedLicenses) {
@@ -33,13 +31,6 @@ export class ClosedLicenseListComponent implements OnInit {
         });
       },
       error => this.errorMessage = <any>error.message
-    );
-  }
-
-  onDelete(closedLicense) {
-    this.closedLicenseService.deleteClosedLicense(closedLicense).subscribe(
-      response => { this.router.navigate(['/closedLicenses']); },
-      error => this.errorMessage = <any>error.message,
     );
   }
 }
