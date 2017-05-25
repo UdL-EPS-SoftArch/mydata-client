@@ -4,6 +4,7 @@ export class Field {
   description: string;
   dateTime: string;
   lastModified: string;
+  partOf: string;
 
   _links: any = {};
 
