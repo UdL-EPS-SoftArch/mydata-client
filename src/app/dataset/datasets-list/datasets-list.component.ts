@@ -14,8 +14,8 @@ export class DatasetsListComponent implements OnInit {
   public errorMessage: string;
   public currentPage = 1;
   public maxSize = 5;
-  public bigTotalItems = 30;
-  public itemsPerPage = 20;
+  public bigTotalItems: number;
+  public itemsPerPage: number;
 
   constructor(private datasetService: DatasetService,
               private ownerService: OwnerService) {
@@ -26,10 +26,16 @@ export class DatasetsListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.datasetService.getAllDatasetsOrderedByTitlePaginated(0).subscribe(
-      datasets => {
-        this.datasets = datasets;
-        datasets.forEach(dataset => {
+    this.getDatasets(0);
+  }
+
+  public getDatasets(page: number) {
+    this.datasetService.getAllDatasetsOrderedByTitlePaginated(page).subscribe(
+      pageWrapper => {
+        this.datasets = pageWrapper.elements;
+        this.bigTotalItems = pageWrapper.pageInfo.totalElements;
+        this.itemsPerPage = pageWrapper.pageInfo.size;
+        this.datasets.forEach(dataset => {
           this.ownerService.getOwner(dataset._links.owner.href).subscribe(
             owner => {
               this.datasetOwners[dataset.uri] = owner.getUserName();
@@ -45,6 +51,7 @@ export class DatasetsListComponent implements OnInit {
   }
 
   public pageChanged(event: any): void {
+    this.getDatasets(event.page - 1);
     console.log('Page changed to: ' + event.page);
     console.log('Number items per page: ' + event.itemsPerPage);
   }

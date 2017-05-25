@@ -7,6 +7,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import {Dataset} from './dataset';
 import {environment} from '../../environments/environment';
+import {PageWrapper} from '../pageWrapper';
 
 @Injectable()
 export class DatasetService {
@@ -37,9 +38,15 @@ export class DatasetService {
   }
 
   // GET /datasets/OrderByTitle
-  getAllDatasetsOrderedByTitlePaginated(pageNumber: number): Observable<Dataset[]> {
-    return this.http.get(`${environment.API}/datasets?sort=title&page=${(pageNumber - 1)}`)
-      .map((res: Response) => res.json()._embedded.datasets.map(json => new Dataset(json)))
+  getAllDatasetsOrderedByTitlePaginated(pageNumber: number): Observable<PageWrapper> {
+    return this.http.get(`${environment.API}/datasets?sort=title&page=${(pageNumber)}`)
+      .map((res: Response) => {
+        const pw = new PageWrapper();
+        const data = res.json();
+        pw.elements = data._embedded.datasets.map(json => new Dataset(json));
+        pw.pageInfo = data.page;
+        return pw;
+      })
       .catch((error: any) => Observable.throw(error.json()));
   }
 
