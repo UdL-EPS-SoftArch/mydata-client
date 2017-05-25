@@ -1,7 +1,9 @@
+import {Dataset} from "../dataset/dataset";
 export class Tag {
   uri: string;
   id: string;
   name: string;
+  datasets: Dataset[];
   _links: any = {};
 
   constructor(values: Object = {}) {

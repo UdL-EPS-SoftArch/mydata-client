@@ -6,6 +6,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { environment } from '../../environments/environment';
 import { Tag } from './tag';
+import {Dataset} from "../dataset/dataset";
 
 @Injectable()
 export class TagService {
@@ -39,6 +40,13 @@ export class TagService {
   getTagByNameWords(keyword: string): Observable<Tag[]> {
     return this.http.get(environment.API + '/tags/search/findByNameContaining?name=' + keyword)
       .map((res: Response) => res.json()._embedded.tags.map(json => new Tag(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // GET /datasets/search/findByTaggedWith_Name
+  getDatasetsByTag(keyword: string): Observable<Dataset[]> {
+    return this.http.get(environment.API + '/datasets/search/findByTaggedWith_Name?tag=' + keyword)
+      .map((res: Response) => res.json()._embedded.datasets.map(json => new Dataset(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
 
