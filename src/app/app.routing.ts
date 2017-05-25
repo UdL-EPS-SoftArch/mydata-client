@@ -35,6 +35,7 @@ import { CommentListComponent } from './comment/comment-list/comment-list.compon
 import { CommentFormComponent } from './comment/comment-form/comment-form.component';
 import { CommentDetailsComponent } from './comment/comment-details/comment-details.component';
 import { CommentEditComponent } from './comment/comment-edit/comment-edit.component';
+import { LicenseListComponent } from './license/license-list/license-list.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'about', pathMatch: 'full' },
@@ -65,6 +66,7 @@ export const routes: Routes = [
   { path: 'closedLicenses/:id', component: ClosedLicenseDetailsComponent },
   { path: 'closedLicenses/:id/edit', component: ClosedLicenseEditComponent, canActivate: [LoggedInGuard] },
   { path: 'closedLicenses/:id/datasets', component: ClosedLicenseDatasetListComponent },
+  { path: 'licenses', component: LicenseListComponent },
   { path: 'tags', component: TagsListComponent },
   { path: 'tags/new', component: TagFormComponent },
   { path: 'tags/:id', component: TagDetailsComponent },

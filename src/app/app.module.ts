@@ -63,6 +63,7 @@ import { CommentFormComponent } from './comment/comment-form/comment-form.compon
 import { CommentListComponent } from './comment/comment-list/comment-list.component';
 import { CommentSearchComponent } from './comment/comment-search/comment-search.component';
 import { CommentService } from './comment/comment.service';
+import { LicenseListComponent } from './license/license-list/license-list.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +113,8 @@ import { CommentService } from './comment/comment.service';
     SchemaEditComponent,
     ClosedLicenseDatasetListComponent,
     OpenLicenseDatasetListComponent,
-    DataFileEditComponent
+    DataFileEditComponent,
+    LicenseListComponent
   ],
   imports: [
     BrowserModule,
