@@ -28,7 +28,7 @@ export class DatasetEditComponent implements OnInit {
     this.datasetForm = fb.group({
       'title': ['Dataset title', Validators.required],
       'description': ['Dataset description'],
-      'schema': ['Dataset schema'],
+      'schema': ['Dataset schema']
     });
     this.titleCtrl = this.datasetForm.controls['title'];
   }
@@ -59,7 +59,4 @@ export class DatasetEditComponent implements OnInit {
         });
   }
 
-  onChangeSchema(event): void {
-    console.log(this.dataset.schema);
-  }
 }
