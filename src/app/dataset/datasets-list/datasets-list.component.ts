@@ -12,9 +12,10 @@ export class DatasetsListComponent implements OnInit {
   public datasets: Dataset[] = [];
   public datasetOwners: {} = {};
   public errorMessage: string;
-  public totalItems = 64;
-  public currentPage = 0;
-  public smallnumPages = 0;
+  public currentPage = 1;
+  public maxSize = 5;
+  public bigTotalItems = 30;
+  public itemsPerPage = 20;
 
   constructor(private datasetService: DatasetService,
               private ownerService: OwnerService) {
