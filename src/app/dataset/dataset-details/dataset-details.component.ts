@@ -10,8 +10,7 @@ import { OpenLicenseService } from '../../license/open-license/open-license.serv
 import { OpenLicense } from '../../license/open-license/open-license';
 import { ClosedLicenseService } from '../../license/closed-license/closed-license.service';
 import { ClosedLicense } from '../../license/closed-license/closed-license';
-import {Tag} from "../../tag/tag";
-import {Observable} from "rxjs/Observable";
+import {Tag} from '../../tag/tag';
 
 @Component({
   selector: 'app-dataset-details',

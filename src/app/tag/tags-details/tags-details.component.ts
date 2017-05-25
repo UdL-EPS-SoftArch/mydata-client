@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TagService } from '../tag.service';
 import { Tag } from '../tag';
 import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
-import {Dataset} from "../../dataset/dataset";
+import {Dataset} from '../../dataset/dataset';
 
 @Component({
   selector: 'app-tag-details',
@@ -28,7 +28,7 @@ export class TagDetailsComponent implements OnInit {
         const uri = `/tags/${id}`;
         this.tagService.getTag(uri).subscribe(
           tag => {
-            this.tag = tag,
+            this.tag = tag;
               this.tagService.getDatasetsByTag(id).subscribe(
                 datasets => {
                   this.datasets = datasets;

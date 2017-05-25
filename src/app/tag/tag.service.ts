@@ -6,7 +6,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { environment } from '../../environments/environment';
 import { Tag } from './tag';
-import {Dataset} from "../dataset/dataset";
+import {Dataset} from '../dataset/dataset';
 
 @Injectable()
 export class TagService {

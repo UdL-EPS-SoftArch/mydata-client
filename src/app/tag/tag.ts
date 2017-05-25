@@ -1,4 +1,4 @@
-import {Dataset} from "../dataset/dataset";
+import {Dataset} from '../dataset/dataset';
 export class Tag {
   uri: string;
   id: string;

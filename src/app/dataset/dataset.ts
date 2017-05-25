@@ -1,4 +1,4 @@
-import {Tag} from "../tag/tag";
+import {Tag} from '../tag/tag';
 export class Dataset {
   uri: string;
   title: string;
