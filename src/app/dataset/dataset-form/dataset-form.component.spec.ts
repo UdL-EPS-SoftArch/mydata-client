@@ -57,7 +57,7 @@ describe('DatasetFormComponent', () => {
 
   const response_license = new OpenLicense({
     'uri': '/openLicenses/1',
-    'text': ' Open License 1'
+    'text': 'Open License 1'
   });
 
   beforeEach(async(() => {
@@ -124,6 +124,7 @@ describe('DatasetFormComponent', () => {
           expect(component.dataset.title).toBe('Dataset 1');
           expect(component.dataset.description).toBe('First Dataset');
           expect(component.dataset.schema).toBe('/schemas/1');
+          expect(component.dataset.license).toBe('/openLicenses/1');
           expect(datasetService.addDataset).toHaveBeenCalledTimes(1);
           expect(datasetService.addDataset.calls.mostRecent().object.fakeResponse.title).toBe('Dataset 1');
           expect(datasetService.addDataset.calls.mostRecent().object.fakeResponse.description).toBe('First dataset');

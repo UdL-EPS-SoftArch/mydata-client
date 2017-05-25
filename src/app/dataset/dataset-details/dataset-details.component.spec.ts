@@ -85,8 +85,7 @@ describe('DatasetDetailsComponent', () => {
   it('should fetch and render the requested dataset editable when owner', async(
     inject([Router, Location, DatasetService, OwnerService, AuthenticationBasicService, SchemaService,
       OpenLicenseService, ClosedLicenseService],
-      (router, location, datasetService, ownerService, authentication, schemaService,
-       openLicenseService, closedLicenseService) => {
+      (router, location, datasetService, ownerService, authentication, schemaService) => {
         TestBed.createComponent(AppComponent);
         datasetService.setResponse(dataset1);
         schemaService.setResponse(schema1);
