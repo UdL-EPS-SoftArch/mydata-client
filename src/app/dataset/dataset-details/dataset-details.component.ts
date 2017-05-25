@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DatasetService } from '../dataset.service';
-import { Dataset } from '../dataset';
-import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
-import { OwnerService } from '../../user/owner.service';
-import { Schema } from '../../schema/schema';
-import { SchemaService } from '../../schema/schema.service';
-import { OpenLicenseService } from '../../license/open-license/open-license.service';
-import { OpenLicense } from '../../license/open-license/open-license';
-import { ClosedLicenseService } from '../../license/closed-license/closed-license.service';
-import { ClosedLicense } from '../../license/closed-license/closed-license';
+import {Component, OnInit} from "@angular/core";
+import {ActivatedRoute, Router} from "@angular/router";
+import {DatasetService} from "../dataset.service";
+import {Dataset} from "../dataset";
+import {AuthenticationBasicService} from "../../login-basic/authentication-basic.service";
+import {OwnerService} from "../../user/owner.service";
+import {Schema} from "../../schema/schema";
+import {SchemaService} from "../../schema/schema.service";
+import {OpenLicenseService} from "../../license/open-license/open-license.service";
+import {OpenLicense} from "../../license/open-license/open-license";
+import {ClosedLicenseService} from "../../license/closed-license/closed-license.service";
+import {ClosedLicense} from "../../license/closed-license/closed-license";
 
 @Component({
   selector: 'app-dataset-details',
@@ -54,14 +54,12 @@ export class DatasetDetailsComponent implements OnInit {
             this.openLicenseService.getOpenLicense(uri_open_license).subscribe(
               openLicense => {
                 this.openLicense = openLicense;
-              }
-            );
-            const uri_closed_license = `/datasets/${id}/license`;
-            this.closedLicenseService.getClosedLicense(uri_closed_license).subscribe(
+              },
               closedLicense => {
                 this.closedLicense = closedLicense;
               }
             );
+
             if (this.dataset._links != null) {
               this.ownerService.getOwner(this.dataset._links.owner.href).subscribe(
                 owner => {
@@ -77,7 +75,9 @@ export class DatasetDetailsComponent implements OnInit {
 
   onDelete(dataset) {
     this.datasetService.deleteDataset(dataset).subscribe(
-      response => { this.router.navigate(['/datasets']); },
+      response => {
+        this.router.navigate(['/datasets']);
+      },
       error => this.errorMessage = <any>error.message,
     );
   }
