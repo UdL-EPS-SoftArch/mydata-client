@@ -26,6 +26,8 @@ import { DataFileService} from '../datafile/datafile.service';
 import { MockDataFileService} from '../../../test/mocks/datafile.service';
 import {MockOwnerService} from '../../../test/mocks/owner.service';
 import {OwnerService} from '../../user/owner.service';
+import {TagService} from '../../tag/tag.service';
+import {MockTagService} from '../../../test/mocks/tag.service';
 
 describe('DatasetFormComponent', () => {
   let component: DatasetFormComponent;
@@ -65,7 +67,8 @@ describe('DatasetFormComponent', () => {
         { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService },
         { provide: OwnerService, useClass: MockOwnerService },
         { provide: OpenLicenseService, useClass: MockOpenLicenseService },
-        { provide: ClosedLicenseService, useClass: MockClosedLicenseService }],
+        { provide: ClosedLicenseService, useClass: MockClosedLicenseService },
+        { provide: TagService, useClass: MockTagService }],
       imports: [ RouterTestingModule.withRoutes([
         { path: 'datasets/new', component: DatasetFormComponent },
         { path: 'datasets/:id', component: DatasetDetailsComponent }]),
