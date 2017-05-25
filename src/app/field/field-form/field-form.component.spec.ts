@@ -90,9 +90,10 @@ describe('FieldFormComponent', () => {
 
           expect(component.field.title).toBe('Field 1');
           expect(component.field.description).toBe('First Field');
-          expect(service.addField).toHaveBeenCalledTimes(1);
-          expect(service.addField.calls.mostRecent().object.fakeResponse.title).toBe('Field 1');
-          expect(service.addField.calls.mostRecent().object.fakeResponse.description).toBe('First field');
+          expect(service.addField2).toHaveBeenCalledTimes(1);
+          expect(service.addField2.calls.mostRecent().object.fakeResponse.title).toBe('Field 1');
+          expect(service.addField2.calls.mostRecent().object.fakeResponse.description).toBe('First field');
+          expect(service.addField2.calls.mostRecent().object.fakeResponse.description).toBe('First field');
         });
       })
   ));
