@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { OpenLicenseService } from '../open-license/open-license.service';
+import { ClosedLicenseService } from '../closed-license/closed-license.service';
 import { OpenLicense } from '../open-license/open-license';
+import { ClosedLicense } from '../closed-license/closed-license';
 import { OwnerService } from '../../user/owner.service';
 
 /**
@@ -13,10 +15,12 @@ import { OwnerService } from '../../user/owner.service';
 })
 export class LicenseListComponent implements OnInit {
   public openLicenses: OpenLicense[] = [];
+  public closedLicenses: ClosedLicense[] = [];
   public errorMessage: string;
   public licenseOwners: {} = {};
 
   constructor(private openLicenseService: OpenLicenseService,
+              private closedLicenseService: ClosedLicenseService,
               private ownerService: OwnerService) { }
 
   onSearch(openLicense) {
