@@ -12,6 +12,9 @@ export class DatasetsListComponent implements OnInit {
   public datasets: Dataset[] = [];
   public datasetOwners: {} = {};
   public errorMessage: string;
+  public totalItems = 64;
+  public currentPage = 0;
+  public smallnumPages = 0;
 
   constructor(private datasetService: DatasetService,
               private ownerService: OwnerService) {
@@ -22,7 +25,7 @@ export class DatasetsListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.datasetService.getAllDatasetsOrderedByTitle().subscribe(
+    this.datasetService.getAllDatasetsOrderedByTitlePaginated(0).subscribe(
       datasets => {
         this.datasets = datasets;
         datasets.forEach(dataset => {
@@ -34,5 +37,14 @@ export class DatasetsListComponent implements OnInit {
       },
       error => this.errorMessage = <any>error.message
     );
+  }
+
+  public setPage(pageNo: number): void {
+    this.currentPage = pageNo;
+  }
+
+  public pageChanged(event: any): void {
+    console.log('Page changed to: ' + event.page);
+    console.log('Number items per page: ' + event.itemsPerPage);
   }
 }
