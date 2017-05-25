@@ -25,7 +25,7 @@ export class DatasetFormComponent implements OnInit {
   public schemas: Schema[] = [];
   public openLicenses: OpenLicense[] = [];
   public closedLicenses: ClosedLicense[] = [];
-  public fileAttached: boolean = false;
+  public fileAttached: boolean;
   public separator: string;
   public filename: string;
   public content: string;
@@ -47,6 +47,7 @@ export class DatasetFormComponent implements OnInit {
     });
     this.titleCtrl = this.datasetForm.controls['title'];
     this.dataset = new Dataset();
+    this.fileAttached = false;
   }
 
   ngOnInit() {
