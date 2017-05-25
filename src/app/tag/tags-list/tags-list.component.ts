@@ -19,7 +19,16 @@ export class TagsListComponent implements OnInit {
 
   ngOnInit() {
     this.tagService.getAllTags().subscribe(
-      tags => { this.tags = tags; },
+      tags => {
+        this.tags = tags;
+        this.tags.forEach(tag => {
+          this.tagService.getDatasetsByTag(tag.name).subscribe(
+            datasets => {
+              tag.datasets = datasets;
+            }
+          );
+        });
+      },
       error => this.errorMessage = <any>error.message
     );
   }
