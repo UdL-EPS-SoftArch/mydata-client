@@ -24,3 +24,19 @@
     <a class="btn btn-danger" role="button" (click)="onDelete(schema)">Delete</a>
   </div>
 </div>
+
+<div class="row">
+  <h5 align="center">--------------------------------------------</h5>
+</div>
+
+<div class="row">
+
+  <div class="col-md-12">
+    <app-fields-list (onSearchited)="onSearch($event)" [schema]="schema"></app-fields-list>
+  </div>
+
+  <div class="col-md-12">
+    <app-field-form (onSearchited)="onSearch($event)" [schema]="schema"></app-field-form>
+  </div>
+</div>
+
