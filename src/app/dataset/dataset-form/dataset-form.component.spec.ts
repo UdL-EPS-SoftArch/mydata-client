@@ -57,22 +57,7 @@ describe('DatasetFormComponent', () => {
 
   const response_license = new OpenLicense({
     'uri': '/openLicenses/1',
-    'text': ' Open License 1',
-    'description': 'First schema',
-    '_links': {
-      'self': {
-        'href': 'http://localhost:8080/openLicenses/1'
-      },
-      'openLicense': {
-        'href': 'http://localhost:8080/openLicenses/1'
-      },
-      'datasets': {
-        'href': 'http://localhost:8080/openLicenses/1/datasets'
-      },
-      'owner': {
-        'href': 'http://localhost:8080/openLicenses/1/owner'
-      }
-    }
+    'text': ' Open License 1'
   });
 
   beforeEach(async(() => {

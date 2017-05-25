@@ -28,11 +28,11 @@
     <h4>DataSet Description</h4>
     <p>{{dataset.description}}</p>
   </div>
-  <div *ngIf="openLicense.text" class="col-sm-6">
+  <div *ngIf="openLicense != null" class="col-sm-6">
     <h4>Open License</h4>
     <p>{{openLicense.text}}</p>
   </div>
-  <div *ngIf="closedLicense.text" class="col-sm-6">
+  <div *ngIf="closedLicense != null" class="col-sm-6">
     <h4>Closed License</h4>
     <p>{{closedLicense.text}}</p>
   </div>

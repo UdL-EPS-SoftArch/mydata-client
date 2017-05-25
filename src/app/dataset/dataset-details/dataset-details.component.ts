@@ -1,15 +1,15 @@
-import {Component, OnInit} from "@angular/core";
-import {ActivatedRoute, Router} from "@angular/router";
-import {DatasetService} from "../dataset.service";
-import {Dataset} from "../dataset";
-import {AuthenticationBasicService} from "../../login-basic/authentication-basic.service";
-import {OwnerService} from "../../user/owner.service";
-import {Schema} from "../../schema/schema";
-import {SchemaService} from "../../schema/schema.service";
-import {OpenLicenseService} from "../../license/open-license/open-license.service";
-import {OpenLicense} from "../../license/open-license/open-license";
-import {ClosedLicenseService} from "../../license/closed-license/closed-license.service";
-import {ClosedLicense} from "../../license/closed-license/closed-license";
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {DatasetService} from '../dataset.service';
+import {Dataset} from '../dataset';
+import {AuthenticationBasicService} from '../../login-basic/authentication-basic.service';
+import {OwnerService} from '../../user/owner.service';
+import {Schema} from '../../schema/schema';
+import {SchemaService} from '../../schema/schema.service';
+import {OpenLicenseService} from '../../license/open-license/open-license.service';
+import {OpenLicense} from '../../license/open-license/open-license';
+import {ClosedLicenseService} from '../../license/closed-license/closed-license.service';
+import {ClosedLicense} from '../../license/closed-license/closed-license';
 
 @Component({
   selector: 'app-dataset-details',
@@ -19,8 +19,8 @@ import {ClosedLicense} from "../../license/closed-license/closed-license";
 export class DatasetDetailsComponent implements OnInit {
   public dataset: Dataset = new Dataset();
   public schema: Schema = new Schema();
-  public openLicense: OpenLicense = new OpenLicense();
-  public closedLicense: ClosedLicense = new ClosedLicense();
+  public openLicense: OpenLicense;
+  public closedLicense: ClosedLicense;
 
   public errorMessage: string;
   public isOwner: boolean;
@@ -53,9 +53,11 @@ export class DatasetDetailsComponent implements OnInit {
             const uri_open_license = `/datasets/${id}/license`;
             this.openLicenseService.getOpenLicense(uri_open_license).subscribe(
               openLicense => {
+                this.openLicense = new OpenLicense();
                 this.openLicense = openLicense;
               },
               closedLicense => {
+                this.closedLicense = new ClosedLicense();
                 this.closedLicense = closedLicense;
               }
             );
