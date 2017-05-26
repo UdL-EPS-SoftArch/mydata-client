@@ -13,6 +13,8 @@ import { ActivatedRoute } from '@angular/router';
 export class DatasetsSearchComponent {
   @Input()
   datasets: Dataset[];
+  @Input()
+  totalDatasets: number;
   @Output()
   onSearchited: EventEmitter<any> = new EventEmitter();
   private schema: string = null;

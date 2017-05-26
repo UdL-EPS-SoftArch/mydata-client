@@ -38,8 +38,8 @@ export class DatasetService {
   }
 
   // GET /datasets/OrderByTitle
-  getAllDatasetsOrderedByTitlePaginated(pageNumber: number): Observable<PageWrapper> {
-    return this.http.get(`${environment.API}/datasets?sort=title&page=${(pageNumber)}`)
+  getAllDatasetsOrderedByTitlePaginated(pageNumber: number, size: number): Observable<PageWrapper> {
+    return this.http.get(`${environment.API}/datasets?sort=title&page=${pageNumber}&size=${size}`)
       .map((res: Response) => {
         const pw = new PageWrapper();
         const data = res.json();
