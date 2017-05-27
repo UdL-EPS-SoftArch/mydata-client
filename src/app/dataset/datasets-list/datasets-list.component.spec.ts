@@ -12,6 +12,8 @@ import {Dataset} from '../dataset';
 import {OwnerService} from '../../user/owner.service';
 import {MockOwnerService} from '../../../test/mocks/owner.service';
 import {Owner} from '../../user/owner';
+import {Page} from '../../page';
+import {PageWrapper} from '../../pageWrapper';
 
 describe('DatasetsListComponent', () => {
   let component: DatasetsListComponent;
@@ -33,6 +35,16 @@ describe('DatasetsListComponent', () => {
       'owner': {'href': 'http://localhost/datasets/2/owner'}
     }
   });
+  const page = new Page({
+    'size': 20,
+    'totalElements': 2,
+    'totalPages': 1,
+    'number': 0
+  })
+  const pageWrapper = new PageWrapper({
+    'pageInfo': page,
+    'elements': [dataset1, dataset2]
+  })
 
   const owner = new Owner({
     'uri': 'dataOwners/owner'
@@ -53,12 +65,12 @@ describe('DatasetsListComponent', () => {
   it('should fetch and render all datasets', async(
     inject([Router, Location, DatasetService, OwnerService], (router, location, service, ownerService) => {
       TestBed.createComponent(AppComponent);
-      service.setResponse([dataset1, dataset2]);
+      service.setResponse(pageWrapper);
       ownerService.setResponse(owner);
 
       router.navigate(['/datasets']).then(() => {
         expect(location.path()).toBe('/datasets');
-        expect(service.getAllDatasetsOrderedByTitle).toHaveBeenCalled();
+        expect(service.getAllDatasetsOrderedByTitlePaginated).toHaveBeenCalled();
 
         fixture = TestBed.createComponent(DatasetsListComponent);
         fixture.detectChanges();
