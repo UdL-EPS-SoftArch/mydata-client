@@ -38,14 +38,18 @@
     </div>
   </div>
 </div>
-<div class="row" *ngIf="datasets?.length > 0">
-  <pagination class="col-md-6" [totalItems]="bigTotalItems" [(ngModel)]="currentPage" [maxSize]="maxSize" [itemsPerPage]="itemsPerPage"
+<div class="row text-center col-md-12" *ngIf="datasets?.length > 0">
+  <pagination [totalItems]="bigTotalItems" [(ngModel)]="currentPage" [maxSize]="maxSize" [itemsPerPage]="itemsPerPage"
               [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event" (pageChanged)="pageChanged($event)"></pagination>
 
-  <select class="col-md-6" (change)="onChange($event.target.value)">
-    <option value="10">10</option>
-    <option value="20" selected="selected">20</option>
-    <option value="50">50</option>
-    <option value="100">100</option>
-  </select>
+
+</div>
+<div class="row text-center col-md-12" *ngIf="datasets?.length > 0">
+  Datasets per page
+    <select (change)="onChange($event.target.value)" style="margin-left: 10px;">
+      <option value="10">10</option>
+      <option value="20" selected="selected">20</option>
+      <option value="50">50</option>
+      <option value="100">100</option>
+    </select>
 </div>
