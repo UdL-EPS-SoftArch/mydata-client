@@ -1,9 +1,9 @@
-import {Component, OnInit} from "@angular/core";
-import {OpenLicenseService} from "../open-license/open-license.service";
-import {ClosedLicenseService} from "../closed-license/closed-license.service";
-import {OpenLicense} from "../open-license/open-license";
-import {ClosedLicense} from "../closed-license/closed-license";
-import {OwnerService} from "../../user/owner.service";
+import {Component, OnInit} from '@angular/core';
+import {OpenLicenseService} from '../open-license/open-license.service';
+import {ClosedLicenseService} from '../closed-license/closed-license.service';
+import {OpenLicense} from '../open-license/open-license';
+import {ClosedLicense} from '../closed-license/closed-license';
+import {OwnerService} from '../../user/owner.service';
 
 /**
  * Created by ElTrioMaquinero on 5/25/17.
