@@ -3,7 +3,6 @@ import {DatasetService} from '../dataset.service';
 import {Dataset} from '../dataset';
 import {OwnerService} from '../../user/owner.service';
 import {DataFileService} from '../datafile/datafile.service';
-import {DataFile} from '../datafile/datafile';
 
 @Component({
   selector: 'app-datasets-list',
@@ -12,9 +11,7 @@ import {DataFile} from '../datafile/datafile';
 })
 export class DatasetsListComponent implements OnInit {
   public datasets: Dataset[] = [];
-  public datafiles: DataFile [] = [];
   public datasetOwners: {} = {};
-  public datafileOwners: {} = {};
   public errorMessage: string;
 
   constructor(private datasetService: DatasetService,
@@ -25,14 +22,11 @@ export class DatasetsListComponent implements OnInit {
   onSearch(datasets) {
     this.datasets = datasets;
   }
-  onSearch_datafiles(datafiles) {
-    this.datafiles = datafiles;
-  }
 
   ngOnInit() {
     this.datasetService.getAllDatasetsOrderedByTitle().subscribe(
       datasets => {
-        this.datasets = datasets;
+        this.datasets = this.datasets.concat(datasets);
         datasets.forEach(dataset => {
           this.ownerService.getOwner(dataset._links.owner.href).subscribe(
             owner => {
@@ -45,17 +39,16 @@ export class DatasetsListComponent implements OnInit {
 
     this.datafileService.getAllDataFilesOrderedByTitle().subscribe(
       datafiles => {
-        this.datafiles = datafiles;
+        this.datasets = this.datasets.concat(datafiles);
         datafiles.forEach(datafile => {
           this.ownerService.getOwner(datafile._links.owner.href).subscribe(
             owner => {
-              this.datafileOwners[datafile.uri] = owner.getUserName();
+              this.datasetOwners[datafile.uri] = owner.getUserName();
             });
         });
       },
       error => this.errorMessage = <any>error.message
     );
-
 
   }
 }
