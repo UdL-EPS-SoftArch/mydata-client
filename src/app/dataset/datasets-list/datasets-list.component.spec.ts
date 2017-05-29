@@ -72,7 +72,8 @@ describe('DatasetsListComponent', () => {
   }));
 
   it('should fetch and render all datasets', async(
-    inject([Router, Location, DatasetService, OwnerService, DataFileService], (router, location, service, ownerService, datafileService) => {
+    inject([Router, Location, DatasetService, OwnerService, DataFileService],
+      (router, location, service, ownerService, datafileService) => {
       TestBed.createComponent(AppComponent);
       service.setResponse([dataset1, dataset2]);
       datafileService.setResponse([datafile1, datafile2]);
