@@ -14,8 +14,8 @@ export class DatasetsListComponent implements OnInit {
   public datasets: Dataset[] = [];
   public datafiles: DataFile [] = [];
   public datasetOwners: {} = {};
+  public datafileOwners: {} = {};
   public errorMessage: string;
-  public data: Dataset[] = [];
 
   constructor(private datasetService: DatasetService,
               private ownerService: OwnerService,
@@ -44,7 +44,15 @@ export class DatasetsListComponent implements OnInit {
     );
 
     this.datafileService.getAllDataFilesOrderedByTitle().subscribe(
-      datafiles => { this.datafiles = datafiles; },
+      datafiles => {
+        this.datafiles = datafiles;
+        datafiles.forEach(datafile => {
+          this.ownerService.getOwner(datafile._links.owner.href).subscribe(
+            owner => {
+              this.datafileOwners[datafile.uri] = owner.getUserName();
+            });
+        });
+      },
       error => this.errorMessage = <any>error.message
     );
 
