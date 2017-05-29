@@ -69,4 +69,15 @@ export class DataFileService {
       .map((res: Response) => new DataFile(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
+
+  // GET /dataFiles/ + search/findByDescriptionContaining?description
+  getDatafileByDescriptionWords(keyword: string, schema: string): Observable<DataFile[]> {
+    const uri = schema != null ?
+      '/dataFiles/search/findByDescriptionContainingAndSchema?description=' + keyword + '&schema=' + schema :
+      '/dataFiles/search/findByDescriptionContaining?description=' + keyword;
+
+    return this.http.get(environment.API + uri)
+      .map((res: Response) => res.json()._embedded.dataFiles.map(json => new DataFile(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
 }
