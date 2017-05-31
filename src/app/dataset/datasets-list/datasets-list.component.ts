@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {DatasetService} from '../dataset.service';
-import {Dataset} from '../dataset';
-import {OwnerService} from '../../user/owner.service';
+import { Component, OnInit } from '@angular/core';
+import { DatasetService } from '../dataset.service';
+import { Dataset } from '../dataset';
+import { OwnerService } from '../../user/owner.service';
+import { TagService } from '../../tag/tag.service';
 
 @Component({
   selector: 'app-datasets-list',
@@ -18,7 +19,8 @@ export class DatasetsListComponent implements OnInit {
   public itemsPerPage = 20;
 
   constructor(private datasetService: DatasetService,
-              private ownerService: OwnerService) {
+              private ownerService: OwnerService,
+              private tagService: TagService) {
   }
 
   onSearch(datasets) {
@@ -26,15 +28,6 @@ export class DatasetsListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.datasetService.getAllDatasetsOrderedByTitle().subscribe(
-      datasets => {
-        this.datasets = datasets;
-        datasets.forEach(dataset => {
-          this.datasetService.getTagsOfDataset(dataset.uri).subscribe(
-            tags => {
-              dataset.tags = tags;
-            }
-          );
     this.getDatasets(0, this.itemsPerPage);
   }
 
@@ -46,9 +39,11 @@ export class DatasetsListComponent implements OnInit {
         this.itemsPerPage = pageWrapper.pageInfo.size;
         this.datasets.forEach(dataset => {
           this.ownerService.getOwner(dataset._links.owner.href).subscribe(
-            owner => {
-              this.datasetOwners[dataset.uri] = owner.getUserName();
-            });
+            owner => this.datasetOwners[dataset.uri] = owner.getUserName()
+          );
+          this.tagService.getTagsOfDataset(dataset.uri).subscribe(
+            tags => dataset.tags = tags
+          );
         });
       },
       error => this.errorMessage = <any>error.message

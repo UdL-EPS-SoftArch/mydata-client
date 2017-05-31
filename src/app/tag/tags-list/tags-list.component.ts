@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TagService } from '../tag.service';
 import { Tag } from '../tag';
+import { DatasetService } from '../../dataset/dataset.service';
 
 @Component({
   selector: 'app-tags-list',
@@ -11,7 +12,8 @@ export class TagsListComponent implements OnInit {
   public tags: Tag[] = [];
   public errorMessage: string;
 
-  constructor(private tagService: TagService) { }
+  constructor(private tagService: TagService,
+              private datasetService: DatasetService) { }
 
   onSearch(tags) {
     this.tags = tags;
@@ -22,7 +24,7 @@ export class TagsListComponent implements OnInit {
       tags => {
         this.tags = tags;
         this.tags.forEach(tag => {
-          this.tagService.getDatasetsByTag(tag.name).subscribe(
+          this.datasetService.getDatasetsByTag(tag.name).subscribe(
             datasets => {
               tag.datasets = datasets;
             }

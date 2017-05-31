@@ -62,6 +62,13 @@ export class DatasetService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
+  // GET /datasets/search/findByTaggedWith_Name
+  getDatasetsByTag(keyword: string): Observable<Dataset[]> {
+    return this.http.get(environment.API + '/datasets/search/findByTaggedWith_Name?tag=' + keyword)
+      .map((res: Response) => res.json()._embedded.datasets.map(json => new Dataset(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
   // POST /datasets
   addDataset(dataset: Dataset): Observable<Dataset> {
     const body = JSON.stringify(dataset);
@@ -71,13 +78,6 @@ export class DatasetService {
 
     return this.http.post(`${environment.API}/datasets`, body, options)
       .map((res: Response) => new Dataset(res.json()))
-      .catch((error: any) => Observable.throw(error.json()));
-  }
-
-  // GET /taggedWith
-  getTagsOfDataset(uri: string): Observable<Tag[]> {
-    return this.http.get(`${environment.API}${uri}/taggedWith`)
-      .map((res: Response) => res.json()._embedded.tags.map(json => new Tag(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
 

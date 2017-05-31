@@ -43,10 +43,10 @@ export class TagService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  // GET /datasets/search/findByTaggedWith_Name
-  getDatasetsByTag(keyword: string): Observable<Dataset[]> {
-    return this.http.get(environment.API + '/datasets/search/findByTaggedWith_Name?tag=' + keyword)
-      .map((res: Response) => res.json()._embedded.datasets.map(json => new Dataset(json)))
+  // GET /taggedWith
+  getTagsOfDataset(uri: string): Observable<Tag[]> {
+    return this.http.get(`${environment.API}${uri}/taggedWith`)
+      .map((res: Response) => res.json()._embedded.tags.map(json => new Tag(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
 
