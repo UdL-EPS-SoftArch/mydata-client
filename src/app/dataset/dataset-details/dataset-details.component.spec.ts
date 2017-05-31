@@ -120,7 +120,7 @@ describe('DatasetDetailsComponent', () => {
 
           const compiled = fixture.debugElement.nativeElement;
           expect(compiled.querySelectorAll('p')[0].innerHTML).toBe('Dataset 1');
-          expect(compiled.querySelectorAll('p')[1].innerHTML).toBe('First dataset');
+          expect(compiled.querySelectorAll('p')[1].innerHTML).toBe('Schema 1');
         });
       })
   ));

@@ -29,6 +29,7 @@ import { OwnerService } from '../../user/owner.service';
 import { TagService } from '../../tag/tag.service';
 import { MockTagService } from '../../../test/mocks/tag.service';
 import { Tag } from '../../tag/tag';
+import { OpenLicense } from '../../license/open-license/open-license';
 
 describe('DatasetFormComponent', () => {
   let component: DatasetFormComponent;
@@ -55,6 +56,10 @@ describe('DatasetFormComponent', () => {
     '_links': {
       'owner': {'href': 'http://localhost/datasets/2/owner'}
     }
+  });
+  const response_license = new OpenLicense({
+    'uri': '/openLicenses/1',
+    'text': 'Open License 1'
   });
   const tag1 = new Tag({
     'uri': '/tags/Tag1',
@@ -88,11 +93,12 @@ describe('DatasetFormComponent', () => {
   }));
 
   it('should submit new dataset', async(
-    inject([Router, Location, DatasetService, OwnerService, AuthenticationBasicService, SchemaService, TagService],
-           (router, location, datasetService, userService, authentication, schemaService, tagService) => {
+    inject([Router, Location, DatasetService, OwnerService, AuthenticationBasicService, SchemaService, TagService, OpenLicenseService],
+           (router, location, datasetService, userService, authentication, schemaService, tagService, openLicenseService) => {
         TestBed.createComponent(AppComponent);
         datasetService.setResponse(response);
         schemaService.setResponse([response_schema]);
+        openLicenseService.setResponse([response_license]);
         userService.setResponse(owner);
         tagService.setResponse([tag1, tag2]);
         authentication.isLoggedIn.and.returnValue(true);
@@ -110,19 +116,28 @@ describe('DatasetFormComponent', () => {
           const compiled = fixture.debugElement.nativeElement;
           const inputTitle = compiled.querySelector('#title');
           const inputDescription = compiled.querySelector('#description');
+          const inputSchema = compiled.querySelector('#schema');
+          const inputLicense = compiled.querySelector('#openlicense');
           const form = compiled.querySelector('form');
-          const button = compiled.querySelector('button');
+          const button = compiled.querySelector('#createDataset');
+
 
           inputTitle.value = 'Dataset 1';
           inputTitle.dispatchEvent(new Event('input'));
           inputDescription.value = 'First Dataset';
           inputDescription.dispatchEvent(new Event('input'));
+          inputSchema.value = '0: /schemas/1';
+          inputSchema.dispatchEvent(new Event('change'));
+          inputLicense.value = '0: /openLicenses/1';
+          inputLicense.dispatchEvent(new Event('change'));
           fixture.detectChanges();
           expect(button.disabled).toBeFalsy();
           form.dispatchEvent(new Event('submit'));
 
           expect(component.dataset.title).toBe('Dataset 1');
           expect(component.dataset.description).toBe('First Dataset');
+          expect(component.dataset.schema).toBe('/schemas/1');
+          expect(component.dataset.license).toBe('/openLicenses/1');
           expect(datasetService.addDataset).toHaveBeenCalledTimes(1);
           expect(datasetService.addDataset.calls.mostRecent().object.fakeResponse.title).toBe('Dataset 1');
           expect(datasetService.addDataset.calls.mostRecent().object.fakeResponse.description).toBe('First dataset');
