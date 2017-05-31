@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { OpenLicenseService } from '../open-license.service';
 import { OpenLicense } from '../open-license';
 import { AuthenticationBasicService } from '../../../login-basic/authentication-basic.service';
@@ -17,6 +17,7 @@ export class OpenLicenseDetailsComponent implements OnInit {
   public isOwner: boolean;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private openLicenseService: OpenLicenseService,
               private authenticationService: AuthenticationBasicService,
               private ownerService: OwnerService) { }
@@ -40,5 +41,12 @@ export class OpenLicenseDetailsComponent implements OnInit {
           error => this.errorMessage = <any>error.message
         );
       });
+  }
+
+  onDelete(openLicense) {
+    this.openLicenseService.deleteOpenLicense(openLicense).subscribe(
+      response => { this.router.navigate(['/openLicenses']); },
+      error => this.errorMessage = <any>error.message,
+    );
   }
 }

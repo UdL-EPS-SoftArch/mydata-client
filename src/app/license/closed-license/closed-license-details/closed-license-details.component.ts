@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ClosedLicenseService } from '../closed-license.service';
 import { ClosedLicense } from '../closed-license';
 import { AuthenticationBasicService } from '../../../login-basic/authentication-basic.service';
@@ -17,6 +17,7 @@ export class ClosedLicenseDetailsComponent implements OnInit {
   public ownerName: string;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private closedLicenseService: ClosedLicenseService,
               private authenticationService: AuthenticationBasicService,
               private ownerService: OwnerService) { }
@@ -40,5 +41,12 @@ export class ClosedLicenseDetailsComponent implements OnInit {
           error => this.errorMessage = <any>error.message
         );
       });
+  }
+
+  onDelete(closedLicense) {
+    this.closedLicenseService.deleteClosedLicense(closedLicense).subscribe(
+      response => { this.router.navigate(['/closedLicenses']); },
+      error => this.errorMessage = <any>error.message,
+    );
   }
 }

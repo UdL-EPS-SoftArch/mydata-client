@@ -64,4 +64,15 @@ export class ClosedLicenseService {
     .map((res: Response) => new ClosedLicense(res.json()))
     .catch((error: any) => Observable.throw(error.json()));
   }
+
+  // DELETE /closedLicense/id
+  deleteClosedLicense(closedLicense: ClosedLicense): Observable<Response> {
+    const headers = new Headers({'Content-Type': 'application/json'});
+    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
+    const options = new RequestOptions({headers: headers});
+
+    return this.http.delete(environment.API + closedLicense.uri, options)
+      .map((res: Response) => res)
+      .catch((error: any) => Observable.throw(error.json()));
+  }
 }
