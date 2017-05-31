@@ -7,6 +7,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import {Dataset} from './dataset';
 import {environment} from '../../environments/environment';
+import {Tag} from '../tag/tag';
 import {PageWrapper} from '../pageWrapper';
 
 @Injectable()
@@ -57,6 +58,13 @@ export class DatasetService {
       '/datasets/search/findByDescriptionContaining?description=' + keyword;
 
     return this.http.get(environment.API + uri)
+      .map((res: Response) => res.json()._embedded.datasets.map(json => new Dataset(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // GET /datasets/search/findByTaggedWith_Name
+  getDatasetsByTag(keyword: string): Observable<Dataset[]> {
+    return this.http.get(environment.API + '/datasets/search/findByTaggedWith_Name?tag=' + keyword)
       .map((res: Response) => res.json()._embedded.datasets.map(json => new Dataset(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }

@@ -22,6 +22,9 @@ import { OpenLicenseService } from '../../license/open-license/open-license.serv
 import { MockOpenLicenseService } from '../../../test/mocks/open-license.service';
 import { ClosedLicenseService } from '../../license/closed-license/closed-license.service';
 import { MockClosedLicenseService } from '../../../test/mocks/closed-license.service';
+import { TagService } from '../../tag/tag.service';
+import { Tag } from '../../tag/tag';
+import { MockTagService } from '../../../test/mocks/tag.service';
 
 describe('DatasetDetailsComponent', () => {
   let fixture: ComponentFixture<DatasetDetailsComponent>;
@@ -46,7 +49,6 @@ describe('DatasetDetailsComponent', () => {
   const owner = new Owner({
     'uri': 'dataOwners/owner'
   });
-
   const schema1 = new Schema({
     'uri': '/schemas/1',
     'title': 'Schema 1',
@@ -63,6 +65,14 @@ describe('DatasetDetailsComponent', () => {
       'owner': {'href': 'http://localhost/schemas/2/owner'}
     }
   });
+  const tag1 = new Tag({
+    'uri': '/tags/Tag1',
+    'name': 'Tag1',
+  });
+  const tag2 = new Tag({
+    'uri': '/tags/Tag2',
+    'name': 'Tag2',
+  });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -74,6 +84,7 @@ describe('DatasetDetailsComponent', () => {
         {provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService},
         {provide: OpenLicenseService, useClass: MockOpenLicenseService},
         {provide: ClosedLicenseService, useClass: MockClosedLicenseService},
+        {provide: TagService, useClass: MockTagService},
       ],
       imports: [RouterTestingModule.withRoutes([
         {path: 'datasets/:id', component: DatasetDetailsComponent}
@@ -84,13 +95,14 @@ describe('DatasetDetailsComponent', () => {
 
   it('should fetch and render the requested dataset editable when owner', async(
     inject([Router, Location, DatasetService, OwnerService, AuthenticationBasicService, SchemaService,
-      OpenLicenseService, ClosedLicenseService],
+      OpenLicenseService, ClosedLicenseService, TagService],
       (router, location, datasetService, ownerService, authentication, schemaService,
-       openLicenseService, closedLicenseService) => {
+       openLicenseService, closedLicenseService, tagService) => {
         TestBed.createComponent(AppComponent);
         datasetService.setResponse(dataset1);
         schemaService.setResponse(schema1);
         ownerService.setResponse(owner);
+        tagService.setResponse([tag1, tag2]);
 
         authentication.isLoggedIn.and.returnValue(true);
         authentication.getCurrentUser.and.returnValue(new User({'username': 'owner'}));

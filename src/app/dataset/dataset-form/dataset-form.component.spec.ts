@@ -22,10 +22,13 @@ import { OpenLicenseService } from '../../license/open-license/open-license.serv
 import { ClosedLicenseService } from '../../license/closed-license/closed-license.service';
 import { MockOpenLicenseService } from '../../../test/mocks/open-license.service';
 import { MockClosedLicenseService } from '../../../test/mocks/closed-license.service';
-import { DataFileService} from '../datafile/datafile.service';
-import { MockDataFileService} from '../../../test/mocks/datafile.service';
-import {MockOwnerService} from '../../../test/mocks/owner.service';
-import {OwnerService} from '../../user/owner.service';
+import { DataFileService } from '../datafile/datafile.service';
+import { MockDataFileService } from '../../../test/mocks/datafile.service';
+import { MockOwnerService } from '../../../test/mocks/owner.service';
+import { OwnerService } from '../../user/owner.service';
+import { TagService } from '../../tag/tag.service';
+import { MockTagService } from '../../../test/mocks/tag.service';
+import { Tag } from '../../tag/tag';
 
 describe('DatasetFormComponent', () => {
   let component: DatasetFormComponent;
@@ -45,7 +48,6 @@ describe('DatasetFormComponent', () => {
   const owner = new Owner({
     'uri': 'dataOwners/owner',
   });
-
   const response_schema = new Schema({
     'uri': '/schemas/1',
     'title': 'Schema 1',
@@ -53,6 +55,14 @@ describe('DatasetFormComponent', () => {
     '_links': {
       'owner': {'href': 'http://localhost/datasets/2/owner'}
     }
+  });
+  const tag1 = new Tag({
+    'uri': '/tags/Tag1',
+    'name': 'Tag1',
+  });
+  const tag2 = new Tag({
+    'uri': '/tags/Tag2',
+    'name': 'Tag2',
   });
 
   beforeEach(async(() => {
@@ -65,7 +75,9 @@ describe('DatasetFormComponent', () => {
         { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService },
         { provide: OwnerService, useClass: MockOwnerService },
         { provide: OpenLicenseService, useClass: MockOpenLicenseService },
-        { provide: ClosedLicenseService, useClass: MockClosedLicenseService }],
+        { provide: ClosedLicenseService, useClass: MockClosedLicenseService },
+        { provide: TagService, useClass: MockTagService },
+      ],
       imports: [ RouterTestingModule.withRoutes([
         { path: 'datasets/new', component: DatasetFormComponent },
         { path: 'datasets/:id', component: DatasetDetailsComponent }]),
@@ -76,12 +88,13 @@ describe('DatasetFormComponent', () => {
   }));
 
   it('should submit new dataset', async(
-    inject([Router, Location, DatasetService, OwnerService, AuthenticationBasicService, SchemaService],
-           (router, location, datasetService, userService, authentication, schemaService) => {
+    inject([Router, Location, DatasetService, OwnerService, AuthenticationBasicService, SchemaService, TagService],
+           (router, location, datasetService, userService, authentication, schemaService, tagService) => {
         TestBed.createComponent(AppComponent);
         datasetService.setResponse(response);
         schemaService.setResponse([response_schema]);
         userService.setResponse(owner);
+        tagService.setResponse([tag1, tag2]);
         authentication.isLoggedIn.and.returnValue(true);
         authentication.getCurrentUser.and.returnValue(user);
 
