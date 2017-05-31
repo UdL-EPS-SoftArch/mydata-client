@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { DataFileService } from '../datafile/datafile.service';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Schema } from '../../schema/schema';
+import { SchemaService } from '../../schema/schema.service';
 
 
 @Component({
@@ -19,19 +21,27 @@ export class DataFileEditComponent implements OnInit {
   public fileAttached = false;
   public filename: string;
   public content: string;
+  public schemas: Schema[] = [];
 
   constructor(private fb: FormBuilder,
               private route: ActivatedRoute,
               private dataFileService: DataFileService,
+              private schemaService: SchemaService,
               private router: Router) {
     this.dataFileForm = fb.group({
       'title': ['DataFile title', Validators.required],
-      'description': ['DataFile description']
+      'description': ['DataFile description'],
+      'schema': ['DataFile schema']
     });
     this.titleCtrl = this.dataFileForm.controls['title'];
   }
 
   ngOnInit() {
+    this.schemaService.getAllSchemas().subscribe(
+      schemas => { this.schemas = schemas; },
+      error => this.errorMessage = <any>error.message
+    );
+
     this.route.params
       .map(params => params['id'])
       .subscribe((id) => {
