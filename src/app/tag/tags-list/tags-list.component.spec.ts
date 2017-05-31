@@ -9,6 +9,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { Dataset } from '../../dataset/dataset';
+import { DatasetService } from '../../dataset/dataset.service';
+import { MockDatasetService } from '../../../test/mocks/dataset.service';
 
 describe('TagsListComponent', () => {
   let component: TagsListComponent;
@@ -22,11 +25,30 @@ describe('TagsListComponent', () => {
     'uri': '/tags/Tag2',
     'name': 'Tag2',
   });
+  const dataset1 = new Dataset({
+    'uri': '/datasets/1',
+    'title': 'Dataset 1',
+    'description': 'First dataset',
+    '_links': {
+      'owner': {'href': 'http://localhost/datasets/1/owner'}
+    }
+  });
+  const dataset2 = new Dataset({
+    'uri': '/datasets/2',
+    'title': 'Dataset 2',
+    'description': 'Second dataset',
+    '_links': {
+      'owner': {'href': 'http://localhost/datasets/2/owner'}
+    }
+  });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ AppComponent, TagsListComponent ],
-      providers: [ { provide: TagService, useClass: MockTagService } ],
+      providers: [
+        { provide: TagService, useClass: MockTagService },
+        { provide: DatasetService, useClass: MockDatasetService },
+      ],
       imports: [ RouterTestingModule.withRoutes([
         { path: 'tags', component: TagsListComponent }
       ])],
@@ -35,9 +57,11 @@ describe('TagsListComponent', () => {
   }));
 
   it('should fetch and render all tags', async(
-    inject([Router, Location, TagService], (router, location, service) => {
+    inject([Router, Location, TagService, DatasetService],
+      (router, location, service, datasetService) => {
       TestBed.createComponent(AppComponent);
       service.setResponse([tag1, tag2]);
+      datasetService.setResponse([dataset1, dataset2]);
 
       router.navigate(['/tags']).then(() => {
         expect(location.path()).toBe('/tags');
