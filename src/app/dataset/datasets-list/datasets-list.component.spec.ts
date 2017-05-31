@@ -40,11 +40,11 @@ describe('DatasetsListComponent', () => {
     'totalElements': 2,
     'totalPages': 1,
     'number': 0
-  })
+  });
   const pageWrapper = new PageWrapper({
     'pageInfo': page,
     'elements': [dataset1, dataset2]
-  })
+  });
 
   const owner = new Owner({
     'uri': 'dataOwners/owner'
