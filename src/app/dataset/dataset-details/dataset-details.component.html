@@ -24,16 +24,22 @@
 </div>
 
 <div class="row">
-  <div class="col-sm-5">
+  <div class="col-sm-6">
     <h4>DataSet Description</h4>
     <p>{{dataset.description}}</p>
   </div>
-  <div *ngIf="openLicense != null" class="col-sm-6">
+  <div *ngIf="openLicense != null" class="col-sm-4">
     <h4>Open License</h4>
     <p>{{openLicense.text}}</p>
   </div>
-  <div *ngIf="closedLicense != null" class="col-sm-6">
+  <div *ngIf="closedLicense != null" class="col-sm-4">
     <h4>Closed License</h4>
     <p>{{closedLicense.text}}</p>
+  </div>
+  <div *ngIf="tags" class="col-md-2">
+    <h4>Tags</h4>
+    <div *ngFor="let tag of tags">
+      <a href="{{tag.uri}}" class="tagButton">{{tag.id}}</a>
+    </div>
   </div>
 </div>
