@@ -20,23 +20,17 @@
       <div *ngIf="checkType(License);then llicenciaOpen else llicenciaClosed"></div>
         <ng-template #llicenciaOpen class="panel-heading">
           <h4>
-            <img src="/assets/unlocked.png"/>
+            &nbsp;<span class="fa fa-unlock-alt fa-1x"></span>
             OpenLicense: <a routerLink="{{License.uri}}">{{License.text}}</a>
           </h4>
         </ng-template>
 
         <ng-template #llicenciaClosed class="panel-heading">
           <h4>
-            <img src="/assets/locked.png"/>
+            &nbsp;<span class="fa fa-lock fa-1x"></span>
             ClosedLicense: <a routerLink="{{License.uri}}">{{License.text}}</a>
             Price: {{License.price}} €</h4>
         </ng-template>
-      <!--<div class="panel-body">-->
-      <!--<div class="col-md-6">-->
-      <!--<h4>Additional details:</h4>-->
-      <!--<h5 *ngIf="licenseOwner">Owner: {{licenseOwner[openLicense.uri]}}</h5>-->
-      <!--</div>-->
-      <!--</div>-->
     </div>
   </div>
 </div>
