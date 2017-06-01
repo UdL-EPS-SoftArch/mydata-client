@@ -64,6 +64,7 @@ import { CommentListComponent } from './comment/comment-list/comment-list.compon
 import { CommentSearchComponent } from './comment/comment-search/comment-search.component';
 import { CommentService } from './comment/comment.service';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { LicenseListComponent } from './license/license-list/license-list.component';
 
 @NgModule({
   declarations: [
@@ -113,7 +114,8 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     SchemaEditComponent,
     ClosedLicenseDatasetListComponent,
     OpenLicenseDatasetListComponent,
-    DataFileEditComponent
+    DataFileEditComponent,
+    LicenseListComponent
   ],
   imports: [
     BrowserModule,
