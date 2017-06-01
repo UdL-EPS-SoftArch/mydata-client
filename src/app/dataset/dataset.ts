@@ -1,3 +1,5 @@
+import {Tag} from '../tag/tag';
+
 export class Dataset {
   uri: string;
   title: string;
@@ -9,6 +11,8 @@ export class Dataset {
   _links: any = {};
   schema: string;
   license: string;
+  taggedWith: string[];
+  tags: Tag[];
 
   constructor(values: Object = {}) {
     (<any>Object).assign(this, values);

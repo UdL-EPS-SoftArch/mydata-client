@@ -13,6 +13,7 @@
     </div>
     <div class="col-md-2" *ngIf="isOwner">
         <a class="btn btn-lg btn-primary" role="button" routerLink="{{closedLicense.uri}}/edit">Edit Closed License</a>
+        <a class="btn btn-danger" role="button" (click)="onDelete(closedLicense)">Delete</a>
     </div>
 </div>
 <div class="row">

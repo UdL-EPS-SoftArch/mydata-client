@@ -65,7 +65,7 @@ export class DataFileService {
     headers.append('Authorization', this.authentication.getCurrentUser().authorization);
     const options = new RequestOptions({headers: headers});
 
-    return this.http.put(`${environment.API}${datafile.uri}`, body, options)
+    return this.http.patch(`${environment.API}${datafile.uri}`, body, options)
       .map((res: Response) => new DataFile(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
