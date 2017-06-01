@@ -17,10 +17,7 @@ import { PageWrapper } from '../../pageWrapper';
 import { Tag } from '../../tag/tag';
 import { TagService } from '../../tag/tag.service';
 import { MockTagService } from '../../../test/mocks/tag.service';
-import { MockDataFileService } from '../../../test/mocks/datafile.service';
-import { DataFileService } from '../datafile/datafile.service';
 import { DataFile } from '../datafile/datafile';
-
 
 describe('DatasetsListComponent', () => {
   let component: DatasetsListComponent;
@@ -42,16 +39,6 @@ describe('DatasetsListComponent', () => {
       'owner': {'href': 'http://localhost/datasets/2/owner'}
     }
   });
-  const page = new Page({
-    'size': 20,
-    'totalElements': 2,
-    'totalPages': 1,
-    'number': 0
-  });
-  const pageWrapper = new PageWrapper({
-    'pageInfo': page,
-    'elements': [dataset1, dataset2]
-  });
   const datafile1 = new DataFile({
     'uri': '/dataFiles/1',
     'title': 'DataFile 1',
@@ -60,15 +47,16 @@ describe('DatasetsListComponent', () => {
       'owner': {'href': 'http://localhost/dataFiles/1/owner'}
     }
   });
-  const datafile2 = new DataFile({
-    'uri': '/dataFiles/2',
-    'title': 'DataFile 2',
-    'description': 'Second DataFile',
-    '_links': {
-      'owner': {'href': 'http://localhost/dataFiles/2/owner'}
-    }
+  const page = new Page({
+    'size': 20,
+    'totalElements': 3,
+    'totalPages': 1,
+    'number': 0
   });
-
+  const pageWrapper = new PageWrapper({
+    'pageInfo': page,
+    'elements': [dataset1, dataset2, datafile1]
+  });
   const owner = new Owner({
     'uri': 'dataOwners/owner'
   });
@@ -88,7 +76,7 @@ describe('DatasetsListComponent', () => {
         {provide: DatasetService, useClass: MockDatasetService},
         {provide: OwnerService, useClass: MockOwnerService},
         {provide: TagService, useClass: MockTagService},
-        {provide: DataFileService, useClass: MockDataFileService}, {provide: OwnerService, useClass: MockOwnerService},
+        {provide: OwnerService, useClass: MockOwnerService},
       ],
       imports: [RouterTestingModule.withRoutes([
         {path: 'datasets', component: DatasetsListComponent}
@@ -98,13 +86,12 @@ describe('DatasetsListComponent', () => {
   }));
 
   it('should fetch and render all datasets', async(
-    inject([Router, Location, DatasetService, OwnerService, TagService, DataFileService],
-      (router, location, service, ownerService, tagService, datafileService) => {
+    inject([Router, Location, DatasetService, OwnerService, TagService],
+      (router, location, service, ownerService, tagService) => {
       TestBed.createComponent(AppComponent);
       service.setResponse(pageWrapper);
       ownerService.setResponse(owner);
       tagService.setResponse([tag1, tag2]);
-      datafileService.setResponse([datafile1, datafile2]);
 
       router.navigate(['/datasets']).then(() => {
         expect(location.path()).toBe('/datasets');
@@ -115,10 +102,12 @@ describe('DatasetsListComponent', () => {
         component = fixture.debugElement.componentInstance;
         expect(component.datasets[0].title).toBe('Dataset 1');
         expect(component.datasets[1].title).toBe('Dataset 2');
+        expect(component.datasets[2].title).toBe('DataFile 1');
 
         const compiled = fixture.debugElement.nativeElement;
         expect(compiled.querySelectorAll('.panel-heading')[0].innerHTML).toContain('Dataset 1');
         expect(compiled.querySelectorAll('.panel-heading')[1].innerHTML).toContain('Dataset 2');
+        expect(compiled.querySelectorAll('.panel-heading')[2].innerHTML).toContain('DataFile 1');
       });
     })
   ));

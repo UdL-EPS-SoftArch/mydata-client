@@ -3,7 +3,6 @@ import { DatasetService } from '../dataset.service';
 import { Dataset } from '../dataset';
 import { OwnerService } from '../../user/owner.service';
 import { TagService } from '../../tag/tag.service';
-import { DataFileService } from '../datafile/datafile.service';
 
 @Component({
   selector: 'app-datasets-list',
@@ -21,8 +20,7 @@ export class DatasetsListComponent implements OnInit {
 
   constructor(private datasetService: DatasetService,
               private ownerService: OwnerService,
-              private tagService: TagService,
-              private datafileService: DataFileService) {
+              private tagService: TagService) {
   }
 
   onSearch(datasets) {
@@ -50,20 +48,6 @@ export class DatasetsListComponent implements OnInit {
       },
       error => this.errorMessage = <any>error.message
     );
-
-    this.datafileService.getAllDataFilesOrderedByTitle().subscribe(
-      datafiles => {
-        this.datasets = this.datasets.concat(datafiles);
-        datafiles.forEach(datafile => {
-          this.ownerService.getOwner(datafile._links.owner.href).subscribe(
-            owner => {
-              this.datasetOwners[datafile.uri] = owner.getUserName();
-            });
-        });
-      },
-      error => this.errorMessage = <any>error.message
-    );
-
   }
 
   onChange(sizeValue) {
