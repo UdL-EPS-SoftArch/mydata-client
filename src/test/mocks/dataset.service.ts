@@ -7,6 +7,8 @@ export class MockDatasetService extends SpyObject {
   getDataset;
   addDataset;
   getAllDatasetsOrderedByTitle;
+  getAllDatasetsOrderedByTitlePaginated;
+  getDatasetsByTag;
 
   constructor() {
     super(DatasetService);
@@ -16,6 +18,8 @@ export class MockDatasetService extends SpyObject {
     this.getDataset = this.spy('getDataset').andReturn(this);
     this.addDataset = this.spy('addDataset').andReturn(this);
     this.getAllDatasetsOrderedByTitle = this.spy('getAllDatasetsOrderedByTitle').andReturn(this);
+    this.getAllDatasetsOrderedByTitlePaginated = this.spy('getAllDatasetsOrderedByTitlePaginated').andReturn(this);
+    this.getDatasetsByTag = this.spy('getDatasetsByTag').andReturn(this);
   }
 
   subscribe(callback) {

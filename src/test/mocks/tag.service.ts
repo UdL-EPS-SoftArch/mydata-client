@@ -7,6 +7,7 @@ export class MockTagService extends SpyObject {
   getTag;
   addTag;
   updateTag;
+  getTagsOfDataset;
 
   constructor() {
     super(TagService);
@@ -16,6 +17,7 @@ export class MockTagService extends SpyObject {
     this.getTag = this.spy('getTag').andReturn(this);
     this.addTag = this.spy('addTag').andReturn(this);
     this.updateTag = this.spy('updateTag').andReturn(this);
+    this.getTagsOfDataset = this.spy('getTagsOfDataset').andReturn(this);
   }
 
   subscribe(callback) {

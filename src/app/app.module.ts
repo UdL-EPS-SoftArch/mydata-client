@@ -63,7 +63,7 @@ import { CommentFormComponent } from './comment/comment-form/comment-form.compon
 import { CommentListComponent } from './comment/comment-list/comment-list.component';
 import { CommentSearchComponent } from './comment/comment-search/comment-search.component';
 import { CommentService } from './comment/comment.service';
-
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 @NgModule({
   declarations: [
@@ -122,6 +122,7 @@ import { CommentService } from './comment/comment.service';
     HttpModule,
     RouterModule.forRoot(routes),
     LoginBasicModule,
+    PaginationModule.forRoot()
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService,
               OpenLicenseService, ClosedLicenseService, TagService, OwnerService, DataFileService, UserService,

@@ -57,21 +57,19 @@ export class DatasetFormComponent implements OnInit {
 
   ngOnInit() {
     this.schemaService.getAllSchemas().subscribe(
-      schemas => { this.schemas = schemas; },
+      schemas => this.schemas = schemas,
       error => this.errorMessage = <any>error.message
     );
     this.openLicenseService.getAllOpenLicenses().subscribe(
-      openLicenses => { this.openLicenses = openLicenses; },
+      openLicenses => this.openLicenses = openLicenses,
       error => this.errorMessage = <any>error.message
     );
     this.closedLicenseService.getAllClosedLicenses().subscribe(
-      closedLicenses => { this.closedLicenses = closedLicenses; },
+      closedLicenses => this.closedLicenses = closedLicenses,
       error => this.errorMessage = <any>error.message
     );
     this.tagService.getAllTags().subscribe(
-      tags => {
-        this.tags = tags;
-      },
+      tags => this.tags = tags,
       error => this.errorMessage = <any>error.message
     );
 
