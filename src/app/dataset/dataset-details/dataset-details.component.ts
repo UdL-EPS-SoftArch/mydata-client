@@ -10,6 +10,8 @@ import { OpenLicenseService } from '../../license/open-license/open-license.serv
 import { OpenLicense } from '../../license/open-license/open-license';
 import { ClosedLicenseService } from '../../license/closed-license/closed-license.service';
 import { ClosedLicense } from '../../license/closed-license/closed-license';
+import { Tag } from '../../tag/tag';
+import { TagService } from '../../tag/tag.service';
 
 @Component({
   selector: 'app-dataset-details',
@@ -21,6 +23,7 @@ export class DatasetDetailsComponent implements OnInit {
   public schema: Schema = new Schema();
   public openLicense: OpenLicense = new OpenLicense();
   public closedLicense: ClosedLicense = new ClosedLicense();
+  public tags: Tag[] = [];
 
   public errorMessage: string;
   public isOwner: boolean;
@@ -33,7 +36,8 @@ export class DatasetDetailsComponent implements OnInit {
               private openLicenseService: OpenLicenseService,
               private closedLicenseService: ClosedLicenseService,
               private authenticationService: AuthenticationBasicService,
-              private ownerService: OwnerService) {
+              private ownerService: OwnerService,
+              private tagService: TagService) {
   }
 
   ngOnInit() {
@@ -44,24 +48,26 @@ export class DatasetDetailsComponent implements OnInit {
         this.datasetService.getDataset(uri).subscribe(
           dataset => {
             this.dataset = dataset;
+
             const uri_schema = `/datasets/${id}/schema`;
             this.schemaService.getSchema(uri_schema).subscribe(
-              schema => {
-                this.schema = schema;
-              }
+              schema => this.schema = schema
             );
+
             const uri_open_license = `/datasets/${id}/license`;
             this.openLicenseService.getOpenLicense(uri_open_license).subscribe(
-              openLicense => {
-                this.openLicense = openLicense;
-              }
+              openLicense => this.openLicense = openLicense
             );
+
             const uri_closed_license = `/datasets/${id}/license`;
             this.closedLicenseService.getClosedLicense(uri_closed_license).subscribe(
-              closedLicense => {
-                this.closedLicense = closedLicense;
-              }
+              closedLicense => this.closedLicense = closedLicense
             );
+
+            this.tagService.getTagsOfDataset(uri).subscribe(
+              tags => this.tags = tags
+            );
+
             if (this.dataset._links != null) {
               this.ownerService.getOwner(this.dataset._links.owner.href).subscribe(
                 owner => {
