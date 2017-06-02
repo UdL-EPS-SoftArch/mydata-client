@@ -31,6 +31,7 @@ describe('SchemaFormComponent', () => {
     }
   });
 
+
   const user = new User({
     'username': 'user'
   });
