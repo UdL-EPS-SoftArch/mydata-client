@@ -132,7 +132,7 @@ import { CommentService } from './comment/comment.service';
     LoginBasicModule
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService,
-              OpenLicenseService, ClosedLicenseService, TagService, OwnerService, DataFileService,DataStreamService, UserService,
+              OpenLicenseService, ClosedLicenseService, TagService, OwnerService, DataFileService, DataStreamService, UserService,
               FieldService, CommentService, OwnerService],
   bootstrap: [AppComponent]
 })
