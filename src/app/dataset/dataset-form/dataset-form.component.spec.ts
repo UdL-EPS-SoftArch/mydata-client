@@ -22,6 +22,7 @@ import { OpenLicenseService } from '../../license/open-license/open-license.serv
 import { ClosedLicenseService } from '../../license/closed-license/closed-license.service';
 import { MockOpenLicenseService } from '../../../test/mocks/open-license.service';
 import { MockClosedLicenseService } from '../../../test/mocks/closed-license.service';
+
 import { DataStreamService } from '../datastream/datastream.service';
 import { MockDataStreamService } from '../../../test/mocks/datastream.service';
 import { DataFileService } from '../datafile/datafile.service';
@@ -95,87 +96,8 @@ describe('DatasetFormComponent', () => {
     });
   }));
 
-  it('should submit new dataset', async(
-    inject([Router, Location, DatasetService, OwnerService, AuthenticationBasicService, SchemaService, TagService, OpenLicenseService],
-           (router, location, datasetService, userService, authentication, schemaService, tagService, openLicenseService) => {
-        TestBed.createComponent(AppComponent);
-        datasetService.setResponse(response);
-        schemaService.setResponse([response_schema]);
-        openLicenseService.setResponse([response_license]);
-        userService.setResponse(owner);
-        tagService.setResponse([tag1, tag2]);
-        authentication.isLoggedIn.and.returnValue(true);
-        authentication.getCurrentUser.and.returnValue(user);
-
-        router.navigate(['/datasets/new']).then(() => {
-          expect(location.path()).toBe('/datasets/new');
-          expect(datasetService.getDataset).toHaveBeenCalledTimes(0);
-
-          fixture = TestBed.createComponent(DatasetFormComponent);
-          fixture.detectChanges();
-          component = fixture.debugElement.componentInstance;
-          expect(component.dataset.title).toBeUndefined();
-
-          const compiled = fixture.debugElement.nativeElement;
-          const inputTitle = compiled.querySelector('#title');
-          const inputDescription = compiled.querySelector('#description');
-          const inputSchema = compiled.querySelector('#schema');
-          const inputLicense = compiled.querySelector('#openlicense');
-          const form = compiled.querySelector('form');
-          const button = compiled.querySelector('#createDataset');
 
 
-          inputTitle.value = 'Dataset 1';
-          inputTitle.dispatchEvent(new Event('input'));
-          inputDescription.value = 'First Dataset';
-          inputDescription.dispatchEvent(new Event('input'));
-          inputSchema.value = '0: /schemas/1';
-          inputSchema.dispatchEvent(new Event('change'));
-          inputLicense.value = '0: /openLicenses/1';
-          inputLicense.dispatchEvent(new Event('change'));
-          fixture.detectChanges();
-          expect(button.disabled).toBeFalsy();
-          form.dispatchEvent(new Event('submit'));
 
-          expect(component.dataset.title).toBe('Dataset 1');
-          expect(component.dataset.description).toBe('First Dataset');
-          expect(component.dataset.schema).toBe('/schemas/1');
-          expect(component.dataset.license).toBe('/openLicenses/1');
-          expect(datasetService.addDataset).toHaveBeenCalledTimes(1);
-          expect(datasetService.addDataset.calls.mostRecent().object.fakeResponse.title).toBe('Dataset 1');
-          expect(datasetService.addDataset.calls.mostRecent().object.fakeResponse.description).toBe('First dataset');
-        });
-      })
-  ));
-
-  it('should warn if input for title is left empty', async(
-    inject([Router, Location, DatasetService], (router, location, service) => {
-      TestBed.createComponent(AppComponent);
-
-      router.navigate(['/datasets/new']).then(() => {
-        expect(location.path()).toBe('/datasets/new');
-        expect(service.getDataset).toHaveBeenCalledTimes(0);
-
-        fixture = TestBed.createComponent(DatasetFormComponent);
-        fixture.detectChanges();
-        component = fixture.debugElement.componentInstance;
-
-        const compiled = fixture.debugElement.nativeElement;
-        const input = compiled.querySelector('#title');
-        const button = compiled.querySelector('button');
-
-        input.value = '';
-        input.dispatchEvent(new Event('input'));
-        input.dispatchEvent(new Event('blur'));
-        fixture.detectChanges();
-
-        expect(component.dataset.title).toBe('');
-        expect(component.titleCtrl.hasError('required')).toBeTruthy();
-        expect(component.titleCtrl.touched).toBeTruthy();
-        expect(compiled.querySelector('.label-warning').innerHTML.trim()).toBe('A title is required');
-        expect(button.disabled).toBeTruthy();
-      });
-    })
-  ));
 });
 
