@@ -38,6 +38,7 @@ import { CommentEditComponent } from './comment/comment-edit/comment-edit.compon
 import { DatastreamsListComponent } from './dataset/datastreams-list/datastreams-list.component';
 import { DatastreamDetailsComponent } from './dataset/datastream-details/datastream-details.component';
 import { DatastreamEditComponent } from './dataset/datastream-edit/datastream-edit.component';
+import { LicenseListComponent } from './license/license-list/license-list.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'about', pathMatch: 'full' },
@@ -72,6 +73,7 @@ export const routes: Routes = [
   { path: 'closedLicenses/:id', component: ClosedLicenseDetailsComponent },
   { path: 'closedLicenses/:id/edit', component: ClosedLicenseEditComponent, canActivate: [LoggedInGuard] },
   { path: 'closedLicenses/:id/datasets', component: ClosedLicenseDatasetListComponent },
+  { path: 'licenses', component: LicenseListComponent },
   { path: 'tags', component: TagsListComponent },
   { path: 'tags/new', component: TagFormComponent },
   { path: 'tags/:id', component: TagDetailsComponent },

@@ -5,11 +5,11 @@
 <div class="row">
   <div class="col-md-4">
     <h4>Comment</h4>
-    <p>{{comment.id}}</p>
+    <p>{{comment.text}}</p>
   </div>
   <div class="col-md-4">
-    <h4>Text</h4>
-    <p>{{comment.text}}</p>
+    <h4>By</h4>
+    <p>{{comment.user}}</p>
   </div>
   <div class="col-md-2" *ngIf="isOwner">
     <a class="btn btn-primary" role="button" routerLink="{{comment.uri}}/edit">Edit</a>

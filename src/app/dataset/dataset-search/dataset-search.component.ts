@@ -2,6 +2,7 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { DatasetService } from '../dataset.service';
 import { Dataset } from '../dataset';
 import { ActivatedRoute } from '@angular/router';
+import { DataFileService } from '../datafile/datafile.service';
 
 
 @Component({
@@ -13,12 +14,15 @@ import { ActivatedRoute } from '@angular/router';
 export class DatasetsSearchComponent {
   @Input()
   datasets: Dataset[];
+  @Input()
+  totalDatasets: number;
   @Output()
   onSearchited: EventEmitter<any> = new EventEmitter();
   private schema: string = null;
 
   public errorMessage: string;
   constructor(private datasetService: DatasetService,
+              private datafileService: DataFileService,
               private route: ActivatedRoute) {
   }
 
@@ -31,9 +35,22 @@ export class DatasetsSearchComponent {
     this.datasetService.getDatasetByDescriptionWords(searchTerm, this.schema).subscribe(
       datasets => {
         // Send to output emitter
-        this.onSearchited.emit(datasets);
+        // this.onSearchited.emit(datasets);
+        this.datafileService.getDatafileByDescriptionWords(searchTerm, this.schema).subscribe(
+          datafiles => {
+            this.onSearchited.emit(datasets.concat(datafiles));
+          },
+          error => this.errorMessage = <any>error.message
+        );
       },
-      error => this.errorMessage = <any>error.message
+      empty => {
+        this.datafileService.getDatafileByDescriptionWords(searchTerm, this.schema).subscribe(
+          datafiles => {
+            this.onSearchited.emit(datafiles);
+          },
+          error => this.errorMessage = <any>error.message
+        );
+      }
     );
   }
 }
