@@ -33,6 +33,7 @@ export class CommentDetailsComponent implements OnInit {
             if (this.comment._links != null) {
               this.ownerService.getOwner(this.comment._links.owner.href).subscribe(
                 owner => {
+                  this.comment.user = owner.getUserName();
                   this.isOwner = this.authenticationService.getCurrentUser().username === owner.getUserName();
                 });
             }
@@ -41,5 +42,4 @@ export class CommentDetailsComponent implements OnInit {
         );
       });
   }
-
 }

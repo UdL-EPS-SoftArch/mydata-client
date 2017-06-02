@@ -1,13 +1,10 @@
 import {Dataset} from '../dataset/dataset';
-import {User} from '../login-basic/user';
-
-
 
 export class Comment {
   uri: string;
   text: string;
   dataset: Dataset;
-  user: User;
+  user: string;
   dateTime: string;
   _links: any = {};
 
