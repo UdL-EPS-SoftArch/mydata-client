@@ -35,8 +35,7 @@ import { Tag } from '../../tag/tag';
 import { OpenLicense } from '../../license/open-license/open-license';
 
 describe('DatasetFormComponent', () => {
-  //const component: DatasetFormComponent;
-  //const fixture: ComponentFixture<DatasetFormComponent>;
+
 
   const response = new Dataset({
     'uri': '/datasets/1',
