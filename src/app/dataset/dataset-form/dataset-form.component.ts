@@ -101,24 +101,24 @@ export class DatasetFormComponent implements OnInit {
             this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
           });
     } else if (this.streamAttached){
-      const dataStream: DataStream = new DataStream();
-      dataStream.title = this.dataset.title;
-      dataStream.description = this.dataset.description;
-      dataStream.schema = this.dataset.schema;
-      dataStream.streamname = this.dataset.title;
-      this.dataStreamService.addDataStream(dataStream)
-        .subscribe(
-          datastream => { this.router.navigate([datastream.uri]); },
-          error => {
-            this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
-          });
+        const dataStream: DataStream = new DataStream();
+        dataStream.title = this.dataset.title;
+        dataStream.description = this.dataset.description;
+        dataStream.schema = this.dataset.schema;
+        dataStream.streamname = this.dataset.title;
+        this.dataStreamService.addDataStream(dataStream)
+          .subscribe(
+            datastream => { this.router.navigate([datastream.uri]); },
+            error => {
+              this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
+            });
     } else {
-      this.datasetService.addDataset(this.dataset)
-        .subscribe(
-          dataset => { this.router.navigate([dataset.uri]); },
-          error => {
-            this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
-          });
+        this.datasetService.addDataset(this.dataset)
+          .subscribe(
+            dataset => { this.router.navigate([dataset.uri]); },
+            error => {
+              this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
+            });
     }
     this.fileAttached = false;
   }
