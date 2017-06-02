@@ -15,6 +15,8 @@ import {MockOwnerService} from '../../../test/mocks/owner.service';
 import {OwnerService} from '../../user/owner.service';
 import {AuthenticationBasicService} from '../../login-basic/authentication-basic.service';
 import {User} from '../../login-basic/user';
+import {PageWrapper} from '../../pageWrapper';
+import {Page} from '../../page';
 
 describe('SchemasListComponent', () => {
   let component: SchemasListComponent;
@@ -36,6 +38,8 @@ describe('SchemasListComponent', () => {
       'owner': {'href': 'http://localhost/schemas/2/owner'}
     }
   });
+
+
 
   const owner = new Owner({
     'uri': 'schemaOwners/owner'
