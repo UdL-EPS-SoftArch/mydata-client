@@ -35,6 +35,9 @@ import { CommentListComponent } from './comment/comment-list/comment-list.compon
 import { CommentFormComponent } from './comment/comment-form/comment-form.component';
 import { CommentDetailsComponent } from './comment/comment-details/comment-details.component';
 import { CommentEditComponent } from './comment/comment-edit/comment-edit.component';
+import { DatastreamsListComponent } from './dataset/datastreams-list/datastreams-list.component';
+import { DatastreamDetailsComponent } from './dataset/datastream-details/datastream-details.component';
+import { DatastreamEditComponent } from './dataset/datastream-edit/datastream-edit.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'about', pathMatch: 'full' },
@@ -46,6 +49,10 @@ export const routes: Routes = [
   { path: 'dataFiles', component: DatafilesListComponent },
   { path: 'dataFiles/:id', component: DatafileDetailsComponent },
   { path: 'dataFiles/:id/edit', component: DataFileEditComponent },
+  { path: 'dataStreams', component: DatastreamsListComponent },
+  { path: 'dataStreams/:id', component: DatastreamDetailsComponent },
+  { path: 'dataStreams/:id/edit', component: DatastreamEditComponent },
+  { path: 'dataStreams', component: DatastreamsListComponent },
   { path: 'schemas', component: SchemasListComponent },
   { path: 'schemas/new', component: SchemaFormComponent },
   { path: 'schemas/:id', component: SchemaDetailsComponent },

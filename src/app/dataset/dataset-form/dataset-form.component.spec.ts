@@ -26,6 +26,8 @@ import { DataFileService} from '../datafile/datafile.service';
 import { MockDataFileService} from '../../../test/mocks/datafile.service';
 import {MockOwnerService} from '../../../test/mocks/owner.service';
 import {OwnerService} from '../../user/owner.service';
+import { DataStreamService } from '../datastream/datastream.service';
+import { MockDataStreamService } from '../../../test/mocks/datastream.service';
 
 describe('DatasetFormComponent', () => {
   let component: DatasetFormComponent;
@@ -61,6 +63,7 @@ describe('DatasetFormComponent', () => {
       providers: [
         { provide: DatasetService, useClass: MockDatasetService },
         { provide: DataFileService, useClass:  MockDataFileService},
+        { provide: DataStreamService, useClass: MockDataStreamService},
         { provide: SchemaService, useClass: MockSchemaService },
         { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService },
         { provide: OwnerService, useClass: MockOwnerService },

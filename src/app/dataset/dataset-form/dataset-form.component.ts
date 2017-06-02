@@ -11,6 +11,8 @@ import { OpenLicense } from '../../license/open-license/open-license';
 import { OpenLicenseService } from '../../license/open-license/open-license.service';
 import { ClosedLicense } from '../../license/closed-license/closed-license';
 import { ClosedLicenseService } from '../../license/closed-license/closed-license.service';
+import { DataStreamService } from '../datastream/datastream.service';
+import { DataStream } from '../datastream/datastream';
 
 @Component({
   selector: 'app-dataset-form',
@@ -26,14 +28,17 @@ export class DatasetFormComponent implements OnInit {
   public openLicenses: OpenLicense[] = [];
   public closedLicenses: ClosedLicense[] = [];
   public fileAttached = false;
+  public streamAttached = false;
   public separator: string;
   public filename: string;
   public content: string;
+  public streamname: string;
 
   constructor(private fb: FormBuilder,
               private router: Router,
               private datasetService: DatasetService,
               private dataFileService: DataFileService,
+              private dataStreamService: DataStreamService,
               private schemaService: SchemaService,
               private openLicenseService: OpenLicenseService,
               private closedLicenseService: ClosedLicenseService) {
@@ -76,6 +81,10 @@ export class DatasetFormComponent implements OnInit {
     };
   }
 
+  addDataStream(event): void {
+    this.streamAttached = true;
+  }
+
   onSubmit(): void {
     if (this.fileAttached) {
       const dataFile: DataFile = new DataFile();
@@ -88,6 +97,18 @@ export class DatasetFormComponent implements OnInit {
       this.dataFileService.addDataFile(dataFile)
         .subscribe(
           datafile => { this.router.navigate([datafile.uri]); },
+          error => {
+            this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
+          });
+    } else if (this.streamAttached){
+      const dataStream: DataStream = new DataStream();
+      dataStream.title = this.dataset.title;
+      dataStream.description = this.dataset.description;
+      dataStream.schema = this.dataset.schema;
+      dataStream.streamname = this.dataset.title;
+      this.dataStreamService.addDataStream(dataStream)
+        .subscribe(
+          datastream => { this.router.navigate([datastream.uri]); },
           error => {
             this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
           });

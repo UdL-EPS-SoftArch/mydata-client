@@ -44,6 +44,11 @@ import { FieldListComponent } from './field/fields-list/fields-list.component';
 import { FieldEditComponent } from './field/field-edit/field-edit.component';
 import { FieldSearchComponent } from './field/field-search/fields-search.component';
 import { SchemaEditComponent } from './schema/schema-edit/schema-edit.component';
+import { DataStreamService } from './dataset/datastream/datastream.service';
+import { DatastreamsSearchComponent } from './dataset/datastream-search/datastream-search.component';
+import { DatastreamsListComponent } from './dataset/datastreams-list/datastreams-list.component';
+import { DatastreamDetailsComponent } from './dataset/datastream-details/datastream-details.component';
+import { DatastreamEditComponent } from './dataset/datastream-edit/datastream-edit.component';
 import { DataFileService } from './dataset/datafile/datafile.service';
 import { DatafilesListComponent } from './dataset/datafile-list/datafiles-list.component';
 import { DatafileDetailsComponent } from './dataset/datafile-list/datafile-details.component';
@@ -112,7 +117,11 @@ import { CommentService } from './comment/comment.service';
     SchemaEditComponent,
     ClosedLicenseDatasetListComponent,
     OpenLicenseDatasetListComponent,
-    DataFileEditComponent
+    DataFileEditComponent,
+    DatastreamEditComponent,
+    DatastreamDetailsComponent,
+    DatastreamsListComponent,
+    DatastreamsSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -123,7 +132,7 @@ import { CommentService } from './comment/comment.service';
     LoginBasicModule
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService,
-              OpenLicenseService, ClosedLicenseService, TagService, OwnerService, DataFileService, UserService,
+              OpenLicenseService, ClosedLicenseService, TagService, OwnerService, DataFileService,DataStreamService, UserService,
               FieldService, CommentService, OwnerService],
   bootstrap: [AppComponent]
 })
