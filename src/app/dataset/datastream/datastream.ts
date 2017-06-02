@@ -1,6 +1,4 @@
-/**
- * Created by SergiGrau on 2/6/17.
- */
+
 export class DataStream {
   uri: string;
   title: string;
