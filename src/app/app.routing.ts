@@ -39,7 +39,7 @@ import { CommentEditComponent } from './comment/comment-edit/comment-edit.compon
 import { DatastreamsListComponent } from './dataset/datastreams-list/datastreams-list.component';
 import { DatastreamDetailsComponent } from './dataset/datastream-details/datastream-details.component';
 import { DatastreamEditComponent } from './dataset/datastream-edit/datastream-edit.component';
-import { LicenseListComponent } from './license/license-list/license-list.component';
+
 
 import { LicenseListComponent } from './license/license-list/license-list.component';
 
