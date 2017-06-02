@@ -39,7 +39,16 @@ describe('SchemasListComponent', () => {
     }
   });
 
-
+  const page = new Page({
+    'size': 20,
+    'totalElements': 2,
+    'totalPages': 1,
+    'number': 0
+  });
+  const pageWrapper = new PageWrapper({
+    'pageInfo': page,
+    'elements': [schema1, schema2]
+  });
 
   const owner = new Owner({
     'uri': 'schemaOwners/owner'
@@ -63,14 +72,14 @@ describe('SchemasListComponent', () => {
     inject([Router, Location, SchemaService, OwnerService, AuthenticationBasicService],
       (router, location, service, ownerService, authentication) => {
         TestBed.createComponent(AppComponent);
-        service.setResponse([schema1, schema2]);
+        service.setResponse(pageWrapper);
         ownerService.setResponse(owner);
         authentication.isLoggedIn.and.returnValue(true);
         authentication.getCurrentUser.and.returnValue(new User({'username': 'owner'}));
 
         router.navigate(['/schemas']).then(() => {
           expect(location.path()).toBe('/schemas');
-          expect(service.getAllSchemas).toHaveBeenCalled();
+          expect(service.getAllSchemasPaginated).toHaveBeenCalled();
           expect(ownerService.getOwner).toHaveBeenCalledWith('http://localhost/schemas/1/owner');
 
           fixture = TestBed.createComponent(SchemasListComponent);
