@@ -35,10 +35,14 @@ import { CommentListComponent } from './comment/comment-list/comment-list.compon
 import { CommentFormComponent } from './comment/comment-form/comment-form.component';
 import { CommentDetailsComponent } from './comment/comment-details/comment-details.component';
 import { CommentEditComponent } from './comment/comment-edit/comment-edit.component';
+
 import { DatastreamsListComponent } from './dataset/datastreams-list/datastreams-list.component';
 import { DatastreamDetailsComponent } from './dataset/datastream-details/datastream-details.component';
 import { DatastreamEditComponent } from './dataset/datastream-edit/datastream-edit.component';
 import { LicenseListComponent } from './license/license-list/license-list.component';
+
+import { LicenseListComponent } from './license/license-list/license-list.component';
+
 
 export const routes: Routes = [
   { path: '', redirectTo: 'about', pathMatch: 'full' },
