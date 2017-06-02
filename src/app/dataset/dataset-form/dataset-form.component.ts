@@ -100,7 +100,7 @@ export class DatasetFormComponent implements OnInit {
           error => {
             this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
           });
-    } else if (this.streamAttached){
+    } else if (this.streamAttached) {
         const dataStream: DataStream = new DataStream();
         dataStream.title = this.dataset.title;
         dataStream.description = this.dataset.description;
