@@ -25,7 +25,7 @@ export class TagService {
 
   // GET /tags
   getAllTagsPaginated(pageNumber: number, size: number): Observable<PageWrapper> {
-    return this.http.get(`${environment.API}/tags&page=${pageNumber}&size=${size}`)
+    return this.http.get(`${environment.API}/tags?&page=${pageNumber}&size=${size}`)
       .map((res: Response) => {
         const pw = new PageWrapper();
         const data = res.json();
