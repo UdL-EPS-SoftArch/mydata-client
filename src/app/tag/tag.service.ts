@@ -7,6 +7,7 @@ import 'rxjs/add/observable/throw';
 import { environment } from '../../environments/environment';
 import { Tag } from './tag';
 import {Dataset} from '../dataset/dataset';
+import {PageWrapper} from '../pageWrapper';
 
 @Injectable()
 export class TagService {
@@ -19,6 +20,19 @@ export class TagService {
   getAllTags(): Observable<Tag[]> {
     return this.http.get(`${environment.API}/tags`)
       .map((res: Response) => res.json()._embedded.tags.map(json => new Tag(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // GET /tags
+  getAllTagsPaginated(pageNumber: number, size: number): Observable<PageWrapper> {
+    return this.http.get(`${environment.API}/tags&page=${pageNumber}&size=${size}`)
+      .map((res: Response) => {
+        const pw = new PageWrapper();
+        const data = res.json();
+        pw.elements = data._embedded.tags.map(json => new Tag(json));
+        pw.pageInfo = data.page;
+        return pw;
+      })
       .catch((error: any) => Observable.throw(error.json()));
   }
 
