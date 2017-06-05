@@ -32,7 +32,8 @@ export class TagsListComponent implements OnInit {
       pageWrapper => {
         this.tags = pageWrapper.elements;
         this.bigTotalItems = pageWrapper.pageInfo.totalElements;
-        this.itemsPerPage = pageWrapper.pageInfo.size;        this.tags.forEach(tag => {
+        this.itemsPerPage = pageWrapper.pageInfo.size;
+        this.tags.forEach(tag => {
           this.datasetService.getDatasetsByTag(tag.name).subscribe(
             datasets => {
               tag.datasets = datasets;

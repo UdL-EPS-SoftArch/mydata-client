@@ -12,6 +12,8 @@ import { Location } from '@angular/common';
 import { Dataset } from '../../dataset/dataset';
 import { DatasetService } from '../../dataset/dataset.service';
 import { MockDatasetService } from '../../../test/mocks/dataset.service';
+import {Page} from '../../page';
+import {PageWrapper} from '../../pageWrapper';
 
 describe('TagsListComponent', () => {
   let component: TagsListComponent;
@@ -42,6 +44,17 @@ describe('TagsListComponent', () => {
     }
   });
 
+  const page = new Page({
+    'size': 20,
+    'totalElements': 3,
+    'totalPages': 1,
+    'number': 0
+  });
+  const pageWrapper = new PageWrapper({
+    'pageInfo': page,
+    'elements': [tag1, tag2]
+  });
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ AppComponent, TagsListComponent ],
@@ -60,12 +73,12 @@ describe('TagsListComponent', () => {
     inject([Router, Location, TagService, DatasetService],
       (router, location, service, datasetService) => {
       TestBed.createComponent(AppComponent);
-      service.setResponse([tag1, tag2]);
+      service.setResponse(pageWrapper);
       datasetService.setResponse([dataset1, dataset2]);
 
       router.navigate(['/tags']).then(() => {
         expect(location.path()).toBe('/tags');
-        expect(service.getAllTags).toHaveBeenCalled();
+        expect(service.getAllTagsPaginated).toHaveBeenCalled();
 
         fixture = TestBed.createComponent(TagsListComponent);
         fixture.detectChanges();
