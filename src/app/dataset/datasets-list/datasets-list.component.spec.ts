@@ -18,6 +18,9 @@ import { Tag } from '../../tag/tag';
 import { TagService } from '../../tag/tag.service';
 import { MockTagService } from '../../../test/mocks/tag.service';
 import { DataFile } from '../datafile/datafile';
+import { SchemaService } from '../../schema/schema.service';
+import { MockSchemaService } from '../../../test/mocks/schema.service';
+import { Schema } from '../../schema/schema';
 
 describe('DatasetsListComponent', () => {
   let component: DatasetsListComponent;
@@ -28,7 +31,8 @@ describe('DatasetsListComponent', () => {
     'title': 'Dataset 1',
     'description': 'First dataset',
     '_links': {
-      'owner': {'href': 'http://localhost/datasets/1/owner'}
+      'owner': {'href': 'http://localhost/datasets/1/owner'},
+      'schema': {'href': 'http://localhost/datasets/1/schema'}
     }
   });
   const dataset2 = new Dataset({
@@ -36,7 +40,8 @@ describe('DatasetsListComponent', () => {
     'title': 'Dataset 2',
     'description': 'Second dataset',
     '_links': {
-      'owner': {'href': 'http://localhost/datasets/2/owner'}
+      'owner': {'href': 'http://localhost/datasets/2/owner'},
+      'schema': {'href': 'http://localhost/datasets/2/schema'}
     }
   });
   const datafile1 = new DataFile({
@@ -44,7 +49,8 @@ describe('DatasetsListComponent', () => {
     'title': 'DataFile 1',
     'description': 'First DataFile',
     '_links': {
-      'owner': {'href': 'http://localhost/dataFiles/1/owner'}
+      'owner': {'href': 'http://localhost/dataFiles/1/owner'},
+      'schema': {'href': 'http://localhost/dataFiles/1/schema'}
     }
   });
   const page = new Page({
@@ -68,6 +74,10 @@ describe('DatasetsListComponent', () => {
     'uri': '/tags/Tag2',
     'name': 'Tag2',
   });
+  const schema1 = new Schema({
+    'uri': '/schemas/1',
+    'title': 'schema1',
+  });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -77,6 +87,7 @@ describe('DatasetsListComponent', () => {
         {provide: OwnerService, useClass: MockOwnerService},
         {provide: TagService, useClass: MockTagService},
         {provide: OwnerService, useClass: MockOwnerService},
+        {provide: SchemaService, useClass: MockSchemaService},
       ],
       imports: [RouterTestingModule.withRoutes([
         {path: 'datasets', component: DatasetsListComponent}
@@ -86,12 +97,13 @@ describe('DatasetsListComponent', () => {
   }));
 
   it('should fetch and render all datasets', async(
-    inject([Router, Location, DatasetService, OwnerService, TagService],
-      (router, location, service, ownerService, tagService) => {
+    inject([Router, Location, DatasetService, OwnerService, TagService, SchemaService],
+      (router, location, service, ownerService, tagService, schemaService) => {
       TestBed.createComponent(AppComponent);
       service.setResponse(pageWrapper);
       ownerService.setResponse(owner);
       tagService.setResponse([tag1, tag2]);
+      schemaService.setResponse(schema1);
 
       router.navigate(['/datasets']).then(() => {
         expect(location.path()).toBe('/datasets');
