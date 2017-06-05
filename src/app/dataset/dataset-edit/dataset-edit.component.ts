@@ -10,6 +10,8 @@ import { OpenLicense } from '../../license/open-license/open-license';
 import { OpenLicenseService } from '../../license/open-license/open-license.service';
 import { ClosedLicense } from '../../license/closed-license/closed-license';
 import { ClosedLicenseService } from '../../license/closed-license/closed-license.service';
+import { Tag } from '../../tag/tag';
+import { TagService } from '../../tag/tag.service';
 
 
 @Component({
@@ -25,6 +27,7 @@ export class DatasetEditComponent implements OnInit {
   public schemas: Schema[] = [];
   public openLicenses: OpenLicense[] = [];
   public closedLicenses: ClosedLicense[] = [];
+  public tags: Tag[] = [];
 
   constructor(private fb: FormBuilder,
               private route: ActivatedRoute,
@@ -32,6 +35,7 @@ export class DatasetEditComponent implements OnInit {
               private schemaService: SchemaService,
               private openLicenseService: OpenLicenseService,
               private closedLicenseService: ClosedLicenseService,
+              private tagService: TagService,
               private router: Router) {
     this.datasetForm = fb.group({
       'title': ['Dataset title', Validators.required],
@@ -39,6 +43,7 @@ export class DatasetEditComponent implements OnInit {
       'schema': ['Dataset schema'],
       'openlicense': ['Dataset license'],
       'closedlicense': ['Dataset license'],
+      'taggedWith': ['Dataset tags']
     });
     this.titleCtrl = this.datasetForm.controls['title'];
   }
@@ -54,6 +59,10 @@ export class DatasetEditComponent implements OnInit {
     );
     this.closedLicenseService.getAllClosedLicenses().subscribe(
       closedLicenses => { this.closedLicenses = closedLicenses; },
+      error => this.errorMessage = <any>error.message
+    );
+    this.tagService.getAllTags().subscribe(
+      tags => this.tags = tags,
       error => this.errorMessage = <any>error.message
     );
 
