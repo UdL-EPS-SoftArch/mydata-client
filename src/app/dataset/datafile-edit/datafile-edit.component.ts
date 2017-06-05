@@ -42,11 +42,11 @@ export class DataFileEditComponent implements OnInit {
     this.dataFileForm = fb.group({
       'title': ['DataFile title', Validators.required],
       'description': ['DataFile description'],
-      'schema': ['Datafile schema'],
-      'openlicense': ['Datafile license'],
-      'closedlicense': ['Datafile license'],
+      'schema': ['DataFile schema'],
+      'openlicense': ['DataFile license'],
+      'closedlicense': ['DataFile license'],
       'separator': ['DataFile separator'],
-      'taggedWith': ['Datafile tags']
+      'taggedWith': ['DataFile tags']
     });
     this.titleCtrl = this.dataFileForm.controls['title'];
   }
