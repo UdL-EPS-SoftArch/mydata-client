@@ -38,6 +38,11 @@ export class LicenseListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getOpenLicenses (0, this.itemsPerPage);
+    this.getClosedLicenses (0, this.itemsPerPage);
+  }
+
+  public getOpenLicenses (page: number, size: number) {
     this.openLicenseService.getAllOpenLicensesOrderedByTitlePaginated(0, this.itemsPerPage).subscribe(
       pageWrapper => {
         this.openLicenses = pageWrapper.elements;
@@ -54,7 +59,9 @@ export class LicenseListComponent implements OnInit {
       },
       error => this.errorMessage = <any>error.message
     );
+  }
 
+  public getClosedLicenses (page: number, size: number) {
     this.closedLicenseService.getAllClosedLicensesOrderedByTitlePaginated(0, this.itemsPerPage).subscribe(
       pageWrapper => {
         this.closedLicenses = pageWrapper.elements;
@@ -72,4 +79,24 @@ export class LicenseListComponent implements OnInit {
       error => this.errorMessage = <any>error.message
     );
   }
+
+  onChange(sizeValue) {
+    this.itemsPerPage = sizeValue;
+    this.getOpenLicenses(0, sizeValue);
+    this.getClosedLicenses(0, sizeValue);
+    this.setPage(1);
+  }
+
+  public setPage(pageNo: number): void {
+    this.currentPage = pageNo;
+  }
+
+  public pageChanged(event: any): void {
+    this.setPage(event.page - 1);
+    this.getOpenLicenses(event.page - 1, this.itemsPerPage);
+    this.getClosedLicenses(event.page - 1, this.itemsPerPage);
+    console.log('Page changed to: ' + event.page);
+    console.log('Number items per page: ' + event.itemsPerPage);
+  }
+
 }
