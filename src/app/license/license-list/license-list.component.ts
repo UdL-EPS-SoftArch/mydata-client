@@ -19,6 +19,10 @@ export class LicenseListComponent implements OnInit {
   public closedLicenses: ClosedLicense[] = [];
   public errorMessage: string;
   public licenseOwners: {} = {};
+  public currentPage = 1;
+  public maxSize = 5;
+  public bigTotalItems: number;
+  public itemsPerPage = 2;
 
   constructor(private openLicenseService: OpenLicenseService,
               private closedLicenseService: ClosedLicenseService,
@@ -34,10 +38,12 @@ export class LicenseListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.openLicenseService.getAllOpenLicenses().subscribe(
-      openLicense => {
-        this.openLicenses = openLicense;
-        openLicense.forEach(openLicenses => {
+    this.openLicenseService.getAllOpenLicensesOrderedByTitlePaginated(0, this.itemsPerPage).subscribe(
+      pageWrapper => {
+        this.openLicenses = pageWrapper.elements;
+        this.bigTotalItems = pageWrapper.pageInfo.totalElements;
+        this.itemsPerPage = pageWrapper.pageInfo.size;
+        this.openLicenses.forEach(openLicenses => {
             this.ownerService.getOwner(openLicenses._links.owner.href).subscribe(
               owner => {
                 this.licenseOwners[openLicenses.uri] = owner.getUserName();
@@ -49,10 +55,12 @@ export class LicenseListComponent implements OnInit {
       error => this.errorMessage = <any>error.message
     );
 
-    this.closedLicenseService.getAllClosedLicenses().subscribe(
-      closedLicense => {
-        this.closedLicenses = closedLicense;
-        closedLicense.forEach(closedLicenses => {
+    this.closedLicenseService.getAllClosedLicensesOrderedByTitlePaginated(0, this.itemsPerPage).subscribe(
+      pageWrapper => {
+        this.closedLicenses = pageWrapper.elements;
+        this.bigTotalItems = pageWrapper.pageInfo.totalElements;
+        this.itemsPerPage = pageWrapper.pageInfo.size;
+        this.closedLicenses.forEach(closedLicenses => {
             this.ownerService.getOwner(closedLicenses._links.owner.href).subscribe(
               owner => {
                 this.licenseOwners[closedLicenses.uri] = owner.getUserName();
