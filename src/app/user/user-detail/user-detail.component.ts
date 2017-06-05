@@ -21,8 +21,8 @@ export class UserDetailComponent implements OnInit {
   public errorMessage: string;
 
   constructor(private route: ActivatedRoute,
-              private userService: UserService,
-  ) { }
+              private userService: UserService) {
+  }
 
   ngOnInit() {
     this.route.params
@@ -50,7 +50,7 @@ export class UserDetailComponent implements OnInit {
       });
   }
 
-  getUserInfo (user: User): void {
+  getUserInfo(user: User): void {
     this.userService.getUserDatasets(user.uri + '/ownsDatasets').subscribe(
       datasets => {
         this.datasets = datasets;
@@ -69,6 +69,11 @@ export class UserDetailComponent implements OnInit {
     this.userService.getUserClosedLicenses(user.uri + '/ownsLicenses').subscribe(
       licenses => {
         this.closedLicenses = licenses;
+      });
+
+    this.userService.getUserVerifiedAccount(user.uri).subscribe(
+      verified => {
+        this.user.verified = verified;
       });
   }
 }
