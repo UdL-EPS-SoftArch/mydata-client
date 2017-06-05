@@ -1,13 +1,14 @@
-import {Injectable} from '@angular/core';
-import {Http, Response, Headers, RequestOptions} from '@angular/http';
-import {AuthenticationBasicService} from '../login-basic/authentication-basic.service';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { AuthenticationBasicService } from '../login-basic/authentication-basic.service';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import {Dataset} from './dataset';
-import {environment} from '../../environments/environment';
-import {PageWrapper} from '../pageWrapper';
+import { Dataset } from './dataset';
+import { environment } from '../../environments/environment';
+import { PageWrapper } from '../pageWrapper';
+import { DataFile } from './datafile/datafile';
 
 @Injectable()
 export class DatasetService {
@@ -44,6 +45,9 @@ export class DatasetService {
         const pw = new PageWrapper();
         const data = res.json();
         pw.elements = data._embedded.datasets.map(json => new Dataset(json));
+        if (data._embedded.dataFiles) {
+          pw.elements = pw.elements.concat(data._embedded.dataFiles.map(json => new DataFile(json)));
+        }
         pw.pageInfo = data.page;
         return pw;
       })
@@ -57,6 +61,13 @@ export class DatasetService {
       '/datasets/search/findByDescriptionContaining?description=' + keyword;
 
     return this.http.get(environment.API + uri)
+      .map((res: Response) => res.json()._embedded.datasets.map(json => new Dataset(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // GET /datasets/search/findByTaggedWith_Name
+  getDatasetsByTag(keyword: string): Observable<Dataset[]> {
+    return this.http.get(environment.API + '/datasets/search/findByTaggedWith_Name?tag=' + keyword)
       .map((res: Response) => res.json()._embedded.datasets.map(json => new Dataset(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }

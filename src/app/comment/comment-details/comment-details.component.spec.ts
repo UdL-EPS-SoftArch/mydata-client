@@ -73,7 +73,7 @@ describe('CommentDetailsComponent', () => {
         expect(component.isOwner).toBe(true);
 
         const compiled = fixture.debugElement.nativeElement;
-        expect(compiled.querySelectorAll('p')[1].innerHTML).toBe('First comment');
+        expect(compiled.querySelectorAll('p')[0].innerHTML).toBe('First comment');
       });
     })
   ));

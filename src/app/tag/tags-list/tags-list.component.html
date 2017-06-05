@@ -23,6 +23,7 @@
     <div class="panel panel-default" *ngFor="let tag of tags">
       <div class="panel-heading">
         <h4>Name: <a routerLink="{{tag.uri}}">{{tag.name}}</a></h4>
+        <h5>Datasets tagged: <span class="badge">{{tag.datasets.length}}</span></h5>
       </div>
     </div>
   </div>
