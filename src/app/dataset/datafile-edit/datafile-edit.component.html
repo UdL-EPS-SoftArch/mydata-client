@@ -35,7 +35,7 @@
             <label class="col-md-3 control-label" for="openlicense">Licenses (choose only one)</label>
             <div class="col-md-9">
                 <p class="label">Open License</p>
-                <select class="form-control" id="openlicense" name="openlicense" [formControl]="datasetForm.controls['openlicense']" [(ngModel)]="dataset.license">
+                <select class="form-control" id="openlicense" name="openlicense" [formControl]="dataFileForm.controls['openlicense']" [(ngModel)]="datafile.license">
       <option *ngFor="let openLicense of openLicenses" [ngValue]="openLicense.uri">{{openLicense.text}}</option>
     </select>
             </div>
@@ -45,7 +45,7 @@
             <label class="col-md-3 control-label" for="closedlicense"></label>
             <div class="col-md-9">
                 <p class="label">Closed License</p>
-                <select class="form-control" id="closedlicense" name="closedlicense" [formControl]="datasetForm.controls['closedlicense']" [(ngModel)]="dataset.license">
+                <select class="form-control" id="closedlicense" name="closedlicense" [formControl]="dataFileForm.controls['closedlicense']" [(ngModel)]="datafile.license">
       <option *ngFor="let closedLicense of closedLicenses" [ngValue]="closedLicense.uri">{{closedLicense.text}}</option>
     </select>
             </div>
@@ -55,7 +55,7 @@
             <label class="col-md-3 control-label" for="tags">Tags</label>
             <div class="col-md-9">
                 <p class="label">Tags</p>
-                <select multiple class="form-control" id="tags" name="tags" [formControl]="datasetForm.controls['taggedWith']" [(ngModel)]="dataset.taggedWith">
+                <select multiple class="form-control" id="tags" name="tags" [formControl]="dataFileForm.controls['taggedWith']" [(ngModel)]="datafile.taggedWith">
           <option *ngFor="let tag of tags" [ngValue]="tag.uri">{{tag.name}}</option>
         </select>
             </div>
