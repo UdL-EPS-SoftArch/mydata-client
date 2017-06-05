@@ -8,6 +8,7 @@ import 'rxjs/add/observable/throw';
 import { OpenLicense } from './open-license';
 import { Dataset } from '../../dataset/dataset';
 import { environment } from '../../../environments/environment';
+import { PageWrapper } from '../../pageWrapper';
 
 @Injectable()
 export class OpenLicenseService {
@@ -44,6 +45,19 @@ export class OpenLicenseService {
   getOpenLicenseByTextWords(keyword: string): Observable<OpenLicense[]> {
     return this.http.get(environment.API + '/openLicenses/search/findByTextContaining?text=' + keyword)
       .map((res: Response) => res.json()._embedded.openLicenses.map(json => new OpenLicense(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // GET /openLicenses/
+  getAllOpenLicensesOrderedByTitlePaginated(pageNumber: number, size: number): Observable<PageWrapper> {
+    return this.http.get(`${environment.API}/openLicenses?sort=text&page=${pageNumber}&size=${size}`)
+      .map((res: Response) => {
+        const pw = new PageWrapper();
+        const data = res.json();
+        pw.elements = data._embedded.openLicenses.map(json => new OpenLicense(json));
+        pw.pageInfo = data.page;
+        return pw;
+      })
       .catch((error: any) => Observable.throw(error.json()));
   }
 

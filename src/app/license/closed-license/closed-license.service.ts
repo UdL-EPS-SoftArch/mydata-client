@@ -8,6 +8,7 @@ import 'rxjs/add/observable/throw';
 import { ClosedLicense } from './closed-license';
 import { Dataset } from '../../dataset/dataset';
 import { environment } from '../../../environments/environment';
+import { PageWrapper } from '../../pageWrapper';
 
 @Injectable()
 export class ClosedLicenseService {
@@ -45,6 +46,19 @@ export class ClosedLicenseService {
   getClosedLicenseByTextWords(keyword: string): Observable<ClosedLicense[]> {
     return this.http.get(environment.API + '/closedLicenses/search/findByTextContaining?text=' + keyword)
       .map((res: Response) => res.json()._embedded.closedLicenses.map(json => new ClosedLicense(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // GET /closedLicenses/
+  getAllClosedLicensesOrderedByTitlePaginated(pageNumber: number, size: number): Observable<PageWrapper> {
+    return this.http.get(`${environment.API}/closedLicenses?sort=text&page=${pageNumber}&size=${size}`)
+      .map((res: Response) => {
+        const pw = new PageWrapper();
+        const data = res.json();
+        pw.elements = data._embedded.closedLicenses.map(json => new ClosedLicense(json));
+        pw.pageInfo = data.page;
+        return pw;
+      })
       .catch((error: any) => Observable.throw(error.json()));
   }
 
