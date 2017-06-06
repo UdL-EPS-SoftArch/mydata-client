@@ -5,9 +5,13 @@ export class MockUserService extends SpyObject {
   fakeResponse;
   getUser;
   getUserDatasets;
+  getUserDatasetsPaginated;
   getUserSchemas;
+  getUserSchemasPaginated;
   getUserOpenLicenses;
+  getUserOpenLicensesPaginated;
   getUserClosedLicenses;
+  getUserClosedLicensesPaginated;
 
   constructor() {
     super(UserService);
@@ -15,9 +19,13 @@ export class MockUserService extends SpyObject {
     this.fakeResponse = null;
     this.getUser = this.spy('getUser').andReturn(this);
     this.getUserDatasets = this.spy('getUserDatasets').andReturn(this);
+    this.getUserDatasetsPaginated = this.spy('getUserDatasetsPaginated').andReturn(this);
     this.getUserSchemas = this.spy('getUserSchemas').andReturn(this);
+    this.getUserSchemasPaginated = this.spy('getUserSchemasPaginated').andReturn(this);
     this.getUserOpenLicenses = this.spy('getUserOpenLicenses').andReturn(this);
+    this.getUserOpenLicensesPaginated = this.spy('getUserOpenLicensesPaginated').andReturn(this);
     this.getUserClosedLicenses = this.spy('getUserClosedLicenses').andReturn(this);
+    this.getUserClosedLicensesPaginated = this.spy('getUserClosedLicensesPaginated').andReturn(this);
   }
 
   subscribe(callback) {
