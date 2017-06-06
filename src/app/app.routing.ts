@@ -36,6 +36,9 @@ import { CommentFormComponent } from './comment/comment-form/comment-form.compon
 import { CommentDetailsComponent } from './comment/comment-details/comment-details.component';
 import { CommentEditComponent } from './comment/comment-edit/comment-edit.component';
 import { LicenseListComponent } from './license/license-list/license-list.component';
+import { DatastreamsListComponent } from './dataset/datastream-list/datastreams-list.component';
+import { DatastreamDetailsComponent } from './dataset/datastream-details/datastream-details.component';
+import { DatastreamEditComponent } from './dataset/datastream-edit/datastream-edit.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'about', pathMatch: 'full' },
@@ -70,6 +73,10 @@ export const routes: Routes = [
   { path: 'tags', component: TagsListComponent },
   { path: 'tags/new', component: TagFormComponent },
   { path: 'tags/:id', component: TagDetailsComponent },
+  { path: 'dataStreams', component: DatastreamsListComponent },
+  { path: 'dataStreams/:id', component: DatastreamDetailsComponent },
+  { path: 'dataStreams/:id/edit', component: DatastreamEditComponent },
+  { path: 'dataStreams', component: DatastreamsListComponent },
   { path: 'users/:id', component: UserDetailComponent },
   { path: 'comments', component: CommentListComponent },
   { path: 'comments/new', component: CommentFormComponent },
