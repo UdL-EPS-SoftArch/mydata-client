@@ -19,6 +19,26 @@ export class UserDetailComponent implements OnInit {
   public openLicenses: OpenLicense[] = [];
   public closedLicenses: ClosedLicense[] = [];
   public errorMessage: string;
+  // DATASET PAGINATION
+  public datasetCurrentPage = 1;
+  public datasetMaxSize = 5;
+  public datasetBigTotalItems: number;
+  public datasetItemsPerPage = 20;
+  // SCHEMA PAGINATION
+  public schemaCurrentPage = 1;
+  public schemaMaxSize = 5;
+  public schemaBigTotalItems: number;
+  public schemaItemsPerPage = 20;
+  // OPENLICENSE PAGINATION
+  public openLicenseCurrentPage = 1;
+  public openLicenseMaxSize = 5;
+  public openLicenseBigTotalItems: number;
+  public openLicenseItemsPerPage = 20;
+  // CLOSEDLICENSE PAGINATION
+  public closedLicenseCurrentPage = 1;
+  public closedLicenseMaxSize = 5;
+  public closedLicenseBigTotalItems: number;
+  public closedLicenseItemsPerPage = 20;
 
   constructor(private route: ActivatedRoute,
               private userService: UserService,

@@ -30,8 +30,8 @@ export class UserService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  getUserDatasetsPaginated(uri: any): Observable<PageWrapper> {
-    return this.http.get(`${environment.API}${uri}`)
+  getUserDatasetsPaginated(uri: any, pageNumber: number, size: number): Observable<PageWrapper> {
+    return this.http.get(`${environment.API}${uri}?page=${pageNumber}&size=${size}`)
       .map((res: Response) => {
         const pw = new PageWrapper();
         const data = res.json();
@@ -48,8 +48,8 @@ export class UserService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  getUserSchemasPaginated(uri: any): Observable<PageWrapper> {
-    return this.http.get(`${environment.API}${uri}`)
+  getUserSchemasPaginated(uri: any, pageNumber: number, size: number): Observable<PageWrapper> {
+    return this.http.get(`${environment.API}${uri}?page=${pageNumber}&size=${size}`)
       .map((res: Response) => {
         const pw = new PageWrapper();
         const data = res.json();
@@ -71,8 +71,8 @@ export class UserService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  getUserOpenLicensePaginated(uri: any): Observable<PageWrapper> {
-    return this.http.get(`${environment.API}${uri}`)
+  getUserOpenLicensePaginated(uri: any, pageNumber: number, size: number): Observable<PageWrapper> {
+    return this.http.get(`${environment.API}${uri}?page=${pageNumber}&size=${size}`)
       .map((res: Response) => {
         const pw = new PageWrapper();
         const data = res.json();
@@ -94,8 +94,8 @@ export class UserService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  getUserClosedLicensePaginated(uri: any): Observable<PageWrapper> {
-    return this.http.get(`${environment.API}${uri}`)
+  getUserClosedLicensePaginated(uri: any, pageNumber: number, size: number): Observable<PageWrapper> {
+    return this.http.get(`${environment.API}${uri}?page=${pageNumber}&size=${size}`)
       .map((res: Response) => {
         const pw = new PageWrapper();
         const data = res.json();
