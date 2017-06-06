@@ -71,10 +71,7 @@ export class UserDetailComponent implements OnInit {
   }
 
   getUserInfo (user: User): void {
-    this.userService.getUserDatasets(user.uri + '/ownsDatasets').subscribe(
-      datasets => {
-        this.datasets = datasets;
-      });
+    this.getDatasets(user.uri + '/ownsDatasets', 0, this.datasetItemsPerPage);
 
     this.userService.getUserSchemas(user.uri + '/ownsSchemas').subscribe(
       schemas => {
@@ -90,5 +87,33 @@ export class UserDetailComponent implements OnInit {
       licenses => {
         this.closedLicenses = licenses;
       });
+  }
+
+  public getDatasets(uri: any, page: number, size: number) {
+    this.userService.getUserDatasetsPaginated(uri, page, size).subscribe(
+      pageWrapper => {
+        this.datasets = pageWrapper.elements;
+        this.datasetBigTotalItems = pageWrapper.pageInfo.totalElements;
+        this.datasetItemsPerPage = pageWrapper.pageInfo.size;
+      },
+      error => this.errorMessage = <any>error.message
+    );
+  }
+
+  onChangeDataset(sizeValue) {
+    this.datasetItemsPerPage = sizeValue;
+    this.getDatasets(this.user.uri + '/ownsDatasets', 0, sizeValue);
+    this.setPageDataset(1);
+  }
+
+  public setPageDataset(pageNo: number): void {
+    this.datasetCurrentPage = pageNo;
+  }
+
+  public pageChangedDatset(event: any): void {
+    this.setPageDataset(event.page - 1);
+    this.getDatasets(this.user.uri + '/ownsDatasets', event.page - 1, this.datasetItemsPerPage);
+    console.log('Page changed to: ' + event.page);
+    console.log('Number items per page: ' + event.itemsPerPage);
   }
 }
