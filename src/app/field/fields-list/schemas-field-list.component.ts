@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { SchemaService } from '../schema.service';
-import { Field } from '../../field/field';
+import { SchemaService } from '../../schema/schema.service';
+import { Field } from '../field';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-field-list',
-  templateUrl: '../../field/fields-list/fields-list.component.html',
+  templateUrl: '../../field/fields-list/fields-list2.component.html',
   styleUrls: ['../../field/fields-list/fields-list.component.css']
 })
 export class SchemasFieldListComponent implements OnInit {
