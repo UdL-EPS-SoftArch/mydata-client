@@ -46,7 +46,7 @@ export class SchemaService {
 
   // GET /schemas/id/fields
   getFieldsOfSchema(uri: string): Observable<Field[]> {
-    return this.http.get(`${environment.API}${uri}/fields`)
+    return this.http.get(`${environment.API}${uri}/contains`)
       .map((res: Response) => res.json()._embedded.fields.map(json => new Field(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }

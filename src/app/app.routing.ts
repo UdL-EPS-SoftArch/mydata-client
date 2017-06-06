@@ -53,7 +53,7 @@ export const routes: Routes = [
   { path: 'schemas/:id', component: SchemaDetailsComponent },
   { path: 'schemas/:id/edit', component: SchemaEditComponent, canActivate: [LoggedInGuard] },
   { path: 'schemas/:id/datasets', component: SchemasDatasetListComponent },
-  { path: 'schemas/:id/fields', component: SchemasFieldListComponent },
+  { path: 'schemas/:id/contains', component: SchemasFieldListComponent },
   { path: 'fields', component: FieldListComponent },
   { path: 'fields/new', component: FieldFormComponent },
   { path: 'fields/:id', component: FieldDetailsComponent },
