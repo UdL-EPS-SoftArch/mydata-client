@@ -1,7 +1,6 @@
 <div class="row">
   <div class="col-md-2">
     <h3>Fields Details</h3>
-    <a class="btn btn-default" role="button" routerLink="{{field.partOf}}">Go back {{field.partOf}}</a>
     <a [routerLink]="['/users/'+ownerName]">{{ownerName}}</a>
   </div>
 </div>
@@ -16,10 +15,6 @@
   <div class="col-md-4">
     <h4>Description</h4>
     <p>{{field.description}}</p>
-  </div>
-  <div class="col-md-4">
-    <h4>Part Of</h4>
-    <p>part of: {{field.partOf}}</p>
   </div>
 
   <div class="col-md-2">
