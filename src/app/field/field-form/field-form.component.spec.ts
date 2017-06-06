@@ -25,7 +25,7 @@ describe('FieldFormComponent', () => {
     'title': 'Field 1',
     'description': 'First field',
     '_links': {
-      'partOf': {'href': 'http://localhost/fields/1/partOf'}
+      'partOf': {'href': 'http://localhost/schema/1'}
     }
   });
 
