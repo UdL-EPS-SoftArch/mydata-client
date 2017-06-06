@@ -110,7 +110,7 @@ export class UserDetailComponent implements OnInit {
     this.datasetCurrentPage = pageNo;
   }
 
-  public pageChangedDatset(event: any): void {
+  public pageChangedDataset(event: any): void {
     this.setPageDataset(event.page - 1);
     this.getDatasets(this.user.uri + '/ownsDatasets', event.page - 1, this.datasetItemsPerPage);
     console.log('Page changed to: ' + event.page);
