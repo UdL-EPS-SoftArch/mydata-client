@@ -43,12 +43,6 @@ export class FieldService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
-  // GET /fields/ + partOf(schema)
-  getFieldOfSchema(schema: Schema): Observable<Field[]> {
-    return this.http.get(environment.API + '/fields/search/partOf=' + schema)
-      .map((res: Response) => res.json()._embedded.fields.map(json => new Field(json)))
-      .catch((error: any) => Observable.throw(error.json()));
-  }
 
   // GET /schemas/id/fields
   getFieldsOfSchema(uri: string): Observable<Field[]> {
