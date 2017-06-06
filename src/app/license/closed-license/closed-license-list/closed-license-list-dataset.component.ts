@@ -11,6 +11,10 @@ import { ActivatedRoute } from '@angular/router';
 export class ClosedLicenseDatasetListComponent implements OnInit {
     public datasets: Dataset[] = [];
     public errorMessage: string;
+    public currentPage = 1;
+    public maxSize = 5;
+    public bigTotalItems: number;
+    public itemsPerPage = 20;
 
     constructor(private closedLicenseService: ClosedLicenseService,
         private route: ActivatedRoute) { }
