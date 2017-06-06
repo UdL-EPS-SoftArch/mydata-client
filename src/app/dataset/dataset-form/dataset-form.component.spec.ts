@@ -30,6 +30,8 @@ import { TagService } from '../../tag/tag.service';
 import { MockTagService } from '../../../test/mocks/tag.service';
 import { Tag } from '../../tag/tag';
 import { OpenLicense } from '../../license/open-license/open-license';
+import { DataStreamService } from '../datastream/datastream.service';
+import { MockDataStreamService } from '../../../test/mocks/datastream.service';
 
 describe('DatasetFormComponent', () => {
   let component: DatasetFormComponent;
@@ -80,6 +82,7 @@ describe('DatasetFormComponent', () => {
         { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService },
         { provide: OwnerService, useClass: MockOwnerService },
         { provide: OpenLicenseService, useClass: MockOpenLicenseService },
+        { provide: DataStreamService, useClass: MockDataStreamService},
         { provide: ClosedLicenseService, useClass: MockClosedLicenseService },
         { provide: TagService, useClass: MockTagService },
       ],
