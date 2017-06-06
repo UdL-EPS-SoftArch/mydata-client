@@ -1,18 +1,11 @@
-export class DataFile {
-  uri: string;
-  title: string;
-  description: string;
+import { Dataset } from '../dataset';
+export class DataFile extends Dataset {
   filename: string;
   content: string;
   separator: string;
-  dateTime: string;
-  lastModified: string;
-  blocked = false;
-  flags = 0;
-  schema: string;
-  _links: any = {};
 
   constructor(values: Object = {}) {
+    super(values);
     (<any>Object).assign(this, values);
   }
 }

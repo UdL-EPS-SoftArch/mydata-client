@@ -35,6 +35,8 @@ import { CommentListComponent } from './comment/comment-list/comment-list.compon
 import { CommentFormComponent } from './comment/comment-form/comment-form.component';
 import { CommentDetailsComponent } from './comment/comment-details/comment-details.component';
 import { CommentEditComponent } from './comment/comment-edit/comment-edit.component';
+import {SchemasFieldListComponent} from "./schema/schemas-list/schemas-field-list.component";
+import { LicenseListComponent } from './license/license-list/license-list.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'about', pathMatch: 'full' },
@@ -51,6 +53,7 @@ export const routes: Routes = [
   { path: 'schemas/:id', component: SchemaDetailsComponent },
   { path: 'schemas/:id/edit', component: SchemaEditComponent, canActivate: [LoggedInGuard] },
   { path: 'schemas/:id/datasets', component: SchemasDatasetListComponent },
+  { path: 'schemas/:id/fields', component: SchemasFieldListComponent },
   { path: 'fields', component: FieldListComponent },
   { path: 'fields/new', component: FieldFormComponent },
   { path: 'fields/:id', component: FieldDetailsComponent },
@@ -65,6 +68,7 @@ export const routes: Routes = [
   { path: 'closedLicenses/:id', component: ClosedLicenseDetailsComponent },
   { path: 'closedLicenses/:id/edit', component: ClosedLicenseEditComponent, canActivate: [LoggedInGuard] },
   { path: 'closedLicenses/:id/datasets', component: ClosedLicenseDatasetListComponent },
+  { path: 'licenses', component: LicenseListComponent },
   { path: 'tags', component: TagsListComponent },
   { path: 'tags/new', component: TagFormComponent },
   { path: 'tags/:id', component: TagDetailsComponent },

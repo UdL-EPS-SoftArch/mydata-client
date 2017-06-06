@@ -10,8 +10,11 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TagDetailsComponent } from '../tags-details/tags-details.component';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import {MockAuthenticationBasicService} from '../../../test/mocks/authentication-basic.service';
-import {AuthenticationBasicService} from '../../login-basic/authentication-basic.service';
+import { MockAuthenticationBasicService } from '../../../test/mocks/authentication-basic.service';
+import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
+import { DatasetService } from '../../dataset/dataset.service';
+import { MockDatasetService } from '../../../test/mocks/dataset.service';
+import { Dataset } from '../../dataset/dataset';
 
 
 describe('TagFormComponent', () => {
@@ -23,14 +26,31 @@ describe('TagFormComponent', () => {
     'name': 'Tag1',
     '_links': {}
   });
+  const dataset1 = new Dataset({
+    'uri': '/datasets/1',
+    'title': 'Dataset 1',
+    'description': 'First dataset',
+    '_links': {
+      'owner': {'href': 'http://localhost/datasets/1/owner'}
+    }
+  });
+  const dataset2 = new Dataset({
+    'uri': '/datasets/2',
+    'title': 'Dataset 2',
+    'description': 'Second dataset',
+    '_links': {
+      'owner': {'href': 'http://localhost/datasets/2/owner'}
+    }
+  });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [AppComponent, TagFormComponent, TagDetailsComponent],
       providers: [
-        {provide: TagService, useClass: MockTagService},
-        { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService }
-        ],
+        { provide: TagService, useClass: MockTagService },
+        { provide: DatasetService, useClass: MockDatasetService },
+        { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService },
+      ],
       imports: [RouterTestingModule.withRoutes([
         {path: 'tags/new', component: TagFormComponent},
         {path: 'tags/:id', component: TagDetailsComponent}]),
@@ -41,9 +61,11 @@ describe('TagFormComponent', () => {
   }));
 
   it('should submit new tag', async(
-    inject([Router, Location, TagService, AuthenticationBasicService], (router, location, service, authentication) => {
+    inject([Router, Location, TagService, AuthenticationBasicService, DatasetService],
+      (router, location, service, authentication, datasetService) => {
       TestBed.createComponent(AppComponent);
       service.setResponse(response);
+      datasetService.setResponse([dataset1, dataset2]);
       authentication.isLoggedIn.and.returnValue(true);
 
       router.navigate(['/tags/new']).then(() => {

@@ -10,6 +10,9 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import {AuthenticationBasicService} from '../../login-basic/authentication-basic.service';
 import {MockAuthenticationBasicService} from '../../../test/mocks/authentication-basic.service';
+import { DatasetService } from '../../dataset/dataset.service';
+import { MockDatasetService } from '../../../test/mocks/dataset.service';
+import { Dataset } from '../../dataset/dataset';
 
 describe('TagDetailsComponent', () => {
   let fixture: ComponentFixture<TagDetailsComponent>;
@@ -23,14 +26,31 @@ describe('TagDetailsComponent', () => {
     'uri': '/tags/Tag2',
     'name': 'Tag2',
   });
+  const dataset1 = new Dataset({
+    'uri': '/datasets/1',
+    'title': 'Dataset 1',
+    'description': 'First dataset',
+    '_links': {
+      'owner': {'href': 'http://localhost/datasets/1/owner'}
+    }
+  });
+  const dataset2 = new Dataset({
+    'uri': '/datasets/2',
+    'title': 'Dataset 2',
+    'description': 'Second dataset',
+    '_links': {
+      'owner': {'href': 'http://localhost/datasets/2/owner'}
+    }
+  });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ AppComponent, TagDetailsComponent ],
       providers: [
         { provide: TagService, useClass: MockTagService },
-        { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService }
-        ],
+        { provide: DatasetService, useClass: MockDatasetService },
+        { provide: AuthenticationBasicService, useClass: MockAuthenticationBasicService },
+      ],
       imports: [ RouterTestingModule.withRoutes([
         { path: 'tags/:id', component: TagDetailsComponent }
       ])],
@@ -39,10 +59,11 @@ describe('TagDetailsComponent', () => {
   }));
 
   it('should fetch and render the requested tag', async(
-    inject([Router, Location, TagService, AuthenticationBasicService],
-      (router, location, service, authentication) => {
+    inject([Router, Location, TagService, AuthenticationBasicService, DatasetService],
+      (router, location, service, authentication, datasetService) => {
       TestBed.createComponent(AppComponent);
       service.setResponse(tag1);
+      datasetService.setResponse([dataset1, dataset2]);
       authentication.isLoggedIn.and.returnValue(true);
 
       router.navigate(['/tags/Tag1']).then(() => {

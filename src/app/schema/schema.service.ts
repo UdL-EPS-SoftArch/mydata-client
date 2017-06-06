@@ -8,6 +8,7 @@ import 'rxjs/add/observable/throw';
 import { Schema } from './schema';
 import { environment } from '../../environments/environment';
 import { Dataset } from '../dataset/dataset';
+import { Field } from '../field/field';
 
 @Injectable()
 export class SchemaService {
@@ -40,6 +41,13 @@ export class SchemaService {
   getDatasetsOfSchema(uri: string): Observable<Dataset[]> {
     return this.http.get(`${environment.API}${uri}/datasets`)
       .map((res: Response) => res.json()._embedded.datasets.map(json => new Dataset(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // GET /schemas/id/fields
+  getFieldsOfSchema(uri: string): Observable<Field[]> {
+    return this.http.get(`${environment.API}${uri}/fields`)
+      .map((res: Response) => res.json()._embedded.fields.map(json => new Field(json)))
       .catch((error: any) => Observable.throw(error.json()));
   }
 
