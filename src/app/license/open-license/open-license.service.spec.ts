@@ -74,4 +74,22 @@ describe('OpenLicenseService', () => {
         });
       })));
   });
+
+  describe('#deleteOpenLicense(openLicense)', () => {
+    it('should delete the specified openLicense',
+      inject([ MockBackend, OpenLicenseService ], fakeAsync((mockBackend, service) => {
+        const apiResponse = new ResponseOptions({
+          status: 204
+        });
+
+        mockBackend.connections.subscribe((connection: MockConnection) => {
+          expect(connection.request.url).toBe('http://localhost:8080/openLicenses/1');
+          connection.mockRespond(new Response(apiResponse));
+        });
+
+        service.deleteOpenLicense(license1).subscribe((response) => {
+          expect(response.status).toEqual(204);
+        });
+      })));
+  });
 });

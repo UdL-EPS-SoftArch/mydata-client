@@ -64,4 +64,15 @@ export class OpenLicenseService {
       .map((res: Response) => new OpenLicense(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
+
+  // DELETE /openLicense/id
+  deleteOpenLicense(openLicense: OpenLicense): Observable<Response> {
+    const headers = new Headers({'Content-Type': 'application/json'});
+    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
+    const options = new RequestOptions({headers: headers});
+
+    return this.http.delete(environment.API + openLicense.uri, options)
+      .map((res: Response) => res)
+      .catch((error: any) => Observable.throw(error.json()));
+  }
 }

@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TagService } from '../tag.service';
 import { Tag } from '../tag';
 import { AuthenticationBasicService } from '../../login-basic/authentication-basic.service';
+import {Dataset} from '../../dataset/dataset';
+import { DatasetService } from '../../dataset/dataset.service';
 
 @Component({
   selector: 'app-tag-details',
@@ -12,10 +14,13 @@ import { AuthenticationBasicService } from '../../login-basic/authentication-bas
 export class TagDetailsComponent implements OnInit {
   public tag: Tag = new Tag();
   public errorMessage: string;
+  public datasets: Dataset[] = [];
+
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private tagService: TagService,
+              private datasetService: DatasetService,
               private authenticationService: AuthenticationBasicService) { }
 
   ngOnInit() {
@@ -24,8 +29,13 @@ export class TagDetailsComponent implements OnInit {
       .subscribe((id) => {
         const uri = `/tags/${id}`;
         this.tagService.getTag(uri).subscribe(
-          tag => this.tag = tag,
-          error => this.errorMessage = <any>error.message
+          tag => {
+            this.tag = tag;
+            this.datasetService.getDatasetsByTag(id).subscribe(
+                datasets => this.datasets = datasets
+            );
+          },
+        error => this.errorMessage = <any>error.message
         );
       });
   }

@@ -64,6 +64,8 @@ import { CommentFormComponent } from './comment/comment-form/comment-form.compon
 import { CommentListComponent } from './comment/comment-list/comment-list.component';
 import { CommentSearchComponent } from './comment/comment-search/comment-search.component';
 import { CommentService } from './comment/comment.service';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { LicenseListComponent } from './license/license-list/license-list.component';
 
 @NgModule({
   declarations: [
@@ -114,7 +116,8 @@ import { CommentService } from './comment/comment.service';
     SchemaEditComponent,
     ClosedLicenseDatasetListComponent,
     OpenLicenseDatasetListComponent,
-    DataFileEditComponent
+    DataFileEditComponent,
+    LicenseListComponent
   ],
   imports: [
     BrowserModule,
@@ -122,7 +125,8 @@ import { CommentService } from './comment/comment.service';
     ReactiveFormsModule,
     HttpModule,
     RouterModule.forRoot(routes),
-    LoginBasicModule
+    LoginBasicModule,
+    PaginationModule.forRoot()
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService,
               OpenLicenseService, ClosedLicenseService, TagService, OwnerService, DataFileService, UserService,
