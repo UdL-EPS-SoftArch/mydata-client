@@ -15,6 +15,8 @@ import {MockOwnerService} from '../../../test/mocks/owner.service';
 import {OwnerService} from '../../user/owner.service';
 import {AuthenticationBasicService} from '../../login-basic/authentication-basic.service';
 import {User} from '../../login-basic/user';
+import {PageWrapper} from '../../pageWrapper';
+import {Page} from '../../page';
 
 describe('SchemasListComponent', () => {
   let component: SchemasListComponent;
@@ -35,6 +37,17 @@ describe('SchemasListComponent', () => {
     '_links': {
       'owner': {'href': 'http://localhost/schemas/2/owner'}
     }
+  });
+
+  const page = new Page({
+    'size': 20,
+    'totalElements': 2,
+    'totalPages': 1,
+    'number': 0
+  });
+  const pageWrapper = new PageWrapper({
+    'pageInfo': page,
+    'elements': [schema1, schema2]
   });
 
   const owner = new Owner({
@@ -59,14 +72,14 @@ describe('SchemasListComponent', () => {
     inject([Router, Location, SchemaService, OwnerService, AuthenticationBasicService],
       (router, location, service, ownerService, authentication) => {
         TestBed.createComponent(AppComponent);
-        service.setResponse([schema1, schema2]);
+        service.setResponse(pageWrapper);
         ownerService.setResponse(owner);
         authentication.isLoggedIn.and.returnValue(true);
         authentication.getCurrentUser.and.returnValue(new User({'username': 'owner'}));
 
         router.navigate(['/schemas']).then(() => {
           expect(location.path()).toBe('/schemas');
-          expect(service.getAllSchemas).toHaveBeenCalled();
+          expect(service.getAllSchemasPaginated).toHaveBeenCalled();
           expect(ownerService.getOwner).toHaveBeenCalledWith('http://localhost/schemas/1/owner');
 
           fixture = TestBed.createComponent(SchemasListComponent);
