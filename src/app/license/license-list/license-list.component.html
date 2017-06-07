@@ -29,8 +29,11 @@
 
             <ng-template #llicenciaClosed class="panel-heading">
                 <h4>
-                    &nbsp;<span class="fa fa-lock fa-1x"></span> ClosedLicense: <a routerLink="{{License.uri}}">{{License.text}}</a> Price: {{License.price}} €
+                    &nbsp;<span class="fa fa-lock fa-1x"></span> ClosedLicense: <a routerLink="{{License.uri}}">{{License.text}}</a>
                 </h4>
+                <h5>
+                    &nbsp;<span class="fa fa-1x"></span> Price: <a routerLink="{{License.uri}}">{{License.price}} €</a>
+                </h5>
                 <h5>
                     &nbsp;<span class="fa fa-1x"></span> Owner: <a routerLink="{{'/users/'+licenseOwners[License.uri]}}">{{licenseOwners[License.uri]}}</a>
                 </h5>
