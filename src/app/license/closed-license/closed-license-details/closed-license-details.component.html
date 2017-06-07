@@ -1,28 +1,71 @@
-<div class="row">
-    <h3>Closed License Details</h3>
+<div class="container">
+  <div class="resume">
+    <div class="row">
+
+      <div class="panel panel-default">
+        <div class="panel-heading resume-heading">
+          <div class="row">
+            <div class="col-md-12" align="center">
+              <h3 class="page-title tc">Closed Licence Details</h3>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12" align="right" *ngIf="isOwner">
+              <a class="btn btn-primary" role="button" routerLink="{{closedLicense.uri}}/edit">
+                <span class="glyphicon glyphicon-edit"></span> Edit</a>
+              <a class="btn btn-danger" role="button" (click)="onDelete(closedLicense)">
+                <span class="glyphicon glyphicon-trash"></span> Delete</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="bs-callout bs-callout-danger">
+          <div class="row">
+            <div class="col-md-3">
+              <h4 class="tc">Closed Licence Text</h4>
+            </div>
+            <div class="col-md-9">
+              <p class="tc">{{closedLicense.text}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bs-callout bs-callout-danger">
+          <div class="row">
+            <div class="col-md-3">
+              <h4 class="tc">Price</h4>
+            </div>
+            <div class="col-md-9">
+              <p class="tc">{{closedLicense.price}} €</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bs-callout bs-callout-danger">
+          <div class="row">
+            <div class="col-md-3">
+              <h4 class="tc">Owner</h4>
+            </div>
+            <div class="col-md-9">
+              <a class="line tc" [routerLink]="['/users/'+ownerName]">{{ownerName}}</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="bs-callout bs-callout-danger">
+          <div class="row">
+            <div class="col-md-3">
+              <h4 class="tc">Datasets</h4>
+            </div>
+            <div class="col-md-9">
+              <a class="tc" [routerLink]="[closedLicense.uri+'/datasets']">List datasets of {{closedLicense.text}}</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h4>Text</h4>
-        <p>{{closedLicense.text}}</p>
-    </div>
-    <div class="col-md-2">
-        <h4>Price</h4>
-        <p>{{closedLicense.price}}</p>
-    </div>
-    <div class="col-md-2" *ngIf="isOwner">
-        <a class="btn btn-lg btn-primary" role="button" routerLink="{{closedLicense.uri}}/edit">Edit Closed License</a>
-        <a class="btn btn-danger" role="button" (click)="onDelete(closedLicense)">Delete</a>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-4">
-        <h4>Owner</h4>
-        <h5>{{ownerName}}</h5>
-    </div>
-    <div class="col-md-4">
-        <h4>Datasets</h4>
-        <a [routerLink]="[closedLicense.uri+'/datasets']">List datasets of {{closedLicense.text}}</a>
-    </div>
-</div>
