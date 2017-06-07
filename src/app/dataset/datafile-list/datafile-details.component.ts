@@ -8,6 +8,10 @@ import { Schema } from '../../schema/schema';
 import {OwnerService} from '../../user/owner.service';
 import { Tag } from '../../tag/tag';
 import { TagService } from '../../tag/tag.service';
+import { OpenLicense } from '../../license/open-license/open-license';
+import { ClosedLicense } from '../../license/closed-license/closed-license';
+import { ClosedLicenseService } from '../../license/closed-license/closed-license.service';
+import { OpenLicenseService } from '../../license/open-license/open-license.service';
 
 declare const require: any;
 
@@ -23,6 +27,8 @@ export class DatafileDetailsComponent implements OnInit {
   public isOwner: boolean;
   public ownerName: string;
   public tags: Tag[] = [];
+  public openLicense: OpenLicense = new OpenLicense();
+  public closedLicense: ClosedLicense = new ClosedLicense();
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -30,6 +36,8 @@ export class DatafileDetailsComponent implements OnInit {
               private authenticationService: AuthenticationBasicService,
               private datasetOwnerService: OwnerService,
               private schemaService: SchemaService,
+              private openLicenseService: OpenLicenseService,
+              private closedLicenseService: ClosedLicenseService,
               private tagService: TagService) { }
 
   ngOnInit() {
@@ -53,6 +61,16 @@ export class DatafileDetailsComponent implements OnInit {
                 this.schema = schema;
 
               });
+
+            const uri_open_license = `/datasets/${id}/license`;
+            this.openLicenseService.getOpenLicense(uri_open_license).subscribe(
+              openLicense => this.openLicense = openLicense
+            );
+
+            const uri_closed_license = `/datasets/${id}/license`;
+            this.closedLicenseService.getClosedLicense(uri_closed_license).subscribe(
+              closedLicense => this.closedLicense = closedLicense
+            );
 
             this.tagService.getTagsOfDataset(uri).subscribe(
               tags => this.tags = tags
