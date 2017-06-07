@@ -141,6 +141,20 @@
         </div>
 
 
+        <div class="bs-callout bs-callout-danger">
+          <div class="row">
+            <div class="col-md-3">
+              <h4 class="tc">Tags</h4>
+            </div>
+            <div class="col-md-9">
+              <div class="hrz" *ngFor="let tag of tags">
+                <a role="button" class="btn btn-success" routerLink="{{tag.uri}}">{{tag.id}}</a>&nbsp;
+              </div>
+            </div>
+          </div>
+        </div>
+
+
       </div>
     </div>
   </div>

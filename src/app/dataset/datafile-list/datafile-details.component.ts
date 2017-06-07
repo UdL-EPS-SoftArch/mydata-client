@@ -6,6 +6,8 @@ import { AuthenticationBasicService } from '../../login-basic/authentication-bas
 import { SchemaService } from '../../schema/schema.service';
 import { Schema } from '../../schema/schema';
 import {OwnerService} from '../../user/owner.service';
+import { Tag } from '../../tag/tag';
+import { TagService } from '../../tag/tag.service';
 
 declare const require: any;
 
@@ -20,13 +22,15 @@ export class DatafileDetailsComponent implements OnInit {
   public errorMessage: string;
   public isOwner: boolean;
   public ownerName: string;
+  public tags: Tag[] = [];
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private datafileService: DataFileService,
               private authenticationService: AuthenticationBasicService,
               private datasetOwnerService: OwnerService,
-              private schemaService: SchemaService) { }
+              private schemaService: SchemaService,
+              private tagService: TagService) { }
 
   ngOnInit() {
     this.route.params
@@ -49,6 +53,10 @@ export class DatafileDetailsComponent implements OnInit {
                 this.schema = schema;
 
               });
+
+            this.tagService.getTagsOfDataset(uri).subscribe(
+              tags => this.tags = tags
+            );
           },
           error => this.errorMessage = <any>error.message,
         );

@@ -105,6 +105,8 @@ export class DatasetFormComponent implements OnInit {
       dataFile.filename = this.filename;
       dataFile.content = this.content;
       dataFile.separator = this.separator;
+      dataFile.taggedWith = this.dataset.taggedWith;
+      dataFile.tags = this.tags;
       this.dataFileService.addDataFile(dataFile)
         .subscribe(
           datafile => { this.router.navigate([datafile.uri]); },
