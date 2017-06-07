@@ -4,6 +4,7 @@ import { SpyObject } from '../helper';
 export class MockSchemaService extends SpyObject {
   fakeResponse;
   getAllSchemas;
+  getAllSchemasPaginated;
   getSchema;
   addSchema;
 
@@ -12,6 +13,7 @@ export class MockSchemaService extends SpyObject {
 
     this.fakeResponse = null;
     this.getAllSchemas = this.spy('getAllSchemas').andReturn(this);
+    this.getAllSchemasPaginated = this.spy('getAllSchemasPaginated').andReturn(this);
     this.getSchema = this.spy('getSchema').andReturn(this);
     this.addSchema = this.spy('addSchema').andReturn(this);
   }
