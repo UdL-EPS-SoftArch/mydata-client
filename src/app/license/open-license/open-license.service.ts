@@ -51,7 +51,7 @@ export class OpenLicenseService {
 
   // GET /openLicenses/
   getAllOpenLicensesOrderedByTitlePaginated(pageNumber: number, size: number): Observable<PageWrapper> {
-    return this.http.get(`${environment.API}/openLicenses?sort=text&page=${pageNumber}&size=${size}`)
+    return this.http.get(`${environment.API}/openLicenses?&page=${pageNumber}&size=${size}`)
       .map((res: Response) => {
         const pw = new PageWrapper();
         const data = res.json();

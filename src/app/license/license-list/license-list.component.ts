@@ -22,7 +22,7 @@ export class LicenseListComponent implements OnInit {
   public currentPage = 1;
   public maxSize = 5;
   public bigTotalItems: number;
-  public itemsPerPage = 2;
+  public itemsPerPage = 20;
 
   constructor(private openLicenseService: OpenLicenseService,
               private closedLicenseService: ClosedLicenseService,
@@ -39,12 +39,13 @@ export class LicenseListComponent implements OnInit {
 
   ngOnInit() {
     this.getOpenLicenses (0, this.itemsPerPage);
-    this.getClosedLicenses (0, this.itemsPerPage);
+    //this.getClosedLicenses (0, this.remainingItems);
   }
 
   public getOpenLicenses (page: number, size: number) {
-    this.openLicenseService.getAllOpenLicensesOrderedByTitlePaginated(0, this.itemsPerPage).subscribe(
+    this.openLicenseService.getAllOpenLicensesOrderedByTitlePaginated(page, size).subscribe(
       pageWrapper => {
+        this.licenses = [];
         this.openLicenses = pageWrapper.elements;
         this.bigTotalItems = pageWrapper.pageInfo.totalElements;
         this.itemsPerPage = pageWrapper.pageInfo.size;
@@ -62,7 +63,7 @@ export class LicenseListComponent implements OnInit {
   }
 
   public getClosedLicenses (page: number, size: number) {
-    this.closedLicenseService.getAllClosedLicensesOrderedByTitlePaginated(0, this.itemsPerPage).subscribe(
+    this.closedLicenseService.getAllClosedLicensesOrderedByTitlePaginated(page, size).subscribe(
       pageWrapper => {
         this.closedLicenses = pageWrapper.elements;
         this.bigTotalItems = pageWrapper.pageInfo.totalElements;
@@ -83,8 +84,8 @@ export class LicenseListComponent implements OnInit {
   onChange(sizeValue) {
     this.itemsPerPage = sizeValue;
     this.getOpenLicenses(0, sizeValue);
-    this.getClosedLicenses(0, sizeValue);
-    this.setPage(1);
+    //this.getClosedLicenses(0, sizeValue - this.remainingItems);
+    this.setPage(this.currentPage);
   }
 
   public setPage(pageNo: number): void {
@@ -94,9 +95,8 @@ export class LicenseListComponent implements OnInit {
   public pageChanged(event: any): void {
     this.setPage(event.page - 1);
     this.getOpenLicenses(event.page - 1, this.itemsPerPage);
-    this.getClosedLicenses(event.page - 1, this.itemsPerPage);
+    //this.getClosedLicenses(event.page - 1, this.itemsPerPage);
     console.log('Page changed to: ' + event.page);
     console.log('Number items per page: ' + event.itemsPerPage);
   }
-
 }
