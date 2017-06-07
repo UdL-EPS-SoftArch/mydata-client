@@ -4,6 +4,7 @@ import { SpyObject } from '../helper';
 export class MockTagService extends SpyObject {
   fakeResponse;
   getAllTags;
+  getAllTagsPaginated;
   getTag;
   addTag;
   updateTag;
@@ -14,6 +15,7 @@ export class MockTagService extends SpyObject {
 
     this.fakeResponse = null;
     this.getAllTags = this.spy('getAllTags').andReturn(this);
+    this.getAllTagsPaginated = this.spy('getAllTagsPaginated').andReturn(this);
     this.getTag = this.spy('getTag').andReturn(this);
     this.addTag = this.spy('addTag').andReturn(this);
     this.updateTag = this.spy('updateTag').andReturn(this);
