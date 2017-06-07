@@ -1,54 +1,149 @@
-<div class="row">
-  <div class="col-md-10">
-    <h3>DataFile Details</h3>
-  </div>
-  <div class="col-md-2" *ngIf="isOwner">
-    <a class="btn btn-primary" role="button" routerLink="{{datafile.uri}}/edit">Edit</a>
-    <a class="btn btn-danger" role="button" (click)="onDelete(datafile)">Delete</a>
-  </div>
-</div>
+<div class="container">
+  <div class="resume">
+    <div class="row">
 
-<div class="row">
-  <div class="col-md-6">
-    <h4>Filename</h4>
-    <p>{{datafile.filename}}</p>
-  </div>
-</div>
+      <div class="panel panel-default">
+        <div class="panel-heading resume-heading">
+          <div class="row">
+            <div class="col-md-12" align="center">
+              <h3 class="page-title tc">Datafile Details</h3>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12" align="right" *ngIf="isOwner">
+              <a class="btn btn-primary" role="button" routerLink="{{datafile.uri}}/edit">
+                <span class="glyphicon glyphicon-edit"></span> Edit</a>
+              <a class="btn btn-danger" role="button" (click)="onDelete(datafile)">
+                <span class="glyphicon glyphicon-trash"></span> Delete</a>
+            </div>
+          </div>
+        </div>
 
-<div class="row">
-  <div class="col-md-6">
-    <h4>Title</h4>
-    <p>{{datafile.title}}</p>
+        <div class="bs-callout bs-callout-danger">
+          <div class="row">
+            <div class="col-md-3">
+              <h4 class="tc">Datafile Title</h4>
+            </div>
+            <div class="col-md-9">
+              <p class="tc">{{datafile.title}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bs-callout bs-callout-danger">
+          <div class="row">
+            <div class="col-md-3">
+              <h4 class="tc">Datafile Description</h4>
+            </div>
+            <div class="col-md-9">
+              <p class="tc">{{datafile.description}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bs-callout bs-callout-danger">
+          <div class="row">
+            <div class="col-md-3">
+              <h4 class="tc">Owner</h4>
+            </div>
+            <div class="col-md-9">
+              <a class="line tc" [routerLink]="['/users/'+ownerName]">{{ownerName}}</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="bs-callout bs-callout-danger">
+          <div class="row">
+            <div class="col-md-3">
+              <h4 class="tc">Schema</h4>
+            </div>
+            <div class="col-md-9">
+              <ul class="list-group">
+                <a class="list-group-item">
+                  <div class="row">
+
+                    <div class="col-md-5">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <h4 class="list-group-item-heading">Schema Title</h4>
+                        </div>
+                        <div class="col-md-6">
+                          <a class="list-group-item-text" routerLink="{{schema.uri}}">{{schema.title}}</a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-7">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <h4 class="list-group-item-heading">Schema Description</h4>
+                        </div>
+                        <div class="col-md-6">
+                          <p class="list-group-item-text">{{schema.description}}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </a>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="bs-callout bs-callout-danger">
+          <div class="row">
+            <div class="col-md-3">
+              <h4 class="tc">File</h4>
+            </div>
+            <div class="col-md-9">
+              <ul class="list-group">
+                <a class="list-group-item">
+                  <div class="row">
+
+                    <div class="col-md-5">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <h4 class="list-group-item-heading">Filename</h4>
+                        </div>
+                        <div class="col-md-6">
+                          <p class="list-group-item-text">{{datafile.filename}}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-7">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <h4 class="list-group-item-heading">Content</h4>
+                        </div>
+                        <div class="col-md-8">
+                          <p class="list-group-item-text">{{datafile.content}}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </a>
+              </ul>
+
+              <div class="row">
+                <div class="col-md-12" align="right">
+                  <a class="btn btn-info" role="button" (click)="onDownload(datafile)">Download file</a>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+
+      </div>
+    </div>
   </div>
 
-  <div class="col-md-6">
-    <h4>Schema Title</h4>
-    <p>{{schema.title}}</p>
-  </div>
-
-</div>
-<div class="row">
-  <div class="col-md-6">
-    <h4>Description</h4>
-    <p>{{datafile.description}}</p>
-  </div>
-  <div class="col-md-6">
-    <h4>Schema Description</h4>
-    <p>{{schema.description}}</p>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-6">
-    <h4>Content</h4>
-    <p>{{datafile.content}}</p>
-  </div>
-</div>
-
-<div class="row">
-  <br>
-  <div class="col-md-12 text-center">
-    <a class="btn btn-info" role="button" (click)="onDownload(datafile)">Download file</a>
-  </div>
 </div>
 

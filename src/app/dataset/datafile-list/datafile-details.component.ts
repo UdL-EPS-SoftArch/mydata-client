@@ -11,7 +11,8 @@ declare const require: any;
 
 @Component({
   selector: 'app-datafile-details',
-  templateUrl: './datafile-details.component.html'
+  templateUrl: './datafile-details.component.html',
+  styleUrls: ['./datafile-details.component.css']
 })
 export class DatafileDetailsComponent implements OnInit {
   public datafile: DataFile = new DataFile();
