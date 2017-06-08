@@ -13,29 +13,48 @@
 
 <app-open-license-search (onSearchited)="onSearch($event)" [openLicenses]="openLicenses"></app-open-license-search>
 
-<div class="row">
-    <h3>Licenses</h3>
+<div class="col-md-6">
+    <h3>Open Licenses</h3>
     <div class="panel-group">
-        <div class="panel panel-default" *ngFor="let License of licenses">
+        <div class="panel panel-default" *ngFor="let License of openLicenses">
             <div *ngIf="checkType(License);then llicenciaOpen else llicenciaClosed"></div>
             <ng-template #llicenciaOpen class="panel-heading">
                 <h4>
-                    &nbsp;<span class="fa fa-unlock-alt fa-1x"></span> OpenLicense: <a routerLink="{{License.uri}}">{{License.text}}</a>
+                    &nbsp;<span class="fa fa-unlock-alt fa-1x"></span> <a routerLink="{{License.uri}}">{{License.text}}</a>
                 </h4>
             </ng-template>
 
             <ng-template #llicenciaClosed class="panel-heading">
                 <h4>
-                    &nbsp;<span class="fa fa-lock fa-1x"></span> ClosedLicense: <a routerLink="{{License.uri}}">{{License.text}}</a> Price: {{License.price}} €</h4>
+                    &nbsp;<span class="fa fa-lock fa-1x"></span> <a routerLink="{{License.uri}}">{{License.text}}</a> Price: {{License.price}} €</h4>
             </ng-template>
         </div>
     </div>
 </div>
 
-<div class="row text-center col-md-12" *ngIf="licenses?.length > 0">
+<div class="col-md-6">
+    <h3>Closed Licenses</h3>
+    <div class="panel-group">
+        <div class="panel panel-default" *ngFor="let License of closedLicenses">
+            <div *ngIf="checkType(License);then llicenciaOpen else llicenciaClosed"></div>
+            <ng-template #llicenciaOpen class="panel-heading">
+                <h4>
+                    &nbsp;<span class="fa fa-unlock-alt fa-1x"></span> <a routerLink="{{License.uri}}">{{License.text}}</a>
+                </h4>
+            </ng-template>
+
+            <ng-template #llicenciaClosed class="panel-heading">
+                <h4>
+                    &nbsp;<span class="fa fa-lock fa-1x"></span> <a routerLink="{{License.uri}}">{{License.text}}</a> Price: {{License.price}} €</h4>
+            </ng-template>
+        </div>
+    </div>
+</div>
+
+<div class="row text-center col-md-12" *ngIf="openLicenses?.length > 0 || closedLicenses?.length > 0">
     <pagination [totalItems]="bigTotalItems" [(ngModel)]="currentPage" [maxSize]="maxSize" [itemsPerPage]="itemsPerPage" [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event" (pageChanged)="pageChanged($event)"></pagination>
 </div>
-<div class="row text-center col-md-12" *ngIf="licenses?.length > 0">
+<div class="row text-center col-md-12" *ngIf="openLicenses?.length > 0 || closedLicenses?.length > 0">
     Licenses per page
     <select (change)="onChange($event.target.value)" style="margin-left: 10px;">
       <option value="10">10</option>

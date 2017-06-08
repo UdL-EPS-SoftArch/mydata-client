@@ -39,7 +39,7 @@ export class LicenseListComponent implements OnInit {
 
   ngOnInit() {
     this.getOpenLicenses (0, this.itemsPerPage);
-    //this.getClosedLicenses (0, this.remainingItems);
+    this.getClosedLicenses (0, this.itemsPerPage);
   }
 
   public getOpenLicenses (page: number, size: number) {
@@ -54,7 +54,6 @@ export class LicenseListComponent implements OnInit {
               owner => {
                 this.licenseOwners[openLicenses.uri] = owner.getUserName();
               });
-            this.licenses.push(openLicenses);
           }
         );
       },
@@ -66,14 +65,17 @@ export class LicenseListComponent implements OnInit {
     this.closedLicenseService.getAllClosedLicensesOrderedByTitlePaginated(page, size).subscribe(
       pageWrapper => {
         this.closedLicenses = pageWrapper.elements;
-        this.bigTotalItems = pageWrapper.pageInfo.totalElements;
-        this.itemsPerPage = pageWrapper.pageInfo.size;
+        if (pageWrapper.pageInfo.totalElements > this.bigTotalItems) {
+          this.bigTotalItems = pageWrapper.pageInfo.totalElements;
+        }
+        if (pageWrapper.pageInfo.size > this.itemsPerPage) {
+          this.itemsPerPage = pageWrapper.pageInfo.size;
+        }
         this.closedLicenses.forEach(closedLicenses => {
             this.ownerService.getOwner(closedLicenses._links.owner.href).subscribe(
               owner => {
                 this.licenseOwners[closedLicenses.uri] = owner.getUserName();
               });
-            this.licenses.push(closedLicenses);
           }
         );
       },
@@ -84,7 +86,7 @@ export class LicenseListComponent implements OnInit {
   onChange(sizeValue) {
     this.itemsPerPage = sizeValue;
     this.getOpenLicenses(0, sizeValue);
-    //this.getClosedLicenses(0, sizeValue - this.remainingItems);
+    this.getClosedLicenses(0, sizeValue);
     this.setPage(this.currentPage);
   }
 
@@ -95,7 +97,7 @@ export class LicenseListComponent implements OnInit {
   public pageChanged(event: any): void {
     this.setPage(event.page - 1);
     this.getOpenLicenses(event.page - 1, this.itemsPerPage);
-    //this.getClosedLicenses(event.page - 1, this.itemsPerPage);
+    this.getClosedLicenses(event.page - 1, this.itemsPerPage);
     console.log('Page changed to: ' + event.page);
     console.log('Number items per page: ' + event.itemsPerPage);
   }
