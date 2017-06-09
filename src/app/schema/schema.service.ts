@@ -1,14 +1,15 @@
-import {Injectable} from '@angular/core';
-import {Headers, Http, RequestOptions, Response} from '@angular/http';
-import {AuthenticationBasicService} from '../login-basic/authentication-basic.service';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { Headers, Http, RequestOptions, Response } from '@angular/http';
+import { AuthenticationBasicService } from '../login-basic/authentication-basic.service';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import {Schema} from './schema';
-import {environment} from '../../environments/environment';
-import {Dataset} from '../dataset/dataset';
-import {PageWrapper} from '../pageWrapper';
+import { Schema } from './schema';
+import { environment } from '../../environments/environment';
+import { Dataset } from '../dataset/dataset';
+import { PageWrapper } from '../pageWrapper';
+import { DataFile } from '../dataset/datafile/datafile';
 
 @Injectable()
 export class SchemaService {
@@ -55,6 +56,21 @@ export class SchemaService {
   getDatasetsOfSchema(uri: string): Observable<Dataset[]> {
     return this.http.get(`${environment.API}${uri}/datasets`)
       .map((res: Response) => res.json()._embedded.datasets.map(json => new Dataset(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  getDatasetsOfSchemaPaginated(uri: string, pageNumber: number, size: number): Observable<PageWrapper> {
+    return this.http.get(`${environment.API}${uri}/datasets?sort=title&page=${pageNumber}&size=${size}`)
+      .map((res: Response) => {
+        const pw = new PageWrapper();
+        const data = res.json();
+        pw.elements = data._embedded.datasets.map(json => new Dataset(json));
+        if (data._embedded.dataFiles) {
+          pw.elements = pw.elements.concat(data._embedded.dataFiles.map(json => new DataFile(json)));
+        }
+        pw.pageInfo = data.page;
+        return pw;
+      })
       .catch((error: any) => Observable.throw(error.json()));
   }
 
