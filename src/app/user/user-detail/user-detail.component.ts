@@ -1,11 +1,11 @@
-import {Component, OnInit} from "@angular/core";
-import {User} from "../user";
-import {ActivatedRoute} from "@angular/router";
-import {UserService} from "../user.service";
-import {Dataset} from "../../dataset/dataset";
-import {Schema} from "../../schema/schema";
-import {OpenLicense} from "../../license/open-license/open-license";
-import {ClosedLicense} from "../../license/closed-license/closed-license";
+import {Component, OnInit} from '@angular/core';
+import {User} from '../user';
+import {ActivatedRoute} from '@angular/router';
+import {UserService} from '../user.service';
+import {Dataset} from '../../dataset/dataset';
+import {Schema} from '../../schema/schema';
+import {OpenLicense} from '../../license/open-license/open-license';
+import {ClosedLicense} from '../../license/closed-license/closed-license';
 
 @Component({
   selector: 'app-user-detail',
@@ -22,7 +22,7 @@ export class UserDetailComponent implements OnInit {
   public errorMessage: string;
 
   constructor(private route: ActivatedRoute,
-              private userService: UserService,) {
+              private userService: UserService) {
   }
 
   ngOnInit() {
@@ -78,6 +78,5 @@ export class UserDetailComponent implements OnInit {
         }
       });
 
-    console.debug(this.licenses);
   }
 }
