@@ -31,8 +31,8 @@
         </div>
         <div class="col-md-6">
           <h4>Additional details:</h4>
-          <h5>Owner: <a [routerLink]="['/users/'+datasetOwners[dataset.uri]]">{{datasetOwners[dataset.uri]}}</a></h5>
-          <h5>Tags: <span class="badge">{{dataset.tags.length}}</span></h5>
+          <h5>Owner: <a *ngIf="datasetOwners != undefined" [routerLink]="['/users/'+datasetOwners[dataset.uri]]">{{datasetOwners[dataset.uri]}}</a></h5>
+          <h5>Tags: <span *ngIf="dataset.tags != undefined" class="badge">{{dataset.tags.length}}</span></h5>
           <p></p>
         </div>
       </div>

@@ -66,6 +66,11 @@ import { CommentSearchComponent } from './comment/comment-search/comment-search.
 import { CommentService } from './comment/comment.service';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { LicenseListComponent } from './license/license-list/license-list.component';
+import { DataStreamService } from './dataset/datastream/datastream.service';
+import { DatastreamsSearchComponent } from './dataset/datastream-search/datastream-search.component';
+import { DatastreamsListComponent } from './dataset/datastream-list/datastreams-list.component';
+import { DatastreamDetailsComponent } from './dataset/datastream-details/datastream-details.component';
+import { DatastreamEditComponent } from './dataset/datastream-edit/datastream-edit.component';
 
 @NgModule({
   declarations: [
@@ -117,7 +122,12 @@ import { LicenseListComponent } from './license/license-list/license-list.compon
     ClosedLicenseDatasetListComponent,
     OpenLicenseDatasetListComponent,
     DataFileEditComponent,
-    LicenseListComponent
+    LicenseListComponent,
+    DataFileEditComponent,
+    DatastreamEditComponent,
+    DatastreamDetailsComponent,
+    DatastreamsListComponent,
+    DatastreamsSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -130,7 +140,7 @@ import { LicenseListComponent } from './license/license-list/license-list.compon
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService,
               OpenLicenseService, ClosedLicenseService, TagService, OwnerService, DataFileService, UserService,
-              FieldService, CommentService, OwnerService],
+              FieldService, CommentService, OwnerService, DataStreamService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

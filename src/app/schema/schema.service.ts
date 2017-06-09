@@ -1,25 +1,40 @@
-import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { AuthenticationBasicService } from '../login-basic/authentication-basic.service';
-import { Observable } from 'rxjs/Observable';
+import {Injectable} from '@angular/core';
+import {Headers, Http, RequestOptions, Response} from '@angular/http';
+import {AuthenticationBasicService} from '../login-basic/authentication-basic.service';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import { Schema } from './schema';
-import { environment } from '../../environments/environment';
-import { Dataset } from '../dataset/dataset';
 import { Field } from '../field/field';
+import {Schema} from './schema';
+import {environment} from '../../environments/environment';
+import {Dataset} from '../dataset/dataset';
+import {PageWrapper} from '../pageWrapper';
 
 @Injectable()
 export class SchemaService {
 
   constructor(private http: Http,
-              private authentication: AuthenticationBasicService) {}
+              private authentication: AuthenticationBasicService) {
+  }
 
   // GET /schemas
   getAllSchemas(): Observable<Schema[]> {
     return this.http.get(`${environment.API}/schemas`)
       .map((res: Response) => res.json()._embedded.schemas.map(json => new Schema(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // GET /schemas with pagination data
+  getAllSchemasPaginated(pageNumber: number, size: number): Observable<PageWrapper> {
+    return this.http.get(`${environment.API}/schemas?sort=title&page=${pageNumber}&size=${size}`)
+      .map((res: Response) => {
+        const pw = new PageWrapper();
+        const data = res.json();
+        pw.elements = data._embedded.schemas.map(json => new Schema(json));
+        pw.pageInfo = data.page;
+        return pw;
+      })
       .catch((error: any) => Observable.throw(error.json()));
   }
 
@@ -54,9 +69,9 @@ export class SchemaService {
   // PUT /schemas/id
   updateSchema(schema: Schema): Observable<Schema> {
     const body = JSON.stringify(schema);
-    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const headers = new Headers({'Content-Type': 'application/json'});
     headers.append('Authorization', this.authentication.getCurrentUser().authorization);
-    const options = new RequestOptions({ headers: headers });
+    const options = new RequestOptions({headers: headers});
 
     return this.http.put(`${environment.API}${schema.uri}`, body, options)
       .map((res: Response) => new Schema(res.json()))
@@ -66,9 +81,9 @@ export class SchemaService {
   // POST /schemas
   addSchema(schema: Schema): Observable<Schema> {
     const body = JSON.stringify(schema);
-    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const headers = new Headers({'Content-Type': 'application/json'});
     headers.append('Authorization', this.authentication.getCurrentUser().authorization);
-    const options = new RequestOptions({ headers: headers });
+    const options = new RequestOptions({headers: headers});
 
     return this.http.post(`${environment.API}/schemas`, body, options)
       .map((res: Response) => new Schema(res.json()))
