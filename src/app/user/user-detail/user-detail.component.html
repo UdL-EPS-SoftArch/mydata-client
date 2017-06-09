@@ -40,11 +40,24 @@
   </section>
 
   <section id="content3">
+    <div class="panel-group">
     <div *ngIf="licenses?.length <= 0"><b>{{user.getUserName()}} has not registered any licenses yet</b></div>
-    <div class="panel-body" *ngFor="let license of licenses">
-      <div class="col-md-6">
-        <h4>Title: <a routerLink="{{license.uri}}">{{license.text}}</a></h4>
-      </div>
+    <div class="panel panel-default" *ngFor="let License of licenses">
+      <div *ngIf="checkType(License);then llicenciaOpen else llicenciaClosed"></div>
+      <ng-template #llicenciaOpen class="panel-heading">
+        <h4>
+          &nbsp;<span class="fa fa-unlock-alt fa-1x"></span>
+          OpenLicense: <a routerLink="{{License.uri}}">{{License.text}}</a>
+        </h4>
+      </ng-template>
+
+      <ng-template #llicenciaClosed class="panel-heading">
+        <h4>
+          &nbsp;<span class="fa fa-lock fa-1x"></span>
+          ClosedLicense: <a routerLink="{{License.uri}}">{{License.text}}</a>
+          Price: {{License.price}} €</h4>
+      </ng-template>
+    </div>
     </div>
   </section>
 

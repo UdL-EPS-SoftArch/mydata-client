@@ -77,6 +77,9 @@ export class UserDetailComponent implements OnInit {
           this.licenses.push(llicencia);
         }
       });
+  }
 
+  checkType(type) {
+    return type instanceof OpenLicense;
   }
 }
