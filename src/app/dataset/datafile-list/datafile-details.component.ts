@@ -29,6 +29,7 @@ export class DatafileDetailsComponent implements OnInit {
   public tags: Tag[] = [];
   public openLicense: OpenLicense = new OpenLicense();
   public closedLicense: ClosedLicense = new ClosedLicense();
+  public isOpenLicence = false;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -64,12 +65,26 @@ export class DatafileDetailsComponent implements OnInit {
 
             const uri_open_license = `/datasets/${id}/license`;
             this.openLicenseService.getOpenLicense(uri_open_license).subscribe(
-              openLicense => this.openLicense = openLicense
-            );
+              openLicense => {
+                this.openLicenseService.getAllOpenLicenses().subscribe(
+                  openLicenses => {
+                    openLicenses.forEach( open => {
+                      console.log(open);
+                      if (openLicense.text === open.text) {
+                        this.openLicense = openLicense;
+                        this.isOpenLicence = true;
+                      }
+                    });
 
-            const uri_closed_license = `/datasets/${id}/license`;
-            this.closedLicenseService.getClosedLicense(uri_closed_license).subscribe(
-              closedLicense => this.closedLicense = closedLicense
+                    if (!this.isOpenLicence) {
+                      const uri_closed_license = `/datasets/${id}/license`;
+                      this.closedLicenseService.getClosedLicense(uri_closed_license).subscribe(
+                        closedLicense => this.closedLicense = closedLicense
+                      );
+                    }
+                  }
+                );
+              }
             );
 
             this.tagService.getTagsOfDataset(uri).subscribe(
