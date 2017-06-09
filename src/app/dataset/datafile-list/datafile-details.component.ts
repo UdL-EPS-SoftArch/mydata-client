@@ -69,7 +69,6 @@ export class DatafileDetailsComponent implements OnInit {
                 this.openLicenseService.getAllOpenLicenses().subscribe(
                   openLicenses => {
                     openLicenses.forEach( open => {
-                      console.log(open);
                       if (openLicense.text === open.text) {
                         this.openLicense = openLicense;
                         this.isOpenLicence = true;
