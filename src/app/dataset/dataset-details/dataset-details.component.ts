@@ -28,7 +28,7 @@ export class DatasetDetailsComponent implements OnInit {
   public errorMessage: string;
   public isOwner: boolean;
   public ownerName: string;
-  public isOpenLicence = false;
+  public isOpenLicense = false;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -64,11 +64,11 @@ export class DatasetDetailsComponent implements OnInit {
                       openLicenses.forEach(open => {
                         if (openLicense.text === open.text) {
                           this.openLicense = openLicense;
-                          this.isOpenLicence = true;
+                          this.isOpenLicense = true;
                         }
                       });
 
-                      if (!this.isOpenLicence) {
+                      if (!this.isOpenLicense) {
                         const uri_closed_license = `/datasets/${id}/license`;
                         this.closedLicenseService.getClosedLicense(uri_closed_license).subscribe(
                           closedLicense => this.closedLicense = closedLicense
