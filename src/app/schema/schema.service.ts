@@ -100,4 +100,5 @@ export class SchemaService {
       .map((res: Response) => res)
       .catch((error: any) => Observable.throw(error.json()));
   }
+
 }
