@@ -41,7 +41,7 @@ export class OpenLicenseService {
       .map((res: Response) => new OpenLicense(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
-  
+
   // GET /openLicenses/ + search/findByTextContaining?text
   getOpenLicenseByTextWords(keyword: string): Observable<OpenLicense[]> {
     return this.http.get(environment.API + '/openLicenses/search/findByTextContaining?text=' + keyword)
