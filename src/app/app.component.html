@@ -14,28 +14,32 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }">
-          <a [routerLink]="['/about']">About</a>
+          <a [routerLink]="['/about']">
+            <span class="fa fa-question-circle"></span> About
+          </a>
         </li>
         <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }">
-          <a [routerLink]="['/datasets']">Datasets</a>
+          <a [routerLink]="['/datasets']">
+            <span class="fa fa-database"></span> Datasets
+          </a>
         </li>
         <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }">
-          <a [routerLink]="['/schemas']">Schemas</a>
+          <a [routerLink]="['/schemas']">
+            <span class="fa fa-list-alt"></span> Schemas
+          </a>
         </li>
         <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }">
-          <a [routerLink]="['/fields']">Fields</a>
+          <a [routerLink]="['/fields']">
+            <span class="fa fa-sort-amount-asc"></span> Fields
+          </a>
         </li>
         <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }">
-          <a [routerLink]="['/tags']">Tags</a>
+          <a [routerLink]="['/tags']">
+            <span class="fa fa-bookmark"></span> Tags</a>
         </li>
         <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }">
-          <a [routerLink]="['/openLicenses']">Open Licenses</a>
-        </li>
-        <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }">
-          <a [routerLink]="['/closedLicenses']">Closed Licenses</a>
-        </li>
-        <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }">
-          <a [routerLink]="['/licenses']">Licenses</a>
+          <a [routerLink]="['/licenses']">
+            <span class="fa fa-credit-card"></span> Licenses</a>
         </li>
         <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }">
           <a [routerLink]="['/comments']">Comments</a>
