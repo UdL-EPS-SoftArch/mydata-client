@@ -7,6 +7,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { Field } from './field';
 import { environment } from '../../environments/environment';
+import {Schema} from '../schema/schema';
 
 @Injectable()
 export class FieldService {
@@ -43,8 +44,29 @@ export class FieldService {
   }
 
 
+  // GET /schemas/id/fields
+  getFieldsOfSchema(uri: string): Observable<Field[]> {
+    return this.http.get(`${environment.API}${uri}/contains`)
+      .map((res: Response) => res.json()._embedded.fields.map(json => new Field(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+
   // POST /fields
   addField(field: Field): Observable<Field> {
+    const body = JSON.stringify(field);
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Authorization', this.authentication.getCurrentUser().authorization);
+    const options = new RequestOptions({ headers: headers });
+
+    return this.http.post(`${environment.API}/fields`, body, options)
+      .map((res: Response) => new Field(res.json()))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // POST /fields
+  addField2(field: Field, schema: Schema): Observable<Field> {
+    field.partOf = schema.uri;
     const body = JSON.stringify(field);
     const headers = new Headers({ 'Content-Type': 'application/json' });
     headers.append('Authorization', this.authentication.getCurrentUser().authorization);

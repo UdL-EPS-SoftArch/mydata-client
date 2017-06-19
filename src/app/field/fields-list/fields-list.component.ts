@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FieldService} from '../field.service';
 import {Field} from '../field';
+import {Schema} from '../../schema/schema';
 
 @Component({
   selector: 'app-fields-list',
@@ -8,6 +9,11 @@ import {Field} from '../field';
   styleUrls: ['./fields-list.component.css']
 })
 export class FieldListComponent implements OnInit {
+  @Input()
+  schema: Schema;
+  @Output()
+  onSearchited: EventEmitter<any> = new EventEmitter();
+
   public fields: Field[] = [];
   public errorMessage: string;
 
