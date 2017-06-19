@@ -23,6 +23,14 @@ export class UserService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
+  getUserVerifiedAccount(uri: any): Observable<boolean> {
+    return this.http.get(`${environment.API}${uri}`)
+      .map((res: Response) => {
+        return res.json();
+      })
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
   getUserDatasets(uri: any): Observable<Dataset[]> {
     return this.http.get(`${environment.API}${uri}`)
       .map((res: Response) => res.json()._embedded.datasets.map(json => new Dataset(json)))
