@@ -10,6 +10,8 @@ import {Schema} from '../schema';
 export class SchemaSearchComponent {
   @Input()
   schemas: Schema[];
+  @Input()
+  totalSchemas: number;
   @Output()
   onSearchited: EventEmitter<any> = new EventEmitter();
 

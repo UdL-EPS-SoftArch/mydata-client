@@ -1,7 +1,6 @@
 import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockDatasetService } from '../../../test/mocks/dataset.service';
-
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
@@ -18,6 +17,9 @@ import { Tag } from '../../tag/tag';
 import { TagService } from '../../tag/tag.service';
 import { MockTagService } from '../../../test/mocks/tag.service';
 import { DataFile } from '../datafile/datafile';
+import { SchemaService } from '../../schema/schema.service';
+import { MockSchemaService } from '../../../test/mocks/schema.service';
+import { Schema } from '../../schema/schema';
 
 describe('DatasetsListComponent', () => {
   let component: DatasetsListComponent;
@@ -28,7 +30,8 @@ describe('DatasetsListComponent', () => {
     'title': 'Dataset 1',
     'description': 'First dataset',
     '_links': {
-      'owner': {'href': 'http://localhost/datasets/1/owner'}
+      'owner': {'href': 'http://localhost/datasets/1/owner'},
+      'schema': {'href': 'http://localhost/datasets/1/schema'}
     }
   });
   const dataset2 = new Dataset({
@@ -36,7 +39,8 @@ describe('DatasetsListComponent', () => {
     'title': 'Dataset 2',
     'description': 'Second dataset',
     '_links': {
-      'owner': {'href': 'http://localhost/datasets/2/owner'}
+      'owner': {'href': 'http://localhost/datasets/2/owner'},
+      'schema': {'href': 'http://localhost/datasets/2/schema'}
     }
   });
   const datafile1 = new DataFile({
@@ -44,7 +48,8 @@ describe('DatasetsListComponent', () => {
     'title': 'DataFile 1',
     'description': 'First DataFile',
     '_links': {
-      'owner': {'href': 'http://localhost/dataFiles/1/owner'}
+      'owner': {'href': 'http://localhost/dataFiles/1/owner'},
+      'schema': {'href': 'http://localhost/dataFiles/1/schema'}
     }
   });
   const page = new Page({
@@ -62,11 +67,15 @@ describe('DatasetsListComponent', () => {
   });
   const tag1 = new Tag({
     'uri': '/tags/Tag1',
-    'name': 'Tag1',
+    'name': 'Tag1'
   });
   const tag2 = new Tag({
     'uri': '/tags/Tag2',
-    'name': 'Tag2',
+    'name': 'Tag2'
+  });
+  const schema1 = new Schema({
+    'uri': '/schemas/1',
+    'title': 'schema1',
   });
 
   beforeEach(async(() => {
@@ -77,6 +86,7 @@ describe('DatasetsListComponent', () => {
         {provide: OwnerService, useClass: MockOwnerService},
         {provide: TagService, useClass: MockTagService},
         {provide: OwnerService, useClass: MockOwnerService},
+        {provide: SchemaService, useClass: MockSchemaService},
       ],
       imports: [RouterTestingModule.withRoutes([
         {path: 'datasets', component: DatasetsListComponent}
@@ -86,29 +96,29 @@ describe('DatasetsListComponent', () => {
   }));
 
   it('should fetch and render all datasets', async(
-    inject([Router, Location, DatasetService, OwnerService, TagService],
-      (router, location, service, ownerService, tagService) => {
-      TestBed.createComponent(AppComponent);
-      service.setResponse(pageWrapper);
-      ownerService.setResponse(owner);
-      tagService.setResponse([tag1, tag2]);
+    inject([Router, Location, DatasetService, OwnerService, TagService, SchemaService],
+      (router, location, service, ownerService, tagService, schemaService) => {
+        TestBed.createComponent(AppComponent);
+        service.setResponse(pageWrapper);
+        ownerService.setResponse(owner);
+        tagService.setResponse([tag1, tag2]);
+        schemaService.setResponse(schema1);
+        router.navigate(['/datasets']).then(() => {
+          expect(location.path()).toBe('/datasets');
+          expect(service.getAllDatasetsOrderedByTitlePaginated).toHaveBeenCalled();
 
-      router.navigate(['/datasets']).then(() => {
-        expect(location.path()).toBe('/datasets');
-        expect(service.getAllDatasetsOrderedByTitlePaginated).toHaveBeenCalled();
+          fixture = TestBed.createComponent(DatasetsListComponent);
+          fixture.detectChanges();
+          component = fixture.debugElement.componentInstance;
+          expect(component.datasets[0].title).toBe('Dataset 1');
+          expect(component.datasets[1].title).toBe('Dataset 2');
+          expect(component.datasets[2].title).toBe('DataFile 1');
 
-        fixture = TestBed.createComponent(DatasetsListComponent);
-        fixture.detectChanges();
-        component = fixture.debugElement.componentInstance;
-        expect(component.datasets[0].title).toBe('Dataset 1');
-        expect(component.datasets[1].title).toBe('Dataset 2');
-        expect(component.datasets[2].title).toBe('DataFile 1');
-
-        const compiled = fixture.debugElement.nativeElement;
-        expect(compiled.querySelectorAll('.panel-heading')[0].innerHTML).toContain('Dataset 1');
-        expect(compiled.querySelectorAll('.panel-heading')[1].innerHTML).toContain('Dataset 2');
-        expect(compiled.querySelectorAll('.panel-heading')[2].innerHTML).toContain('DataFile 1');
-      });
-    })
+          const compiled = fixture.debugElement.nativeElement;
+          expect(compiled.querySelectorAll('.panel-heading')[0].innerHTML).toContain('Dataset 1');
+          expect(compiled.querySelectorAll('.panel-heading')[1].innerHTML).toContain('Dataset 2');
+          expect(compiled.querySelectorAll('.panel-heading')[2].innerHTML).toContain('DataFile 1');
+        });
+      })
   ));
 });
