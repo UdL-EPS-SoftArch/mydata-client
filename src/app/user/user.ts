@@ -2,6 +2,7 @@ export class User {
   uri: string;
   authorities: any = [];
   _links: any = {};
+  verified: boolean;
 
   constructor(values: Object = {}) {
     Object.assign(this, values);

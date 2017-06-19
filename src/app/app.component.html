@@ -9,40 +9,42 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-            <a class="navbar-brand" href="#">MyData Client</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }">
-                    <a [routerLink]="['/about']">About</a>
-                </li>
-                <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }">
-                    <a [routerLink]="['/datasets']">Datasets</a>
-                </li>
-                <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }">
-                    <a [routerLink]="['/schemas']">Schemas</a>
-                </li>
-           <!--   <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }">
-                <a [routerLink]="['/fields']">Fields</a>
-              </li>     -->
-                <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }">
-                    <a [routerLink]="['/tags']">Tags</a>
-                </li>
-                <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }">
-                    <a [routerLink]="['/openLicenses']">Open Licenses</a>
-                </li>
-                <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }">
-                    <a [routerLink]="['/closedLicenses']">Closed Licenses</a>
-                </li>
-              <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }">
-                <a [routerLink]="['/comments']">Comments</a>
-              </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right" app-login-basic>
-            </ul>
-        </div>
-        <!--/.nav-collapse -->
+      <a class="navbar-brand" href="#">MyData Client</a>
     </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }">
+          <a [routerLink]="['/about']">
+            <span class="fa fa-question-circle"></span> About
+          </a>
+        </li>
+        <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }">
+          <a [routerLink]="['/datasets']">
+            <span class="fa fa-database"></span> Datasets
+          </a>
+        </li>
+        <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }">
+          <a [routerLink]="['/schemas']">
+            <span class="fa fa-list-alt"></span> Schemas
+          </a>
+        </li>
+        <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }">
+          <a [routerLink]="['/tags']">
+            <span class="fa fa-bookmark"></span> Tags</a>
+        </li>
+        <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }">
+          <a [routerLink]="['/licenses']">
+            <span class="fa fa-credit-card"></span> Licenses</a>
+        </li>
+        <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }">
+          <a [routerLink]="['/comments']">Comments</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right" app-login-basic>
+      </ul>
+    </div>
+    <!--/.nav-collapse -->
+  </div>
 </nav>
 
 <div class="container">
