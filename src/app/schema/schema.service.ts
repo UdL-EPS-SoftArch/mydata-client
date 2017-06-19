@@ -58,6 +58,12 @@ export class SchemaService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
+  // GET /dataset/id/schema
+  getSchemaOfDataset(uri: string): Observable<Schema> {
+  return this.http.get(`${uri}`)
+    .map((res: Response) => new Schema(res.json()));
+  }
+
   // PUT /schemas/id
   updateSchema(schema: Schema): Observable<Schema> {
     const body = JSON.stringify(schema);

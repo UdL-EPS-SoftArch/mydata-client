@@ -31,9 +31,10 @@
         </div>
         <div class="col-md-6">
           <h4>Additional details:</h4>
+          <h5>Schema: <a *ngIf="datasetSchemasTitle != undefined && datasetSchemasURI != undefined"
+                         [routerLink]="[datasetSchemasURI[dataset.uri]]">{{datasetSchemasTitle[dataset.uri]}}</a></h5>
           <h5>Owner: <a *ngIf="datasetOwners != undefined" [routerLink]="['/users/'+datasetOwners[dataset.uri]]">{{datasetOwners[dataset.uri]}}</a></h5>
           <h5>Tags: <span *ngIf="dataset.tags != undefined" class="badge">{{dataset.tags.length}}</span></h5>
-          <p></p>
         </div>
       </div>
     </div>
@@ -42,7 +43,6 @@
 <div class="row text-center col-md-12" *ngIf="datasets?.length > 0">
   <pagination [totalItems]="bigTotalItems" [(ngModel)]="currentPage" [maxSize]="maxSize" [itemsPerPage]="itemsPerPage"
               [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event" (pageChanged)="pageChanged($event)"></pagination>
-
 
 </div>
 <div class="row text-center col-md-12" *ngIf="datasets?.length > 0">
