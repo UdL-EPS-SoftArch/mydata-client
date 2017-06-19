@@ -22,6 +22,7 @@ describe('FieldDetailsComponent', () => {
     'uri': '/fields/1',
     'title': 'Field 1',
     'description': 'First field',
+    'partOf': '/schema/1',
     '_links': {
       'partOf': {'href': 'http://localhost/fields/1/partOf'}
     }

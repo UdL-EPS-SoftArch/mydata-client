@@ -3,6 +3,7 @@ import { DatasetService } from '../dataset.service';
 import { Dataset } from '../dataset';
 import { OwnerService } from '../../user/owner.service';
 import { TagService } from '../../tag/tag.service';
+import { SchemaService } from '../../schema/schema.service';
 
 @Component({
   selector: 'app-datasets-list',
@@ -12,6 +13,8 @@ import { TagService } from '../../tag/tag.service';
 export class DatasetsListComponent implements OnInit {
   public datasets: Dataset[] = [];
   public datasetOwners: {} = {};
+  public datasetSchemasTitle: {} = {};
+  public datasetSchemasURI: {} = {};
   public errorMessage: string;
   public currentPage = 1;
   public maxSize = 5;
@@ -19,6 +22,7 @@ export class DatasetsListComponent implements OnInit {
   public itemsPerPage = 20;
 
   constructor(private datasetService: DatasetService,
+              private schemaService: SchemaService,
               private ownerService: OwnerService,
               private tagService: TagService) {
   }
@@ -43,6 +47,12 @@ export class DatasetsListComponent implements OnInit {
           );
           this.tagService.getTagsOfDataset(dataset.uri).subscribe(
             tags => dataset.tags = tags
+          );
+          this.schemaService.getSchemaOfDataset(dataset._links.schema.href).subscribe(
+            schema => {
+               this.datasetSchemasTitle[dataset.uri] = schema.title;
+               this.datasetSchemasURI[dataset.uri] = schema.uri;
+            }
           );
         });
       },

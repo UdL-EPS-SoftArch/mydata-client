@@ -69,3 +69,13 @@
 
 </div>
 
+<div class="row">
+
+  <div class="col-md-12">
+    <app-field-list (onSearchited)="onSearch($event)" ></app-field-list>
+  </div>
+
+  <div class="col-md-12">
+    <app-field-form (onSearchited)="onSearch($event)" [schema]="schema"></app-field-form>
+  </div>
+</div>
