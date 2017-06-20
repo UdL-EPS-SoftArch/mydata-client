@@ -50,6 +50,19 @@ export class ClosedLicenseService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
+  // GET /closedLicenses/
+  getAllClosedLicensesOrderedByTitlePaginated(pageNumber: number, size: number): Observable<PageWrapper> {
+    return this.http.get(`${environment.API}/closedLicenses?sort=text&page=${pageNumber}&size=${size}`)
+      .map((res: Response) => {
+        const pw = new PageWrapper();
+        const data = res.json();
+        pw.elements = data._embedded.closedLicenses.map(json => new ClosedLicense(json));
+        pw.pageInfo = data.page;
+        return pw;
+      })
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
   getDatasetsOfClosedLicense(uri: string): Observable<Dataset[]> {
     return this.http.get(`${environment.API}${uri}/datasets`)
       .map((res: Response) => res.json()._embedded.datasets.map(json => new Dataset(json)))

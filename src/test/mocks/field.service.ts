@@ -6,6 +6,7 @@ export class MockFieldService extends SpyObject {
   getAllFields;
   getField;
   addField;
+  addField2;
   getAllFieldsOrderedByTitle;
 
   constructor() {
@@ -15,6 +16,7 @@ export class MockFieldService extends SpyObject {
     this.getAllFields = this.spy('getAllFields').andReturn(this);
     this.getField = this.spy('getField').andReturn(this);
     this.addField = this.spy('addField').andReturn(this);
+    this.addField2 = this.spy('addField2').andReturn(this);
     this.getAllFieldsOrderedByTitle = this.spy('getAllFieldsOrderedByTitle').andReturn(this);
   }
 

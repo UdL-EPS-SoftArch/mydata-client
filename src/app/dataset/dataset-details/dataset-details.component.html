@@ -1,45 +1,152 @@
-<div class="row">
-  <div class="col-md-10">
-    <h3>Dataset Details</h3>
-  </div>
-  <div class="col-md-2" *ngIf="isOwner">
-    <a class="btn btn-primary" role="button" routerLink="{{dataset.uri}}/edit">Edit</a>
-    <a class="btn btn-danger" role="button" (click)="onDelete(dataset)">Delete</a>
-  </div>
-</div>
+<div class="container">
+  <div class="resume">
+    <div class="row">
 
-<div class="row">
-  <div class="col-sm-5">
-    <h4>DataSet Title</h4>
-    <p>{{dataset.title}}</p>
-  </div>
-  <div class="col-sm-5">
-    <h4>Schema Title</h4>
-    <p>{{schema.title}}</p>
-  </div>
-  <div class="col-sm-2">
-    <h4>Owner</h4>
-    <a [routerLink]="['/users/'+ownerName]">{{ownerName}}</a>
-  </div>
-</div>
+      <div class="panel panel-default">
+        <div class="panel-heading resume-heading">
+          <div class="row">
+            <div class="col-md-12" align="center">
+              <h3 class="page-title tc">Dataset Details</h3>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12" align="right" *ngIf="isOwner">
+              <a class="btn btn-primary" role="button" routerLink="{{dataset.uri}}/edit">
+                <span class="glyphicon glyphicon-edit"></span> Edit</a>
+              <a class="btn btn-danger" role="button" (click)="onDelete(dataset)">
+                <span class="glyphicon glyphicon-trash"></span> Delete</a>
+            </div>
+          </div>
+        </div>
 
-<div class="row">
-  <div class="col-sm-6">
-    <h4>DataSet Description</h4>
-    <p>{{dataset.description}}</p>
-  </div>
-  <div *ngIf="openLicense != null" class="col-sm-4">
-    <h4>Open License</h4>
-    <p>{{openLicense.text}}</p>
-  </div>
-  <div *ngIf="closedLicense != null" class="col-sm-4">
-    <h4>Closed License</h4>
-    <p>{{closedLicense.text}}</p>
-  </div>
-  <div *ngIf="tags" class="col-md-2">
-    <h4>Tags</h4>
-    <div *ngFor="let tag of tags">
-      <a href="{{tag.uri}}" class="tagButton">{{tag.id}}</a>
+        <div class="bs-callout">
+          <div class="row">
+            <div class="col-md-3">
+              <h4 class="tc">Dataset Title</h4>
+            </div>
+            <div class="col-md-9">
+              <p class="tc">{{dataset.title}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bs-callout">
+          <div class="row">
+            <div class="col-md-3">
+              <h4 class="tc">Dataset Description</h4>
+            </div>
+            <div class="col-md-9">
+              <p class="tc">{{dataset.description}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bs-callout">
+          <div class="row">
+            <div class="col-md-3">
+              <h4 class="tc">Owner</h4>
+            </div>
+            <div class="col-md-9">
+              <a class="line tc" [routerLink]="['/users/'+ownerName]">{{ownerName}}</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="bs-callout">
+          <div class="row">
+            <div class="col-md-3">
+              <h4 class="tc">Schema</h4>
+            </div>
+            <div class="col-md-9">
+              <ul class="list-group">
+                <a class="list-group-item">
+                  <div class="row">
+
+                    <div class="col-md-5">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <h4 class="list-group-item-heading">Schema Title</h4>
+                        </div>
+                        <div class="col-md-6">
+                          <a class="list-group-item-text" routerLink="{{schema.uri}}">{{schema.title}}</a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-7">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <h4 class="list-group-item-heading">Schema Description</h4>
+                        </div>
+                        <div class="col-md-6">
+                          <p class="list-group-item-text">{{schema.description}}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </a>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="bs-callout">
+          <div class="row">
+            <div class="col-md-3">
+              <h4 class="tc">License</h4>
+            </div>
+            <div class="col-md-9">
+              <ul class="list-group">
+                <a class="list-group-item">
+                  <div class="row">
+
+                    <div class="col-md-5" *ngIf="openLicense != undefined">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <h4 class="list-group-item-heading">Open License</h4>
+                        </div>
+                        <div class="col-md-6">
+                          <a class="list-group-item-text tc" routerLink="{{openLicense.uri}}">{{openLicense.text}}</a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-7" *ngIf="closedLicense != undefined">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <h4 class="list-group-item-heading">Closed License</h4>
+                        </div>
+                        <div class="col-md-6">
+                          <a class="list-group-item-text" routerLink="{{closedLicense.uri}}">{{closedLicense.text}}</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="bs-callout">
+          <div class="row">
+            <div class="col-md-3">
+              <h4 class="tc">Tags</h4>
+            </div>
+            <div class="col-md-9">
+              <div class="hrz" *ngFor="let tag of tags">
+                <a role="button" class="btn btn-success" routerLink="{{tag.uri}}">{{tag.id}}</a>&nbsp;
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
     </div>
   </div>
+
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from '../user';
 import {ActivatedRoute} from '@angular/router';
 import {UserService} from '../user.service';
@@ -16,13 +16,14 @@ export class UserDetailComponent implements OnInit {
   public user: User = new User();
   public datasets: Dataset[] = [];
   public schemas: Schema[] = [];
+  public licenses: any[] = [];
   public openLicenses: OpenLicense[] = [];
   public closedLicenses: ClosedLicense[] = [];
   public errorMessage: string;
 
   constructor(private route: ActivatedRoute,
-              private userService: UserService,
-  ) { }
+              private userService: UserService) {
+  }
 
   ngOnInit() {
     this.route.params
@@ -50,7 +51,7 @@ export class UserDetailComponent implements OnInit {
       });
   }
 
-  getUserInfo (user: User): void {
+  getUserInfo(user: User): void {
     this.userService.getUserDatasets(user.uri + '/ownsDatasets').subscribe(
       datasets => {
         this.datasets = datasets;
@@ -64,11 +65,26 @@ export class UserDetailComponent implements OnInit {
     this.userService.getUserOpenLicenses(user.uri + '/ownsLicenses').subscribe(
       licenses => {
         this.openLicenses = licenses;
+        for (const llicencia of licenses) {
+          this.licenses.push(llicencia);
+        }
       });
 
     this.userService.getUserClosedLicenses(user.uri + '/ownsLicenses').subscribe(
       licenses => {
         this.closedLicenses = licenses;
+        for (const llicencia of licenses) {
+          this.licenses.push(llicencia);
+        }
       });
+
+    this.userService.getUserVerifiedAccount(user.uri).subscribe(
+      verified => {
+        this.user.verified = verified;
+      });
+  }
+
+  checkType(type) {
+    return type instanceof OpenLicense;
   }
 }

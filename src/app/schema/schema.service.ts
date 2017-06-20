@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
+import { Field } from '../field/field';
 import { Schema } from './schema';
 import { environment } from '../../environments/environment';
 import { Dataset } from '../dataset/dataset';
@@ -72,6 +73,19 @@ export class SchemaService {
         return pw;
       })
       .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // GET /schemas/id/fields
+  getFieldsOfSchema(uri: string): Observable<Field[]> {
+    return this.http.get(`${environment.API}${uri}/contains`)
+      .map((res: Response) => res.json()._embedded.fields.map(json => new Field(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  // GET /dataset/id/schema
+  getSchemaOfDataset(uri: string): Observable<Schema> {
+  return this.http.get(`${uri}`)
+    .map((res: Response) => new Schema(res.json()));
   }
 
   // PUT /schemas/id
