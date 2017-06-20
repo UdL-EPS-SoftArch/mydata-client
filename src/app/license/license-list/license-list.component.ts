@@ -19,6 +19,10 @@ export class LicenseListComponent implements OnInit {
   public closedLicenses: ClosedLicense[] = [];
   public errorMessage: string;
   public licenseOwners: {} = {};
+  public currentPage = 1;
+  public maxSize = 5;
+  public bigTotalItems: number;
+  public itemsPerPage = 20;
 
   constructor(private openLicenseService: OpenLicenseService,
               private closedLicenseService: ClosedLicenseService,
@@ -34,34 +38,67 @@ export class LicenseListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.openLicenseService.getAllOpenLicenses().subscribe(
-      openLicense => {
-        this.openLicenses = openLicense;
-        openLicense.forEach(openLicenses => {
+    this.getOpenLicenses (0, this.itemsPerPage);
+    this.getClosedLicenses (0, this.itemsPerPage);
+  }
+
+  public getOpenLicenses (page: number, size: number) {
+    this.openLicenseService.getAllOpenLicensesOrderedByTitlePaginated(page, size).subscribe(
+      pageWrapper => {
+        this.licenses = [];
+        this.openLicenses = pageWrapper.elements;
+        this.bigTotalItems = pageWrapper.pageInfo.totalElements;
+        this.itemsPerPage = pageWrapper.pageInfo.size;
+        this.openLicenses.forEach(openLicenses => {
             this.ownerService.getOwner(openLicenses._links.owner.href).subscribe(
               owner => {
                 this.licenseOwners[openLicenses.uri] = owner.getUserName();
               });
-            this.licenses.push(openLicenses);
           }
         );
       },
       error => this.errorMessage = <any>error.message
     );
+  }
 
-    this.closedLicenseService.getAllClosedLicenses().subscribe(
-      closedLicense => {
-        this.closedLicenses = closedLicense;
-        closedLicense.forEach(closedLicenses => {
+  public getClosedLicenses (page: number, size: number) {
+    this.closedLicenseService.getAllClosedLicensesOrderedByTitlePaginated(page, size).subscribe(
+      pageWrapper => {
+        this.closedLicenses = pageWrapper.elements;
+        if (pageWrapper.pageInfo.totalElements > this.bigTotalItems) {
+          this.bigTotalItems = pageWrapper.pageInfo.totalElements;
+        }
+        if (pageWrapper.pageInfo.size > this.itemsPerPage) {
+          this.itemsPerPage = pageWrapper.pageInfo.size;
+        }
+        this.closedLicenses.forEach(closedLicenses => {
             this.ownerService.getOwner(closedLicenses._links.owner.href).subscribe(
               owner => {
                 this.licenseOwners[closedLicenses.uri] = owner.getUserName();
               });
-            this.licenses.push(closedLicenses);
           }
         );
       },
       error => this.errorMessage = <any>error.message
     );
+  }
+
+  onChange(sizeValue) {
+    this.itemsPerPage = sizeValue;
+    this.getOpenLicenses(0, sizeValue);
+    this.getClosedLicenses(0, sizeValue);
+    this.setPage(this.currentPage);
+  }
+
+  public setPage(pageNo: number): void {
+    this.currentPage = pageNo;
+  }
+
+  public pageChanged(event: any): void {
+    this.setPage(event.page - 1);
+    this.getOpenLicenses(event.page - 1, this.itemsPerPage);
+    this.getClosedLicenses(event.page - 1, this.itemsPerPage);
+    console.log('Page changed to: ' + event.page);
+    console.log('Number items per page: ' + event.itemsPerPage);
   }
 }
