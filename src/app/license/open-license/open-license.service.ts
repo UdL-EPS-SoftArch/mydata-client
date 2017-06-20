@@ -8,6 +8,8 @@ import 'rxjs/add/observable/throw';
 import { OpenLicense } from './open-license';
 import { Dataset } from '../../dataset/dataset';
 import { environment } from '../../../environments/environment';
+import { PageWrapper } from '../../pageWrapper';
+import { DataFile } from '../../dataset/datafile/datafile';
 
 @Injectable()
 export class OpenLicenseService {
@@ -40,6 +42,7 @@ export class OpenLicenseService {
       .map((res: Response) => new OpenLicense(res.json()))
       .catch((error: any) => Observable.throw(error.json()));
   }
+
   // GET /openLicenses/ + search/findByTextContaining?text
   getOpenLicenseByTextWords(keyword: string): Observable<OpenLicense[]> {
     return this.http.get(environment.API + '/openLicenses/search/findByTextContaining?text=' + keyword)
@@ -47,9 +50,37 @@ export class OpenLicenseService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
+  // GET /openLicenses/
+  getAllOpenLicensesOrderedByTitlePaginated(pageNumber: number, size: number): Observable<PageWrapper> {
+    return this.http.get(`${environment.API}/openLicenses?&page=${pageNumber}&size=${size}`)
+      .map((res: Response) => {
+        const pw = new PageWrapper();
+        const data = res.json();
+        pw.elements = data._embedded.openLicenses.map(json => new OpenLicense(json));
+        pw.pageInfo = data.page;
+        return pw;
+      })
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
   getDatasetsOfOpenLicense(uri: string): Observable<Dataset[]> {
     return this.http.get(`${environment.API}${uri}/datasets`)
       .map((res: Response) => res.json()._embedded.datasets.map(json => new Dataset(json)))
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  getDatasetsOfOpenLicensePaginated(uri: string, pageNumber: number, size: number): Observable<PageWrapper> {
+    return this.http.get(`${environment.API}${uri}/datasets?sort=title&page=${pageNumber}&size=${size}`)
+      .map((res: Response) => {
+        const pw = new PageWrapper();
+        const data = res.json();
+        pw.elements = data._embedded.datasets.map(json => new Dataset(json));
+        if (data._embedded.dataFiles) {
+          pw.elements = pw.elements.concat(data._embedded.dataFiles.map(json => new DataFile(json)));
+        }
+        pw.pageInfo = data.page;
+        return pw;
+      })
       .catch((error: any) => Observable.throw(error.json()));
   }
 

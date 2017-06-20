@@ -29,8 +29,7 @@ label:before {
 
 label[for*='1']:before { content: '\f1c0'; }
 label[for*='2']:before { content: '\f022'; }
-label[for*='3']:before { content: '\f09c'; }
-label[for*='4']:before { content: '\f023'; }
+label[for*='3']:before { content: '\f09d'; }
 
 label:hover {
   color: #888;

@@ -5,8 +5,8 @@
     </div>
     <div class="col-md-8">
         <h4>
-            <a class="btn btn-lg btn-primary" role="button" [routerLink]="['/openLicenses/new']">Register Open License</a>
-            <a class="btn btn-lg btn-primary" role="button" [routerLink]="['/closedLicenses/new']">Register Closed License</a>
+            <a class="btn btn-primary" role="button" [routerLink]="['/openLicenses/new']">Register Open License</a>
+            <a class="btn btn-primary" role="button" [routerLink]="['/closedLicenses/new']">Register Closed License</a>
         </h4>
     </div>
 </div>
@@ -40,4 +40,17 @@
             </ng-template>
         </div>
     </div>
+</div>
+
+<div class="row text-center col-md-12" *ngIf="openLicenses?.length > 0 || closedLicenses?.length > 0">
+    <pagination [totalItems]="bigTotalItems" [(ngModel)]="currentPage" [maxSize]="maxSize" [itemsPerPage]="itemsPerPage" [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event" (pageChanged)="pageChanged($event)"></pagination>
+</div>
+<div class="row text-center col-md-12" *ngIf="openLicenses?.length > 0 || closedLicenses?.length > 0">
+    Licenses per page
+    <select (change)="onChange($event.target.value)" style="margin-left: 10px;">
+      <option value="10">10</option>
+      <option value="20" selected="selected">20</option>
+      <option value="50">50</option>
+      <option value="100">100</option>
+    </select>
 </div>
