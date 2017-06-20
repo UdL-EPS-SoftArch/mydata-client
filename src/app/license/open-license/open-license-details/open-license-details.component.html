@@ -1,24 +1,60 @@
-<div class="row">
-    <h3>Open License Details</h3>
+<div class="container">
+  <div class="resume">
+    <div class="row">
+
+      <div class="panel panel-default">
+        <div class="panel-heading resume-heading">
+          <div class="row">
+            <div class="col-md-12" align="center">
+              <h3 class="page-title tc">Open License Details</h3>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12" align="right" *ngIf="isOwner">
+              <a class="btn btn-primary" role="button" routerLink="{{openLicense.uri}}/edit">
+                <span class="glyphicon glyphicon-edit"></span> Edit</a>
+              <a class="btn btn-danger" role="button" (click)="onDelete(openLicense)">
+                <span class="glyphicon glyphicon-trash"></span> Delete</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="bs-callout">
+          <div class="row">
+            <div class="col-md-3">
+              <h4 class="tc">Open License Text</h4>
+            </div>
+            <div class="col-md-9">
+              <p class="tc">{{openLicense.text}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bs-callout">
+          <div class="row">
+            <div class="col-md-3">
+              <h4 class="tc">Owner</h4>
+            </div>
+            <div class="col-md-9">
+              <a class="line tc" [routerLink]="['/users/'+ownerName]">{{ownerName}}</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="bs-callout">
+          <div class="row">
+            <div class="col-md-3">
+              <h4 class="tc">Datasets</h4>
+            </div>
+            <div class="col-md-9">
+              <a class="tc" [routerLink]="[openLicense.uri+'/datasets']">List datasets of {{openLicense.text}}</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
 </div>
 
-<div class="row">
-    <div class="col-md-6">
-        <h4>Text</h4>
-        <p>{{openLicense.text}}</p>
-    </div>
-    <div class="col-md-2">
-        <h4>Owner</h4>
-        <h5>{{ownerName}}</h5>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-6">
-        <h4>Datasets</h4>
-        <a [routerLink]="[openLicense.uri+'/datasets']">List datasets of {{openLicense.text}}</a>
-    </div>
-    <div class="col-md-2" *ngIf="isOwner">
-        <a class="btn btn-lg btn-primary" role="button" routerLink="{{openLicense.uri}}/edit">Edit Open License</a>
-        <a class="btn btn-danger" role="button" (click)="onDelete(openLicense)">Delete</a>
-    </div>
-</div>

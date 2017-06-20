@@ -13,6 +13,8 @@ import { ClosedLicense } from '../../license/closed-license/closed-license';
 import { ClosedLicenseService } from '../../license/closed-license/closed-license.service';
 import { TagService } from '../../tag/tag.service';
 import { Tag } from '../../tag/tag';
+import { DataStreamService } from '../datastream/datastream.service';
+import { DataStream } from '../datastream/datastream';
 
 
 @Component({
@@ -26,6 +28,7 @@ export class DatasetFormComponent implements OnInit {
   public titleCtrl: AbstractControl;
   public errorMessage: string;
   public schemas: Schema[] = [];
+  public streamAttached = false;
   public openLicenses: OpenLicense[] = [];
   public closedLicenses: ClosedLicense[] = [];
   public tags: Tag[] = [];
@@ -33,12 +36,15 @@ export class DatasetFormComponent implements OnInit {
   public separator: string;
   public filename: string;
   public content: string;
+  public streamname: string;
+
 
   constructor(private fb: FormBuilder,
               private router: Router,
               private datasetService: DatasetService,
               private dataFileService: DataFileService,
               private schemaService: SchemaService,
+              private dataStreamService: DataStreamService,
               private openLicenseService: OpenLicenseService,
               private closedLicenseService: ClosedLicenseService,
               private tagService: TagService) {
@@ -86,6 +92,9 @@ export class DatasetFormComponent implements OnInit {
       this.filename = file.name;
     };
   }
+  addDataStream(event): void {
+    this.streamAttached = true;
+  }
 
   onSubmit(): void {
     if (this.fileAttached) {
@@ -96,9 +105,26 @@ export class DatasetFormComponent implements OnInit {
       dataFile.filename = this.filename;
       dataFile.content = this.content;
       dataFile.separator = this.separator;
+      dataFile.taggedWith = this.dataset.taggedWith;
+      dataFile.tags = this.tags;
+      dataFile.license = this.dataset.license;
       this.dataFileService.addDataFile(dataFile)
         .subscribe(
           datafile => { this.router.navigate([datafile.uri]); },
+          error => {
+            this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
+          });
+    } else if (this.streamAttached) {
+      const dataStream: DataStream = new DataStream();
+      dataStream.title = this.dataset.title;
+      dataStream.description = this.dataset.description;
+      dataStream.schema = this.dataset.schema;
+      dataStream.streamname = this.dataset.title;
+      this.dataStreamService.addDataStream(dataStream)
+        .subscribe(
+          datastream => {
+            this.router.navigate([datastream.uri]);
+          },
           error => {
             this.errorMessage = error.errors ? <any>error.errors[0].message : <any>error.message;
           });

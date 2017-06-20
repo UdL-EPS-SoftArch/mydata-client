@@ -1,11 +1,11 @@
 <li [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }" *ngIf="isLoggedIn()" id="currentUser">
-  <a [routerLink]="['/users/'+getCurrentUserName()]">{{getCurrentUserName()}}</a>
+  <a [routerLink]="['/users/'+getCurrentUserName()]"><span class="fa fa-user-circle-o"></span> {{getCurrentUserName()}}</a>
 </li>
 <li *ngIf="isLoggedIn()">
-  <a (click)="logout()" href="#" (click)="$event.preventDefault()">Logout</a>
+  <a (click)="logout()" href="#" (click)="$event.preventDefault()"><span class="fa fa-unlock"></span> Logout</a>
 </li>
 <li *ngIf="!isLoggedIn()">
-  <a (click)="showLoginModal()" href="#" (click)="$event.preventDefault()">Login</a>
+  <a (click)="showLoginModal()" href="#" (click)="$event.preventDefault()"><span class="fa fa-key"></span> Login</a>
 </li>
 
 <!-- Sign in Modal -->

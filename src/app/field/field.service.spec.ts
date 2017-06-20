@@ -14,12 +14,14 @@ describe('FieldService', () => {
   const field1 = new Field({
     'uri': '/fields/1',
     'title': 'Field 1',
-    'description': 'First field'
+    'description': 'First field',
+    'partOf': '/schemas/1'
   });
   const field2 = new Field({
     'uri': '/fields/2',
     'title': 'Field 2',
-    'description': 'Second field'
+    'description': 'Second field',
+    'partOf': '/schemas/1'
   });
 
   beforeEach(async(() => {

@@ -1,14 +1,14 @@
 <div class="row">
-    <div class="col-md-4">
-        <h4 *ngIf="licenses.length == 0">There are no licenses registered</h4>
-        <h4 *ngIf="licenses.length > 0">There are {{licenses.length}} licenses registered</h4>
-    </div>
-    <div class="col-md-8">
-        <h4>
-            <a class="btn btn-lg btn-primary" role="button" [routerLink]="['/openLicenses/new']">Register Open License</a>
-            <a class="btn btn-lg btn-primary" role="button" [routerLink]="['/closedLicenses/new']">Register Closed License</a>
-        </h4>
-    </div>
+  <div class="col-md-4">
+    <h4 *ngIf="licenses.length == 0">There are no licenses registered</h4>
+    <h4 *ngIf="licenses.length > 0">There are {{licenses.length}} licenses registered</h4>
+  </div>
+  <div class="col-md-8">
+    <h4>
+      <a class="btn btn-primary" role="button" [routerLink]="['/openLicenses/new']">Register Open License</a>
+      <a class="btn btn-primary" role="button" [routerLink]="['/closedLicenses/new']">Register Closed License</a>
+    </h4>
+  </div>
 </div>
 
 <app-open-license-search (onSearchited)="onSearch($event)" [openLicenses]="openLicenses"></app-open-license-search>

@@ -22,9 +22,26 @@
   <div class="panel-group col-md-12">
     <div class="panel panel-default" *ngFor="let tag of tags">
       <div class="panel-heading">
-        <h4>Name: <a routerLink="{{tag.uri}}">{{tag.name}}</a></h4>
-        <h5>Datasets tagged: <span class="badge">{{tag.datasets.length}}</span></h5>
+        <h4>Name: <a *ngIf="tag != undefined" routerLink="{{tag.uri}}">{{tag.name}}</a></h4>
+        <h5>Datasets tagged: <span *ngIf="tag.datasets != undefined" class="badge">{{tag.datasets.length}}</span></h5>
       </div>
     </div>
   </div>
+</div>
+
+<div class="row text-center col-md-12" *ngIf="tags?.length > 0">
+  <pagination [totalItems]="bigTotalItems" [(ngModel)]="currentPage" [maxSize]="maxSize" [itemsPerPage]="itemsPerPage"
+              [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event" (pageChanged)="pageChanged($event)"></pagination>
+
+
+</div>
+
+<div class="row text-center col-md-12" *ngIf="tags?.length > 0">
+  Tags per page
+  <select (change)="onChange($event.target.value)" style="margin-left: 10px;">
+    <option value="10">10</option>
+    <option value="20" selected="selected">20</option>
+    <option value="50">50</option>
+    <option value="100">100</option>
+  </select>
 </div>

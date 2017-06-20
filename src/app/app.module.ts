@@ -48,6 +48,7 @@ import { DataFileService } from './dataset/datafile/datafile.service';
 import { DatafilesListComponent } from './dataset/datafile-list/datafiles-list.component';
 import { DatafileDetailsComponent } from './dataset/datafile-list/datafile-details.component';
 import { SchemasDatasetListComponent } from './schema/schemas-list/schemas-dataset-list.component';
+import { SchemasFieldListComponent } from './field/fields-list/schemas-field-list.component';
 import { OpenLicenseEditComponent } from './license/open-license/open-license-edit/open-license-edit.component';
 import { ClosedLicenseEditComponent } from './license/closed-license/closed-license-edit/closed-license-edit.component';
 import { ClosedLicenseDatasetListComponent } from './license/closed-license/closed-license-list/closed-license-list-dataset.component';
@@ -65,6 +66,11 @@ import { CommentSearchComponent } from './comment/comment-search/comment-search.
 import { CommentService } from './comment/comment.service';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { LicenseListComponent } from './license/license-list/license-list.component';
+import { DataStreamService } from './dataset/datastream/datastream.service';
+import { DatastreamsSearchComponent } from './dataset/datastream-search/datastream-search.component';
+import { DatastreamsListComponent } from './dataset/datastream-list/datastreams-list.component';
+import { DatastreamDetailsComponent } from './dataset/datastream-details/datastream-details.component';
+import { DatastreamEditComponent } from './dataset/datastream-edit/datastream-edit.component';
 
 @NgModule({
   declarations: [
@@ -109,13 +115,19 @@ import { LicenseListComponent } from './license/license-list/license-list.compon
     FieldEditComponent,
     FieldSearchComponent,
     SchemasDatasetListComponent,
+    SchemasFieldListComponent,
     OpenLicenseEditComponent,
     ClosedLicenseEditComponent,
     SchemaEditComponent,
     ClosedLicenseDatasetListComponent,
     OpenLicenseDatasetListComponent,
     DataFileEditComponent,
-    LicenseListComponent
+    LicenseListComponent,
+    DataFileEditComponent,
+    DatastreamEditComponent,
+    DatastreamDetailsComponent,
+    DatastreamsListComponent,
+    DatastreamsSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -128,7 +140,7 @@ import { LicenseListComponent } from './license/license-list/license-list.compon
   ],
   providers: [AuthenticationBasicService, LoggedInGuard, DatasetService, SchemaService,
               OpenLicenseService, ClosedLicenseService, TagService, OwnerService, DataFileService, UserService,
-              FieldService, CommentService, OwnerService],
+              FieldService, CommentService, OwnerService, DataStreamService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
