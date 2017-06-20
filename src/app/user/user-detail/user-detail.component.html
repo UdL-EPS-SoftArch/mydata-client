@@ -1,5 +1,9 @@
 <div class="row">
-  <h3>{{user.getUserName()}} Details</h3>
+  <h3>
+    <i *ngIf="user.verified" class="fa fa-star" aria-hidden="true"></i>
+    {{user.getUserName()}} Details
+  </h3>
+  <h4 *ngIf="user.verified">Account Verified</h4>
 </div>
 
 <main>

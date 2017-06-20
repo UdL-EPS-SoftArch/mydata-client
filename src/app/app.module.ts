@@ -48,6 +48,7 @@ import { DataFileService } from './dataset/datafile/datafile.service';
 import { DatafilesListComponent } from './dataset/datafile-list/datafiles-list.component';
 import { DatafileDetailsComponent } from './dataset/datafile-list/datafile-details.component';
 import { SchemasDatasetListComponent } from './schema/schemas-list/schemas-dataset-list.component';
+import { SchemasFieldListComponent } from './field/fields-list/schemas-field-list.component';
 import { OpenLicenseEditComponent } from './license/open-license/open-license-edit/open-license-edit.component';
 import { ClosedLicenseEditComponent } from './license/closed-license/closed-license-edit/closed-license-edit.component';
 import { ClosedLicenseDatasetListComponent } from './license/closed-license/closed-license-list/closed-license-list-dataset.component';
@@ -114,6 +115,7 @@ import { DatastreamEditComponent } from './dataset/datastream-edit/datastream-ed
     FieldEditComponent,
     FieldSearchComponent,
     SchemasDatasetListComponent,
+    SchemasFieldListComponent,
     OpenLicenseEditComponent,
     ClosedLicenseEditComponent,
     SchemaEditComponent,

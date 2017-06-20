@@ -7,6 +7,7 @@ export class MockSchemaService extends SpyObject {
   getAllSchemasPaginated;
   getSchema;
   addSchema;
+  getSchemaOfDataset;
 
   constructor() {
     super(SchemaService);
@@ -16,6 +17,7 @@ export class MockSchemaService extends SpyObject {
     this.getAllSchemasPaginated = this.spy('getAllSchemasPaginated').andReturn(this);
     this.getSchema = this.spy('getSchema').andReturn(this);
     this.addSchema = this.spy('addSchema').andReturn(this);
+    this.getSchemaOfDataset = this.spy('getSchemaOfDataset').andReturn(this);
   }
 
   subscribe(callback) {

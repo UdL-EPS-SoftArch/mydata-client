@@ -6,12 +6,19 @@ import { AuthenticationBasicService } from '../../login-basic/authentication-bas
 import { SchemaService } from '../../schema/schema.service';
 import { Schema } from '../../schema/schema';
 import {OwnerService} from '../../user/owner.service';
+import { Tag } from '../../tag/tag';
+import { TagService } from '../../tag/tag.service';
+import { OpenLicense } from '../../license/open-license/open-license';
+import { ClosedLicense } from '../../license/closed-license/closed-license';
+import { ClosedLicenseService } from '../../license/closed-license/closed-license.service';
+import { OpenLicenseService } from '../../license/open-license/open-license.service';
 
 declare const require: any;
 
 @Component({
   selector: 'app-datafile-details',
-  templateUrl: './datafile-details.component.html'
+  templateUrl: './datafile-details.component.html',
+  styleUrls: ['./datafile-details.component.css']
 })
 export class DatafileDetailsComponent implements OnInit {
   public datafile: DataFile = new DataFile();
@@ -19,13 +26,20 @@ export class DatafileDetailsComponent implements OnInit {
   public errorMessage: string;
   public isOwner: boolean;
   public ownerName: string;
+  public tags: Tag[] = [];
+  public openLicense: OpenLicense = new OpenLicense();
+  public closedLicense: ClosedLicense = new ClosedLicense();
+  public isOpenLicense = false;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private datafileService: DataFileService,
               private authenticationService: AuthenticationBasicService,
               private datasetOwnerService: OwnerService,
-              private schemaService: SchemaService) { }
+              private schemaService: SchemaService,
+              private openLicenseService: OpenLicenseService,
+              private closedLicenseService: ClosedLicenseService,
+              private tagService: TagService) { }
 
   ngOnInit() {
     this.route.params
@@ -48,6 +62,33 @@ export class DatafileDetailsComponent implements OnInit {
                 this.schema = schema;
 
               });
+
+            const uri_open_license = `/datasets/${id}/license`;
+            this.openLicenseService.getOpenLicense(uri_open_license).subscribe(
+              openLicense => {
+                this.openLicenseService.getAllOpenLicenses().subscribe(
+                  openLicenses => {
+                    openLicenses.forEach( open => {
+                      if (openLicense.text === open.text) {
+                        this.openLicense = openLicense;
+                        this.isOpenLicense = true;
+                      }
+                    });
+
+                    if (!this.isOpenLicense) {
+                      const uri_closed_license = `/datasets/${id}/license`;
+                      this.closedLicenseService.getClosedLicense(uri_closed_license).subscribe(
+                        closedLicense => this.closedLicense = closedLicense
+                      );
+                    }
+                  }
+                );
+              }
+            );
+
+            this.tagService.getTagsOfDataset(uri).subscribe(
+              tags => this.tags = tags
+            );
           },
           error => this.errorMessage = <any>error.message,
         );

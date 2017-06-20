@@ -77,6 +77,11 @@ export class UserDetailComponent implements OnInit {
           this.licenses.push(llicencia);
         }
       });
+
+    this.userService.getUserVerifiedAccount(user.uri).subscribe(
+      verified => {
+        this.user.verified = verified;
+      });
   }
 
   checkType(type) {
