@@ -45,7 +45,7 @@ export class LicenseListComponent implements OnInit {
   public getOpenLicenses (page: number, size: number) {
     this.openLicenseService.getAllOpenLicensesOrderedByTitlePaginated(page, size).subscribe(
       pageWrapper => {
-        this.licenses = [];
+        this.licenses = this.licenses.concat(pageWrapper.elements);
         this.openLicenses = pageWrapper.elements;
         this.bigTotalItems = pageWrapper.pageInfo.totalElements;
         this.itemsPerPage = pageWrapper.pageInfo.size;
@@ -64,6 +64,7 @@ export class LicenseListComponent implements OnInit {
   public getClosedLicenses (page: number, size: number) {
     this.closedLicenseService.getAllClosedLicensesOrderedByTitlePaginated(page, size).subscribe(
       pageWrapper => {
+        this.licenses = this.licenses.concat(pageWrapper.elements);
         this.closedLicenses = pageWrapper.elements;
         if (pageWrapper.pageInfo.totalElements > this.bigTotalItems) {
           this.bigTotalItems = pageWrapper.pageInfo.totalElements;
@@ -85,6 +86,7 @@ export class LicenseListComponent implements OnInit {
 
   onChange(sizeValue) {
     this.itemsPerPage = sizeValue;
+    this.licenses = [];
     this.getOpenLicenses(0, sizeValue);
     this.getClosedLicenses(0, sizeValue);
     this.setPage(this.currentPage);
@@ -96,6 +98,7 @@ export class LicenseListComponent implements OnInit {
 
   public pageChanged(event: any): void {
     this.setPage(event.page - 1);
+    this.licenses = [];
     this.getOpenLicenses(event.page - 1, this.itemsPerPage);
     this.getClosedLicenses(event.page - 1, this.itemsPerPage);
     console.log('Page changed to: ' + event.page);
