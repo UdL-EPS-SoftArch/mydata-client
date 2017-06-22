@@ -13,8 +13,6 @@ import {Schema} from '../../schema/schema';
 export class FieldFormComponent implements OnInit {
   @Input()
   schema: Schema;
-  @Output()
-  onSearchited: EventEmitter<any> = new EventEmitter();
 
   public field: Field;
   public fieldForm: FormGroup;

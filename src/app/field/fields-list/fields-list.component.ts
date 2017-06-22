@@ -11,8 +11,6 @@ import {Schema} from '../../schema/schema';
 export class FieldListComponent implements OnInit {
   @Input()
   schema: Schema;
-  @Output()
-  onSearchited: EventEmitter<any> = new EventEmitter();
 
   public fields: Field[] = [];
   public errorMessage: string;
